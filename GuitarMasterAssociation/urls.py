@@ -19,5 +19,5 @@ from TestUnit.views import test
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/', test),
+    path('', test),
 ]
