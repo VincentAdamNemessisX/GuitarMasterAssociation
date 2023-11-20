@@ -24,8 +24,8 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html"><i class="flaticon-house"></i>Home</a></li>
-                <li class="breadcrumb-item"><a href="story.html">Love Stories</a></li>
+                <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>Home</a></li>
+                <li class="breadcrumb-item"><a href="/story">Love Stories</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Story Details</li>
                 </ol>
             </nav>
@@ -35,7 +35,7 @@
 
 
     <!-- about-story-section start -->
-    <section class="about-story-section ptb-120 bg-overlay-white bg_img" data-background="assets/images/story/story-details-bg.png">
+    <section class="about-story-section ptb-120 bg-overlay-white bg_img" data-background={% static "assets/images/story/story-details-bg.png" %}>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-7 text-center">
@@ -99,7 +99,7 @@
                         </div>
                     </div>
                     <div class="story-overview-content-area">
-                        <div class="story-overview-content text-center bg_img" data-background="assets/images/story/story-bg.png">
+                        <div class="story-overview-content text-center bg_img" data-background={% static "assets/images/story/story-bg.png" %}>
                             <div class="story-overview-body">
                                 <h3 class="title">we have met each other</h3>
                                 <p>Semper non gravida adipiscinnienim posuere erat habitasse. At maecenas sociosqu pellentesque sum nunc ut fermentum quam mauris. Nulla</p>
@@ -119,7 +119,7 @@
                         </div>
                     </div>
                     <div class="story-overview-content-area">
-                        <div class="story-overview-content text-center bg_img" data-background="assets/images/story/story-bg.png">
+                        <div class="story-overview-content text-center bg_img" data-background={% static "assets/images/story/story-bg.png" %}>
                             <div class="story-overview-body">
                                 <h3 class="title">our first beautiful date</h3>
                                 <p>Semper non gravida adipiscinnienim posuere erat habitasse. At maecenas sociosqu pellentesque sum nunc ut fermentum quam mauris. Nulla</p>
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     <div class="story-overview-content-area">
-                        <div class="story-overview-content text-center bg_img" data-background="assets/images/story/story-bg.png">
+                        <div class="story-overview-content text-center bg_img" data-background={% static "assets/images/story/story-bg.png" %}>
                             <div class="story-overview-body">
                                 <h3 class="title">our happy engagement</h3>
                                 <p>Semper non gravida adipiscinnienim posuere erat habitasse. At maecenas sociosqu pellentesque sum nunc ut fermentum quam mauris. Nulla</p>
@@ -157,7 +157,7 @@
 
 
     <!-- gallery-section start -->
-    <section class="gallery-section ptb-120 bg-overlay-white-two bg_img" data-background="assets/images/story/story-details-bg-2.png">
+    <section class="gallery-section ptb-120 bg-overlay-white-two bg_img" data-background={% static "assets/images/story/story-details-bg.png" %}>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-7 text-center">
@@ -246,7 +246,7 @@
                 </div>
             </div>
             <div class="row gallery-btn justify-content-center mrt-60">
-                <a href="gallery.html" class="cmn-btn">load more</a>
+                <a href="/gallery" class="cmn-btn">load more</a>
             </div>
         </div>
     </section>

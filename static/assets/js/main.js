@@ -1,18 +1,18 @@
+	// Breakpoints.
 (function ($) {
   "user strict";
 
-//   $(document).ready(function() {
-//     // preloader
-//   $(".preloader").delay(500).animate({
-//     "opacity" : "0"
-//   }, 500, function() {
-//     $(".preloader").css("display","none");
-//   });
-//   // nice-select
-//   $('select').niceSelect();
-//   background();
-// });
-
+  $(document).ready(function() {
+    // preloader
+  $(".preloader").delay(500).animate({
+    "opacity" : "0"
+  }, 500, function() {
+    $(".preloader").css("display","none");
+  });
+  // nice-select
+  $('select').niceSelect();
+  background();
+});
 $(window).on('load', function() {
 })
 
@@ -499,14 +499,14 @@ $(this).addClass('active');
 });
 
 //Isotope Masonary
-// function galleryMasonary(){
-//   $('.portfolio-wrapper').isotope({
-//     itemSelector: '.portfolio-item',
-//     masonry: {
-//       columnWidth: 0,
-//     }
-//   });
-// }
+function galleryMasonary(){
+  $('.portfolio-wrapper').isotope({
+    itemSelector: '.portfolio-item',
+    masonry: {
+      columnWidth: 0,
+    }
+  });
+}
 
 $('.remove-cart').on('click', function (e) {
   e.preventDefault();

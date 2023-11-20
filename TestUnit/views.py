@@ -3,96 +3,96 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    return render(request,  'index.html')
 
 
 def notfound(request):
-    return render(request, '404.html')
+    return render(request,  '404.html')
 
 
 def about(request):
-    return render(request, 'about.html')
+    return render(request,  'about.html')
 
 
 def blog_1(request):
-    return render(request, 'blog-1.html')
+    return render(request,  'blog-1.html')
 
 
 def blog_2(request):
-    return render(request, 'blog-2.html')
+    return render(request,  'blog-2.html')
 
 
 def blog_3(request):
-    return render(request, 'blog-3.html')
+    return render(request,  'blog-3.html')
 
 
 def blog_4(request):
-    return render(request, 'blog-4.html')
+    return render(request,  'blog-4.html')
 
 
 def blog_5(request):
-    return render(request, 'blog-5.html')
+    return render(request,  'blog-5.html')
 
 
 def blog_details(request):
-    return render(request, 'blog-details.html')
+    return render(request,  'blog-details.html')
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    return render(request,  'contact.html')
 
 
 def event(request):
-    return render(request, 'event.html')
+    return render(request,  'event.html')
 
 
 def event_details(request):
-    return render(request, 'event-details.html')
+    return render(request,  'event-details.html')
 
 
 def faq(request):
-    return render(request, 'faq.html')
+    return render(request,  'faq.html')
 
 
 def gallery(request):
-    return render(request, 'gallery.html')
+    return render(request,  'gallery.html')
 
 
 def index_2(request):
-    return render(request, 'index-2.html')
+    return render(request,  'index-2.html')
 
 
 def member(request):
-    return render(request,'member.html')
+    return render(request,  'member.html')
 
 
 def member_details(request):
-    return render(request,'member-details.html')
+    return render(request, 'member-details.html')
 
 
 def pricing(request):
-    return render(request,'pricing.html')
+    return render(request, 'pricing.html')
 
 
 def privacy(request):
-    return render(request,'privacy.html')
+    return render(request, 'privacy.html')
 
 
 def search(request):
-    return render(request,'search.html')
+    return render(request, 'search.html')
 
 
 def signin(request):
-    return render(request,'signin.html')
+    return render(request, 'signin.html')
 
 
 def signup(request):
-    return render(request,'signup.html')
+    return render(request, 'signup.html')
 
 
 def story(request):
-    return render(request,'story.html')
+    return render(request, 'story.html')
 
 
 def story_details(request):
-    return render(request,'story-details.html')
+    return render(request, 'story-details.html')

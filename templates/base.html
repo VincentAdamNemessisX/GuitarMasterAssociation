@@ -29,10 +29,6 @@
 <style>
 .copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
 </style>
-<div class="copyrights">
-	Collect from <a href="http://www.cssmoban.com/"  title="网站模板">模板之家</a>
-	<a href="https://www.chazidian.com/"  title="查字典">查字典</a>
-</div>
 <body>
 {#Start Preloader#}
     <div class="preloader">
@@ -70,9 +66,9 @@
                                 <div class="language-thumb">
                                     <i class="flaticon-planetary-grid-symbol"></i>
                                 </div>
-                                <div class="language-select">
-                                    <select class="select-bar">
-                                        <option data-display="Languages">Languages</option>
+                                <div class="language-select d-flex flex-wrap">
+                                    <select class="select-bar nice-select">
+                                        <option data-display="Languages" class="current">Languages</option>
                                         <option value="1">Bangla</option>
                                         <option value="2">Hindi</option>
                                     </select>
@@ -166,7 +162,7 @@
     {% block content %}
     {% endblock %}
     <!-- footer-section start -->
-    <footer class="footer-section ptb-120 bg_img" data-background={% static "assets/images/footer.png" %}>
+    <footer class="footer-section ptb-120 bg_img" style="background-image: url('{% static "assets/images/footer.png"  %}')" data-background={% static "assets/images/footer.png" %}>
         <div class="container">
             <div class="row ml-b-30">
                 <div class="col-lg-4 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
@@ -222,7 +218,7 @@
             </div>
         </div>
     </footer>
-    <div class="privacy-area bg_img" data-background={% static "assets/images/footer.png"  %}>
+    <div class="privacy-area bg_img" style="background-image: url('{% static "assets/images/footer.png"  %}')" data-background={% static "assets/images/footer.png"  %}>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -232,9 +228,11 @@
         </div>
     </div>
     <!-- footer-section end -->
+<div class="copyrights">
+	Collect from <a href="http://www.cssmoban.com/"  title="网站模板">模板之家</a>
+	<a href="https://www.chazidian.com/"  title="查字典">查字典</a>
+</div>
 </body>
-
-
 <!-- jquery -->
 <script src= {% static "assets/js/jquery-3.3.1.min.js" %}></script>
 <!-- migarate-jquery -->

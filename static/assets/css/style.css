@@ -424,7 +424,7 @@ pre {
   max-width: 100%;
   white-space: pre-wrap;
   white-space: -moz-pre-wrap;
-  white-space: -pre-wrap;
+  white-space: pre-wrap;
   white-space: -o-pre-wrap;
   word-wrap: break-word;
   font-size: 0.929em;
@@ -2576,8 +2576,8 @@ body:not(.buddypress) .article-content table th {
     [ ## Shape Hexagon ]
 */
 .shape-hexagon {
-  mask-image: url(shape.png);
-  -webkit-mask-image: url(shape.png);
+  mask-image: url('../images/know-shape-1.png');
+  -webkit-mask-image: url('../images/know-shape-2.png');
   mask-size: contain;
   -webkit-mask-size: contain;
   mask-position: center center;
