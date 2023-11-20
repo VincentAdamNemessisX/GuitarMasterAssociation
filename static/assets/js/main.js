@@ -1,17 +1,17 @@
 (function ($) {
   "user strict";
 
-  $(document).ready(function() {
-    // preloader
-  $(".preloader").delay(500).animate({
-    "opacity" : "0"
-  }, 500, function() {
-    $(".preloader").css("display","none");
-  });
-  // nice-select
-  $('select').niceSelect();
-  background();
-});
+//   $(document).ready(function() {
+//     // preloader
+//   $(".preloader").delay(500).animate({
+//     "opacity" : "0"
+//   }, 500, function() {
+//     $(".preloader").css("display","none");
+//   });
+//   // nice-select
+//   $('select').niceSelect();
+//   background();
+// });
 
 $(window).on('load', function() {
 })
@@ -182,10 +182,10 @@ var swiper = new Swiper('.banner-slider', {
           return '<span class="' + className + '">' + (index + 1) + '</span>';
       },
   },
-  // autoplay: {
-  //     delay: 3000,
-  //     speed: 2000,
-  // },
+  autoplay: {
+      delay: 3000,
+      speed: 2000,
+  },
   speed: 2000,
 });
 
@@ -227,10 +227,10 @@ var swiper = new Swiper('.member-slider', {
     el: '.swiper-pagination',
     clickable: true,
   },
-  // autoplay: {
-  //   speeds: 2000,
-  //   delay: 4000,
-  // },
+  autoplay: {
+    speeds: 2000,
+    delay: 4000,
+  },
   speed: 2000,
   breakpoints: {
     991: {
@@ -293,10 +293,10 @@ var swiper = new Swiper('.brand-wrapper', {
   slidesPerView: 5,
   spaceBetween: 30,
   loop: true,
-  // autoplay: {
-  //   speeds: 1000,
-  //   delay: 2000,
-  // },
+  autoplay: {
+    speeds: 1000,
+    delay: 2000,
+  },
   breakpoints: {
     991: {
       slidesPerView: 3,
@@ -314,10 +314,10 @@ var swiper = new Swiper('.story-slider', {
   slidesPerView: 1,
   spaceBetween: 30,
   loop: true,
-  // autoplay: {
-  //   speeds: 1000,
-  //   delay: 2000,
-  // },
+  autoplay: {
+    speeds: 1000,
+    delay: 2000,
+  },
   breakpoints: {
     991: {
       slidesPerView: 1,

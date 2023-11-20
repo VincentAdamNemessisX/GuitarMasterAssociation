@@ -1,32 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i,800,800i%7CQuicksand:300,400,500,600,700%7CRoboto:400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
-    <!-- fontawesome css link -->
-    <link rel="stylesheet" href="../static/assets/css/fontawesome-all.min.css">
-    <!-- flaticon css -->
-    <link rel="stylesheet" href="../static/assets/font/flaticon.css">
-    <!-- magnific popup -->
-    <link rel="stylesheet" href="../static/assets/css/magnific-popup.css">
-    <!-- nice-select css -->
-    <link rel="stylesheet" href="../static/assets/css/nice-select.css">
-    <!-- bootstrap css link -->
-    <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css">
-    <!-- swipper css link -->
-    <link rel="stylesheet" href="../static/assets/css/swiper.min.css">
-    <!-- favicon -->
-    <link rel="shortcut icon" href="assets/images/fav.png" type="image/x-icon">
-    <!-- animate.css -->
-    <link rel="stylesheet" href="../static/assets/css/animate.css">
-    <!-- main style css link -->
-    <link rel="stylesheet" href="../static/assets/css/style.css">
-</head>
-<body>
-
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Start Preloader
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--> 
@@ -1062,79 +1036,6 @@
         </div>
     </div>
     <!-- brand-section end -->
-
-
-    <!-- footer-section start -->
-    <footer class="footer-section footer-section-two ptb-120">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12 text-center">
-                    <div class="footer-logo">
-                        <a href="#"><img src="../static/assets/images/header/logo.png" alt="logo"></a>
-                    </div>
-                    <div class="footer-nav-area">
-                        <ul class="footer-nav">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Dating</a></li>
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">Page</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-social-area">
-                        <ul class="footer-social-two">
-                            <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#0" class="active"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#0"><i class="fab fa-linkedin-in"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <div class="privacy-area privacy-area-two">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <p>Copyright Dattero © 2019. All rights reserved </p>
-                </div>
-            </div>
-        </div>
-    </div>   
-    <!-- footer-section end -->
-    
-
-
-
-
-<!-- jquery -->
-<script src="../static/assets/js/jquery-3.3.1.min.js"></script>
-<!-- migarate-jquery -->
-<script src="../static/assets/js/jquery-migrate-3.0.0.js"></script>
-<!-- bootstrap js -->
-<script src="../static/assets/js/bootstrap.min.js"></script>
-<!-- magnific-popup js -->
-<script src="../static/assets/js/jquery.magnific-popup.js"></script>
-<!-- isotope -->
-<script src="../static/assets/js/isotope.pkgd.min.js"></script>
-<!-- isotope -->
-<script src="../static/assets/js/packery-mode.pkgd.min.js"></script>
-<!-- nice-select js-->
-<script src="../static/assets/js/jquery.nice-select.js"></script>
-<!-- swipper js -->
-<script src="../static/assets/js/swiper.min.js"></script>
-<!-- waypoints js link -->
-<script src="../static/assets/js/jquery.waypoints.min.js"></script>
-<!-- counterup js -->
-<script src="../static/assets/js/jquery.counterup.min.js"></script>
-<!-- wow js file -->
-<script src="../static/assets/js/wow.min.js"></script>
-<!-- main -->
-<script src="../static/assets/js/main.js"></script>
-
 <script>
     $(document).ready(function () {
         var galleryThumbs = new Swiper('.slide-bottom', {
@@ -1162,7 +1063,4 @@
         galleryThumbs.controller.control = galleryTop;
     })
 </script>
-
-
-</body>
-</html>
+{% endblock %}
