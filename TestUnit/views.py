@@ -10,6 +10,10 @@ def notfound(request):
     return render(request, '404.html')
 
 
+def about(request):
+    return render(request, 'about.html')
+
+
 def blog_1(request):
     return render(request, 'blog-1.html')
 

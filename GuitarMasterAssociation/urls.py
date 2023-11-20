@@ -19,7 +19,9 @@ from TestUnit.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', index),
     path('404/', notfound),
+    path('about/', about),
     path('blog-1/', blog_1),
     path('blog-2/', blog_2),
     path('blog-3/', blog_3),

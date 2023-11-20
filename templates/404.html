@@ -1,29 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        Start Preloader
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--> 
-    <div class="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-icon">
-                <span></span>
-                <span></span>
-            </div><!-- /preloader-icon -->
-        </div><!-- /preloader-inner -->
-    </div><!-- /preloader -->
-
-
     <!-- 404-section start -->
-    <section class="four-not-four-section bg-overlay-two bg_img" data-background="assets/images/404.png">
+    <section class="four-not-four-section bg-overlay-two bg_img" data-background={% static "assets/images/404.png" %}>
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 <div class="col-lg-12 text-center">
                     <div class="four-not-four-content">
                         <span class="sub-title">Error</span>
-                        <img src="../static/assets/images/four.png" alt="404">
+                        <img alt="404" src={% static "assets/images/404.png" %}>
                         <h3 class="title">Component not found</h3>
-                        <a href="index.html" class="btn-border-white">back to home</a>
+                        <a href="/index" class="btn-border-white">back to home</a>
                     </div>
                 </div>
             </div>

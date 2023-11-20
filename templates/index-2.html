@@ -1,101 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        Start Preloader
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--> 
-    <div class="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-icon">
-                <span></span>
-                <span></span>
-            </div><!-- /preloader-icon -->
-        </div><!-- /preloader-inner -->
-    </div><!-- /preloader -->
-
-
-    <!-- header-section start -->
-    <header class="header-section header-section-two">
-        <div class="header">
-            <div class="header-bottom-area header-bottom-area-two">
-                <div class="container">
-                    <nav class="navbar navbar-expand-lg p-0" >
-                        <a class="site-logo site-title" href="index.html"><img src="../static/assets/images/header/logo-2.png" alt="site-logo"></a>
-                        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="fas fa-bars"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav main-menu ml-auto">
-                                <li class="menu_has_children"><a href="#0">Home<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="index.html">Home One</a></li>
-                                        <li><a href="index-2.html">Home Two</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="about.html">About</a></li>
-                                <li class="menu_has_children"><a href="#0">Dating<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="event.html">Events</a></li>
-                                        <li><a href="event-details.html">Events Details</a></li>
-                                        <li><a href="story.html">Story</a></li>
-                                        <li><a href="story-details.html">Story Details</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu_has_children"><a href="#0">Profile<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="member.html">Member</a></li>
-                                        <li><a href="member-details.html">Member Details</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu_has_children"><a href="#0">Pages<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="privacy.html">Privacy Page</a></li>
-                                        <li><a href="pricing.html">Pricing Page</a></li>
-                                        <li><a href="gallery.html">Gallery Page</a></li>
-                                        <li><a href="search.html">Search Page</a></li>
-                                        <li><a href="faq.html">Faq Page</a></li>
-                                        <li><a href="signin.html">Sign In</a></li>
-                                        <li><a href="signup.html">Sign Up</a></li>
-                                        <li><a href="404.html">404 Page</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu_has_children"><a href="#0">Blog<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog-1.html">Blog Post One</a></li>
-                                        <li><a href="blog-2.html">Blog Post Two</a></li>
-                                        <li><a href="blog-3.html">Blog Post Three</a></li>
-                                        <li><a href="blog-4.html">Blog Post Four</a></li>
-                                        <li><a href="blog-5.html">Blog Post Five</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html">Contact</a></li>
-                            </ul>                 
-                        </div>
-                        <div class="language-select-list d-flex flex-wrap">
-                            <div class="language-select language-select-two">
-                                <select class="select-bar">
-                                    <option data-display="English">English</option>
-                                    <option value="1">Bangla</option>
-                                    <option value="2">Hindi</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="login-bar login-bar-two">
-                            <div class="login-thumb">
-                                <i class="flaticon-add"></i>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- header-section end -->
-
-
     <!-- banner-section start -->
-    <section class="banner-section banner-section-two bg-overlay bg_img" data-background="assets/images/header/banner-2.png">
+    <section class="banner-section banner-section-two bg-overlay bg_img" data-background={% static "assets/images/header/banner-2.png" %}>
         <div class="banner-social-area">
             <span>Follow Us</span>
             <ul class="banner-social">
@@ -335,7 +242,7 @@
             <div class="row justify-content-center ml-b-30">
                 <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
                     <div class="team-item-two">
-                        <div class="team-thumb-two bg_img" data-background="assets/images/team/team-bg.png">
+                        <div class="team-thumb-two bg_img" data-background={% static "assets/images/team/team-bg.png" %}>
                             <img src="../static/assets/images/team/team-4.png" alt="team">
                             <div class="team-thumb-two-overlay">
                                 <h3 class="title">36</h3>
@@ -343,14 +250,14 @@
                             </div>
                         </div>
                         <div class="team-content-two text-center">
-                            <h3 class="title"><a href="member-details.html">Liktion Pattella</a></h3>
+                            <h3 class="title"><a href="/member-details">Liktion Pattella</a></h3>
                             <span class="sub-title"><i class="fas fa-map-marker-alt"></i>Mellbourne , Australia</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.8s">
                     <div class="team-item-two">
-                        <div class="team-thumb-two bg_img" data-background="assets/images/team/team-bg.png">
+                        <div class="team-thumb-two bg_img" data-background={% static "assets/images/team/team-bg.png" %}>
                             <img src="../static/assets/images/team/team-5.png" alt="team">
                             <div class="team-thumb-two-overlay">
                                 <h3 class="title">25</h3>
@@ -358,14 +265,14 @@
                             </div>
                         </div>
                         <div class="team-content-two text-center">
-                            <h3 class="title"><a href="member-details.html">Isabella Martino</a></h3>
+                            <h3 class="title"><a href="/member-details">Isabella Martino</a></h3>
                             <span class="sub-title"><i class="fas fa-map-marker-alt"></i>Mellbourne , Australia</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="1s">
                     <div class="team-item-two">
-                        <div class="team-thumb-two bg_img" data-background="assets/images/team/team-bg.png">
+                        <div class="team-thumb-two bg_img" data-background={% static "assets/images/team/team-bg.png" %}>
                             <img src="../static/assets/images/team/team-6.png" alt="team">
                             <div class="team-thumb-two-overlay">
                                 <h3 class="title">32</h3>
@@ -373,7 +280,7 @@
                             </div>
                         </div>
                         <div class="team-content-two text-center">
-                            <h3 class="title"><a href="member-details.html">kingsley grey</a></h3>
+                            <h3 class="title"><a href="/member-details">kingsley grey</a></h3>
                             <span class="sub-title"><i class="fas fa-map-marker-alt"></i>Mellbourne , Australia</span>
                         </div>
                     </div>
@@ -515,14 +422,14 @@
 
 
     <!-- know-section start -->
-    <section class="know-section-two ptb-120 bg-overlay-black bg_img" data-background="assets/images/know-bg.png">
+    <section class="know-section-two ptb-120 bg-overlay-black bg_img" data-background={% static "assets/images/know-bg.png" %}>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
                     <div class="know-content">
                         <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">The Worlds Most Exclusive Dating Site For Beautiful People Only</h2>
                         <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">Donec justo amet nulla pellentesque suspendisse, vestibulum lorem ipsum pede neque. Neque tellus morbi a ut morbi, vestibulum mi wisi nec vitae lacus, consequat elit lorem eros justo urna, diam id sagittis dapibus pharetra. </p>
-                        <a href="signup.html" class="cmn-btn wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">join us for free</a>
+                        <a href="/signup" class="cmn-btn wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">join us for free</a>
                     </div>
                 </div>
             </div>
@@ -579,7 +486,7 @@
 
 
     <!-- client-section start -->
-    <section class="client-section-two ptb-120 bg_img" data-background="assets/images/client/client-bg.png">
+    <section class="client-section-two ptb-120 bg_img" data-background={% static "assets/images/client/client-bg.png" %}>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="client-item-area text-center">
@@ -681,7 +588,7 @@
                     <div class="package-left-content">
                         <h2 class="title">Our Popular Packages</h2>
                         <p>Dusto lacus in odio dolor feugiat gravidaegtas tellus elit lorem amet nostrud, nulla et unulla velit. Urna lacinia. Magna eget, vehicula sed a vestibulum gravida sit, dis lectus egestas fusce consequuntur ullamcorper</p>
-                        <a href="pricing.html" class="cmn-btn">check more pack</a>
+                        <a href="//pricing" class="cmn-btn">check more pack</a>
                     </div>
                 </div>
                 <div class="col-lg-8 mrb-30">
@@ -700,7 +607,7 @@
                                             <li>free notification  <span>Yes</span></li>
                                         </ul>
                                         <div class="package-btn text-center">
-                                            <a href="pricing.html" class="btn-border">buy now</a>
+                                            <a href="/pricing" class="btn-border">buy now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -718,7 +625,7 @@
                                             <li>free notification  <span>Yes</span></li>
                                         </ul>
                                         <div class="package-btn text-center">
-                                            <a href="pricing.html" class="btn-border">buy now</a>
+                                            <a href="/pricing" class="btn-border">buy now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -760,7 +667,7 @@
                         <h2 class="title">dating & Private Events</h2>
                         <p>Rrem ipsum dolor sit amet, consectetur adipiscing elit, do eimod tempor incididunt ut labore magna aliqua. Quis ipsum pendisse ultrices gravida. Risu viver maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eimod tempor incididunt ut labore magna aliqua.</p>
                         <P>Lorem ipsum dolor sit amet, consectetur adipiscing elit, espiidunt ut labore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risu viver maecenas accumsan.</p>
-                        <a href="event-details.html" class="cmn-btn">event details</a>
+                        <a href="/event-details" class="cmn-btn">event details</a>
                     </div>
                 </div>
             </div>
@@ -941,7 +848,7 @@
                                         <img src="../static/assets/images/blog/blog-4.png" alt="blog">
                                     </div>
                                     <div class="blog-content text-center">
-                                        <h3 class="title"><a href="blog-details.html">Accumsan Facilisis Nonummy.</a></h3>
+                                        <h3 class="title"><a href="/blog-details">Accumsan Facilisis Nonummy.</a></h3>
                                         <ul class="blog-content-list">
                                             <li><i class="far fa-heart"></i><span>03</span></li>
                                             <li><i class="far fa-comment-alt"></i><span>00</span></li>
@@ -955,7 +862,7 @@
                                         <img src="../static/assets/images/blog/blog-5.png" alt="blog">
                                     </div>
                                     <div class="blog-content text-center">
-                                        <h3 class="title"><a href="blog-details.html">Placerat Cupidatat Amet Urna Cursus Berovel.</a></h3>
+                                        <h3 class="title"><a href="/blog-details">Placerat Cupidatat Amet Urna Cursus Berovel.</a></h3>
                                         <ul class="blog-content-list">
                                             <li><i class="far fa-heart"></i><span>03</span></li>
                                             <li><i class="far fa-comment-alt"></i><span>00</span></li>
@@ -969,7 +876,7 @@
                                         <img src="../static/assets/images/blog/blog-6.png" alt="blog">
                                     </div>
                                     <div class="blog-content text-center">
-                                        <h3 class="title"><a href="blog-details.html">Tincidunt Vestibulum Eelit Sollicitudin.</a></h3>
+                                        <h3 class="title"><a href="/blog-details">Tincidunt Vestibulum Eelit Sollicitudin.</a></h3>
                                         <ul class="blog-content-list">
                                             <li><i class="far fa-heart"></i><span>03</span></li>
                                             <li><i class="far fa-comment-alt"></i><span>00</span></li>
@@ -1036,6 +943,7 @@
         </div>
     </div>
     <!-- brand-section end -->
+{% endblock %}
 <script>
     $(document).ready(function () {
         var galleryThumbs = new Swiper('.slide-bottom', {
@@ -1063,4 +971,3 @@
         galleryThumbs.controller.control = galleryTop;
     })
 </script>
-{% endblock %}

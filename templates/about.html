@@ -1,141 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        Start Preloader
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--> 
-    <div class="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-icon">
-                <span></span>
-                <span></span>
-            </div><!-- /preloader-icon -->
-        </div><!-- /preloader-inner -->
-    </div><!-- /preloader -->
-
-
-    <!-- header-section start -->
-    <header class="header-section">
-        <div class="header">
-            <div class="header-top-area">
-                <div class="container">
-                    <div class="header-top-content d-flex flex-wrap align-items-center justify-content-between">
-                        <div class="header-top-left d-flex flex-wrap align-items-center">
-                            <ul class="header-social">
-                                <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#0" class="active"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#0"><i class="fab fa-linkedin-in"></i></a></li>
-                            </ul>
-                            <div class="header-mail-area">
-                                <a href="#0">
-                                    <i class="fas fa-envelope"></i>
-                                    <span>demo@gmail.com</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="header-top-right d-flex flex-wrap align-items-center">
-                            <div class="language-select-list d-flex flex-wrap">
-                                <div class="language-thumb">
-                                    <i class="flaticon-planetary-grid-symbol"></i>
-                                </div>
-                                <div class="language-select">
-                                    <select class="select-bar">
-                                        <option data-display="Languages">Languages</option>
-                                        <option value="1">Bangla</option>
-                                        <option value="2">Hindi</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="login-bar d-flex flex-wrap">
-                                <div class="login-thumb">
-                                    <i class="flaticon-add"></i>
-                                </div>
-                                <span> <a href="signin.html">Login</a></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="header-bottom-area">
-                <div class="container">
-                    <nav class="navbar navbar-expand-lg p-0" >
-                        <a class="site-logo site-title" href="index.html"><img src="../static/assets/images/header/logo.png" alt="site-logo"></a>
-                        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="fas fa-bars"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav main-menu">
-                                <li class="menu_has_children"><a href="#0">Home<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="index.html">Home One</a></li>
-                                        <li><a href="index-2.html">Home Two</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="about.html">About</a></li>
-                                <li class="menu_has_children"><a href="#0">Dating<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="event.html">Events</a></li>
-                                        <li><a href="event-details.html">Events Details</a></li>
-                                        <li><a href="story.html">Story</a></li>
-                                        <li><a href="story-details.html">Story Details</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu_has_children"><a href="#0">Profile<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="member.html">Member</a></li>
-                                        <li><a href="member-details.html">Member Details</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu_has_children"><a href="#0">Pages<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="privacy.html">Privacy Page</a></li>
-                                        <li><a href="pricing.html">Pricing Page</a></li>
-                                        <li><a href="gallery.html">Gallery Page</a></li>
-                                        <li><a href="search.html">Search Page</a></li>
-                                        <li><a href="faq.html">Faq Page</a></li>
-                                        <li><a href="signin.html">Sign In</a></li>
-                                        <li><a href="signup.html">Sign Up</a></li>
-                                        <li><a href="404.html">404 Page</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu_has_children"><a href="#0">Blog<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog-1.html">Blog Post One</a></li>
-                                        <li><a href="blog-2.html">Blog Post Two</a></li>
-                                        <li><a href="blog-3.html">Blog Post Three</a></li>
-                                        <li><a href="blog-4.html">Blog Post Four</a></li>
-                                        <li><a href="blog-5.html">Blog Post Five</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html">Contact</a></li>
-                            </ul>                 
-                        </div>
-                        <div class="header-right d-flex flex-wrap">
-                            <div class="search-bar">
-                                <a href="#0"><i class="flaticon-magnifying-glass-1"></i></a>
-                                <div class="header-top-search-area">
-                                    <form class="header-search-form">
-                                        <input type="search" name="header_search" id="header_search" placeholder="Search here...">
-                                        <button class="header-search-btn"><i class="flaticon-magnifying-glass-1"></i></button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="header-action d-flex flex-wrap align-items-center justify-content-end">
-                            <a href="faq.html" class="cmn-btn">get free quote</a>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- header-section end -->
-
-
     <!-- inner-banner-section start -->
-    <section class="inner-banner-section bg-overlay-primary bg_img" data-background="assets/images/header/inner-2.png">
+    <section class="inner-banner-section bg-overlay-primary bg_img" data-background={% static "assets/images/header/inner-2.png" %}>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12 text-center">
@@ -157,7 +24,7 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html"><i class="flaticon-house"></i>Home</a></li>
+                <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">About Us</li>
                 </ol>
             </nav>
@@ -179,7 +46,7 @@
             <div class="row justify-content-center ml-b-30">
                 <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-left" data-wow-duration="1s" data-wow-delay="0.5s">
                     <div class="about-thumb">
-                        <img src="../static/assets/images/about.png" alt="about">
+                        <img alt="about" src={% static "assets/images/about.png" %}>
                     </div>
                 </div>
                 <div class="col-lg-8 mrb-30">
@@ -225,7 +92,7 @@
                         <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">Sweet Love Stories</h2>
                         <div class="story-item d-flex flex-wrap mrb-30 wow fade-in-left" data-wow-duration="1s" data-wow-delay="0.5s">
                             <div class="story-thumb-two">
-                                <img src="../static/assets/images/story/story-7.png" alt="story">
+                                <img src={% static "assets/images/story/story-7.png" %} alt="story">
                             </div>
                             <div class="story-content-two">
                                 <h3 class="title">Egestas Mauris Lacinia</h3>
@@ -234,7 +101,7 @@
                         </div>
                         <div class="story-item d-flex flex-wrap mrb-30 wow fade-in-left" data-wow-duration="1s" data-wow-delay="0.7s">
                             <div class="story-thumb-two">
-                                <img src="../static/assets/images/story/story-8.png" alt="story">
+                                <img src={% static "assets/images/story/story-8.png" %} alt="story">
                             </div>
                             <div class="story-content-two">
                                 <h3 class="title">Consequat Volutpat</h3>
@@ -243,7 +110,7 @@
                         </div>
                         <div class="story-item d-flex flex-wrap mrb-30 wow fade-in-left" data-wow-duration="1s" data-wow-delay="0.9s">
                             <div class="story-thumb-two">
-                                <img src="../static/assets/images/story/story-9.png" alt="story">
+                                <img src={% static "assets/images/story/story-9.png" %} alt="story">
                             </div>
                             <div class="story-content-two">
                                 <h3 class="title">Rhoncus in Sapien</h3>
@@ -397,7 +264,7 @@
             <div class="row">
                 <div class="col-lg-5 col-md-6 d-flex align-items-end pl-0">
                     <div class="overview-thumb">
-                        <img src="../static/assets/images/overview.png" alt="overview">
+                        <img src={% static "assets/images/overview.png" %} alt="overview">
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-6">
@@ -422,17 +289,17 @@
                         <div class="row ml-b-30">
                             <div class="col-lg-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
                                 <div class="event-left-thumb">
-                                    <img src="../static/assets/images/event/event-6.png" alt="event">
+                                    <img src={% static "assets/images/event/event-6.png" %} alt="event">
                                 </div>
                             </div>
                             <div class="col-lg-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.7s">
                                 <div class="event-left-thumb">
-                                    <img src="../static/assets/images/event/event-7.png" alt="event">
+                                    <img src={% static "assets/images/event/event-7.png" %} alt="event">
                                 </div>
                             </div>
                             <div class="col-lg-12 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.9s">
                                 <div class="event-left-thumb">
-                                    <img src="../static/assets/images/event/event-8.png" alt="event">
+                                    <img src={% static "assets/images/event/event-8.png" %} alt="event">
                                 </div>
                             </div>
                         </div>
@@ -479,7 +346,7 @@
                                 <li>Profile security </li>
                                 <li>free notification</li>
                             </ul>
-                            <a href="pricing.html" class="btn-border">buy now</a>
+                            <a href="/pricing" class="btn-border">buy now</a>
                         </div>
                     </div>
                 </div>
@@ -495,7 +362,7 @@
                                 <li>Profile security </li>
                                 <li>free notification</li>
                             </ul>
-                            <a href="pricing.html" class="btn-border">buy now</a>
+                            <a href="/pricing" class="btn-border">buy now</a>
                         </div>
                     </div>
                 </div>
@@ -511,7 +378,7 @@
                                 <li>Profile security </li>
                                 <li>free notification</li>
                             </ul>
-                            <a href="pricing.html" class="btn-border">buy now</a>
+                            <a href="/pricing" class="btn-border">buy now</a>
                         </div>
                     </div>
                 </div>
@@ -531,35 +398,35 @@
                             <div class="swiper-slide">
                                 <div class="BrandSlider">
                                     <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-1.png" alt="logo images">
+                                        <img alt="logo images" src={% static "assets/images/brand/brand-1.png" %}>
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="BrandSlider">
                                     <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-2.png" alt="logo images">
+                                        <img alt="logo images" src={% static "assets/images/brand/brand-2.png" %}>
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="BrandSlider">
                                     <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-3.png" alt="logo images">
+                                        <img  alt="logo images" src={% static "assets/images/brand/brand-3.png" %}>
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="BrandSlider">
                                     <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-4.png" alt="logo images">
+                                        <img alt="logo images" src={% static "assets/images/brand/brand-4.png" %}>
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="BrandSlider">
                                     <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-5.png" alt="logo images">
+                                        <img alt="logo images" src={% static "assets/images/brand/brand-5.png" %}>
                                     </div>
                                 </div>
                             </div>
