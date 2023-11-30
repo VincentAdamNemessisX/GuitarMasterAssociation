@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'GuitarMasterAssociation.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'GuitarMasterAssociation',
-        'HOST': '127.0.0.1',
+        'NAME': 'guitarmaster',
+        'HOST': 'vincentadamnemessis.site',
         'PORT': '3306',
-        'USER': 'root',
-        'PASSWORD': 'ic3344',
+        'USER': 'nb',
+        'PASSWORD': 'nb',
     }
 }
 
