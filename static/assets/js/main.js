@@ -1,7 +1,5 @@
-	// Breakpoints.
 (function ($) {
-  "user strict";
-
+  // "user strict";
   $(document).ready(function() {
     // preloader
   $(".preloader").delay(500).animate({
@@ -13,8 +11,7 @@
   $('select').niceSelect();
   background();
 });
-$(window).on('load', function() {
-})
+$(window).on('load', function() {})
 
 /*---------------====================
      11.WOW Active

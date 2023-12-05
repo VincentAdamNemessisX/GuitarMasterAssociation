@@ -39,6 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'analysis.apps.AnalysisConfig',
+    'collection.apps.CollectionConfig',
+    'message.apps.MessageConfig',
+    'post.apps.PostConfig',
+    'review.apps.ReviewConfig',
+    'user.apps.UserConfig',
+    'zone.apps.ZoneConfig'
 ]
 
 MIDDLEWARE = [
@@ -128,8 +135,15 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# simple ui settings
+SIMPLEUI_HOME_TITLE = '吉他爱好者社区后台'
+SIMPLEUI_HOME_INFO = False # simpleui ads
+SIMPLEUI_DEFAULT_THEME = 'e-red-pro.css'
