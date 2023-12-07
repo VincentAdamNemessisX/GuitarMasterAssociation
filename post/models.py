@@ -1,19 +1,21 @@
 from django.db import models
-
+from django.utils import timezone
 
 # Create your models here.
 class Post(models.Model):
     post_id = models.AutoField(primary_key=True)
-    user_id = models.IntegerField()
-    zone_id = models.IntegerField()
+    user_id = models.ForeignKey('user.User', on_delete=models.CASCADE)
+    zone_id = models.ForeignKey('zone.Zone', on_delete=models.CASCADE)
     post_title = models.CharField(max_length=200)
     post_content = models.TextField()
     post_time = models.DateTimeField(auto_now_add=True)
-    post_status = models.IntegerField()
+    post_status = models.IntegerField(default=1, choices=((1, '正常'), (2, '审核中'), (3, '审核不通过')))
     post_view = models.IntegerField(default=0)
     post_like = models.IntegerField(default=0)
     post_comment = models.IntegerField(default=0)
     post_favorite = models.IntegerField(default=0)
+    post_create_time = models.DateTimeField(auto_now_add=True)
+    post_update_time = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = '帖子管理'

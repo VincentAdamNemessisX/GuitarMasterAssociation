@@ -1,15 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import User as Admin_User
 
 
 # Create your models here.
 class Message(models.Model):
     message_id = models.AutoField(primary_key=True)
-    sender_id = models.IntegerField(db_index=True)
-    receiver_id = models.IntegerField(db_index=True)
+    sender_id = models.ForeignKey(Admin_User, on_delete=models.CASCADE)
+    receiver_id = models.ForeignKey('user.User', on_delete=models.CASCADE)
     message_content = models.TextField()
     message_time = models.DateTimeField(auto_now_add=True, db_index=True)
-    message_status = models.IntegerField(db_index=True)
-    message_type = models.IntegerField()
+    message_status = models.IntegerField(default=1, choices=((1, '已读'), (0, '未读')), db_index=True)
 
     class Meta:
         verbose_name = '消息管理'

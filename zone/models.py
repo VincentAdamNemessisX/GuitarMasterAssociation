@@ -7,7 +7,7 @@ class Zone(models.Model):
     zone_name = models.CharField(max_length=255)
     zone_description = models.TextField()
     zone_image = models.ImageField(upload_to='zone_images/')
-    zone_status = models.IntegerField()
+    zone_status = models.IntegerField(default=1, choices=((1, '正常'), (0, '异常')))
 
     class Meta:
         verbose_name = '专区管理'
