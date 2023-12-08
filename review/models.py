@@ -15,6 +15,7 @@ class Review(models.Model):
     review_time_index = models.DateTimeField(default=timezone.now, db_index=True)
 
     class Meta:
+        db_table = 'review'
         verbose_name = '评论管理'
         verbose_name_plural = verbose_name
 

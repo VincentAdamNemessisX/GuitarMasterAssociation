@@ -12,6 +12,7 @@ class Collection(models.Model):
     collection_time_index = models.DateTimeField(default=timezone.now, db_index=True)
 
     class Meta:
+        db_table = 'collection'
         verbose_name = '收藏管理'
         verbose_name_plural = verbose_name
 

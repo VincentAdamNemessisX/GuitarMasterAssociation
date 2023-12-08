@@ -12,6 +12,7 @@ class Message(models.Model):
     message_status = models.IntegerField(default=1, choices=((1, '已读'), (0, '未读')), db_index=True)
 
     class Meta:
+        db_table = 'message'
         verbose_name = '消息管理'
         verbose_name_plural = verbose_name
 

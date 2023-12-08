@@ -8,7 +8,6 @@ class Post(models.Model):
     zone_id = models.ForeignKey('zone.Zone', on_delete=models.CASCADE)
     post_title = models.CharField(max_length=200)
     post_content = models.TextField()
-    post_time = models.DateTimeField(auto_now_add=True)
     post_status = models.IntegerField(default=1, choices=((1, '正常'), (2, '审核中'), (3, '审核不通过')))
     post_view = models.IntegerField(default=0)
     post_like = models.IntegerField(default=0)
@@ -18,6 +17,7 @@ class Post(models.Model):
     post_update_time = models.DateTimeField(auto_now=True)
 
     class Meta:
+        db_table = 'post'
         verbose_name = '帖子管理'
         verbose_name_plural = verbose_name
 

@@ -10,6 +10,7 @@ class Zone(models.Model):
     zone_status = models.IntegerField(default=1, choices=((1, '正常'), (0, '异常')))
 
     class Meta:
+        db_table = 'zone'
         verbose_name = '专区管理'
         verbose_name_plural = verbose_name
 

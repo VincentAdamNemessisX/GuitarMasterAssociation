@@ -13,6 +13,7 @@ class User(models.Model):
     user_update_time = models.DateTimeField(auto_now=True)
 
     class Meta:
+        db_table = 'user'
         verbose_name = '用户管理'
         verbose_name_plural = verbose_name
 
