@@ -82,14 +82,6 @@ def search(request):
     return render(request, 'search.html')
 
 
-def signin(request):
-    return render(request, 'signin.html')
-
-
-def signup(request):
-    return render(request, 'signup.html')
-
-
 def story(request):
     return render(request, 'story.html')
 

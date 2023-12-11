@@ -1,145 +1,132 @@
-{% extends 'base.html' %}
 {% load static %}
-{% block content %}
-    <!-- inner-banner-section start -->
-    <section class="inner-banner-section bg-overlay-primary bg_img" data-background={% static "assets/images/header/inner-1.png" %}>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12 text-center">
-                    <div class="inner-content">
-                        <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">sign in now</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- inner-banner-section end -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i,800,800i%7CQuicksand:300,400,500,600,700%7CRoboto:400,400i,500,500i,700,700i,900,900i&display=swap"
+          rel="stylesheet">
+    <!-- fontawesome css link -->
+    <link rel="stylesheet" href='{% static "assets/css/fontawesome-all.min.css" %}'>
+    <!-- flaticon css -->
+    <link rel="stylesheet" href='{% static "assets/font/flaticon.css" %}'>
+    <!-- magnific popup -->
+    <link rel="stylesheet" href='{% static "assets/css/magnific-popup.css" %}'>
+    <!-- nice-select css -->
+    <link rel="stylesheet" href='{% static "assets/css/nice-select.css" %}'>
+    <!-- bootstrap css link -->
+    <link rel="stylesheet" href='{% static "assets/css/bootstrap.min.css" %}'>
+    <!-- swipper css link -->
+    <link rel="stylesheet" href='{% static "assets/css/swiper.min.css" %}'>
+    <!-- favicon -->
+    <link rel="shortcut icon" href='{% static "assets/images/fav.png" %}' type="image/x-icon">
+    <!-- animate.css -->
+    <link rel="stylesheet" href='{% static "assets/css/animate.css" %}'>
+    <!-- main style css link -->
+    <link rel="stylesheet" href='{% static "assets/css/style.css" %}'>
+</head>
+<style>
+    input {
+        text-transform: none;
+    }
 
+    .error {
+        display: block;
+        font-weight: bolder;
+        color: red;
+        height: 1rem;
+    }
 
-    <a href="#" class="scrollToTop"><i class="fas fa-heart"></i></a>
-
-
-    <!-- breadcrumb-section start -->
-    <div class="breadcrumb-area">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html"><i class="flaticon-house"></i>Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Sign In</li>
-                </ol>
-            </nav>
-        </div>
+    #error {
+        display: none;
+    }
+</style>
+<body>
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div><!-- /preloader-icon -->
+    </div><!-- /preloader-inner -->
+</div><!-- /preloader -->
+<!-- registration-section start -->
+{% if error %}
+    <div id='error' class="alert alert-danger">
+        {{ error }}
     </div>
-    <!-- breadcrumb-section end -->
-
-
-    <!-- registration-section start -->
-    <section class="registration-section pd-t-120">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="registration-area">
-                        <div class="row align-items-center">
-                            <div class="col-lg-6">
-                                <div class="registration-thumb">
-                                    <img src="../static/assets/images/sign.png" alt="sign">
-                                    <div class="registration-thumb-overlay">
-                                        <a class="popup-youtube mfp-iframe" href="https://www.youtube.com/watch?v=0O2aH4XLbto">
-                                            <i class="flaticon-video-camera"></i>
-                                        </a>
-                                    </div>
+    <script src='{% static "assets/js/jquery-3.3.1.min.js" %}'></script>
+    <script>
+    	function auto_hide_error_message() {
+		$('#error').show();
+		setTimeout(function () {
+			$('#error').hide();
+		}, 3000);
+	}
+	auto_hide_error_message();
+    </script>
+{% endif %}
+<section class="registration-section pd-t-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="registration-area">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="registration-thumb">
+                                <img src='{% static "assets/images/sign.png" %}' alt="sign">
+                                <div class="registration-thumb-overlay">
+                                    <a class="popup-youtube mfp-iframe" href="media/promotion.mp4">
+                                        <i class="flaticon-video-camera"></i>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="registration-right-content">
-                                    <div class="registration-header">
-                                        <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">sign in</h2>
-                                    </div>
-                                    <ul class="sign-up-option justify-content-center wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                                        <li>
-                                            <a href="#0" class="google"><img src="../static/assets/images/google.png" alt="google"> google</a>
-                                        </li>
-                                        <li>
-                                            <a href="#0" class="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
-                                        </li>
-                                    </ul>
-                                    <div class="registration-form-area">
-                                        <form class="registration-form">
-                                            <div class="row">
-                                                <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
-                                                    <div class="register-icon">
-                                                        <i class="flaticon-user"></i>
-                                                    </div>
-                                                    <input type="text" name="name" placeholder="user name or email">
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="registration-right-content">
+                                <div class="registration-header">
+                                    <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
+                                        登录</h2>
+                                </div>
+                                <div class="registration-form-area pd-t-30">
+                                    <form id="registration-form" class="registration-form"
+                                          onsubmit="return validateForm()" action="/signin/" method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
+                                                 data-wow-delay="0.5s">
+                                                <div class="register-icon">
+                                                    <i class="flaticon-user"></i>
                                                 </div>
-                                                <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.7s">
-                                                    <div class="register-icon">
-                                                        <i class="flaticon-shield-with-lock"></i>
-                                                    </div>
-                                                    <input type="password" id="myInputTwo" placeholder="*************">
-                                                    <a href="#0" id="show-pass-two" class="show-pass"><i class="fas fa-eye"></i></a>
-                                                </div>
-                                                <div class="col-lg-12 form-group text-left d-flex flex-wrap justify-content-between">
-                                                    <span class="control wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">forget password?</span>
-                                                    <a href="signup.html" class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s"> Register</a>
-                                                </div>
-                                                <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
-                                                    <input type="submit" class="cmn-btn" value="sign in">
-                                                </div>
+                                                <input type="text" name="username" id="username" placeholder="用户名">
+                                                <span id="usernameError" class="error"></span>
                                             </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- registration-section end -->
-
-
-    <!-- brand-section start -->
-    <div class="brand-section ptb-120">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="brand-wrapper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-1.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-2.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-3.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-4.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-5.png" alt="logo images">
-                                    </div>
+                                            <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
+                                                 data-wow-delay="0.7s">
+                                                <div class="register-icon">
+                                                    <i class="flaticon-shield-with-lock"></i>
+                                                </div>
+                                                <input type="password" id="myInputTwo" name="password"
+                                                       placeholder="*************">
+                                                <a href="#0" id="show-pass-two" class="show-pass"
+                                                   onclick="togglePasswordVisibility('show-pass-two')"><i
+                                                        class="fas fa-eye"></i></a>
+                                                <span id="passwordError" class="error"></span>
+                                            </div>
+                                            <div class="col-lg-12 form-group text-left d-flex flex-wrap justify-content-between">
+                                                <span class="control wow fade-in-bottom" data-wow-duration="1s"
+                                                      data-wow-delay="0.5s">忘记密码?</span>
+                                                <a href="/signup/" class="wow fade-in-bottom" data-wow-duration="1s"
+                                                   data-wow-delay="0.5s">注册</a>
+                                            </div>
+                                            <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
+                                                 data-wow-delay="0.5s">
+                                                <input type="submit" class="cmn-btn" value="登录">
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -148,5 +135,78 @@
             </div>
         </div>
     </div>
-    <!-- brand-section end -->
-{% endblock %}
+</section>
+<!-- registration-section end -->
+</body>
+<script>
+	function validateForm() {
+		var username = document.getElementById("username").value;
+		var password = document.getElementById("myInputTwo").value;
+
+		// Reset error messages
+		document.getElementById("usernameError").innerHTML = "";
+		document.getElementById("passwordError").innerHTML = "";
+		let flag = false;
+
+		// Validate username
+		if (username.length === 0) {
+			document.getElementById("usernameError").innerHTML = "用户名不能为空!";
+			flag = false;
+		} else if (!/^[a-zA-Z]{3,30}$/.test(username)) {
+			document.getElementById("usernameError").innerHTML = "用户名必须是英文且长度在3-30之间";
+			flag = false;
+		} else {
+			flag = true;
+		}
+
+		// Validate password
+		if (password.length === 0) {
+			document.getElementById("passwordError").innerHTML = "密码不能为空!";
+			flag = false;
+		} else if (password.length < 8 || password.length > 20) {
+			document.getElementById("passwordError").innerHTML = "密码长度必须在8-20之间";
+			flag = false;
+		} else {
+			flag = true;
+		}
+
+		// If validation passes, you can submit the form
+		if (flag) {
+			document.getElementById("registration-form").submit();
+		}
+		return flag;
+	}
+
+	function togglePasswordVisibility(iconId) {
+		var passwordInput = document.getElementById("myInputTwo");
+		var icon = document.getElementById(iconId);
+		if (passwordInput.type === "password") {
+			icon.children[0].className = 'fas fa-eye-slash';
+		} else {
+			icon.children[0].className = 'fas fa-eye';
+		}
+	}
+</script>
+{#jquery#}
+<script src='{% static "assets/js/jquery-3.3.1.min.js" %}'></script>
+<!-- migarate-jquery -->
+<script src='{% static "assets/js/jquery-migrate-3.0.0.js" %}'></script>
+<!-- waypoints js link -->
+<script src='{% static "assets/js/jquery.waypoints.min.js" %}'></script>
+<!-- counterup js -->
+<script src='{% static "assets/js/jquery.counterup.min.js" %}'></script>
+<!-- magnific-popup js -->
+<script src='{% static "assets/js/jquery.magnific-popup.js" %}'></script>
+<!-- isotope -->
+<script src='{% static "assets/js/isotope.pkgd.min.js" %}'></script>
+<!-- nice-select js-->
+<script src='{% static "assets/js/jquery.nice-select.js" %}'></script>
+<!-- bootstrap js -->
+<script src='{% static "assets/js/bootstrap.min.js" %}'></script>
+<!-- swipper js -->
+<script src='{% static "assets/js/swiper.min.js" %}'></script>
+<!-- wow js file -->
+<script src='{% static "assets/js/wow.min.js" %}'></script>
+<!-- main -->
+<script src='{% static "assets/js/main.js" %}'></script>
+</html>
