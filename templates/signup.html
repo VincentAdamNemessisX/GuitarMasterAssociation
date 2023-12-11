@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>登录</title>
+    <title>注册</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i,800,800i%7CQuicksand:300,400,500,600,700%7CRoboto:400,400i,500,500i,700,700i,900,900i&display=swap"
           rel="stylesheet">
     <!-- fontawesome css link -->
@@ -26,78 +26,184 @@
     <link rel="stylesheet" href='{% static "assets/css/animate.css" %}'>
     <!-- main style css link -->
     <link rel="stylesheet" href='{% static "assets/css/style.css" %}'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 </head>
 <style>
     input {
         text-transform: none;
     }
 
-    .error {
-        display: block;
-        font-weight: bolder;
-        color: red;
-        height: 1rem;
-    }
 
     #error {
         display: none;
+        float: left;
+        width: 100%;
+    }
+
+    #success {
+        display: none;
+        float: left;
+        width: 100%;
+    }
+
+    .nice-select {
+        width: 80%;
+        margin-left: 53px;
+        background-color: #e9f2ff;
     }
 </style>
 <body>
-{% load static %}
-    <!-- registration-section start -->
-    <section class="registration-section pd-t-120">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="registration-area">
-                        <div class="row align-items-center">
-                            <div class="col-lg-6">
-                                <div class="registration-thumb">
-                                    <img src="../static/assets/images/sign.png" alt="sign">
-                                    <div class="registration-thumb-overlay">
-                                        <a class="popup-youtube mfp-iframe" href="https://www.youtube.com/watch?v=0O2aH4XLbto">
-                                            <i class="flaticon-video-camera"></i>
-                                        </a>
-                                    </div>
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div><!-- /preloader-icon -->
+    </div><!-- /preloader-inner -->
+</div><!-- /preloader -->
+
+{#error message-section start#}
+<div id="error" class="alert alert-danger">
+    <ul>
+        {% if error %}
+            <li>{{ error }}</li>
+            <script src='{% static "assets/js/jquery-3.3.1.min.js" %}'></script>
+            <script>
+				function auto_hide_error() {
+					$('#error').show();
+					setTimeout(function () {
+						$('#error').hide();
+					}, 3000);
+				}
+
+				auto_hide_error();
+            </script>
+        {% endif %}
+    </ul>
+</div>
+<div id="success" class="alert-success">
+    <ul>
+        {% if success %}
+            <li>{{ success }}</li>
+            <script src='{% static "assets/js/jquery-3.3.1.min.js" %}'></script>
+            <script>
+				function auto_hide_error() {
+					$('#success').show();
+					setTimeout(function () {
+						$('#success').hide();
+					}, 3000);
+				}
+				auto_hide_error();
+            </script>
+        {% endif %}
+    </ul>
+</div>
+{#error message-section end#}
+
+<!-- registration-section start -->
+<section class="registration-section pd-t-120">
+    <div class="container">
+        <div class="row" style="height: 40rem">
+            <div class="col-lg-12 text-center">
+                <div class="registration-area">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="registration-thumb">
+                                <img id="headicon" name="headicon" src="/media/user_headicon/default.png" alt="sign">
+                                <div class="registration-thumb-overlay">
+                                    <a class="popup-youtube mfp-iframe"
+                                       href="/media/promotion.mp4">
+                                        <i class="flaticon-video-camera"></i>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="registration-right-content">
-                                    <div class="registration-header">
-                                        <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">注册</h2>
-                                    </div>
-                                    <div class="registration-form-area pd-t-30">
-                                        <form class="registration-form">
-                                            <div class="row">
-                                                <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
-                                                    <div class="register-icon">
-                                                        <i class="flaticon-user"></i>
-                                                    </div>
-                                                    <input type="text" name="name" placeholder="user name or email">
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="registration-right-content">
+                                <div class="registration-header">
+                                    <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
+                                        注册</h2>
+                                </div>
+                                <div class="registration-form-area pd-t-30">
+                                    <form id="registration-form" class="registration-form" method="post"
+                                          action="/signup/" onsubmit="return validateForm()">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
+                                                 data-wow-delay="0.5s">
+                                                <div class="register-icon">
+                                                    <i class="flaticon-user"></i>
                                                 </div>
-                                                <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
-                                                    <div class="register-icon">
-                                                        <i class="flaticon-envelope"></i>
-                                                    </div>
-                                                    <input type="email" name="email" placeholder="email">
-                                                </div>
-                                                <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
-                                                    <div class="register-icon">
-                                                        <i class="flaticon-shield-with-lock"></i>
-                                                    </div>
-                                                    <input type="password" id="myInputTwo" placeholder="*************">
-                                                    <a href="#0" id="show-pass-two" class="show-pass"><i class="fas fa-eye"></i></a>
-                                                </div>
-                                                <div class="col-lg-12 form-group text-left wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
-                                                    <span class="control">已注册? <a href="/siginin/">登录</a></span>
-                                                </div>
-                                                <div class="col-lg-12 form-group wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                                                    <input type="submit" class="cmn-btn" value="sign up">
-                                                </div>
+                                                <input type="text" id="username" name="username" placeholder="用户名">
                                             </div>
-                                        </form>
-                                    </div>
+                                            <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
+                                                 data-wow-delay="0.5s">
+                                                <div class="register-icon">
+                                                    <i class="flaticon-envelope"></i>
+                                                </div>
+                                                <input type="email" id="email" name="email" placeholder="电子邮箱">
+                                            </div>
+                                            <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
+                                                 data-wow-delay="0.5s">
+                                                <div class="register-icon" style="width: 53px">
+                                                    <i class="bi bi-gender-ambiguous"></i>
+                                                </div>
+                                                <select style="text-align: center" style="width: 80%; margin-left: 53px"
+                                                        id="sex" name="sex" onchange="changeGender()">
+                                                    <option value="0" selected>保密</option>
+                                                    <option value="1">男</option>
+                                                    <option value="2">女</option>
+                                                </select>
+                                            </div>
+                                            <input type="hidden" id="headicon_value" name="headicon" value="">
+                                            <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
+                                                 data-wow-delay="0.5s">
+                                                <div class="register-icon">
+                                                    <svg class="bi bi-phone" width="1.8em" height="1.8em"
+                                                         viewBox="0 0 16 16" fill="white"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                              d="M11 1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/>
+                                                        <path fill-rule="evenodd"
+                                                              d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                                                    </svg>
+                                                </div>
+                                                <input type="tel" id="phone" name="phone" placeholder="手机号">
+                                            </div>
+                                            <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
+                                                 data-wow-delay="0.5s">
+                                                <div class="register-icon">
+                                                    <i class="flaticon-shield-with-lock"></i>
+                                                </div>
+                                                <input type="password" id="password" name="password"
+                                                       placeholder="*************">
+                                                <a href="#0" id="show-pass-two" class="show-pass"
+                                                   onclick="togglePasswordVisibility('password', 'show-pass-two')">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
+                                                 data-wow-delay="0.5s">
+                                                <div class="register-icon">
+                                                    <i class="flaticon-shield-with-lock"></i>
+                                                </div>
+                                                <input type="password" id="password_2" name="password_2"
+                                                       placeholder="*************">
+                                                <a href="#0" id="show-pass-three" class="show-pass"
+                                                   onclick="togglePasswordVisibility('password_2', 'show-pass-three')">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-12 form-group text-left wow fade-in-bottom"
+                                                 data-wow-duration="1s" data-wow-delay="0.5s">
+                                                <span class="control">已注册? <a href="/signin/">登录</a></span>
+                                            </div>
+                                            <div class="col-lg-12 form-group wow fade-in-up" data-wow-duration="1s"
+                                                 data-wow-delay="0.5s">
+                                                <input type="submit" class="cmn-btn" value="注册">
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -105,9 +211,120 @@
                 </div>
             </div>
         </div>
-    </section>
-    <!-- registration-section end -->
+    </div>
+</section>
+<!-- registration-section end -->
 </body>
+<script>
+	function validateForm() {
+		var username = document.getElementById("username").value;
+		var email = document.getElementById("email").value;
+		var phone = document.getElementById("phone").value;
+		var password = document.getElementById("password").value;
+		var password_2 = document.getElementById("password_2").value;
+		var sex = document.getElementById("sex").value;
+		var headicon = document.getElementById("headicon").src.split('/');
+		headicon = headicon[headicon.length - 2] + '/' + headicon[headicon.length - 1];
+		var error = document.getElementById("error");
+		let flag = 0;
+
+		// Validate username
+		if (username.length === 0) {
+			auto_hide_error_message(error, "用户名不能为空");
+			flag = false;
+		} else if (!/^[a-zA-Z]{3,30}$/.test(username)) {
+			auto_hide_error_message(error, "用户名只能包含字母、数字、下划线，且长度在3-30之间");
+		} else {
+			flag++;
+		}
+
+		// Validate email
+		if (email.length === 0) {
+			auto_hide_error_message(error, "邮箱不能为空");
+		} else if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email)) {
+			auto_hide_error_message(error, "邮箱格式不正确");
+		} else {
+			flag++;
+		}
+
+		// Validate phone
+		if (phone.length === 0) {
+			auto_hide_error_message(error, "手机号不能为空");
+		} else if (!/^1[34578]\d{9}$/.test(phone)) {
+			auto_hide_error_message(error, "手机号格式不正确");
+		} else {
+			flag++;
+		}
+
+		// Validate password
+		if (password.length === 0) {
+			auto_hide_error_message(error, "密码不能为空");
+		} else if (password.length < 8 || password.length > 20) {
+			auto_hide_error_message(error, "密码长度在8-20之间");
+		} else if (!(password === password_2)) {
+			auto_hide_error_message(error, "两次密码不一致");
+		} else {
+			flag++;
+		}
+
+		// Validate sex
+		if (sex !== "1" && sex !== "2" && sex !== "0") {
+			auto_hide_error_message(error, "非法注入性别");
+		} else {
+			flag++;
+		}
+
+		// Validate headicon
+		if (headicon.length === 0) {
+			auto_hide_error_message(error, "头像不能为空");
+		} else {
+			flag++;
+		}
+
+		// If validation passes, you can submit the form
+		if (flag === 6) {
+			document.getElementById("registration-form").submit();
+		}
+		return false;
+	}
+
+	function togglePasswordVisibility(passwordId, iconId) {
+		var passwordInput = document.getElementById(passwordId);
+		var icon = document.getElementById(iconId);
+		if (passwordInput.type === "password") {
+			icon.children[0].className = 'fas fa-eye-slash';
+		} else {
+			icon.children[0].className = 'fas fa-eye';
+		}
+	}
+
+	function auto_hide_error_message(error, error_message) {
+		error.children[0].innerHTML += "<li>" + error_message + "</li>";
+		$('#error').show();
+		setTimeout(function () {
+			$('#error').hide();
+			$(`#error`).children(0).children(0).remove();
+		}, 3000);
+	}
+
+	function changeGender() {
+		var sex = document.getElementById("sex").value;
+		let headicon = document.getElementById("headicon");
+		let headicon_value = document.getElementById("headicon_value");
+		if (sex === "1") {
+			headicon.src = "/media/user_headicon/default_male.png";
+		} else if (sex === "2") {
+			headicon.src = "/media/user_headicon/default_female.png";
+		} else if (sex === "0") {
+			headicon.src = "/media/user_headicon/default.png";
+		}
+		let headicon_url = document.getElementById("headicon").src.split('/');
+		headicon_url = headicon_url[headicon_url.length - 2] + '/' + headicon_url[headicon_url.length - 1];
+		headicon_value.value = headicon_url;
+	}
+
+	changeGender();
+</script>
 {#jquery#}
 <script src='{% static "assets/js/jquery-3.3.1.min.js" %}'></script>
 <!-- migarate-jquery -->

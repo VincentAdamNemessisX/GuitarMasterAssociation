@@ -1,4 +1,3 @@
-from django.db.models.fields import json
 from django.shortcuts import render, HttpResponseRedirect
 from .models import User
 
@@ -23,4 +22,17 @@ def signin(request):
 
 
 def signup(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        password = request.POST.get('password')
+        sex = request.POST.get('sex')
+        headicon = request.POST.get('headicon')
+        if User.objects.filter(user_name=username).exists():
+            return render(request,'signup.html', {'error': '用户名已存在'})
+        else:
+            if User.objects.create(user_name=username, user_email=email, user_phone=phone, user_password=password, user_sex=sex, user_headicon=headicon):
+                return render(request, 'signup.html', {'success': '注册成功'})
+            return render(request,'signup.html', {'error': '注册失败'})
     return render(request, 'signup.html')

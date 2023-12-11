@@ -73,12 +73,12 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="registration-area">
-                    <div class="row align-items-center">
+                    <div class="row align-items-center" style="height: 40rem">
                         <div class="col-lg-6">
                             <div class="registration-thumb">
                                 <img src='{% static "assets/images/sign.png" %}' alt="sign">
                                 <div class="registration-thumb-overlay">
-                                    <a class="popup-youtube mfp-iframe" href="media/promotion.mp4">
+                                    <a class="popup-youtube mfp-iframe" href="/media/promotion.mp4">
                                         <i class="flaticon-video-camera"></i>
                                     </a>
                                 </div>
@@ -108,11 +108,11 @@
                                                 <div class="register-icon">
                                                     <i class="flaticon-shield-with-lock"></i>
                                                 </div>
-                                                <input type="password" id="myInputTwo" name="password"
+                                                <input type="password" id="password" name="password"
                                                        placeholder="*************">
                                                 <a href="#0" id="show-pass-two" class="show-pass"
-                                                   onclick="togglePasswordVisibility('show-pass-two')"><i
-                                                        class="fas fa-eye"></i></a>
+                                                   onclick="togglePasswordVisibility('show-pass-two')">
+                                                    <i class="fas fa-eye"></i></a>
                                                 <span id="passwordError" class="error"></span>
                                             </div>
                                             <div class="col-lg-12 form-group text-left d-flex flex-wrap justify-content-between">
@@ -141,7 +141,7 @@
 <script>
 	function validateForm() {
 		var username = document.getElementById("username").value;
-		var password = document.getElementById("myInputTwo").value;
+		var password = document.getElementById("password").value;
 
 		// Reset error messages
 		document.getElementById("usernameError").innerHTML = "";
@@ -178,7 +178,7 @@
 	}
 
 	function togglePasswordVisibility(iconId) {
-		var passwordInput = document.getElementById("myInputTwo");
+		var passwordInput = document.getElementById("password");
 		var icon = document.getElementById(iconId);
 		if (passwordInput.type === "password") {
 			icon.children[0].className = 'fas fa-eye-slash';

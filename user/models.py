@@ -6,11 +6,14 @@ class User(models.Model):
     user_id = models.AutoField(primary_key=True)
     user_name = models.CharField(max_length=20, unique=True, db_index=True)
     user_password = models.CharField(max_length=20)
-    user_email = models.CharField(max_length=30, unique=True, db_index=True)
-    user_phone = models.CharField(max_length=11, unique=True, db_index=True)
+    user_email = models.CharField(max_length=30, db_index=True)
+    user_phone = models.CharField(max_length=11, db_index=True)
     user_status = models.IntegerField(default=1)
     user_create_time = models.DateTimeField(auto_now_add=True)
     user_update_time = models.DateTimeField(auto_now=True)
+    user_sex = models.IntegerField(default=0, choices=((1, '男'), (2, '女'), (0, '保密')))
+    user_headicon = models.ImageField(upload_to='user_headicon', default='user_headicon/default.png')
+    user_description = models.CharField(max_length=200, default='')
 
     class Meta:
         db_table = 'user'

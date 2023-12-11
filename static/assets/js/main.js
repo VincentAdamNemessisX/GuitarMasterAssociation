@@ -432,7 +432,7 @@ $('.privacy-sidebar li a').on('click', function (e) {
 
 //The Password Show
 $('#show-pass-one').on('click', function() {
-  var x = document.getElementById("myInput");
+  var x = document.getElementById("password");
   if (x.type === "password") {
       x.type = "text";
   } else {
@@ -441,7 +441,7 @@ $('#show-pass-one').on('click', function() {
 });
 
 $('#show-pass-two').on('click', function() {
-  var x = document.getElementById("myInputTwo");
+  var x = document.getElementById("password");
   if (x.type === "password") {
       x.type = "text";
   } else {
@@ -450,7 +450,7 @@ $('#show-pass-two').on('click', function() {
 });
 
 $('#show-pass-three').on('click', function() {
-  var x = document.getElementById("myInputThree");
+  var x = document.getElementById("password_2");
   if (x.type === "password") {
       x.type = "text";
   } else {
