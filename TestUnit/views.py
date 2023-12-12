@@ -64,10 +64,6 @@ def gallery(request):
     return render(request, 'gallery.html', {'login_user': current_user})
 
 
-def user(request):
-    current_user = verify.verify_current_user(request)
-    return render(request, 'user.html', {'login_user': current_user})
-
 
 def member_details(request):
     current_user = verify.verify_current_user(request)
