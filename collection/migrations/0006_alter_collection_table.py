@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('collection', '0005_alter_collection_collection_time_index'),
     ]

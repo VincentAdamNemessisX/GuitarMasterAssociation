@@ -17,10 +17,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
+
 from TestUnit.views import *
 from exceptionhandler import views as excep_views
-from user.views import *
 from post.views import *
+from user.views import *
 
 handler404 = excep_views.notfound
 handler500 = excep_views.nopower

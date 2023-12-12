@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
@@ -29,7 +30,7 @@ class RecentBrowsing(models.Model):
     recent_post_id = models.ForeignKey('post.Post', on_delete=models.CASCADE)
 
     class Meta:
-        db_table ='recent_browsing'
+        db_table = 'recent_browsing'
         verbose_name = '最近浏览'
         verbose_name_plural = verbose_name
 
