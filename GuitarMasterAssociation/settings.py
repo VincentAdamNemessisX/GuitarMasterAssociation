@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x#ryb2yzgzp41u&f@=pe1%jzqj3e6n7u9t%l0#_ym@)#odo0rk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'post.apps.PostConfig',
     'review.apps.ReviewConfig',
     'user.apps.UserConfig',
-    'zone.apps.ZoneConfig'
+    'zone.apps.ZoneConfig',
+    'exceptionhandler.apps.ExceptionhandlerConfig'
 ]
 
 MIDDLEWARE = [
@@ -150,3 +151,4 @@ APPEND_SLASH = True
 SIMPLEUI_HOME_TITLE = '吉他爱好者平台后台'
 SIMPLEUI_HOME_INFO = False  # simpleui ads
 SIMPLEUI_DEFAULT_THEME = 'e-red-pro.css'
+SIMPLEUI_LOGO = '/static/fav.png'

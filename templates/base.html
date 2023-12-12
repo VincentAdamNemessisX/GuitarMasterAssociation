@@ -6,77 +6,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i,800,800i%7CQuicksand:300,400,500,600,700%7CRoboto:400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i,800,800i%7CQuicksand:300,400,500,600,700%7CRoboto:400,400i,500,500i,700,700i,900,900i&display=swap"
+          rel="stylesheet">
     <!-- fontawesome css link -->
-    <link rel="stylesheet" href='{% static "assets/css/fontawesome-all.min.css"%}'>
+    <link rel="stylesheet" href='{% static "assets/css/fontawesome-all.min.css" %}'>
     <!-- flaticon css -->
-    <link rel="stylesheet" href='{% static "assets/font/flaticon.css"%}'>
+    <link rel="stylesheet" href='{% static "assets/font/flaticon.css" %}'>
     <!-- magnific popup -->
-    <link rel="stylesheet" href='{% static "assets/css/magnific-popup.css"%}'>
+    <link rel="stylesheet" href='{% static "assets/css/magnific-popup.css" %}'>
     <!-- nice-select css -->
-    <link rel="stylesheet" href='{% static "assets/css/nice-select.css"%}'>
+    <link rel="stylesheet" href='{% static "assets/css/nice-select.css" %}'>
     <!-- bootstrap css link -->
-    <link rel="stylesheet" href='{% static "assets/css/bootstrap.min.css"%}'>
+    <link rel="stylesheet" href='{% static "assets/css/bootstrap.min.css" %}'>
     <!-- swipper css link -->
-    <link rel="stylesheet" href='{% static "assets/css/swiper.min.css"%}'>
+    <link rel="stylesheet" href='{% static "assets/css/swiper.min.css" %}'>
     <!-- favicon -->
-    <link rel="shortcut icon" href='{% static "assets/images/fav.png"%}' type="image/x-icon">
+    <link rel="shortcut icon" href='{% static "fav.png" %}' type="image/x-icon">
     <!-- animate.css -->
-    <link rel="stylesheet" href='{% static "assets/css/animate.css"%}'>
+    <link rel="stylesheet" href='{% static "assets/css/animate.css" %}'>
     <!-- main style css link -->
-    <link rel="stylesheet" href='{% static "assets/css/style.css"%}'>
+    <link rel="stylesheet" href='{% static "assets/css/style.css" %}'>
 </head>
 <style>
-.copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
+    .copyrights {
+        text-indent: -9999px;
+        height: 0;
+        line-height: 0;
+        font-size: 0;
+        overflow: hidden;
+    }
+
+    .login_bar_custom {
+        margin-right: 10px;
+    }
 </style>
 <body>
 {#Start Preloader#}
-    <div class="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-icon">
-                <span></span>
-                <span></span>
-            </div><!-- /preloader-icon -->
-        </div><!-- /preloader-inner -->
-    </div><!-- /preloader -->
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div><!-- /preloader-icon -->
+    </div><!-- /preloader-inner -->
+</div><!-- /preloader -->
 
 
-    <!-- header-section start -->
-    <header class="header-section">
-        <div class="header">
-            <div class="header-top-area">
-                <div class="container">
-                    <div class="header-top-content d-flex flex-wrap align-items-center justify-content-between">
-                        <div class="header-top-left d-flex flex-wrap align-items-center">
-                            <ul class="header-social">
-                                <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#0" class="active"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#0"><i class="fab fa-linkedin-in"></i></a></li>
-                            </ul>
-                            <div class="header-mail-area">
-                                <a href="#0">
-                                    <i class="fas fa-envelope"></i>
-                                    <span>demo@gmail.com</span>
-                                </a>
-                            </div>
+<!-- header-section start -->
+<header class="header-section">
+    <div class="header">
+        <div class="header-top-area">
+            <div class="container">
+                <div class="header-top-content d-flex flex-wrap align-items-center justify-content-between">
+                    <div class="header-top-left d-flex flex-wrap align-items-center">
+                        <ul class="header-social">
+                            <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#0" class="active"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#0"><i class="fab fa-linkedin-in"></i></a></li>
+                        </ul>
+                        <div class="header-mail-area">
+                            <a href="#0">
+                                <i class="fas fa-envelope"></i>
+                                <span>demo@gmail.com</span>
+                            </a>
                         </div>
-                        <div class="header-top-right d-flex flex-wrap align-items-center">
-                            <div class="login-bar d-flex flex-wrap">
+                    </div>
+                    <div class="header-top-right d-flex flex-wrap align-items-center">
+                        {% if login_user.user_name %}
+                            <div class="login-bar d-flex flex-wrap login_bar_custom">
                                 <div class="login-thumb">
                                     <i class="flaticon-add"></i>
                                 </div>
-                                <span> <a href="/signin">登录</a></span>
+                                <span><a
+                                        href="/user/?userid={{ login_user.user_id }}">{{ login_user.user_name }}</a></span>
                             </div>
+                            <div class="login-bar d-flex flex-wrap login_bar_custom">
+                                <div class="login-thumb">
+                                    <i class="flaticon-add"></i>
+                                </div>
+                                <span><a href="/signout">登出</a></span>
+                            </div>
+                        {% else %}
+                            <div class="login-bar d-flex flex-wrap login_bar_custom">
+                            <div class="login-thumb">
+                                <i class="flaticon-add"></i>
+                            </div>
+                            <span><a href="/signin">登录</a></span>
+                            <div class="login-bar d-flex flex-wrap login_bar_custom">
+                            <div class="login-thumb">
+                                <i class="flaticon-add"></i>
+                            </div>
+                            <span><a href="/signup">注册</a></span>
+                        {% endif %}
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="header-bottom-area">
                 <div class="container">
-                    <nav class="navbar navbar-expand-lg p-0" >
-                        <a class="site-logo site-title" href="/index"><img src='{% static "assets/images/header/logo.png"%}' alt="site-logo"></a>
-                        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <a class="site-logo site-title" href="/index"><img
+                                src='{% static "assets/images/header/logo.png" %}' alt="site-logo"></a>
+                        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
                             <span class="fas fa-bars"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -132,8 +167,10 @@
                                 <a href="#0"><i class="flaticon-magnifying-glass-1"></i></a>
                                 <div class="header-top-search-area">
                                     <form class="header-search-form">
-                                        <input type="search" name="header_search" id="header_search" placeholder="Search here...">
-                                        <button class="header-search-btn"><i class="flaticon-magnifying-glass-1"></i></button>
+                                        <input type="search" name="header_search" id="header_search"
+                                               placeholder="Search here...">
+                                        <button class="header-search-btn"><i class="flaticon-magnifying-glass-1"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -145,102 +182,103 @@
                 </div>
             </div>
         </div>
-    </header>
-    <!-- header-section end -->
-    {% block content%}'
-    {% endblock%}'
-    <!-- footer-section start -->
-    <footer class="footer-section ptb-120 bg_img"  data-background='{% static "assets/images/footer.png"%}'>
-        <div class="container">
-            <div class="row ml-b-30">
-                <div class="col-lg-4 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
-                    <div class="footer-widget widget-menu">
-                        <div class="footer-logo">
-                            <a href="#"><img  alt="logo" src='{% static "assets/images/header/logo.png"%}'></a>
-                            <p>Lorem ipsum dolor amet consectetding elit sed eiusm tempor incididunt ut laborlore magna aliqua enim ad minim veniam quis.</p>
-                            <ul class="footer-social">
-                                <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#0" class="active"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#0"><i class="fab fa-linkedin-in"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.7s">
-                    <div class="footer-widget widget-menu">
-                        <h3 class="widget-title">company</h3>
-                        <ul>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>About</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>new members</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>testimonial</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>privacy</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>pricing plan</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.9s">
-                    <div class="footer-widget widget-menu">
-                        <h3 class="widget-title">Qucik link</h3>
-                        <ul>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>sucess stoies</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>high hopes</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>weeding event</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>relationship</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>find love</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="1s">
-                    <div class="footer-widget widget-menu">
-                        <h3 class="widget-title">contact info</h3>
-                        <ul class="footer-contact-list">
-                            <li>medino,  kitaniya road , USA</li>
-                            <li>Call Us Now 1-234-567-890</li>
-                            <li>demosupport@.com</li>
-                            <li>www.exmaple4500@gmail.com</li>
-                            <li>www.democompany@gmail.com</li>
+</header>
+<!-- header-section end -->
+{% block content %}'
+{% endblock %}'
+<!-- footer-section start -->
+<footer class="footer-section ptb-120 bg_img" data-background='{% static "assets/images/footer.png" %}'>
+    <div class="container">
+        <div class="row ml-b-30">
+            <div class="col-lg-4 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
+                <div class="footer-widget widget-menu">
+                    <div class="footer-logo">
+                        <a href="#"><img alt="logo" src='{% static "assets/images/header/logo.png" %}'></a>
+                        <p>Lorem ipsum dolor amet consectetding elit sed eiusm tempor incididunt ut laborlore magna
+                            aliqua enim ad minim veniam quis.</p>
+                        <ul class="footer-social">
+                            <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#0" class="active"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#0"><i class="fab fa-linkedin-in"></i></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>
-    <div class="privacy-area bg_img" data-background='{% static "assets/images/footer.png" %}'>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; 2020.Company name All rights reserved.</p>
+            <div class="col-lg-2 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.7s">
+                <div class="footer-widget widget-menu">
+                    <h3 class="widget-title">company</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-angle-double-right"></i>About</a></li>
+                        <li><a href="#"><i class="fas fa-angle-double-right"></i>new members</a></li>
+                        <li><a href="#"><i class="fas fa-angle-double-right"></i>testimonial</a></li>
+                        <li><a href="#"><i class="fas fa-angle-double-right"></i>privacy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-double-right"></i>pricing plan</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.9s">
+                <div class="footer-widget widget-menu">
+                    <h3 class="widget-title">Qucik link</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-angle-double-right"></i>sucess stoies</a></li>
+                        <li><a href="#"><i class="fas fa-angle-double-right"></i>high hopes</a></li>
+                        <li><a href="#"><i class="fas fa-angle-double-right"></i>weeding event</a></li>
+                        <li><a href="#"><i class="fas fa-angle-double-right"></i>relationship</a></li>
+                        <li><a href="#"><i class="fas fa-angle-double-right"></i>find love</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="1s">
+                <div class="footer-widget widget-menu">
+                    <h3 class="widget-title">contact info</h3>
+                    <ul class="footer-contact-list">
+                        <li>medino, kitaniya road , USA</li>
+                        <li>Call Us Now 1-234-567-890</li>
+                        <li>demosupport@.com</li>
+                        <li>www.exmaple4500@gmail.com</li>
+                        <li>www.democompany@gmail.com</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    <!-- footer-section end -->
+</footer>
+<div class="privacy-area bg_img" data-background='{% static "assets/images/footer.png" %}'>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <p>Copyright &copy; 2020.Company name All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer-section end -->
 <div class="copyrights">
-	Collect from <a href="http://www.cssmoban.com/"  title="网站模板">模板之家</a>
-	<a href="https://www.chazidian.com/"  title="查字典">查字典</a>
+    Collect from <a href="http://www.cssmoban.com/" title="网站模板">模板之家</a>
+    <a href="https://www.chazidian.com/" title="查字典">查字典</a>
 </div>
 </body>
 <!-- jquery -->
-<script src= '{% static "assets/js/jquery-3.3.1.min.js"%}'></script>
+<script src='{% static "assets/js/jquery-3.3.1.min.js" %}'></script>
 <!-- migarate-jquery -->
-<script src='{% static "assets/js/jquery-migrate-3.0.0.js"%}'></script>
+<script src='{% static "assets/js/jquery-migrate-3.0.0.js" %}'></script>
 <!-- waypoints js link -->
-<script src='{% static "assets/js/jquery.waypoints.min.js"%}'></script>
+<script src='{% static "assets/js/jquery.waypoints.min.js" %}'></script>
 <!-- counterup js -->
-<script src='{% static "assets/js/jquery.counterup.min.js"%}'></script>
+<script src='{% static "assets/js/jquery.counterup.min.js" %}'></script>
 <!-- magnific-popup js -->
-<script src='{% static "assets/js/jquery.magnific-popup.js"%}'></script>
+<script src='{% static "assets/js/jquery.magnific-popup.js" %}'></script>
 <!-- isotope -->
-<script src='{% static "assets/js/isotope.pkgd.min.js"%}'></script>
+<script src='{% static "assets/js/isotope.pkgd.min.js" %}'></script>
 <!-- nice-select js-->
-<script src='{% static "assets/js/jquery.nice-select.js"%}'></script>
+<script src='{% static "assets/js/jquery.nice-select.js" %}'></script>
 <!-- bootstrap js -->
-<script src='{% static "assets/js/bootstrap.min.js"%}'></script>
+<script src='{% static "assets/js/bootstrap.min.js" %}'></script>
 <!-- swipper js -->
-<script src='{% static "assets/js/swiper.min.js"%}'></script>
+<script src='{% static "assets/js/swiper.min.js" %}'></script>
 <!-- wow js file -->
-<script src='{% static "assets/js/wow.min.js"%}'></script>
+<script src='{% static "assets/js/wow.min.js" %}'></script>
 <!-- main -->
-<script src='{% static "assets/js/main.js"%}'></script>
+<script src='{% static "assets/js/main.js" %}'></script>
 </html>

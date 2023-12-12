@@ -21,7 +21,7 @@
     <!-- swipper css link -->
     <link rel="stylesheet" href='{% static "assets/css/swiper.min.css" %}'>
     <!-- favicon -->
-    <link rel="shortcut icon" href='{% static "assets/images/fav.png" %}' type="image/x-icon">
+    <link rel="shortcut icon" href='{% static "fav.png" %}' type="image/x-icon">
     <!-- animate.css -->
     <link rel="stylesheet" href='{% static "assets/css/animate.css" %}'>
     <!-- main style css link -->
@@ -41,6 +41,12 @@
 
     #error {
         display: none;
+        position: fixed;
+        width: 100%;
+        font-family: "Kaiti SC";
+        font-weight: 600;
+        font-size: 20px;
+        z-index: 1000;
     }
 </style>
 <body>
@@ -59,21 +65,22 @@
     </div>
     <script src='{% static "assets/js/jquery-3.3.1.min.js" %}'></script>
     <script>
-    	function auto_hide_error_message() {
-		$('#error').show();
-		setTimeout(function () {
-			$('#error').hide();
-		}, 3000);
-	}
-	auto_hide_error_message();
+		function auto_hide_error_message() {
+			$('#error').show();
+			setTimeout(function () {
+				$('#error').hide();
+			}, 3000);
+		}
+
+		auto_hide_error_message();
     </script>
 {% endif %}
-<section class="registration-section pd-t-120">
+<section class="registration-section pd-t-100">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="registration-area">
-                    <div class="row align-items-center" style="height: 40rem">
+                    <div class="row align-items-center" style="height: 30rem">
                         <div class="col-lg-6">
                             <div class="registration-thumb">
                                 <img src='{% static "assets/images/sign.png" %}' alt="sign">
@@ -90,7 +97,7 @@
                                     <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
                                         登录</h2>
                                 </div>
-                                <div class="registration-form-area pd-t-30">
+                                <div class="registration-form-area">
                                     <form id="registration-form" class="registration-form"
                                           onsubmit="return validateForm()" action="/signin/" method="post">
                                         {% csrf_token %}

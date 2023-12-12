@@ -1,11 +1,10 @@
 from django.db import models
 
-
 # Create your models here.
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
     user_name = models.CharField(max_length=20, unique=True, db_index=True)
-    user_password = models.CharField(max_length=20)
+    user_password = models.CharField(max_length=128)
     user_email = models.CharField(max_length=30, db_index=True)
     user_phone = models.CharField(max_length=11, db_index=True)
     user_status = models.IntegerField(default=1)
@@ -22,3 +21,17 @@ class User(models.Model):
 
     def __str__(self):
         return self.user_name
+
+
+class RecentBrowsing(models.Model):
+    recent_id = models.AutoField(primary_key=True)
+    recent_user_id = models.ForeignKey('User', on_delete=models.CASCADE)
+    recent_post_id = models.ForeignKey('post.Post', on_delete=models.CASCADE)
+
+    class Meta:
+        db_table ='recent_browsing'
+        verbose_name = '最近浏览'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return str(self.recent_id)
