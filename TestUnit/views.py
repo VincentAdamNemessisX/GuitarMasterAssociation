@@ -67,7 +67,7 @@ def gallery(request):
 
 def member_details(request):
     current_user = verify.verify_current_user(request)
-    return render(request, 'member-details.html', {'login_user': current_user})
+    return render(request, 'user.html', {'login_user': current_user})
 
 
 def pricing(request):

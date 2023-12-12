@@ -1,5 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.utils.deprecation import MiddlewareMixin
+from custom import verify
+from user.models import User
 
 
 class FrontEndLoginVerifyMiddleWare(MiddlewareMixin):
@@ -16,3 +18,6 @@ class FrontEndLoginVerifyMiddleWare(MiddlewareMixin):
             verify_url = ['user']
             if request.path.strip('/') in verify_url:
                 return HttpResponseRedirect('/signin')
+        else:
+            (User.objects.filter(user_id=request.session.get('login_user_id'))
+             .update(user_last_active_time=verify.get_current_time()))

@@ -1,6 +1,6 @@
 from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import render, HttpResponseRedirect
-
+from django.db.models import Sum
 from custom import verify
 from .models import User
 
@@ -20,6 +20,7 @@ def signin(request):
                 if user.user_status == 1:
                     request.session['login_username'] = user.user_name
                     request.session['login_user_id'] = user.user_id
+                    User.objects.filter(user_id=user.user_id).update(user_last_active_time=verify.get_current_time())
                     return HttpResponseRedirect('/index/')
                 else:
                     return render(request,'signin.html', {'error': '未知错误'})
@@ -61,6 +62,9 @@ def user(request):
         userid = request.GET.get('userid')
         if userid:
             user = User.objects.get(user_id=userid)
-            return render(request, 'user.html', {'user': user})
+            user.user_view = user.post_set.aggregate(Sum('post_view')).get('post_view__sum')
+            user.user_like = user.post_set.aggregate(Sum('post_like')).get('post_like__sum')
+            user.user_favorite = user.post_set.aggregate(Sum('post_favorite')).get('post_favorite__sum')
+            return render(request, 'user.html', {'user': user, 'login_user': current_user})
         else:
             return render(request, 'user.html', {'error': '请传入用户id', 'login_user': current_user})

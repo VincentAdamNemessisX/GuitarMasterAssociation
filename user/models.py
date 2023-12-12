@@ -15,6 +15,7 @@ class User(models.Model):
     user_description = models.CharField(max_length=200, default='', blank=True)
     user_create_time = models.DateTimeField(auto_now_add=True)
     user_update_time = models.DateTimeField(auto_now=True)
+    user_last_active_time = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'user'
