@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
+    {% if user.user_nickname %}
+        {{ user.user_nickname }}
+    {% elif user.user_name %}
+        {{ user.user_name }}
+    {% else %}
+        Undefined User In
+    {% endif %}
     用户详情
 {% endblock %}
 {% block content %}
@@ -28,9 +35,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>首页</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a><i class="bi bi-bookmark"></i>个人收藏</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a><i class="bi bi-card-list"></i>最近浏览</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a><i class=""></i>个人中心</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="#personal-collection"><i class="bi bi-bookmark"></i>个人收藏</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="#recent-browsing"><i class="bi bi-card-list"></i>最近浏览</a></li>
                 </ol>
             </nav>
         </div>
@@ -115,7 +121,13 @@
                         <div class="member-facilities">
                             <span class="second">
                                 {% if user.user_sex %}
-                                    {{ user.user_sex }}
+                                    {% if user.user_sex == 1 %}
+                                        男生
+                                    {% elif user.user_sex == 2 %}
+                                        女生
+                                    {% else %}
+                                        保密
+                                    {% endif %}
                                 {% else %}
                                     Undefined User In
                                 {% endif %}
@@ -159,20 +171,19 @@
     <!-- member-details-section end -->
 
 
-    <!-- process-section start -->
-    <section class="process-section ptb-120">
+    <!-- personal-collection-section start -->
+    <section class="process-section ptb-60">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-7 text-center">
                     <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title">what`s i like</h2>
-                        <p>Suspendisse lectus vivamus donec turpis egestas, sed at massa orci, et nibh massa augue
-                            Fermentum arcu, potenti tellus praesent integer aliquam. </p>
+                        <h2 class="section-title" id="personal-collection">个人收藏</h2>
+                        <p>收藏是心灵的一扇窗，透过它我们看到自己曾经热爱、留恋的瞬间。</p>
                     </div>
                 </div>
             </div>
             <div class="process-item-area">
-                <div class="row justify-content-center ml-b-30">
+                <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
                          data-wow-delay="0.3s">
                         <div class="process-item text-center">
@@ -208,85 +219,54 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- process-section end -->
-
-
-    <!-- client-section-three start -->
-    <section class="client-section-three ptb-120">
-        <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-7 text-center">
-                    <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title">what say about me</h2>
-                        <p>Suspendisse lectus vivamus donec turpis egestas, sed at massa orci, et nibh massa augue
-                            Fermentum arcu, potenti tellus praesent integer aliquam. </p>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <div class="client-item-area-three">
-                        <div class="client-wrapper-three">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="client-item-three">
-                                        <div class="client-thumb-three">
-                                            <img src="../static/assets/images/client/client-1.png" alt="client">
-                                        </div>
-                                        <h3 class="title">Martin Kook</h3>
-                                        <span class="sub-title">Actor</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna ali. Quis ipspendisse ultrices
-                                            gmmodo </p>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="client-item-three">
-                                        <div class="client-thumb-three">
-                                            <img src="../static/assets/images/client/client-1.png" alt="client">
-                                        </div>
-                                        <h3 class="title">Martin Kook</h3>
-                                        <span class="sub-title">Actor</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna ali. Quis ipspendisse ultrices
-                                            gmmodo </p>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="client-item-three">
-                                        <div class="client-thumb-three">
-                                            <img src="../static/assets/images/client/client-1.png" alt="client">
-                                        </div>
-                                        <h3 class="title">Martin Kook</h3>
-                                        <span class="sub-title">Actor</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna ali. Quis ipspendisse ultrices
-                                            gmmodo </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-pagination"></div>
+                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                     data-wow-delay="0.3s">
+                    <div class="process-item text-center">
+                        <div class="icon-gradient">
+                            <i class="flaticon-video"></i>
                         </div>
+                        <h3 class="title">Action Movie</h3>
+                        <p>Phasellus pulvinar diam vnec purus metus, vestibulum turpis ne trtique acmagna cubilia
+                            euilortisest. </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                     data-wow-delay="0.5s">
+                    <div class="process-item text-center">
+                        <div class="icon-gradient">
+                            <i class="flaticon-suitcase"></i>
+                        </div>
+                        <h3 class="title">Travaling</h3>
+                        <p>Phasellus pulvinar diam vnec purus metus, vestibulum turpis ne trtique acmagna cubilia
+                            euilortisest. </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                     data-wow-delay="0.8s">
+                    <div class="process-item text-center">
+                        <div class="icon-gradient">
+                            <i class="flaticon-student"></i>
+                        </div>
+                        <h3 class="title">Reading Book</h3>
+                        <p>Phasellus pulvinar diam vnec purus metus, vestibulum turpis ne trtique acmagna cubilia
+                            euilortisest. </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- client-section-three end -->
+    <!-- personal-collection-section end -->
 
-
-    <!-- gallery-section start -->
+    <!-- recent-browsing-section start -->
     <section class="gallery-section pd-t-120 bg-overlay-white-two bg_img"
              data-background={% static "assets/images/gallery/portfolio-bg.png" %}>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-7 text-center">
                     <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title">My Best Memories</h2>
-                        <p>Suspendisse lectus vivamus donec turpis egestas, sed at massa orci, et nibh massa augue
-                            Fermentum arcu, potenti tellus praesent integer aliquam. </p>
+                        <h2 class="section-title" id="recent-browsing">最近浏览</h2>
+                        <p>浏览的轨迹如同星空中的流星，短暂而璀璨。 </p>
                     </div>
                 </div>
             </div>
@@ -370,144 +350,5 @@
             </div>
         </div>
     </section>
-    <!-- gallery-section end -->
-
-
-    <!-- team-section start -->
-    <section class="team-section pd-t-120">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7 text-center">
-                    <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title">more members</h2>
-                        <p>Suspendisse lectus vivamus donec turpis egestas, sed at massa orci, et nibh massa augue
-                            Fermentum arcu, potenti tellus praesent integer aliquam. </p>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center ml-b-30">
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.5s">
-                    <div class="team-thumb">
-                        <img src="../static/assets/images/team/team-1.png" alt="team">
-                        <div class="team-thumb-overlay">
-                            <a class="image-popup" title="team image" href="../static/assets/images/team/team-1.png"><i
-                                    class="flaticon-add-1"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-details text-center">
-                        <h3 class="title">Marina Kubora</h3>
-                        <ul class="team-content">
-                            <li>Mellbourne , Australia</li>
-                            <li>25 years Old</li>
-                        </ul>
-                        <ul class="team-wish-list">
-                            <li><i class="fas fa-heart color-red"></i><span>25</span></li>
-                            <li><i class="fas fa-star color-yellow"></i><span>48</span></li>
-                            <li><i class="fas fa-thumbs-up color-curious-blue"></i><span>56</span></li>
-                            <li><i class="fas fa-thumbs-down color-curious-blue"></i><span>21</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.9s">
-                    <div class="team-thumb">
-                        <img src="../static/assets/images/team/team-2.png" alt="team">
-                        <div class="team-thumb-overlay">
-                            <a class="image-popup" title="team image" href="../static/assets/images/team/team-2.png"><i
-                                    class="flaticon-add-1"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-details text-center">
-                        <h3 class="title">Bartin Nikoriyas</h3>
-                        <ul class="team-content">
-                            <li>Mellbourne , Australia</li>
-                            <li>30 years Old</li>
-                        </ul>
-                        <ul class="team-wish-list">
-                            <li><i class="fas fa-heart color-red"></i><span>25</span></li>
-                            <li><i class="fas fa-star color-yellow"></i><span>48</span></li>
-                            <li><i class="fas fa-thumbs-up color-curious-blue"></i><span>56</span></li>
-                            <li><i class="fas fa-thumbs-down color-curious-blue"></i><span>21</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="1.2s">
-                    <div class="team-thumb">
-                        <img src="../static/assets/images/team/team-3.png" alt="team">
-                        <div class="team-thumb-overlay">
-                            <a class="image-popup" title="team image" href="../static/assets/images/team/team-3.png"><i
-                                    class="flaticon-add-1"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-details text-center">
-                        <h3 class="title">monika chunityra</h3>
-                        <ul class="team-content">
-                            <li>Mellbourne , Australia</li>
-                            <li>32 years Old</li>
-                        </ul>
-                        <ul class="team-wish-list">
-                            <li><i class="fas fa-heart color-red"></i><span>25</span></li>
-                            <li><i class="fas fa-star color-yellow"></i><span>48</span></li>
-                            <li><i class="fas fa-thumbs-up color-curious-blue"></i><span>56</span></li>
-                            <li><i class="fas fa-thumbs-down color-curious-blue"></i><span>21</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- team-section end -->
-
-
-    <!-- brand-section start -->
-    <div class="brand-section ptb-120">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="brand-wrapper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-1.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-2.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-3.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-4.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-5.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- brand-section end -->
+    <!-- recent-browsing-section end -->
 {% endblock %}
