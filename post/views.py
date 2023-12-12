@@ -1,9 +1,8 @@
 from django.shortcuts import render
-
-from user.models import User
+from custom import verify
 
 
 # Create your views here.
 def index(request):
-    current_user = User.objects.get(user_name=request.session.get('login_username'))
+    current_user = verify.verify_current_user(request)
     return render(request, 'index.html', {'login_user': current_user})

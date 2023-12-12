@@ -60,15 +60,13 @@
                 <div class="header-top-content d-flex flex-wrap align-items-center justify-content-between">
                     <div class="header-top-left d-flex flex-wrap align-items-center">
                         <ul class="header-social">
-                            <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#0" class="active"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#0"><i class="fab fa-linkedin-in"></i></a></li>
+                            <li><a href="tencent://message/?uin=12345&Site=qq&Menu=Yes"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="weinxin://Lixinyu"><i class="fab fa-wechat-f"></i></a></li>
                         </ul>
                         <div class="header-mail-area">
                             <a href="#0">
                                 <i class="fas fa-envelope"></i>
-                                <span>demo@gmail.com</span>
+                                <span><a href="mailto:lixinyu@gmail.com">lixinyu@gmail.com</a></span>
                             </a>
                         </div>
                     </div>
@@ -76,112 +74,114 @@
                         {% if login_user.user_name %}
                             <div class="login-bar d-flex flex-wrap login_bar_custom">
                                 <div class="login-thumb">
-                                    <i class="flaticon-add"></i>
+                                    <i class="flaticon-user"></i>
                                 </div>
                                 <span><a
                                         href="/user/?userid={{ login_user.user_id }}">{{ login_user.user_name }}</a></span>
                             </div>
                             <div class="login-bar d-flex flex-wrap login_bar_custom">
                                 <div class="login-thumb">
-                                    <i class="flaticon-add"></i>
+                                    <i class="flaticon-"></i>
                                 </div>
                                 <span><a href="/signout">登出</a></span>
                             </div>
                         {% else %}
                             <div class="login-bar d-flex flex-wrap login_bar_custom">
-                            <div class="login-thumb">
-                                <i class="flaticon-add"></i>
+                                <div class="login-thumb">
+                                    <i class="flaticon-add"></i>
+                                </div>
+                                <span><a href="/signin">登录</a></span>
                             </div>
-                            <span><a href="/signin">登录</a></span>
                             <div class="login-bar d-flex flex-wrap login_bar_custom">
-                            <div class="login-thumb">
-                                <i class="flaticon-add"></i>
+                                <div class="login-thumb">
+                                    <i class="flaticon-add"></i>
+                                </div>
+                                <span><a href="/signup">注册</a></span>
                             </div>
-                            <span><a href="/signup">注册</a></span>
                         {% endif %}
-                        </div>
-                        </div>
                     </div>
                 </div>
             </div>
-            <div class="header-bottom-area">
-                <div class="container">
-                    <nav class="navbar navbar-expand-lg p-0">
-                        <a class="site-logo site-title" href="/index"><img
-                                src='{% static "assets/images/header/logo.png" %}' alt="site-logo"></a>
-                        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="fas fa-bars"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav main-menu">
-                                <li class="menu_has_children"><a href="#0">Home<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/index">Home One</a></li>
-                                        <li><a href="/index-2">Home Two</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="/about">About</a></li>
-                                <li class="menu_has_children"><a href="#0">Dating<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/event">Events</a></li>
-                                        <li><a href="/event-details">Events Details</a></li>
-                                        <li><a href="/story">Story</a></li>
-                                        <li><a href="/story-details">Story Details</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu_has_children"><a href="#0">Profile<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/member">Member</a></li>
-                                        <li><a href="/member-details">Member Details</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu_has_children"><a href="#0">Pages<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/privacy">Privacy Page</a></li>
-                                        <li><a href="/pricing">Pricing Page</a></li>
-                                        <li><a href="/gallery">Gallery Page</a></li>
-                                        <li><a href="/search">Search Page</a></li>
-                                        <li><a href="/faq">Faq Page</a></li>
-                                        <li><a href="/signin">Sign In</a></li>
-                                        <li><a href="/signup">Sign Up</a></li>
-                                        <li><a href="/404">404 Page</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu_has_children"><a href="#0">Blog<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/blog-1">Blog Post One</a></li>
-                                        <li><a href="/blog-2">Blog Post Two</a></li>
-                                        <li><a href="/blog-3">Blog Post Three</a></li>
-                                        <li><a href="/blog-4">Blog Post Four</a></li>
-                                        <li><a href="/blog-5">Blog Post Five</a></li>
-                                        <li><a href="/blog-details">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="/contact">Contact</a></li>
-                            </ul>
-                        </div>
-                        <div class="header-right d-flex flex-wrap">
-                            <div class="search-bar">
-                                <a href="#0"><i class="flaticon-magnifying-glass-1"></i></a>
-                                <div class="header-top-search-area">
-                                    <form class="header-search-form">
-                                        <input type="search" name="header_search" id="header_search"
-                                               placeholder="Search here...">
-                                        <button class="header-search-btn"><i class="flaticon-magnifying-glass-1"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="header-action d-flex flex-wrap align-items-center justify-content-end">
-                            <a href="/faq" class="cmn-btn">get free quote</a>
-                        </div>
-                    </nav>
-                </div>
-            </div>
         </div>
+    </div>
+    <div class="header-bottom-area">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg p-0">
+                <a class="site-logo site-title" href="/index"><img
+                        src='{% static "assets/images/header/logo.png" %}' alt="site-logo"></a>
+                <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fas fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav main-menu">
+                        <li class="menu_has_children"><a href="#0">Home<i class="fas fa-caret-down"></i></a>
+                            <ul class="sub-menu">
+                                <li><a href="/index">Home One</a></li>
+                                <li><a href="/index-2">Home Two</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/about">About</a></li>
+                        <li class="menu_has_children"><a href="#0">Dating<i class="fas fa-caret-down"></i></a>
+                            <ul class="sub-menu">
+                                <li><a href="/event">Events</a></li>
+                                <li><a href="/event-details">Events Details</a></li>
+                                <li><a href="/story">Story</a></li>
+                                <li><a href="/story-details">Story Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu_has_children"><a href="#0">Profile<i class="fas fa-caret-down"></i></a>
+                            <ul class="sub-menu">
+                                <li><a href="/member">Member</a></li>
+                                <li><a href="/member-details">Member Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu_has_children"><a href="#0">Pages<i class="fas fa-caret-down"></i></a>
+                            <ul class="sub-menu">
+                                <li><a href="/privacy">Privacy Page</a></li>
+                                <li><a href="/pricing">Pricing Page</a></li>
+                                <li><a href="/gallery">Gallery Page</a></li>
+                                <li><a href="/search">Search Page</a></li>
+                                <li><a href="/faq">Faq Page</a></li>
+                                <li><a href="/signin">Sign In</a></li>
+                                <li><a href="/signup">Sign Up</a></li>
+                                <li><a href="/404">404 Page</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu_has_children"><a href="#0">Blog<i class="fas fa-caret-down"></i></a>
+                            <ul class="sub-menu">
+                                <li><a href="/blog-1">Blog Post One</a></li>
+                                <li><a href="/blog-2">Blog Post Two</a></li>
+                                <li><a href="/blog-3">Blog Post Three</a></li>
+                                <li><a href="/blog-4">Blog Post Four</a></li>
+                                <li><a href="/blog-5">Blog Post Five</a></li>
+                                <li><a href="/blog-details">Blog Details</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="header-right d-flex flex-wrap">
+                    <div class="search-bar">
+                        <a href="#0"><i class="flaticon-magnifying-glass-1"></i></a>
+                        <div class="header-top-search-area">
+                            <form class="header-search-form">
+                                <input type="search" name="header_search" id="header_search"
+                                       placeholder="Search here...">
+                                <button class="header-search-btn"><i class="flaticon-magnifying-glass-1"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-action d-flex flex-wrap align-items-center justify-content-end">
+                    <a href="/faq" class="cmn-btn">get free quote</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+    </div>
 </header>
 <!-- header-section end -->
 {% block content %}'
