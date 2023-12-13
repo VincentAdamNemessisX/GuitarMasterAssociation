@@ -191,7 +191,7 @@
                     </div>
                 </div>
             </div>
-            <div class="process-item-area">
+            <div class="process-item-area" id="collectionContainer">
                 {% if user.collection_count <= 0 %}
                     <h2 style="text-align: center">你的收藏夹空空如也！</h2>
                 {% elif user.collection_count <= 3 %}
@@ -210,7 +210,7 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    <div class="row justify-content-center" id="collectionContainer">
+                    <div class="row justify-content-center">
                         {% for col in user.collection %}
                             <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
                                  data-wow-delay="0.3s">
@@ -224,16 +224,17 @@
                             </div>
                             {% if forloop.counter == 3 %}
                                 </div>
-                                <div class="row justify-content-center" id="collectionContainer">
+                                <div class="row justify-content-center">
                             {% endif %}
                         {% if forloop.counter == 6 and user.collection_count > 6 %}
                             </div>
-                            <div class="text-center">
-                                <button class="btn btn-primary" id="collectionViewMoreBtn">查看更多</button>
+                            <div class="text-center mrb-30">
+                                <button class="btn btn-primary" id="collectionViewMoreBtn" onclick="loadMoreCollection()">查看更多</button>
                             </div>
                             <script>
-								document.getElementById('collectionViewMoreBtn').addEventListener('click', function () {
+								function loadMoreCollection() {
 									var collectionContainer = document.getElementById('collectionContainer');
+									var loadMoreBtn = document.getElementById('collectionViewMoreBtn');
 									// Use AJAX or other methods to load more collection items and append to collectionContainer
 									$.ajax({
 										url: '/user/collection/more/',
@@ -244,19 +245,37 @@
 										},
 										dataType: 'json',
 										success: function (data) {
-											console.log(data);
-											for (var i = 0; i < data.length; i++) {
-												// 动态添加元素
+											{#console.log(data['data'][0]['post_title']);#}
+											collectionContainer.innerHTML += "<div id='append_row' class=\"row justify-content-center\">";
+											collectionContainer = document.getElementById('append_row');
+											if (data['data'].length === 0) {
+												collectionContainer.innerHTML = "没有更多了";
+												return;
 											}
+											for (var i = 0; i < data['data'].length; i++) {
+												// 动态添加元素
+												let html = `
+												<div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                                                         data-wow-delay="0.3s">
+                                                    <div class="process-item text-center">
+                                                        <div class="icon-gradient">
+                                                            <i class="flaticon-video"></i>
+                                                        </div>
+                                                        <h3 class="title">` + data['data'][i]['post_title'] + `</h3>
+                                                        <p>` + data['data'][i]['post_content'] + `</p>
+                                                    </div>
+                                                </div>`;
+												collectionContainer.innerHTML += html;
+											}
+											collectionContainer.innerHTML += "</div>";
 										}
 									});
-								})
+								}
                             </script>
                         {% endif %}
                         {% endfor %}
                 {% endif %}
             </div>
-        </div>
         </div>
     </section>
     <!-- personal-collection-section end -->

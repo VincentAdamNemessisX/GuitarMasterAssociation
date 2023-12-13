@@ -89,8 +89,10 @@ def user_collection_more(request):
     if request.method == 'POST':
         userid = request.POST.get('user_id')
         if userid:
-            collection = User.objects.get(user_id=userid).collection_set.order_by('-collection_create_time')
-            for i in collection:
-                i.post = Post.objects.get(post_title=i.post_id)
-            return data_handle.db_to_json2(request, collection)
+            user_collections = User.objects.get(user_id=userid).collection_set.order_by('-collection_create_time')
+            # Get all post IDs associated with the user's collections
+            post_ids = user_collections.values_list('post_id', flat=True)
+            # Retrieve all posts associated with the user's collections
+            associated_collection_posts = Post.objects.filter(post_id__in=post_ids).order_by('-post_create_time')[6:]
+            return data_handle.db_to_json2(request, associated_collection_posts)
     return render(request, '500.html', {'error': '用户访问异常', 'login_user': current_user})
