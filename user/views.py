@@ -1,7 +1,13 @@
+import json
+
 from django.contrib.auth.hashers import make_password, check_password
+from django.http import HttpResponse
 from django.shortcuts import render, HttpResponseRedirect
 from django.db.models import Sum
-from custom import verify
+
+from collection.models import Collection
+from custom import verify, data_handle
+from post.models import Post
 from .models import User
 
 
@@ -65,6 +71,26 @@ def user(request):
             user.user_view = user.post_set.aggregate(Sum('post_view')).get('post_view__sum')
             user.user_like = user.post_set.aggregate(Sum('post_like')).get('post_like__sum')
             user.user_favorite = user.post_set.aggregate(Sum('post_favorite')).get('post_favorite__sum')
+            user.post = user.post_set.order_by('-post_create_time')
+            user.post_count = user.post_set.count()
+            user.collection = user.collection_set.order_by('-collection_create_time')
+            user.collection_count = user.collection_set.count()
+            if user.collection_count > 6:
+                user.collection = user.collection[:6]
+            user.recent = user.recentbrowsing_set.order_by('-recent_create_time')
+            user.recent_count = user.recentbrowsing_set.count()
             return render(request, 'user.html', {'user': user, 'login_user': current_user})
         else:
             return render(request, 'user.html', {'error': '请传入用户id', 'login_user': current_user})
+
+
+def user_collection_more(request):
+    current_user = verify.verify_current_user(request)
+    if request.method == 'POST':
+        userid = request.POST.get('user_id')
+        if userid:
+            collection = User.objects.get(user_id=userid).collection_set.order_by('-collection_create_time')
+            for i in collection:
+                i.post = Post.objects.get(post_title=i.post_id)
+            return data_handle.db_to_json2(request, collection)
+    return render(request, '500.html', {'error': '用户访问异常', 'login_user': current_user})

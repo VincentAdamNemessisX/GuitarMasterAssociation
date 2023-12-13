@@ -10,6 +10,11 @@
     {% endif %}
     用户详情
 {% endblock %}
+{% block custom_style %}
+    .team-thumb-overlay a {
+    border: none;
+    }
+{% endblock %}
 {% block content %}
     <!-- inner-banner-section start -->
     <section class="inner-banner-section bg-overlay-primary bg_img"
@@ -35,8 +40,12 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>首页</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a href="#personal-collection"><i class="bi bi-bookmark"></i>个人收藏</a></li>
-                    <li class="breadcrumb-item" aria-current="page"><a href="#recent-browsing"><i class="bi bi-card-list"></i>最近浏览</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="#personal-collection"><i
+                            class="bi bi-bookmark"></i>个人收藏</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="#recent-browsing"><i
+                            class="bi bi-card-list"></i>最近浏览</a></li>
+                    <li class="breadcrumb-item" aria-current="page"><a href="#personal-post"><i
+                            class="bi bi-card-list"></i>个人发布</a></li>
                 </ol>
             </nav>
         </div>
@@ -172,88 +181,82 @@
 
 
     <!-- personal-collection-section start -->
-    <section class="process-section ptb-60">
+    <section class="process-section ptb-120" id="personal-collection">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-7 text-center">
                     <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title" id="personal-collection">个人收藏</h2>
+                        <h2 class="section-title">个人收藏</h2>
                         <p>收藏是心灵的一扇窗，透过它我们看到自己曾经热爱、留恋的瞬间。</p>
                     </div>
                 </div>
             </div>
             <div class="process-item-area">
-                <div class="row justify-content-center">
-                    <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                         data-wow-delay="0.3s">
-                        <div class="process-item text-center">
-                            <div class="icon-gradient">
-                                <i class="flaticon-video"></i>
+                {% if user.collection_count <= 0 %}
+                    <h2 style="text-align: center">你的收藏夹空空如也！</h2>
+                {% elif user.collection_count <= 3 %}
+                    <div class="row justify-content-center">
+                        {% for col in user.collection %}
+                            <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                                 data-wow-delay="0.3s">
+                                <div class="process-item text-center">
+                                    <div class="icon-gradient">
+                                        <i class="flaticon-video"></i>
+                                    </div>
+                                    <h3 class="title">{{ col.post_id.post_title }}</h3>
+                                    <p>{{ col.post_id.post_content }}</p>
+                                </div>
                             </div>
-                            <h3 class="title">Action Movie</h3>
-                            <p>Phasellus pulvinar diam vnec purus metus, vestibulum turpis ne trtique acmagna cubilia
-                                euilortisest. </p>
-                        </div>
+                        {% endfor %}
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                         data-wow-delay="0.5s">
-                        <div class="process-item text-center">
-                            <div class="icon-gradient">
-                                <i class="flaticon-suitcase"></i>
+                {% else %}
+                    <div class="row justify-content-center" id="collectionContainer">
+                        {% for col in user.collection %}
+                            <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                                 data-wow-delay="0.3s">
+                                <div class="process-item text-center">
+                                    <div class="icon-gradient">
+                                        <i class="flaticon-video"></i>
+                                    </div>
+                                    <h3 class="title">{{ col.post_id.post_title }}</h3>
+                                    <p>{{ col.post_id.post_content }}</p>
+                                </div>
                             </div>
-                            <h3 class="title">Travaling</h3>
-                            <p>Phasellus pulvinar diam vnec purus metus, vestibulum turpis ne trtique acmagna cubilia
-                                euilortisest. </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                         data-wow-delay="0.8s">
-                        <div class="process-item text-center">
-                            <div class="icon-gradient">
-                                <i class="flaticon-student"></i>
+                            {% if forloop.counter == 3 %}
+                                </div>
+                                <div class="row justify-content-center" id="collectionContainer">
+                            {% endif %}
+                        {% if forloop.counter == 6 and user.collection_count > 6 %}
                             </div>
-                            <h3 class="title">Reading Book</h3>
-                            <p>Phasellus pulvinar diam vnec purus metus, vestibulum turpis ne trtique acmagna cubilia
-                                euilortisest. </p>
-                        </div>
-                    </div>
-                </div>
+                            <div class="text-center">
+                                <button class="btn btn-primary" id="collectionViewMoreBtn">查看更多</button>
+                            </div>
+                            <script>
+								document.getElementById('collectionViewMoreBtn').addEventListener('click', function () {
+									var collectionContainer = document.getElementById('collectionContainer');
+									// Use AJAX or other methods to load more collection items and append to collectionContainer
+									$.ajax({
+										url: '/user/collection/more/',
+										type: 'POST',
+										data: {
+											user_id: {{ user.user_id }},
+											csrfmiddlewaretoken: '{{ csrf_token }}'
+										},
+										dataType: 'json',
+										success: function (data) {
+											console.log(data);
+											for (var i = 0; i < data.length; i++) {
+												// 动态添加元素
+											}
+										}
+									});
+								})
+                            </script>
+                        {% endif %}
+                        {% endfor %}
+                {% endif %}
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.3s">
-                    <div class="process-item text-center">
-                        <div class="icon-gradient">
-                            <i class="flaticon-video"></i>
-                        </div>
-                        <h3 class="title">Action Movie</h3>
-                        <p>Phasellus pulvinar diam vnec purus metus, vestibulum turpis ne trtique acmagna cubilia
-                            euilortisest. </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.5s">
-                    <div class="process-item text-center">
-                        <div class="icon-gradient">
-                            <i class="flaticon-suitcase"></i>
-                        </div>
-                        <h3 class="title">Travaling</h3>
-                        <p>Phasellus pulvinar diam vnec purus metus, vestibulum turpis ne trtique acmagna cubilia
-                            euilortisest. </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.8s">
-                    <div class="process-item text-center">
-                        <div class="icon-gradient">
-                            <i class="flaticon-student"></i>
-                        </div>
-                        <h3 class="title">Reading Book</h3>
-                        <p>Phasellus pulvinar diam vnec purus metus, vestibulum turpis ne trtique acmagna cubilia
-                            euilortisest. </p>
-                    </div>
-                </div>
-            </div>
+        </div>
         </div>
     </section>
     <!-- personal-collection-section end -->
@@ -351,4 +354,90 @@
         </div>
     </section>
     <!-- recent-browsing-section end -->
+    <!-- personal-post-section start -->
+    <section class="team-section pd-t-120 bg-overlay-white-two bg_img" id="personal-post"
+             data-background={% static "assets/images/gallery/portfolio-bg.png" %}>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 text-center">
+                    <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <h2 class="section-title">个人发布</h2>
+                        <p>每一个发布都是一颗思想的种子，播撒在社交的土壤中，终将开出精彩的花朵。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                     data-wow-delay="0.5s">
+                    <div class="team-thumb">
+                        <img src="../static/assets/images/team/team-1.png" alt="team">
+                        <div class="team-thumb-overlay">
+                            <a class="image-popup" title="team image" href="../static/assets/images/team/team-1.png"><i
+                                    class="fas fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-details text-center">
+                        <h3 class="title">Marina Kubora</h3>
+                        <ul class="team-content">
+                            <li>Mellbourne , Australia</li>
+                            <li>25 years Old</li>
+                        </ul>
+                        <ul class="team-wish-list">
+                            <li><i class="fas fa-heart color-red"></i><span>25</span></li>
+                            <li><i class="fas fa-star color-yellow"></i><span>48</span></li>
+                            <li><i class="fas fa-thumbs-up color-curious-blue"></i><span>56</span></li>
+                            <li><i class="fas fa-thumbs-down color-curious-blue"></i><span>21</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                     data-wow-delay="0.9s">
+                    <div class="team-thumb">
+                        <img src="../static/assets/images/team/team-2.png" alt="team">
+                        <div class="team-thumb-overlay">
+                            <a class="image-popup" title="team image" href="../static/assets/images/team/team-2.png"><i
+                                    class="flaticon-add-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-details text-center">
+                        <h3 class="title">Bartin Nikoriyas</h3>
+                        <ul class="team-content">
+                            <li>Mellbourne , Australia</li>
+                            <li>30 years Old</li>
+                        </ul>
+                        <ul class="team-wish-list">
+                            <li><i class="fas fa-heart color-red"></i><span>25</span></li>
+                            <li><i class="fas fa-star color-yellow"></i><span>48</span></li>
+                            <li><i class="fas fa-thumbs-up color-curious-blue"></i><span>56</span></li>
+                            <li><i class="fas fa-thumbs-down color-curious-blue"></i><span>21</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                     data-wow-delay="1.2s">
+                    <div class="team-thumb">
+                        <img src="../static/assets/images/team/team-3.png" alt="team">
+                        <div class="team-thumb-overlay">
+                            <a class="image-popup" title="team image" href="../static/assets/images/team/team-3.png"><i
+                                    class="flaticon-add-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-details text-center">
+                        <h3 class="title">monika chunityra</h3>
+                        <ul class="team-content">
+                            <li>Mellbourne , Australia</li>
+                            <li>32 years Old</li>
+                        </ul>
+                        <ul class="team-wish-list">
+                            <li><i class="fas fa-heart color-red"></i><span>25</span></li>
+                            <li><i class="fas fa-star color-yellow"></i><span>48</span></li>
+                            <li><i class="fas fa-thumbs-up color-curious-blue"></i><span>56</span></li>
+                            <li><i class="fas fa-thumbs-down color-curious-blue"></i><span>21</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- personal-post-section end -->
 {% endblock %}

@@ -45,6 +45,7 @@ urlpatterns = [
                   path('gallery/', gallery),
                   path('index/', index),
                   path('user/', user),
+                  path('user/collection/more/', user_collection_more),
                   path('member-details/', member_details),
                   path('pricing/', pricing),
                   path('privacy/', privacy),

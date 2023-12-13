@@ -30,6 +30,7 @@ class RecentBrowsing(models.Model):
     recent_id = models.AutoField(primary_key=True)
     recent_user_id = models.ForeignKey('User', on_delete=models.CASCADE)
     recent_post_id = models.ForeignKey('post.Post', on_delete=models.CASCADE)
+    recent_create_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'recent_browsing'
