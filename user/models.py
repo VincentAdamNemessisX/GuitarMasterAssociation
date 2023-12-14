@@ -7,6 +7,8 @@ class User(models.Model):
     user_name = models.CharField(max_length=20, unique=True, db_index=True)
     user_password = models.CharField(max_length=128)
     user_email = models.CharField(max_length=30, db_index=True)
+    user_wechat = models.CharField(max_length=20, default='', blank=True)
+    user_qq = models.CharField(max_length=20, default='', blank=True)
     user_phone = models.CharField(max_length=11, db_index=True)
     user_nickname = models.CharField(max_length=20, default='', blank=True)
     user_sex = models.IntegerField(default=0, choices=((1, '男'), (2, '女'), (3, '保密')))

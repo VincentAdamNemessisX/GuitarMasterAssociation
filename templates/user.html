@@ -11,9 +11,18 @@
     用户详情
 {% endblock %}
 {% block custom_style %}
-    .team-thumb-overlay a {
-    border: none;
-    }
+    <style>
+        .team-thumb-overlay a {
+            border: none;
+        }
+
+        .icon-gradient img {
+            height: 10rem;
+            width: 10rem;
+            border-radius: 20%;
+            object-fit: cover;
+        }
+    </style>
 {% endblock %}
 {% block content %}
     <!-- inner-banner-section start -->
@@ -86,9 +95,15 @@
                                 </p>
                                 <div class="about-story-content-footer d-flex flex-wrap justify-content-between">
                                     <ul class="footer-social-two">
-                                        <li><a href=""><i class="bi bi-tencent-qq"></i></a></li>
-                                        <li><a href="" class="active"><i class="bi bi-wechat"></i></a></li>
-                                        <li><a href=""><i class="fa fa-envelope"></i></a></li>
+                                        {% if user.user_qq %}
+                                            <li><a href="{{ user.user_qq }}"><i class="bi bi-tencent-qq"></i></a></li>
+                                        {% endif %}
+                                        {% if user.user_wechat %}
+                                            <li><a href="" class="active"><i class="bi bi-wechat"></i></a></li>
+                                        {% endif %}
+                                        {% if user.user_email %}
+                                            <li><a href=""><i class="fa fa-envelope"></i></a></li>
+                                        {% endif %}
                                     </ul>
                                     <ul class="team-wish-list">
                                         <li><i class="fas fa-eye color-red"></i>
@@ -199,13 +214,16 @@
                         {% for col in user.collection %}
                             <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
                                  data-wow-delay="0.3s">
-                                <div class="process-item text-center">
-                                    <div class="icon-gradient">
-                                        <i class="flaticon-video"></i>
+                                <a href="/post/?post_id={{ col.post_id.post_id }}">
+                                    <div class="process-item text-center">
+                                        <div class="icon-gradient">
+                                            <img src="/media/{{ col.post_id.post_image }}"
+                                                 alt="{{ col.post_id.post_title }}"/>
+                                        </div>
+                                        <h3 class="title">{{ col.post_id.post_title }}</h3>
+                                        <p>{{ col.post_id.post_content }}</p>
                                     </div>
-                                    <h3 class="title">{{ col.post_id.post_title }}</h3>
-                                    <p>{{ col.post_id.post_content }}</p>
-                                </div>
+                                </a>
                             </div>
                         {% endfor %}
                     </div>
@@ -216,7 +234,8 @@
                                  data-wow-delay="0.3s">
                                 <div class="process-item text-center">
                                     <div class="icon-gradient">
-                                        <i class="flaticon-video"></i>
+                                        <img src="/media/{{ col.post_id.post_image }}"
+                                             alt="{{ col.post_id.post_title }}"/>
                                     </div>
                                     <h3 class="title">{{ col.post_id.post_title }}</h3>
                                     <p>{{ col.post_id.post_content }}</p>
@@ -231,52 +250,53 @@
                             <div class="text-center mrb-30" id="collectionViewMoreBtn" style="">
                                 <button class="btn btn-primary" onclick="loadMoreCollection()">查看更多</button>
                             </div>
-                            <script>
-								function loadMoreCollection() {
-									var collectionContainer = document.getElementById('collectionContainer');
-									// Use AJAX or other methods to load more collection items and append to collectionContainer
-									$.ajax({
-										url: '/user/collection/more/',
-										type: 'POST',
-										data: {
-											user_id: {{ user.user_id }},
-											csrfmiddlewaretoken: '{{ csrf_token }}'
-										},
-										dataType: 'json',
-										success: function (data) {
-											{#console.log(data['data'][0]['post_title']);#}
-											collectionContainer.innerHTML += "<div id='append_row' class=\"row justify-content-center\">";
-											collectionContainer = document.getElementById('append_row');
-											if (data['data'].length === 0) {
-												collectionContainer.innerHTML = "没有更多了";
-												return;
-											}
-											for (var i = 0; i < data['data'].length; i++) {
-												// 动态添加元素
-												let html = `
+                            {% block custom_script %}
+                                <script>
+									function loadMoreCollection() {
+										var collectionContainer = document.getElementById('collectionContainer');
+										// Use AJAX or other methods to load more collection items and append to collectionContainer
+										$.ajax({
+											url: '/user/collection/more/',
+											type: 'POST',
+											data: {
+												user_id: {{ user.user_id }},
+												csrfmiddlewaretoken: '{{ csrf_token }}'
+											},
+											dataType: 'json',
+											success: function (data) {
+												{#console.log(data['data'][0]['post_title']);#}
+												collectionContainer.innerHTML += "<div id='append_row' class=\"row justify-content-center\">";
+												collectionContainer = document.getElementById('append_row');
+												if (data['data'].length === 0) {
+													collectionContainer.innerHTML = "没有更多了";
+													return;
+												}
+												for (var i = 0; i < data['data'].length; i++) {
+													// 动态添加元素
+													let html = `
 												<div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
                                                          data-wow-delay="0.3s">
                                                     <div class="process-item text-center">
                                                         <div class="icon-gradient">
-                                                            <i class="flaticon-video"></i>
+                                                            <img src="` + data['data'][i]['post_image'] + `" alt="` + data['data'][i]['post_title'] + `" />
                                                         </div>
                                                         <h3 class="title">` + data['data'][i]['post_title'] + `</h3>
                                                         <p>` + data['data'][i]['post_content'] + `</p>
                                                     </div>
                                                 </div>`;
-												collectionContainer.innerHTML += html;
+													collectionContainer.innerHTML += html;
+												}
+												{#collectionContainer.attributes['id'].value = '';#}
+												collectionContainer.innerHTML += "</div>";
+												$("#collectionViewMoreBtn").remove();
 											}
-											collectionContainer.attributes['id'].value = '';
-											collectionContainer.innerHTML += "</div>";
-											$("#collectionViewMoreBtn").remove();
-										}
-									});
-								}
-                            </script>
+										});
+									}
+                                </script>
+                            {% endblock %}
                         {% endif %}
                         {% endfor %}
                 {% endif %}
-            
             </div>
         </div>
     </section>

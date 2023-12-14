@@ -52,10 +52,9 @@
     .header-social i {
         font-size: 20px;
     }
-
-    {% block custom_style %}
-    {% endblock %}
 </style>
+{% block custom_style %}
+{% endblock %}
 <body>
 {#Start Preloader#}
 <div class="preloader">
@@ -206,7 +205,6 @@
             </nav>
         </div>
     </div>
-    </div>
 </header>
 <!-- header-section end -->
 {% block content %}'
@@ -284,6 +282,8 @@
     <a href="https://www.chazidian.com/" title="查字典">查字典</a>
 </div>
 </body>
+{% block custom_script %}
+{% endblock %}
 <!-- jquery -->
 <script src='{% static "assets/js/jquery-3.3.1.min.js" %}'></script>
 <!-- migarate-jquery -->

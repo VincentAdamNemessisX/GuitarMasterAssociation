@@ -17,7 +17,7 @@ def db_to_json2(request, data):
 
     # Convert datetime objects to a serializable format directly on model instances
     serialized_data = [
-        {key: convert_datetime(value) if isinstance(value, datetime) else value
+        {key: convert_datetime(value) if isinstance(value, datetime) else getattr(value, 'url', value)
          for key, value in model_to_dict(model_instance).items()}
         for model_instance in model_instances
     ]
