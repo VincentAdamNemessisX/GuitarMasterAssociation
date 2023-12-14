@@ -38,6 +38,23 @@
             object-fit: cover;
             border-radius: 10%;
         }
+
+        .team-thumb {
+            width: 275px;
+            height: 15rem;
+        }
+
+        .team-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10%;
+        }
+
+        .team-wish-list li {
+            width: 40px;
+            text-align: center;
+        }
     </style>
 {% endblock %}
 {% block content %}
@@ -122,7 +139,7 @@
                     <div class="about-story-area about-story-area-two d-flex flex-wrap align-items-center">
                         <div class="about-story-thumb">
                             {% if user.user_headicon %}
-                                <img src="/media/{{ user.user_headicon }}" alt="headicon">
+                                <img src="{{ user.user_headicon.url }}" alt="headicon">
                             {% else %}
                                 <img src="/media/user_headicon/default.png" alt="headicon">
                             {% endif %}
@@ -170,7 +187,7 @@
                                         </li>
                                         <li><i class="fas fa-star color-yellow"></i>
                                             <span>
-                                                {{ user.user_favorite }}
+                                                {{ user.user_collection }}
                                             </span>
                                         </li>
                                     </ul>
@@ -306,7 +323,7 @@
                                 <div class="process-item text-center">
                                     <a href="/post/?post_id={{ col.post_id.post_id }}">
                                         <div class="icon-gradient">
-                                            <img src="/media/{{ col.post_id.post_image }}"
+                                            <img src="{{ col.post_id.post_image.url }}"
                                                  alt="{{ col.post_id.post_title }}"/>
                                         </div>
                                         <h3 class="title">{{ col.post_id.post_title }}</h3>
@@ -409,14 +426,20 @@
                                     <div class="swiper-slide">
                                         <div class="gallery-item">
                                             <div class="gallery-thumb">
-                                                <img src="/media/{{ rec_post.recent_post_id.post_image }}" alt="gallery">
+                                                <img src="{{ rec_post.recent_post_id.post_image.url }}"
+                                                     alt="gallery">
                                                 <div class="gallery-thumb-overlay">
-                                                    <a href="#"><i class="fas fa-search"></i></a>
+                                                    <a href="/post/?post_id={{ rec_post.recent_post_id.post_id }}"><i
+                                                            class="fas fa-search"></i></a>
                                                     <div class="gallery-overlay-content text-center">
                                                         <h3 class="title">{{ rec_post.recent_post_id.post_title }}</h3>
                                                         <ul class="overlay-list">
-                                                            <li><i class="far fa-heart"></i><span>{{ rec_post.recent_post_id.post_like }}</span></li>
-                                                            <li><i class="far fa-comment-alt"></i><span>{{ rec_post.recent_post_id.review_set.count }}</span></li>
+                                                            <li>
+                                                                <i class="far fa-heart"></i><span>{{ rec_post.recent_post_id.post_like }}</span>
+                                                            </li>
+                                                            <li>
+                                                                <i class="far fa-comment-alt"></i><span>{{ rec_post.recent_post_id.review_set.count }}</span>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -467,76 +490,46 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.5s">
-                    <div class="team-thumb">
-                        <img src="../static/assets/images/team/team-1.png" alt="team">
-                        <div class="team-thumb-overlay">
-                            <a class="image-popup" title="team image" href="../static/assets/images/team/team-1.png"><i
-                                    class="fas fa-search"></i></a>
+                {% if user.post_set.count > 0 %}
+                    {% for post in user.post %}
+                        <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                             data-wow-delay="0.5s">
+                            <div class="team-thumb">
+                                <img src="{{ post.post_image.url }}" alt="team">
+                                <div class="team-thumb-overlay">
+                                    <a class="image-popup" title="{{ post.post_title }}"
+                                       href="{{ post.post_image.url }}"><i
+                                            class="fas fa-search"></i></a>
+                                </div>
+                            </div>
+                            <div class="team-details text-center">
+                                <h3 class="title">{{ post.post_title }}</h3>
+                                <ul class="team-content">
+                                    <li><span>摘要：</span>{{ post.post_content }}</li>
+                                </ul>
+                                <ul class="team-wish-list">
+                                    <li><i class="fas fa-eye color-red"></i><span>{{ post.post_view }}</span></li>
+                                    <li><i class="fas fa-heart color-yellow"></i><span>{{ post.post_like }}</span></li>
+                                    <li><i class="fas fa-star color-curious-blue"></i><span>{{ post.collection_set.count }}</span></li>
+                                    <li><i class="fas fa-comment color-curious-blue"></i><span>{{ post.review_set.count }}</span></li>
+                                </ul>
+                            </div>
                         </div>
+                    {% endfor %}
                     </div>
-                    <div class="team-details text-center">
-                        <h3 class="title">Marina Kubora</h3>
-                        <ul class="team-content">
-                            <li>Mellbourne , Australia</li>
-                            <li>25 years Old</li>
-                        </ul>
-                        <ul class="team-wish-list">
-                            <li><i class="fas fa-heart color-red"></i><span>25</span></li>
-                            <li><i class="fas fa-star color-yellow"></i><span>48</span></li>
-                            <li><i class="fas fa-thumbs-up color-curious-blue"></i><span>56</span></li>
-                            <li><i class="fas fa-thumbs-down color-curious-blue"></i><span>21</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.9s">
-                    <div class="team-thumb">
-                        <img src="../static/assets/images/team/team-2.png" alt="team">
-                        <div class="team-thumb-overlay">
-                            <a class="image-popup" title="team image" href="../static/assets/images/team/team-2.png"><i
-                                    class="flaticon-add-1"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-details text-center">
-                        <h3 class="title">Bartin Nikoriyas</h3>
-                        <ul class="team-content">
-                            <li>Mellbourne , Australia</li>
-                            <li>30 years Old</li>
-                        </ul>
-                        <ul class="team-wish-list">
-                            <li><i class="fas fa-heart color-red"></i><span>25</span></li>
-                            <li><i class="fas fa-star color-yellow"></i><span>48</span></li>
-                            <li><i class="fas fa-thumbs-up color-curious-blue"></i><span>56</span></li>
-                            <li><i class="fas fa-thumbs-down color-curious-blue"></i><span>21</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="1.2s">
-                    <div class="team-thumb">
-                        <img src="../static/assets/images/team/team-3.png" alt="team">
-                        <div class="team-thumb-overlay">
-                            <a class="image-popup" title="team image" href="../static/assets/images/team/team-3.png"><i
-                                    class="flaticon-add-1"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-details text-center">
-                        <h3 class="title">monika chunityra</h3>
-                        <ul class="team-content">
-                            <li>Mellbourne , Australia</li>
-                            <li>32 years Old</li>
-                        </ul>
-                        <ul class="team-wish-list">
-                            <li><i class="fas fa-heart color-red"></i><span>25</span></li>
-                            <li><i class="fas fa-star color-yellow"></i><span>48</span></li>
-                            <li><i class="fas fa-thumbs-up color-curious-blue"></i><span>56</span></li>
-                            <li><i class="fas fa-thumbs-down color-curious-blue"></i><span>21</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                {% else %}
+                    <h2 style="text-align: center; margin: 0 auto">
+                        {% if login_user.user_id == user.user_id %}
+                            您
+                        {% else %}
+                            {% if user.user_sex == 2 %}
+                                她
+                            {% else %}
+                                他
+                            {% endif %}
+                        {% endif %}
+                        还没有发布过任何内容！</h2>
+                {% endif %}
         </div>
     </section>
     <!-- personal-post-section end -->

@@ -70,7 +70,7 @@ def user(request):
             user = User.objects.get(user_id=userid)
             user.user_view = user.post_set.aggregate(Sum('post_view')).get('post_view__sum')
             user.user_like = user.post_set.aggregate(Sum('post_like')).get('post_like__sum')
-            user.user_favorite = user.post_set.aggregate(Sum('post_favorite')).get('post_favorite__sum')
+            user.user_collection = user.collection_set.filter(user_id=userid).count()
             user.post = user.post_set.order_by('-post_create_time')
             user.post_count = user.post_set.count()
             user.collection = user.collection_set.order_by('-collection_create_time')
