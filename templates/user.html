@@ -228,13 +228,12 @@
                             {% endif %}
                         {% if forloop.counter == 6 and user.collection_count > 6 %}
                             </div>
-                            <div class="text-center mrb-30">
-                                <button class="btn btn-primary" id="collectionViewMoreBtn" onclick="loadMoreCollection()">查看更多</button>
+                            <div class="text-center mrb-30" id="collectionViewMoreBtn" style="">
+                                <button class="btn btn-primary" onclick="loadMoreCollection()">查看更多</button>
                             </div>
                             <script>
 								function loadMoreCollection() {
 									var collectionContainer = document.getElementById('collectionContainer');
-									var loadMoreBtn = document.getElementById('collectionViewMoreBtn');
 									// Use AJAX or other methods to load more collection items and append to collectionContainer
 									$.ajax({
 										url: '/user/collection/more/',
@@ -267,7 +266,9 @@
                                                 </div>`;
 												collectionContainer.innerHTML += html;
 											}
+											collectionContainer.attributes['id'].value = '';
 											collectionContainer.innerHTML += "</div>";
+											$("#collectionViewMoreBtn").remove();
 										}
 									});
 								}
@@ -275,6 +276,7 @@
                         {% endif %}
                         {% endfor %}
                 {% endif %}
+            
             </div>
         </div>
     </section>
