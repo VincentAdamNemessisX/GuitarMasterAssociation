@@ -22,6 +22,22 @@
             border-radius: 20%;
             object-fit: cover;
         }
+
+        span {
+            text-align: center;
+        }
+
+        .gallery-thumb {
+            width: 275px;
+            height: 15rem;
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10%;
+        }
     </style>
 {% endblock %}
 {% block content %}
@@ -33,8 +49,15 @@
                 <div class="col-lg-12 text-center">
                     <div class="inner-content">
                         <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                            用户详情
-                        </h2>
+                            {% if login_user.user_id == user.user_id %}
+                                个人
+                            {% else %}
+                                {% if user.user_sex == 2 %}
+                                    她的
+                                {% else %}
+                                    他的
+                                {% endif %}
+                            {% endif %}收藏</h2>
                     </div>
                 </div>
             </div>
@@ -50,11 +73,40 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>首页</a></li>
                     <li class="breadcrumb-item" aria-current="page"><a href="#personal-collection"><i
-                            class="bi bi-bookmark"></i>个人收藏</a></li>
+                            class="bi bi-bookmark"></i>
+                        {% if login_user.user_id == user.user_id %}
+                            个人
+                        {% else %}
+                            {% if user.user_sex == 2 %}
+                                她的
+                            {% else %}
+                                他的
+                            {% endif %}
+                        {% endif %}收藏
+                    </a></li>
                     <li class="breadcrumb-item" aria-current="page"><a href="#recent-browsing"><i
-                            class="bi bi-card-list"></i>最近浏览</a></li>
+                            class="bi bi-card-list"></i>
+                        {% if login_user.user_id == user.user_id %}
+                            个人
+                        {% else %}
+                            {% if user.user_sex == 2 %}
+                                她的
+                            {% else %}
+                                他的
+                            {% endif %}
+                        {% endif %}最近浏览</a></li>
                     <li class="breadcrumb-item" aria-current="page"><a href="#personal-post"><i
-                            class="bi bi-card-list"></i>个人发布</a></li>
+                            class="bi bi-card-list"></i>
+                        {% if login_user.user_id == user.user_id %}
+                            个人
+                        {% else %}
+                            {% if user.user_sex == 2 %}
+                                她的
+                            {% else %}
+                                他的
+                            {% endif %}
+                        {% endif %}发布
+                    </a></li>
                 </ol>
             </nav>
         </div>
@@ -201,29 +253,48 @@
             <div class="row justify-content-center">
                 <div class="col-lg-7 text-center">
                     <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title">个人收藏</h2>
+                        <h2 class="section-title">
+                            {% if login_user.user_id == user.user_id %}
+                                个人
+                            {% else %}
+                                {% if user.user_sex == 2 %}
+                                    她的
+                                {% else %}
+                                    他的
+                                {% endif %}
+                            {% endif %}收藏
+                        </h2>
                         <p>收藏是心灵的一扇窗，透过它我们看到自己曾经热爱、留恋的瞬间。</p>
                     </div>
                 </div>
             </div>
             <div class="process-item-area" id="collectionContainer">
                 {% if user.collection_count <= 0 %}
-                    <h2 style="text-align: center">你的收藏夹空空如也！</h2>
+                    <h2 style="text-align: center">
+                        {% if login_user.user_id == user.user_id %}
+                            您
+                        {% else %}
+                            {% if user.user_sex == 2 %}
+                                她
+                            {% else %}
+                                他
+                            {% endif %}
+                        {% endif %}的收藏夹空空如也！</h2>
                 {% elif user.collection_count <= 3 %}
                     <div class="row justify-content-center">
                         {% for col in user.collection %}
                             <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
                                  data-wow-delay="0.3s">
-                                <a href="/post/?post_id={{ col.post_id.post_id }}">
-                                    <div class="process-item text-center">
+                                <div class="process-item text-center">
+                                    <a href="/post/?post_id={{ col.post_id.post_id }}">
                                         <div class="icon-gradient">
                                             <img src="/media/{{ col.post_id.post_image }}"
                                                  alt="{{ col.post_id.post_title }}"/>
                                         </div>
                                         <h3 class="title">{{ col.post_id.post_title }}</h3>
                                         <p>{{ col.post_id.post_content }}</p>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
@@ -233,12 +304,14 @@
                             <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
                                  data-wow-delay="0.3s">
                                 <div class="process-item text-center">
-                                    <div class="icon-gradient">
-                                        <img src="/media/{{ col.post_id.post_image }}"
-                                             alt="{{ col.post_id.post_title }}"/>
-                                    </div>
-                                    <h3 class="title">{{ col.post_id.post_title }}</h3>
-                                    <p>{{ col.post_id.post_content }}</p>
+                                    <a href="/post/?post_id={{ col.post_id.post_id }}">
+                                        <div class="icon-gradient">
+                                            <img src="/media/{{ col.post_id.post_image }}"
+                                                 alt="{{ col.post_id.post_title }}"/>
+                                        </div>
+                                        <h3 class="title">{{ col.post_id.post_title }}</h3>
+                                        <p>{{ col.post_id.post_content }}</p>
+                                    </a>
                                 </div>
                             </div>
                             {% if forloop.counter == 3 %}
@@ -253,7 +326,7 @@
                             {% block custom_script %}
                                 <script>
 									function loadMoreCollection() {
-										var collectionContainer = document.getElementById('collectionContainer');
+										let collectionContainer = document.getElementById('collectionContainer');
 										// Use AJAX or other methods to load more collection items and append to collectionContainer
 										$.ajax({
 											url: '/user/collection/more/',
@@ -271,17 +344,19 @@
 													collectionContainer.innerHTML = "没有更多了";
 													return;
 												}
-												for (var i = 0; i < data['data'].length; i++) {
+												for (let i = 0; i < data['data'].length; i++) {
 													// 动态添加元素
 													let html = `
 												<div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
                                                          data-wow-delay="0.3s">
                                                     <div class="process-item text-center">
+                                                    <a href="/post/?post_id=` + data['data'][i]['post_id'] + `">
                                                         <div class="icon-gradient">
                                                             <img src="` + data['data'][i]['post_image'] + `" alt="` + data['data'][i]['post_title'] + `" />
                                                         </div>
                                                         <h3 class="title">` + data['data'][i]['post_title'] + `</h3>
                                                         <p>` + data['data'][i]['post_content'] + `</p>
+                                                    </a>
                                                     </div>
                                                 </div>`;
 													collectionContainer.innerHTML += html;
@@ -309,7 +384,16 @@
             <div class="row justify-content-center">
                 <div class="col-lg-7 text-center">
                     <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title" id="recent-browsing">最近浏览</h2>
+                        <h2 class="section-title" id="recent-browsing">
+                            {% if login_user.user_id == user.user_id %}
+                                个人
+                            {% else %}
+                                {% if user.user_sex == 2 %}
+                                    她的
+                                {% else %}
+                                    他的
+                                {% endif %}
+                            {% endif %}最近浏览</h2>
                         <p>浏览的轨迹如同星空中的流星，短暂而璀璨。 </p>
                     </div>
                 </div>
@@ -319,75 +403,40 @@
             <div class="row">
                 <div class="col-lg-12 pl-0 pr-0">
                     <div class="gallery-slider">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="gallery-item">
-                                    <div class="gallery-thumb">
-                                        <img src="../static/assets/images/gallery/portfolio-14.png" alt="gallery">
-                                        <div class="gallery-thumb-overlay">
-                                            <a href="#0"><i class="fas fa-search"></i></a>
-                                            <div class="gallery-overlay-content text-center">
-                                                <h3 class="title">jons & luchia`s sweet love</h3>
-                                                <ul class="overlay-list">
-                                                    <li><i class="far fa-heart"></i><span>03</span></li>
-                                                    <li><i class="far fa-comment-alt"></i><span>00</span></li>
-                                                </ul>
+                        <div class="swiper-wrapper" id="recent-browsing-container">
+                            {% if user.recent_count > 0 %}
+                                {% for rec_post in user.recent %}
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <div class="gallery-thumb">
+                                                <img src="/media/{{ rec_post.recent_post_id.post_image }}" alt="gallery">
+                                                <div class="gallery-thumb-overlay">
+                                                    <a href="#"><i class="fas fa-search"></i></a>
+                                                    <div class="gallery-overlay-content text-center">
+                                                        <h3 class="title">{{ rec_post.recent_post_id.post_title }}</h3>
+                                                        <ul class="overlay-list">
+                                                            <li><i class="far fa-heart"></i><span>{{ rec_post.recent_post_id.post_like }}</span></li>
+                                                            <li><i class="far fa-comment-alt"></i><span>{{ rec_post.recent_post_id.review_set.count }}</span></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="gallery-item">
-                                    <div class="gallery-thumb">
-                                        <img src="../static/assets/images/gallery/portfolio-15.png" alt="gallery">
-                                        <div class="gallery-thumb-overlay">
-                                            <a href="#0"><i class="fas fa-search"></i></a>
-                                            <div class="gallery-overlay-content text-center">
-                                                <h3 class="title">jons & luchia`s sweet love</h3>
-                                                <ul class="overlay-list">
-                                                    <li><i class="far fa-heart"></i><span>03</span></li>
-                                                    <li><i class="far fa-comment-alt"></i><span>00</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="gallery-item">
-                                    <div class="gallery-thumb">
-                                        <img src="../static/assets/images/gallery/portfolio-16.png" alt="gallery">
-                                        <div class="gallery-thumb-overlay">
-                                            <a href="#0"><i class="fas fa-search"></i></a>
-                                            <div class="gallery-overlay-content text-center">
-                                                <h3 class="title">jons & luchia`s sweet love</h3>
-                                                <ul class="overlay-list">
-                                                    <li><i class="far fa-heart"></i><span>03</span></li>
-                                                    <li><i class="far fa-comment-alt"></i><span>00</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="gallery-item">
-                                    <div class="gallery-thumb">
-                                        <img src="../static/assets/images/gallery/portfolio-17.png" alt="gallery">
-                                        <div class="gallery-thumb-overlay">
-                                            <a href="#0"><i class="fas fa-search"></i></a>
-                                            <div class="gallery-overlay-content text-center">
-                                                <h3 class="title">jons & luchia`s sweet love</h3>
-                                                <ul class="overlay-list">
-                                                    <li><i class="far fa-heart"></i><span>03</span></li>
-                                                    <li><i class="far fa-comment-alt"></i><span>00</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                {% endfor %}
+                            {% else %}
+                                <h2 style="text-align: center; margin: 0 auto">
+                                    {% if login_user.user_id == user.user_id %}
+                                        您
+                                    {% else %}
+                                        {% if user.user_sex == 2 %}
+                                            她
+                                        {% else %}
+                                            他
+                                        {% endif %}
+                                    {% endif %}
+                                    还没有浏览过任何内容！</h2>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -395,6 +444,7 @@
         </div>
     </section>
     <!-- recent-browsing-section end -->
+
     <!-- personal-post-section start -->
     <section class="team-section pd-t-120 bg-overlay-white-two bg_img" id="personal-post"
              data-background={% static "assets/images/gallery/portfolio-bg.png" %}>
@@ -402,7 +452,16 @@
             <div class="row justify-content-center">
                 <div class="col-lg-7 text-center">
                     <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title">个人发布</h2>
+                        <h2 class="section-title">
+                            {% if login_user.user_id == user.user_id %}
+                                个人
+                            {% else %}
+                                {% if user.user_sex == 2 %}
+                                    她的
+                                {% else %}
+                                    他的
+                                {% endif %}
+                            {% endif %}发布</h2>
                         <p>每一个发布都是一颗思想的种子，播撒在社交的土壤中，终将开出精彩的花朵。</p>
                     </div>
                 </div>

@@ -1,5 +1,4 @@
-import datetime
-
+from django.utils import timezone
 from user.models import User
 
 
@@ -17,4 +16,4 @@ def verify_current_user(request):
 
 
 def get_current_time():
-    return datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    return timezone.now()

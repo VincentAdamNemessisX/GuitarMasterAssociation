@@ -15,6 +15,7 @@ class Collection(models.Model):
         db_table = 'collection'
         verbose_name = '收藏管理'
         verbose_name_plural = verbose_name
+        unique_together = ('user_id', 'post_id')
 
     def __str__(self):
         return str(self.collection_id)

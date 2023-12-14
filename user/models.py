@@ -38,6 +38,7 @@ class RecentBrowsing(models.Model):
         db_table = 'recent_browsing'
         verbose_name = '最近浏览'
         verbose_name_plural = verbose_name
+        unique_together = ('recent_post_id', 'recent_user_id')
 
     def __str__(self):
         return str(self.recent_id)
