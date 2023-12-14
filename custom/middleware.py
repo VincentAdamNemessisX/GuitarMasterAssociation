@@ -1,13 +1,17 @@
 from django.http import HttpResponseRedirect
 from django.utils.deprecation import MiddlewareMixin
-from custom import verify
+from custom import verify, data_handle
 from user.models import User
+from zone.models import Zone
 
 
 class FrontEndLoginVerifyMiddleWare(MiddlewareMixin):
 
     @staticmethod
     def process_request(request):
+        if request.session.get('zones') is None:
+            db_zones = Zone.objects.all().filter(zone_status=1)
+            request.session['zones'] = data_handle.db_to_json(request, db_zones)
         skip_url = ['admin']
         if request.path.strip().strip('/') == "favicon.ico":
             return HttpResponseRedirect('/static/fav.png')

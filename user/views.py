@@ -1,11 +1,7 @@
-import json
-
 from django.contrib.auth.hashers import make_password, check_password
-from django.http import HttpResponse
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.db.models import Sum
-
-from collection.models import Collection
+from custom.goto_controller import redirect_referer
 from custom import verify, data_handle
 from post.models import Post
 from .models import User
@@ -55,15 +51,14 @@ def signup(request):
     return render(request, 'signup.html')
 
 
+@redirect_referer
 def signout(request):
     request.session.pop('login_username', None)
     request.session.pop('login_user_id', None)
     request.session.clear_expired()
-    return HttpResponseRedirect('/')
 
 
 def user(request):
-    current_user = verify.verify_current_user(request)
     if request.method == 'GET':
         userid = request.GET.get('userid')
         if userid:
@@ -81,13 +76,12 @@ def user(request):
             user.recent_count = user.recentbrowsing_set.count()
             user.post = user.post_set.order_by('-post_create_time')
             user.post_count = user.post_set.count()
-            return render(request, 'user.html', {'user': user, 'login_user': current_user})
+            return render(request, 'user.html', {'user': user})
         else:
-            return render(request, 'user.html', {'error': '请传入用户id', 'login_user': current_user})
+            return render(request, 'user.html', {'error': '请传入用户id'})
 
 
 def user_collection_more(request):
-    current_user = verify.verify_current_user(request)
     if request.method == 'POST':
         userid = request.POST.get('user_id')
         if userid:
@@ -97,4 +91,4 @@ def user_collection_more(request):
             # Retrieve all posts associated with the user's collections
             associated_collection_posts = Post.objects.filter(post_id__in=post_ids).order_by('-post_create_time')[6:]
             return data_handle.db_to_json2(request, associated_collection_posts)
-    return render(request, '500.html', {'error': '用户访问异常', 'login_user': current_user})
+    return render(request, '500.html', {'error': '用户访问异常'})

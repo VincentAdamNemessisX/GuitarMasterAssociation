@@ -109,13 +109,13 @@
                         </div>
                     </div>
                     <div class="header-top-right d-flex flex-wrap align-items-center">
-                        {% if login_user.user_name %}
+                        {% if request.session.login_username %}
                             <div class="login-bar d-flex flex-wrap login_bar_custom">
                                 <div class="login-thumb">
                                     <i class="flaticon-user"></i>
                                 </div>
                                 <span><a
-                                        href="/user?userid={{ login_user.user_id }}">{{ login_user.user_name }}</a></span>
+                                        href="/user?userid={{ request.session.login_user_id }}">{{ request.session.login_username }}</a></span>
                             </div>
                             <div class="login-bar d-flex flex-wrap login_bar_custom">
                                 <div class="login-thumb">
@@ -158,7 +158,6 @@
                         <li class="menu_has_children"><a href="#0">Dating<i class="fas fa-caret-down"></i></a>
                             <ul class="sub-menu">
                                 <li><a href="/event">Events</a></li>
-                                <li><a href="/event-details">Events Details</a></li>
                                 <li><a href="/story">Story</a></li>
                                 <li><a href="/story-details">Story Details</a></li>
                             </ul>
@@ -171,19 +170,19 @@
                                 <li><a href="/faq">Faq Page</a></li>
                             </ul>
                         </li>
-                        <li class="menu_has_children"><a href="#0">Blog<i class="fas fa-caret-down"></i></a>
+                        <li class="menu_has_children"><a href="#0">Post<i class="fas fa-caret-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="/blog-1">Blog Post One</a></li>
-                                <li><a href="/blog-2">Blog Post Two</a></li>
-                                <li><a href="/blog-3">Blog Post Three</a></li>
-                                <li><a href="/blog-4">Blog Post Four</a></li>
-                                <li><a href="/blog-5">Blog Post Five</a></li>
-                                <li><a href="/blog-details">Blog Details</a></li>
+                                <li><a href="/post_immersion">沉浸式</a></li>
+                                <li><a href="/post-nromal">正常格式</a></li>
                             </ul>
                         </li>
-                        <li><a href="/contact">Contact</a></li>
-                        <li><a href="/contact">Contact</a></li>
-                        <li><a href="/contact">Contact</a></li>
+                        <li class="menu_has_children"><a href="#">专区<i class="fas fa-caret-down"></i></a>
+                            <ul class="sub-menu">
+                                {% for zone in request.session.zones.data %}
+                                    <li><a href="/zone-">{{ zone.zone_name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <div class="header-right d-flex flex-wrap">
@@ -200,7 +199,7 @@
                     </div>
                 </div>
                 <div class="header-action d-flex flex-wrap align-items-center justify-content-end">
-                    <a href="/faq" class="cmn-btn">get free quote</a>
+                    <a href="/random-post/" class="cmn-btn">随心看看</a>
                 </div>
             </nav>
         </div>

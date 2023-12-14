@@ -12,9 +12,12 @@ def convert_datetime(obj):
 
 
 def db_to_json2(request, data):
+    return HttpResponse(json.dumps(db_to_json(request, data)), content_type="application/json")
+
+
+def db_to_json(request, data):
     # Convert QuerySet to list of model instances
     model_instances = list(data)
-
     # Convert datetime objects to a serializable format directly on model instances
     serialized_data = [
         {key: convert_datetime(value) if isinstance(value, datetime) else getattr(value, 'url', value)
@@ -26,4 +29,4 @@ def db_to_json2(request, data):
     result = {"message": 'success', "code": '0', "data": serialized_data}
 
     # Convert to JSON and return the response
-    return HttpResponse(json.dumps(result), content_type="application/json")
+    return result

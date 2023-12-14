@@ -7,6 +7,7 @@ class Zone(models.Model):
     zone_name = models.CharField(max_length=255)
     zone_description = models.TextField()
     zone_image = models.ImageField(upload_to='zone_images/')
+    zone_layout_mode = models.IntegerField(default=1, choices=((1, '普通'), (2, '沉浸式')))
     zone_status = models.IntegerField(default=1, choices=((1, '正常'), (0, '异常')))
 
     class Meta:
