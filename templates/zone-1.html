@@ -27,7 +27,7 @@
                          data-wow-delay="1s">
                         <div class="blog-item">
                             <div class="blog-thumb">
-                                <img src='{{ post.post_image.url }}' alt="blog">
+                                <img src='{{ post.post_image.url }}' alt="{{ post.post_title }}">
                             </div>
                             <div class="blog-content">
                                 <h3 class="title">
@@ -48,11 +48,9 @@
                     </div>
                 {% endfor %}
             </div>
-            <div class="row justify-content-center mrt-60">
-                <ul class="pagination">
-                    <li><a href="#">5</a></li>
-                </ul>
-            </div>
+{#        pagination-section start #}
+        {% include 'zone_pagination.html' %}
+{#        pagination-section end #}
         </div>
     </section>
     <!-- post-section start -->

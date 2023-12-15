@@ -1,0 +1,10 @@
+<div class="row justify-content-center mrt-60">
+    <ul class="pagination">
+        {% for page in zone.page_list %}
+            <li><a href="/zone?zone_id={{ zone.zone_id }}&page={{ page }}">{{ page }}</a></li>
+        {% endfor %}
+        {% if zone.page_count > 5 %}
+            <li><a href="/zone?zone_id={{ zone.zone_id }}&page={{ zone.page_count }}">End</a></li>
+        {% endif %}
+    </ul>
+</div>

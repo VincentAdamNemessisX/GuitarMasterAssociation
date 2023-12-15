@@ -183,7 +183,7 @@
                         <li class="menu_has_children"><a href="#0">专区<i class="fas fa-caret-down"></i></a>
                             <ul class="sub-menu">
                                 {% for zone in request.session.zones.data %}
-                                    <li><a href="/zone?zone_id={{ zone.zone_id }}">{{ zone.zone_name }}</a></li>
+                                    <li><a href="/zone?zone_id={{ zone.zone_id }}">{{ zone.zone_name }}专区</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
