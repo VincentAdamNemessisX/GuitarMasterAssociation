@@ -1,7 +1,6 @@
 from django.contrib.auth.hashers import make_password, check_password
 from django.db.models import Sum
 from django.shortcuts import render, HttpResponseRedirect
-
 from custom import verify, data_handle
 from custom.goto_controller import redirect_referer
 from post.models import Post
