@@ -66,7 +66,7 @@
                 <div class="col-lg-12 text-center">
                     <div class="inner-content">
                         <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                            {% if login_user.user_id == user.user_id %}
+                            {% if request.session.login_user_id == user.user_id %}
                                 个人
                             {% else %}
                                 {% if user.user_sex == 2 %}
@@ -91,7 +91,7 @@
                     <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>首页</a></li>
                     <li class="breadcrumb-item" aria-current="page"><a href="#personal-collection"><i
                             class="bi bi-bookmark"></i>
-                        {% if login_user.user_id == user.user_id %}
+                        {% if request.session.login_user_id == user.user_id %}
                             个人
                         {% else %}
                             {% if user.user_sex == 2 %}
@@ -103,7 +103,7 @@
                     </a></li>
                     <li class="breadcrumb-item" aria-current="page"><a href="#recent-browsing"><i
                             class="bi bi-card-list"></i>
-                        {% if login_user.user_id == user.user_id %}
+                        {% if request.session.login_user_id == user.user_id %}
                             个人
                         {% else %}
                             {% if user.user_sex == 2 %}
@@ -114,7 +114,7 @@
                         {% endif %}最近浏览</a></li>
                     <li class="breadcrumb-item" aria-current="page"><a href="#personal-post"><i
                             class="bi bi-card-list"></i>
-                        {% if login_user.user_id == user.user_id %}
+                        {% if request.session.login_user_id == user.user_id %}
                             个人
                         {% else %}
                             {% if user.user_sex == 2 %}
@@ -261,7 +261,7 @@
             </div>
         </div>
     </section>
-    <!-- member-details-section end -->
+    <!-- user-details-section end -->
 
 
     <!-- personal-collection-section start -->
@@ -271,7 +271,7 @@
                 <div class="col-lg-7 text-center">
                     <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
                         <h2 class="section-title">
-                            {% if login_user.user_id == user.user_id %}
+                            {% if request.session.login_user_id == user.user_id %}
                                 个人
                             {% else %}
                                 {% if user.user_sex == 2 %}
@@ -288,7 +288,7 @@
             <div class="process-item-area" id="collectionContainer">
                 {% if user.collection_count <= 0 %}
                     <h2 style="text-align: center">
-                        {% if login_user.user_id == user.user_id %}
+                        {% if request.session.login_user_id == user.user_id %}
                             您
                         {% else %}
                             {% if user.user_sex == 2 %}
@@ -402,7 +402,7 @@
                 <div class="col-lg-7 text-center">
                     <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
                         <h2 class="section-title" id="recent-browsing">
-                            {% if login_user.user_id == user.user_id %}
+                            {% if request.session.login_user_id == user.user_id %}
                                 个人
                             {% else %}
                                 {% if user.user_sex == 2 %}
@@ -449,7 +449,7 @@
                                 {% endfor %}
                             {% else %}
                                 <h2 style="text-align: center; margin: 0 auto">
-                                    {% if login_user.user_id == user.user_id %}
+                                    {% if request.session.login_user_id == user.user_id %}
                                         您
                                     {% else %}
                                         {% if user.user_sex == 2 %}
@@ -476,7 +476,7 @@
                 <div class="col-lg-7 text-center">
                     <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
                         <h2 class="section-title">
-                            {% if login_user.user_id == user.user_id %}
+                            {% if request.session.login_user_id == user.user_id %}
                                 个人
                             {% else %}
                                 {% if user.user_sex == 2 %}
@@ -519,7 +519,7 @@
                     </div>
                 {% else %}
                     <h2 style="text-align: center; margin: 0 auto">
-                        {% if login_user.user_id == user.user_id %}
+                        {% if request.session.login_user_id == user.user_id %}
                             您
                         {% else %}
                             {% if user.user_sex == 2 %}

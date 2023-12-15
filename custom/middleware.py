@@ -9,9 +9,8 @@ class FrontEndLoginVerifyMiddleWare(MiddlewareMixin):
 
     @staticmethod
     def process_request(request):
-        if request.session.get('zones') is None:
-            db_zones = Zone.objects.all().filter(zone_status=1)
-            request.session['zones'] = data_handle.db_to_json(request, db_zones)
+        db_zones = Zone.objects.all().filter(zone_status=1)
+        request.session['zones'] = data_handle.db_to_json(request, db_zones)
         skip_url = ['admin']
         if request.path.strip().strip('/') == "favicon.ico":
             return HttpResponseRedirect('/static/fav.png')

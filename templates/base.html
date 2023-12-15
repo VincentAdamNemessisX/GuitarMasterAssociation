@@ -52,6 +52,10 @@
     .header-social i {
         font-size: 20px;
     }
+
+    .header-bottom-area .navbar-collapse .main-menu li:last-child .sub-menu {
+        left: 0;
+    }
 </style>
 {% block custom_style %}
 {% endblock %}
@@ -176,10 +180,10 @@
                                 <li><a href="/post-nromal">正常格式</a></li>
                             </ul>
                         </li>
-                        <li class="menu_has_children"><a href="#">专区<i class="fas fa-caret-down"></i></a>
+                        <li class="menu_has_children"><a href="#0">专区<i class="fas fa-caret-down"></i></a>
                             <ul class="sub-menu">
                                 {% for zone in request.session.zones.data %}
-                                    <li><a href="/zone-">{{ zone.zone_name }}</a></li>
+                                    <li><a href="/zone?zone_id={{ zone.zone_id }}">{{ zone.zone_name }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>

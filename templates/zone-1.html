@@ -3,13 +3,16 @@
 {% block content %}
     <!-- inner-banner-section start -->
     <section class="inner-banner-section bg-overlay-primary bg_img"
-             data-background={% static "assets/images/header/inner-3.png" %}>
+             data-background={{ zone.zone_image.url }}>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12 text-center">
                     <div class="inner-content">
-                        <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">Blog Post -
-                            01</h2>
+                        <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
+                            {% if zone.zone_name %}
+                                {{ zone.zone_name }}
+                            {% endif %}
+                        </h2>
                     </div>
                 </div>
             </div>
@@ -26,8 +29,10 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Blog Post</li>
+                    <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>主页</a></li>
+                    <li class="breadcrumb-item" aria-current="page">
+                        <a href="#zone-start"><i class="flaticon-house"></i>{% if zone.zone_name %}{{ zone.zone_name }}{% endif %}</a>
+                    </li>
                 </ol>
             </nav>
         </div>
@@ -35,8 +40,8 @@
     <!-- breadcrumb-section end -->
 
 
-    <!-- blog-section start -->
-    <section class="blog-section ptb-120">
+    <!-- post-section start -->
+    <section class="blog-section ptb-120" id="zone-start">
         <div class="container">
             <div class="row justify-content-center ml-b-30">
                 <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
@@ -138,7 +143,7 @@
                      data-wow-delay="0.5s">
                     <div class="blog-item">
                         <div class="blog-thumb">
-                            <img src={% static "assets/images/blog/blog-10.png" %} alt="blog">
+                            <img src='{% static "assets/images/blog/blog-10.png" %}' alt="blog">
                         </div>
                         <div class="blog-content">
                             <h3 class="title"><a href="/blog-details">Sodales Aptent Tortor Varius Etile Moving Over
@@ -154,7 +159,7 @@
                      data-wow-delay="0.8s">
                     <div class="blog-item">
                         <div class="blog-thumb">
-                            <img src={% static "assets/images/blog/blog-11.png" %} alt="blog">
+                            <img src='{% static "assets/images/blog/blog-11.png" %}' alt="blog">
                         </div>
                         <div class="blog-content">
                             <h3 class="title"><a href="/blog-details">Diam Eorem Ornare Pretium Lobortis Mollis</a></h3>
@@ -193,31 +198,5 @@
             </div>
         </div>
     </section>
-    <!-- blog-section start -->
-
-
-    <!-- newslatter-section start -->
-    <section class="newslatter-section ptb-120 bg-overlay-primary bg_img"
-             data-background={% static "assets/images/news.png" %}>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12 text-center">
-                    <div class="newslatter-content mb-30 wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="title">Subscribe Our Newslatter</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <form class="newslatter-form wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <div class="form-group">
-                            <input type="email" name="email" placeholder="Enter email address">
-                        </div>
-                        <button type="submit" class="subscribe-btn icon-gradient"><i class="flaticon-send"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- newslatter-section end -->
+    <!-- post-section start -->
 {% endblock %}

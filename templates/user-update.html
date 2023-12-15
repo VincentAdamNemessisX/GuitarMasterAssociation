@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {% if user.user_nickname %}
+        {{ user.user_nickname }}
+    {% elif user.user_name %}
+        {{ user.user_name }}
+    {% else %}
+        Undefined User In
+    {% endif %}
+    用户详情
+{% endblock %}
+{% block custom_style %}
+    <style>
+        .team-thumb-overlay a {
+            border: none;
+        }
+
+        .icon-gradient img {
+            height: 10rem;
+            width: 10rem;
+            border-radius: 20%;
+            object-fit: cover;
+        }
+
+        span {
+            text-align: center;
+        }
+
+        .gallery-thumb {
+            width: 275px;
+            height: 15rem;
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10%;
+        }
+
+        .team-thumb {
+            width: 275px;
+            height: 15rem;
+        }
+
+        .team-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10%;
+        }
+
+        .team-wish-list li {
+            width: 40px;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <!-- inner-banner-section start -->
+    <section class="inner-banner-section bg-overlay-primary bg_img"
+             data-background={% static "assets/images/header/inner-5.png" %}>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 text-center">
+                    <div class="inner-content">
+                        <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
+                            {% if request.session.login_user_id == user.user_id %}
+                                个人
+                            {% else %}
+                                {% if user.user_sex == 2 %}
+                                    她的
+                                {% else %}
+                                    他的
+                                {% endif %}
+                            {% endif %}详情</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- inner-banner-section end -->
+    <a href="#" class="scrollToTop"><i class="fas fa-heart"></i></a>
+
+    <!-- about-story-section start -->
+    <section class="about-story-section pd-t-120">
+        <div class="container">
+            <div class="row justify-content-center ml-b-30">
+                <div class="col-lg-12 mrb-30">
+                    <div class="about-story-area about-story-area-two d-flex flex-wrap align-items-center">
+                        <div class="about-story-thumb">
+                            {% if user.user_headicon %}
+                                <img src="{{ user.user_headicon.url }}" alt="headicon">
+                            {% else %}
+                                <img src="/media/user_headicon/default.png" alt="headicon">
+                            {% endif %}
+                        </div>
+                        <div class="about-story-content-two">
+                            <div class="about-story-content-body-two">
+                                <h3 class="title">
+                                    {% if user.user_nickname %}
+                                        {{ user.user_nickname }}
+                                    {% elif user.user_name %}
+                                        {{ user.user_name }}
+                                    {% else %}
+                                        Undefined User In
+                                    {% endif %}
+                                </h3>
+                                <p>
+                                    {% if user.user_description %}
+                                        {{ user.user_description }}
+                                    {% else %}
+                                        这个人很懒，什么都没写！
+                                    {% endif %}
+                                </p>
+                                <div class="about-story-content-footer d-flex flex-wrap justify-content-between">
+                                    <ul class="footer-social-two">
+                                        {% if user.user_qq %}
+                                            <li><a href="tencent://message/?uin={{ user.user_qq }}&Site=qq&Menu=Yes"><i class="bi bi-tencent-qq"></i></a></li>
+                                        {% endif %}
+                                        {% if user.user_wechat %}
+                                            <li><a href="weinxin://{{ user.user_wechat }}" class="active"><i class="bi bi-wechat"></i></a></li>
+                                        {% endif %}
+                                        {% if user.user_email %}
+                                            <li><a href="mailto:{{ user.user_email }}"><i class="fa fa-envelope"></i></a></li>
+                                        {% endif %}
+                                    </ul>
+                                    <ul class="team-wish-list">
+                                        <li><i class="fas fa-eye color-red"></i>
+                                            <span>
+                                                {{ user.user_view }}
+                                            </span>
+                                        </li>
+                                        <li><i class="fas fa-thumbs-up color-curious-blue"></i>
+                                            <span>
+                                                {{ user.user_like }}
+                                            </span>
+                                        </li>
+                                        <li><i class="fas fa-star color-yellow"></i>
+                                            <span>
+                                                {{ user.user_collection }}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- about-story-section end -->
+
+    <!-- user-details-section start -->
+    <section class="member-details-section ptb-120">
+        <div class="container">
+            <div class="member-details-area ml-b-10">
+                <div class="member-details-item-area d-flex flex-wrap mrb-10">
+                    <div class="member-details-single-item sec-bg d-flex flex-wrap">
+                        <div class="member-facilities">
+                            <i class="fas fa-user"></i>
+                            <span class="first">性别</span>
+                        </div>
+                        <div class="member-facilities">
+                            <span class="second">
+                                {% if user.user_sex %}
+                                    {% if user.user_sex == 1 %}
+                                        男生
+                                    {% elif user.user_sex == 2 %}
+                                        女生
+                                    {% else %}
+                                        保密
+                                    {% endif %}
+                                {% else %}
+                                    Undefined User In
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="member-details-single-item sec-bg d-flex flex-wrap">
+                        <div class="member-facilities">
+                            <i class="fas fa-book"></i>
+                            <span class="first">加入时间</span>
+                        </div>
+                        <div class="member-facilities">
+                            <span class="second">
+                                {% if user.user_create_time %}
+                                    {{ user.user_create_time }}
+                                {% else %}
+                                    Undefined User In
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="member-details-single-item sec-bg d-flex flex-wrap">
+                        <div class="member-facilities">
+                            <i class="fas fa-book"></i>
+                            <span class="first">上次活跃时间</span>
+                        </div>
+                        <div class="member-facilities">
+                            <span class="second">
+                                {% if user.user_last_active_time %}
+                                    {{ user.user_last_active_time }}
+                                {% else %}
+                                    Undefined User In
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- user-details-section end -->
+{% endblock %}

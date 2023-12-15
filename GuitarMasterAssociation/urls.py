@@ -17,11 +17,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-
 from TestUnit.views import *
 from exceptionhandler import views as excep_views
 from post.views import *
 from user.views import *
+from zone.views import *
 
 handler404 = excep_views.notfound
 handler500 = excep_views.nopower
@@ -31,28 +31,24 @@ urlpatterns = [
                   path('', index),
                   path('404/', excep_views.notfound),
                   path('500/', excep_views.nopower),
-                  path('about/', about),
-                  path('zone-1/', zone_1),
-                  path('zone-2/', blog_2),
-                  path('zone-3/', blog_3),
-                  path('zone-4/', blog_4),
-                  path('zone-5/', blog_5),
-                  path('post-normal/', post_normal),
-                  path('post-immersion/', post_immersion),
-                  path('random-post/', random_post),
-                  path('contact/', contact),
-                  path('event/', event),
-                  path('faq/', faq),
                   path('index/', index),
                   path('user/', user),
                   path('user/collection/more/', user_collection_more),
-                  path('member-details/', member_details),
-                  path('pricing/', pricing),
-                  path('privacy/', privacy),
-                  path('search/', search),
+                  path('user/update/', user_info_update),
                   path('signin/', signin),
                   path('signup/', signup),
                   path('signout/', signout),
+                  path('zone/', zone),
+                  path('post-normal/', post_normal),
+                  path('post-immersion/', post_immersion),
+                  path('random-post/', random_post),
+                  path('about/', about),
+                  path('contact/', contact),
+                  path('event/', event),
+                  path('faq/', faq),
+                  path('pricing/', pricing),
+                  path('privacy/', privacy),
+                  path('search/', search),
                   path('story/', story),
                   path('story-details/', story_details),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

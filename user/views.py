@@ -1,8 +1,9 @@
 from django.contrib.auth.hashers import make_password, check_password
-from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.db.models import Sum
-from custom.goto_controller import redirect_referer
+from django.shortcuts import render, HttpResponseRedirect
+
 from custom import verify, data_handle
+from custom.goto_controller import redirect_referer
 from post.models import Post
 from .models import User
 
@@ -16,16 +17,18 @@ def signin(request):
             user = User.objects.get(user_name=username)
             if check_password(password, user.user_password):
                 if user.user_status == 0:
-                    return render(request,'signin.html', {'error': '该用户已被禁用'})
+                    return render(request, 'signin.html', {'error': '该用户已被禁用'})
                 if user.user_status == 2:
-                    return render(request,'signin.html', {'error': '该用户已被冻结'})
+                    return render(request, 'signin.html', {'error': '该用户已被冻结'})
                 if user.user_status == 1:
                     request.session['login_username'] = user.user_name
                     request.session['login_user_id'] = user.user_id
+                    request.session['login_user_headicon'] = user.user_headicon.url
+                    request.session.set_expiry(60 * 60)
                     User.objects.filter(user_id=user.user_id).update(user_last_active_time=verify.get_current_time())
                     return HttpResponseRedirect('/index/')
                 else:
-                    return render(request,'signin.html', {'error': '未知错误'})
+                    return render(request, 'signin.html', {'error': '未知错误'})
             else:
                 return render(request, 'signin.html', {'error': '用户名或密码错误'})
         else:
@@ -62,21 +65,21 @@ def user(request):
     if request.method == 'GET':
         userid = request.GET.get('userid')
         if userid:
-            user = User.objects.get(user_id=userid)
-            user.user_view = user.post_set.aggregate(Sum('post_view')).get('post_view__sum')
-            user.user_like = user.post_set.aggregate(Sum('post_like')).get('post_like__sum')
-            user.user_collection = user.collection_set.filter(user_id=userid).count()
-            user.post = user.post_set.order_by('-post_create_time')
-            user.post_count = user.post_set.count()
-            user.collection = user.collection_set.order_by('-collection_create_time')
-            user.collection_count = user.collection_set.count()
-            if user.collection_count > 6:
-                user.collection = user.collection[:6]
-            user.recent = user.recentbrowsing_set.order_by('-recent_create_time')[:10]
-            user.recent_count = user.recentbrowsing_set.count()
-            user.post = user.post_set.order_by('-post_create_time')
-            user.post_count = user.post_set.count()
-            return render(request, 'user.html', {'user': user})
+            login_user = User.objects.get(user_id=userid)
+            login_user.user_view = login_user.post_set.aggregate(Sum('post_view')).get('post_view__sum')
+            login_user.user_like = login_user.post_set.aggregate(Sum('post_like')).get('post_like__sum')
+            login_user.user_collection = login_user.collection_set.filter(user_id=userid).count()
+            login_user.post = login_user.post_set.order_by('-post_create_time')
+            login_user.post_count = login_user.post_set.count()
+            login_user.collection = login_user.collection_set.order_by('-collection_create_time')
+            login_user.collection_count = login_user.collection_set.count()
+            if login_user.collection_count > 6:
+                login_user.collection = login_user.collection[:6]
+            login_user.recent = login_user.recentbrowsing_set.order_by('-recent_create_time')[:10]
+            login_user.recent_count = login_user.recentbrowsing_set.count()
+            login_user.post = login_user.post_set.order_by('-post_create_time')
+            login_user.post_count = login_user.post_set.count()
+            return render(request, 'user.html', {'user': login_user})
         else:
             return render(request, 'user.html', {'error': '请传入用户id'})
 
@@ -92,3 +95,20 @@ def user_collection_more(request):
             associated_collection_posts = Post.objects.filter(post_id__in=post_ids).order_by('-post_create_time')[6:]
             return data_handle.db_to_json2(request, associated_collection_posts)
     return render(request, '500.html', {'error': '用户访问异常'})
+
+
+def user_info_update(request):
+    if request.method == 'GET':
+        if verify.verify_current_user(request):
+            current_user = User.objects.get(user_id=request.session['login_user_id'])
+            return render(request, 'user-update.html', {'user': current_user})
+        else:
+            return render(request, '500.html', {'error': '用户访问异常'})
+    if request.method == 'POST':
+        update_data = request.POST
+        if verify.verify_current_user(request):
+            if User.objects.filter(user_id=request.session['login_user_id']).update(**update_data):
+                return render(request, 'user-update.html', {'success': '更新成功'})
+            else:
+                return render(request, 'user-update.html', {'error': '更新失败'})
+        return render(request, 'user-update.html')

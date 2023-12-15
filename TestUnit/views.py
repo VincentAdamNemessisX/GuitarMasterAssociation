@@ -6,26 +6,6 @@ def about(request):
     return render(request, 'about.html')
 
 
-def zone_1(request):
-    return render(request, 'blog-1.html')
-
-
-def blog_2(request):
-    return render(request, 'blog-2.html')
-
-
-def blog_3(request):
-    return render(request, 'blog-3.html')
-
-
-def blog_4(request):
-    return render(request, 'blog-4.html')
-
-
-def blog_5(request):
-    return render(request, 'blog-5.html')
-
-
 def contact(request):
     return render(request, 'contact.html')
 
@@ -36,10 +16,6 @@ def event(request):
 
 def faq(request):
     return render(request, 'faq.html')
-
-
-def member_details(request):
-    return render(request, 'user.html')
 
 
 def pricing(request):
