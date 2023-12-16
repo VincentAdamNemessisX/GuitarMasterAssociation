@@ -11,73 +11,124 @@
         </div>
         <div class="widget-box mrb-60">
             <div class="category-box">
-                <span class="caption"><i class="flaticon-newspaper"></i>news cetegories</span>
+                <span class="caption"><i class="flaticon-newspaper"></i>热门专区</span>
                 <ul class="category-content">
-                    <li><a href="#">love stories</a><span class="count">26</span></li>
-                    <li><a href="#">dating</a><span class="count">15</span></li>
-                    <li><a href="#">event</a><span class="count">32</span></li>
-                    <li><a href="#">find love</a><span class="count">26</span></li>
-                    <li><a href="#">support</a><span class="count">10</span></li>
+                    {% for zon in hot_zones %}
+                        <li><a href="/zone?zone_id={{ zon.zone_id }}">{{ zon.zone_name }}</a><span
+                                class="count">{{ zon.post_set.count }}</span></li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
         <div class="widget-box mrb-60">
-            <span class="caption"><i class="far fa-file"></i>recent post</span>
+            <span class="caption"><i class="far fa-file"></i>最近发布</span>
             <div class="popular-item-area">
-                <div class="single-popular-item d-flex flex-wrap">
-                    <div class="popular-item-thumb">
-                        <img alt="blog-image" src={% static "assets/images/blog/popular-1.png" %}>
+                {% for post in recent_posts %}
+                    <div class="single-popular-item d-flex flex-wrap">
+                        <div class="popular-item-thumb">
+                            <img alt="{{ post.post_title }}" src='{{ post.post_image.url }}'>
+                        </div>
+                        <div class="popular-item-content">
+                            <h3 class="title"><a
+                                    href="/post-{{ post.post_layout_mode }}?post_id={{ post.post_id }}">{{ post.post_title }}</a>
+                            </h3>
+                            <span class="blog-user">由 <a href="/user/?userid={{ post.user_id.user_id }}">
+                                {% if post.user_id.user_nickname %}
+                                    {{ post.user_id.user_nickname }}
+                                {% else %}
+                                    {{ post.user_id.user_name }}
+                                {% endif %}
+                            </a> 发布</span><span
+                                class="blog-date"
+                                style="padding-left: 0">于{{ post.post_create_time|date:"Y年m月d日" }}</span>
+                        </div>
                     </div>
-                    <div class="popular-item-content">
-                        <h3 class="title"><a href="/blog-details">France Prepares toding Stake Its Place
-                            in</a></h3>
-                        <span class="blog-user">post by admin</span><span
-                            class="blog-date">25 May 2019</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="widget-box mrb-60">
+            <span class="caption"><i class="far fa-file"></i>高能作者墙</span>
+            <div class="popular-item-area">
+                {% for author in hot_authors %}
+                    <div class="single-popular-item d-flex flex-wrap">
+                        <div class="author-headicon">
+                            <img style="border-radius: 50%" alt="{{ author.user_nickname }}"
+                                 src='{{ author.user_headicon.url }}'>
+                        </div>
+                        <div class="author-content" style="margin: 1rem auto; text-align: center;">
+                            <h3 class="title"><a href="/user?userid={{ author.user_id }}">
+                                {% if author.user_nickname %}
+                                    {{ author.user_nickname }}
+                                {% else %}
+                                    {{ author.user_name }}
+                                {% endif %}
+                            </a>
+                            </h3>
+                            <span class="blog-date" style="padding-left: 0">
+                                加入于{{ author.user_create_time|date:"Y年m月d日" }}
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="single-popular-item d-flex flex-wrap">
-                    <div class="popular-item-thumb">
-                        <img alt="blog-image" src={% static "assets/images/blog/popular-2.png" %}>
-                    </div>
-                    <div class="popular-item-content">
-                        <h3 class="title"><a href="/blog-details">Genocide’s Legac Ation Village in
-                            Rwanda</a></h3>
-                        <span class="blog-user">post by admin</span><span
-                            class="blog-date">25 May 2019</span>
-                    </div>
-                </div>
-                <div class="single-popular-item d-flex flex-wrap">
-                    <div class="popular-item-thumb">
-                        <img alt="blog-image" src={% static "assets/images/blog/popular-3.png" %}>
-                    </div>
-                    <div class="popular-item-content">
-                        <h3 class="title"><a href="/blog-details">Security Counmats to Have Lunch
-                            With</a></h3>
-                        <span class="blog-user">post by admin</span><span
-                            class="blog-date">25 May 2019</span>
-                    </div>
-                </div>
-                <div class="single-popular-item d-flex flex-wrap">
-                    <div class="popular-item-thumb">
-                        <img alt="blog-image" src={% static "assets/images/blog/popular-4.png" %}>
-                    </div>
-                    <div class="popular-item-content">
-                        <h3 class="title"><a href="/blog-details">Attack in Paris BFrench Election</a>
-                        </h3>
-                        <span class="blog-user">post by admin</span><span
-                            class="blog-date">25 May 2019</span>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
         <div class="widget-box mrb-60">
             <div class="category-box">
-                <span class="caption"><i class="fas fa-stopwatch"></i>achived</span>
+                <span class="caption"><i class="fas fa-stopwatch"></i>专区归档</span>
                 <ul class="category-content">
-                    <li><a href="#">january</a><span class="count">2018</span></li>
-                    <li><a href="#">march</a><span class="count">2018</span></li>
-                    <li><a href="#">jun</a><span class="count">2018</span></li>
-                    <li><a href="#">february</a><span class="count">2019</span></li>
+                    {% for archive in archived_posts %}
+                        {{ archive.year }}{{ archive.month }}
+                        {% if archive.year == 2023 %}
+                            {% if archive.month == 1 %}
+                                <li>
+                                    <a href="/archive?year=2023&month=1">{{ archive.year }}年{{ archive.month }}月</a><span
+                                        class="count">{{ archive.post_set.count }}</span></li>
+                            {% elif archive.month == 2 %}
+                                <li>
+                                    <a href="/archive?year=2023&month=2">{{ archive.year }}年{{ archive.month }}月</a><span
+                                        class="count">{{ archive.post_set.count }}</span></li>
+                            {% elif archive.month == 3 %}
+                                <li>
+                                    <a href="/archive?year=2023&month=3">{{ archive.year }}年{{ archive.month }}月</a><span>{{ archive.post_set.count }}</span>
+                                </li>
+                            {% elif archive.month == 4 %}
+                                <li>
+                                    <a href="/archive?year=2023&month=4">{{ archive.year }}年{{ archive.month }}月</a><span
+                                        class="count">{{ archive.post_set.count }}</span></li>
+                            {% elif archive.month == 5 %}
+                                <li>
+                                    <a href="/archive?year=2023&month=5">{{ archive.year }}年{{ archive.month }}月</a><span
+                                        class="count">{{ archive.post_set.count }}</span></li>
+                            {% elif archive.month == 6 %}
+                                <li>
+                                    <a href="/archive?year=2023&month=6">{{ archive.year }}年{{ archive.month }}月</a><span
+                                        class="count">{{ archive.post_set.count }}</span></li>
+                            {% elif archive.month == 7 %}
+                                <li>
+                                    <a href="/archive?year=2023&month=7">{{ archive.year }}年{{ archive.month }}月</a><span
+                                        class="count">{{ archive.post_set.count }}</span></li>
+                            {% elif archive.month == 8 %}
+                                <li>
+                                    <a href="/archive?year=2023&month=8">{{ archive.year }}年{{ archive.month }}月</a><span
+                                        class="count">{{ archive.post_set.count }}</span></li>
+                            {% elif archive.month == 9 %}
+                                <li>
+                                    <a href="/archive?year=2023&month=8">{{ archive.year }}年{{ archive.month }}月</a><span
+                                        class="count">{{ archive.post_set.count }}</span></li>
+                            {% elif archive.month == 10 %}
+                                <li>
+                                    <a href="/archive?year=2023&month=8">{{ archive.year }}年{{ archive.month }}月</a><span
+                                        class="count">{{ archive.post_set.count }}</span></li>
+                            {% elif archive.month == 11 %}
+                                <li>
+                                    <a href="/archive?year=2023&month=8">{{ archive.year }}年{{ archive.month }}月</a><span
+                                        class="count">{{ archive.post_set.count }}</span></li>
+                            {% elif archive.month == 12 %}
+                                <li>{{ archive.year }}年{{ archive.month }}月<span
+                                        class="count">{{ archive.count }}</span></li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>

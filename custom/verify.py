@@ -9,4 +9,4 @@ def verify_current_user(request):
 
 
 def get_current_time():
-    return timezone.now()
+    return timezone.localtime(timezone.now())

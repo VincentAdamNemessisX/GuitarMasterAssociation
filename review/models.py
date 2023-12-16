@@ -12,7 +12,7 @@ class Review(models.Model):
     parent_id = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
     review_like = models.IntegerField(default=0)
     review_status = models.IntegerField(default=1, choices=((1, '正常'), (2, '审核中'), (3, '审核不通过')))
-    review_time_index = models.DateTimeField(default=timezone.now, db_index=True)
+    review_time_index = models.DateTimeField(auto_now_add=True, db_index=True)
 
     class Meta:
         db_table = 'review'

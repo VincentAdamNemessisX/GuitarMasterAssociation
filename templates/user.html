@@ -155,7 +155,7 @@
                                         Undefined User In
                                     {% endif %}
                                 </h3>
-                                <p>
+                                <p class="text-truncate">
                                     {% if user.user_description %}
                                         {{ user.user_description }}
                                     {% else %}
@@ -281,7 +281,7 @@
                                 {% endif %}
                             {% endif %}收藏
                         </h2>
-                        <p>收藏是心灵的一扇窗，透过它我们看到自己曾经热爱、留恋的瞬间。</p>
+                        <p class="text-truncate">收藏是心灵的一扇窗，透过它我们看到自己曾经热爱、留恋的瞬间。</p>
                     </div>
                 </div>
             </div>
@@ -309,7 +309,7 @@
                                                  alt="{{ col.post_id.post_title }}"/>
                                         </div>
                                         <h3 class="title">{{ col.post_id.post_title }}</h3>
-                                        <p>{{ col.post_id.post_content }}</p>
+                                        <p class="text-truncate" style="width: 15rem">{{ col.post_id.post_content }}</p>
                                     </a>
                                 </div>
                             </div>
@@ -327,7 +327,7 @@
                                                  alt="{{ col.post_id.post_title }}"/>
                                         </div>
                                         <h3 class="title">{{ col.post_id.post_title }}</h3>
-                                        <p>{{ col.post_id.post_content }}</p>
+                                        <p  class="text-truncate" style="width: 15rem">{{ col.post_id.post_content }}</p>
                                     </a>
                                 </div>
                             </div>
@@ -372,7 +372,7 @@
                                                             <img src="` + data['data'][i]['post_image'] + `" alt="` + data['data'][i]['post_title'] + `" />
                                                         </div>
                                                         <h3 class="title">` + data['data'][i]['post_title'] + `</h3>
-                                                        <p>` + data['data'][i]['post_content'] + `</p>
+                                                        <p  class="text-truncate" style="width: 15rem">` + data['data'][i]['post_content'] + `</p>
                                                     </a>
                                                     </div>
                                                 </div>`;
@@ -411,7 +411,7 @@
                                     他的
                                 {% endif %}
                             {% endif %}最近浏览</h2>
-                        <p>浏览的轨迹如同星空中的流星，短暂而璀璨。 </p>
+                        <p  class="text-truncate">浏览的轨迹如同星空中的流星，短暂而璀璨。 </p>
                     </div>
                 </div>
             </div>
@@ -485,7 +485,7 @@
                                     他的
                                 {% endif %}
                             {% endif %}发布</h2>
-                        <p>每一个发布都是一颗思想的种子，播撒在社交的土壤中，终将开出精彩的花朵。</p>
+                        <p  class="text-truncate">每一个发布都是一颗思想的种子，播撒在社交的土壤中，终将开出精彩的花朵。</p>
                     </div>
                 </div>
             </div>
@@ -505,7 +505,7 @@
                             <div class="team-details text-center">
                                 <a href="/post-{{ post.post_layout_mode }}/?post_id={{ post.post_id }}"><h3 class="title">{{ post.post_title }}</h3>
                                 <ul class="team-content">
-                                    <li><span>摘要：</span>{{ post.post_content }}</li>
+                                    <li class="text-truncate"><span>摘要：</span>{{ post.post_content }}</li>
                                 </ul></a>
                                 <ul class="team-wish-list">
                                     <li><i class="fas fa-eye color-red"></i><span>{{ post.post_view }}</span></li>
