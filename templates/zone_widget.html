@@ -76,58 +76,12 @@
             <div class="category-box">
                 <span class="caption"><i class="fas fa-stopwatch"></i>专区归档</span>
                 <ul class="category-content">
-                    {% for archive in archived_posts %}
-                        {{ archive.year }}{{ archive.month }}
-                        {% if archive.year == 2023 %}
-                            {% if archive.month == 1 %}
-                                <li>
-                                    <a href="/archive?year=2023&month=1">{{ archive.year }}年{{ archive.month }}月</a><span
-                                        class="count">{{ archive.post_set.count }}</span></li>
-                            {% elif archive.month == 2 %}
-                                <li>
-                                    <a href="/archive?year=2023&month=2">{{ archive.year }}年{{ archive.month }}月</a><span
-                                        class="count">{{ archive.post_set.count }}</span></li>
-                            {% elif archive.month == 3 %}
-                                <li>
-                                    <a href="/archive?year=2023&month=3">{{ archive.year }}年{{ archive.month }}月</a><span>{{ archive.post_set.count }}</span>
-                                </li>
-                            {% elif archive.month == 4 %}
-                                <li>
-                                    <a href="/archive?year=2023&month=4">{{ archive.year }}年{{ archive.month }}月</a><span
-                                        class="count">{{ archive.post_set.count }}</span></li>
-                            {% elif archive.month == 5 %}
-                                <li>
-                                    <a href="/archive?year=2023&month=5">{{ archive.year }}年{{ archive.month }}月</a><span
-                                        class="count">{{ archive.post_set.count }}</span></li>
-                            {% elif archive.month == 6 %}
-                                <li>
-                                    <a href="/archive?year=2023&month=6">{{ archive.year }}年{{ archive.month }}月</a><span
-                                        class="count">{{ archive.post_set.count }}</span></li>
-                            {% elif archive.month == 7 %}
-                                <li>
-                                    <a href="/archive?year=2023&month=7">{{ archive.year }}年{{ archive.month }}月</a><span
-                                        class="count">{{ archive.post_set.count }}</span></li>
-                            {% elif archive.month == 8 %}
-                                <li>
-                                    <a href="/archive?year=2023&month=8">{{ archive.year }}年{{ archive.month }}月</a><span
-                                        class="count">{{ archive.post_set.count }}</span></li>
-                            {% elif archive.month == 9 %}
-                                <li>
-                                    <a href="/archive?year=2023&month=8">{{ archive.year }}年{{ archive.month }}月</a><span
-                                        class="count">{{ archive.post_set.count }}</span></li>
-                            {% elif archive.month == 10 %}
-                                <li>
-                                    <a href="/archive?year=2023&month=8">{{ archive.year }}年{{ archive.month }}月</a><span
-                                        class="count">{{ archive.post_set.count }}</span></li>
-                            {% elif archive.month == 11 %}
-                                <li>
-                                    <a href="/archive?year=2023&month=8">{{ archive.year }}年{{ archive.month }}月</a><span
-                                        class="count">{{ archive.post_set.count }}</span></li>
-                            {% elif archive.month == 12 %}
-                                <li>{{ archive.year }}年{{ archive.month }}月<span
-                                        class="count">{{ archive.count }}</span></li>
-                            {% endif %}
-                        {% endif %}
+                    {% for year in archived_posts.items %}
+                        {% for month in year.1.items %}
+                            <li><a><span>{{ month.0 }}</span>
+                                <span>({{ month.1 }})</span></a>
+                                <span style="float: right">{{ year.0 }}</span></li>
+                            {% endfor %}
                     {% endfor %}
                 </ul>
             </div>

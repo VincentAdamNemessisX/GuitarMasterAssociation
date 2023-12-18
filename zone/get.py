@@ -1,4 +1,4 @@
-from django.utils import timezone
+from datetime import datetime
 
 from post.models import Post
 from .models import Zone
@@ -13,11 +13,18 @@ def get_all_zones_by_status(status):
 
 
 def get_archived_posts(zone_id):
-    timezone.activate(timezone.pytz.timezone('PRC'))
-    archived_posts = Post.objects.filter(post_status=1, zone_id=zone_id)
-    for index in range(len(archived_posts)):
-        archived_posts[index].year = archived_posts[index].post_create_time.year
-        archived_posts[index].month = archived_posts[index].post_create_time.month
-    for i in archived_posts:
-        print(i.year, i.month)
-    return archived_posts
+    archived_posts_year = {}
+    for year in range(datetime.now().year - 3, datetime.now().year + 1):
+        archived_posts_year[year] = Post.objects.filter(post_status=1, zone_id=zone_id,
+                                                        post_create_time__year=year).count()
+        archived_posts_month = {}
+        for month in range(12, 0, -1):
+            archived_posts_month[month] = Post.objects.filter(post_status=1, zone_id=zone_id,
+                                                              post_create_time__year=year,
+                                                              post_create_time__month=month).count()
+            if archived_posts_month[month] == 0:
+                archived_posts_month.pop(month)
+        archived_posts_year[year] = archived_posts_month
+        if len(archived_posts_year[year].items()) == 0:
+            archived_posts_year.pop(year)
+    return archived_posts_year

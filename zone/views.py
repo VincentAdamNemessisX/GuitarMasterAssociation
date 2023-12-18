@@ -19,7 +19,7 @@ def zone(request):
         subquery = Post.objects.filter(zone_id=OuterRef('zone_id')).values('zone_id').annotate(
             post_count=Count('zone_id')).values('post_count')[:1]
         # hot_zones 包含了每个热门专区以及其对应的 post 数量
-        hot_zones = Zone.objects.filter(zone_status=1).annotate(post_count=Subquery(subquery)).order_by('-post_count')[
+        hot_zones = Zone.objects.filter(zone_status=1).exclude(zone_id=zone_info.zone_id).annotate(post_count=Subquery(subquery)).order_by('-post_count')[
                     :5]
         if zone_info is None:
             return render(request, '500.html', {'error': '请求错误或专区已下线'})
