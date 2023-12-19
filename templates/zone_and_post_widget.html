@@ -78,9 +78,9 @@
                 <ul class="category-content">
                     {% for year in archived_posts.items %}
                         {% for month in year.1.items %}
-                            <li><a><span>{{ month.0 }}</span>
-                                <span>({{ month.1 }})</span></a>
-                                <span style="float: right">{{ year.0 }}</span></li>
+                            <li><a><span>{{ month.0 }}月</span>
+                                <span>({{ month.1 }}篇)</span></a>
+                                <span style="float: right">{{ year.0 }}年</span></li>
                             {% endfor %}
                     {% endfor %}
                 </ul>

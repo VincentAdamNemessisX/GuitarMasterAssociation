@@ -56,6 +56,10 @@
     .header-bottom-area .navbar-collapse .main-menu li:last-child .sub-menu {
         left: 0;
     }
+
+    .footer-section p {
+        text-indent: 2em;
+    }
 </style>
 {% block custom_style %}
 {% endblock %}
@@ -101,9 +105,9 @@
                 <div class="header-top-content d-flex flex-wrap align-items-center justify-content-between">
                     <div class="header-top-left d-flex flex-wrap align-items-center">
                         <ul class="header-social">
-                            <li><a href="tencent://message/?uin=12345&Site=qq&Menu=Yes"><i
+                            <li><a href="tencent://message/?uin=970968377&Site=qq&Menu=Yes"><i
                                     class="bi bi-tencent-qq"></i></a></li>
-                            <li><a href="weinxin://Lixinyu"><i class="bi bi-wechat"></i></a></li>
+                            <li><a href="weinxin://laosh1ren1"><i class="bi bi-wechat"></i></a></li>
                         </ul>
                         <div class="header-mail-area">
                             <a href="#0">
@@ -158,26 +162,26 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav main-menu">
-                        <li><a href="/about">About</a></li>
-                        <li class="menu_has_children"><a href="#0">Dating<i class="fas fa-caret-down"></i></a>
+                        <li><a href="/about">关于我们</a></li>
+                        <li class="menu_has_children"><a href="#0">未排布页面<i class="fas fa-caret-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="/event">Events</a></li>
-                                <li><a href="/story">Story</a></li>
-                                <li><a href="/story-details">Story Details</a></li>
+                                <li><a href="/event">大事件</a></li>
+                                <li><a href="/story">故事</a></li>
+                                <li><a href="/story-details">故事详情</a></li>
                             </ul>
                         </li>
-                        <li class="menu_has_children"><a href="#0">Pages<i class="fas fa-caret-down"></i></a>
+                        <li class="menu_has_children"><a href="#0">其他未排布页面<i class="fas fa-caret-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="/privacy">Privacy Page</a></li>
-                                <li><a href="/pricing">Pricing Page</a></li>
-                                <li><a href="/search">Search Page</a></li>
-                                <li><a href="/faq">Faq Page</a></li>
+                                <li><a href="/privacy">隐私页面</a></li>
+                                <li><a href="/pricing">订阅付费页面</a></li>
+                                <li><a href="/search">搜索结果页面</a></li>
+                                <li><a href="/faq">帮助页面</a></li>
                             </ul>
                         </li>
                         <li class="menu_has_children"><a href="#0">Post<i class="fas fa-caret-down"></i></a>
                             <ul class="sub-menu">
-                                <li><a href="/post_immersion">沉浸式</a></li>
-                                <li><a href="/post-nromal">正常格式</a></li>
+                                <li><a href="/post-immersion">沉浸式</a></li>
+                                <li><a href="/post-normal">正常格式</a></li>
                             </ul>
                         </li>
                         <li class="menu_has_children"><a href="#0">专区<i class="fas fa-caret-down"></i></a>
@@ -210,8 +214,8 @@
     </div>
 </header>
 <!-- header-section end -->
-{% block content %}'
-{% endblock %}'
+{% block content %}
+{% endblock %}
 <!-- footer-section start -->
 <footer class="footer-section ptb-120 bg_img" data-background='{% static "assets/images/footer.png" %}'>
     <div class="container">
@@ -220,50 +224,34 @@
                 <div class="footer-widget widget-menu">
                     <div class="footer-logo">
                         <a href="#"><img alt="logo" src='{% static "assets/images/header/logo.png" %}'></a>
-                        <p>Lorem ipsum dolor amet consectetding elit sed eiusm tempor incididunt ut laborlore magna
-                            aliqua enim ad minim veniam quis.</p>
+                        <p>在吉他乐园，我们热切期待你的加入，一同奏响激情的旋律，共享音乐之美。
+                            让我们在和弦声中建立深厚的友谊，共同见证吉他音乐的无限可能！</p>
                         <ul class="footer-social">
-                            <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#0" class="active"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
-                            <li><a href="#0"><i class="fab fa-linkedin-in"></i></a></li>
+                            <li><a href="tencent://message/?uin=970968377&Site=qq&Menu=Yes"><i
+                                    class="bi bi-tencent-qq"></i></a></li>
+                            <li><a href="weinxin://laosh1ren1"><i class="bi bi-wechat"></i></a></li>
+                            <li><a href="mailto:lixinyu@qq.com"><i class="fas fa-envelope"></i></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.7s">
-                <div class="footer-widget widget-menu">
-                    <h3 class="widget-title">company</h3>
-                    <ul>
-                        <li><a href="#"><i class="fas fa-angle-double-right"></i>About</a></li>
-                        <li><a href="#"><i class="fas fa-angle-double-right"></i>new members</a></li>
-                        <li><a href="#"><i class="fas fa-angle-double-right"></i>testimonial</a></li>
-                        <li><a href="#"><i class="fas fa-angle-double-right"></i>privacy</a></li>
-                        <li><a href="#"><i class="fas fa-angle-double-right"></i>pricing plan</a></li>
-                    </ul>
-                </div>
-            </div>
             <div class="col-lg-2 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.9s">
                 <div class="footer-widget widget-menu">
-                    <h3 class="widget-title">Qucik link</h3>
+                    <h3 class="widget-title">快速导航</h3>
                     <ul>
-                        <li><a href="#"><i class="fas fa-angle-double-right"></i>sucess stoies</a></li>
-                        <li><a href="#"><i class="fas fa-angle-double-right"></i>high hopes</a></li>
-                        <li><a href="#"><i class="fas fa-angle-double-right"></i>weeding event</a></li>
-                        <li><a href="#"><i class="fas fa-angle-double-right"></i>relationship</a></li>
-                        <li><a href="#"><i class="fas fa-angle-double-right"></i>find love</a></li>
+                        {% for zone in request.session.zones.data %}
+                            <li><a href="/zone?zone_id={{ zone.zone_id }}"><i class="fas fa-angle-double-right"></i>{{ zone.zone_name }}专区</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="1s">
                 <div class="footer-widget widget-menu">
-                    <h3 class="widget-title">contact info</h3>
+                    <h3 class="widget-title">站长信息</h3>
                     <ul class="footer-contact-list">
-                        <li>medino, kitaniya road , USA</li>
-                        <li>Call Us Now 1-234-567-890</li>
-                        <li>demosupport@.com</li>
-                        <li>www.exmaple4500@gmail.com</li>
-                        <li>www.democompany@gmail.com</li>
+                        <li>联系地址：河南省商丘市商丘工学院</li>
+                        <li>联系电话： 136-2391-7933</li>
+                        <li style="text-transform: none">联系邮箱：970968377@qq.com</li>
                     </ul>
                 </div>
             </div>
@@ -274,16 +262,12 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <p>Copyright &copy; 2020.Company name All rights reserved.</p>
+                <p>Copyright &copy; 2023-2024.Mr Lixinyu. All rights reserved.</p>
             </div>
         </div>
     </div>
 </div>
 <!-- footer-section end -->
-<div class="copyrights">
-    Collect from <a href="http://www.cssmoban.com/" title="网站模板">模板之家</a>
-    <a href="https://www.chazidian.com/" title="查字典">查字典</a>
-</div>
 </body>
 {% block custom_script %}
 {% endblock %}

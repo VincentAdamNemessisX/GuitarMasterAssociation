@@ -3,6 +3,7 @@ import random
 from django.db.models import Count, Subquery, OuterRef
 from django.shortcuts import render, redirect
 
+from custom.update_some_index import update_post_view_count
 from post.models import Post
 from user.get import get_sorted_authors_by_hot
 from zone.get import get_archived_posts
@@ -28,6 +29,7 @@ def post_normal(request):
         # hot_zones 包含了每个热门专区以及其对应的 post 数量
         hot_zones = Zone.objects.filter(zone_status=1).annotate(
             post_count=Subquery(subquery)).order_by('-post_count')[:5]
+        update_post_view_count(request)
         return render(request, 'post_details_normal.html',
                       {
                           'post': current_post,
@@ -36,10 +38,16 @@ def post_normal(request):
                       })
 
 
+@update_post_view_count
+def update_post_view_count(request):
+    pass
+
+
 def post_immersion(request):
     if request.method == 'GET':
         if not request.GET.get('post_id'):
             return render(request, '404.html')
+        update_post_view_count(request)
     return render(request, 'post_details_immersion.html')
 
 
