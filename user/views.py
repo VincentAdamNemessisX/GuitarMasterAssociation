@@ -100,6 +100,17 @@ def user_info_update(request):
     if request.method == 'GET':
         if verify.verify_current_user(request):
             current_user = User.objects.get(user_id=request.session['login_user_id'])
+            current_user.user_view = current_user.post_set.aggregate(Sum('post_view')).get('post_view__sum')
+            current_user.user_like = current_user.post_set.aggregate(Sum('post_like')).get('post_like__sum')
+            current_user.user_collection = current_user.collection_set.filter(user_id=request.session['login_user_id']).count()
+            current_user.post = current_user.post_set.order_by('-post_create_time')
+            current_user.post_count = current_user.post_set.count()
+            current_user.collection = current_user.collection_set.order_by('-collection_create_time')
+            current_user.collection_count = current_user.collection_set.count()
+            if current_user.collection_count > 6:
+                current_user.collection = current_user.collection[:6]
+            current_user.post = current_user.post_set.order_by('-post_create_time')
+            current_user.post_count = current_user.post_set.count()
             return render(request, 'user-update.html', {'user': current_user})
         else:
             return render(request, '500.html', {'error': '用户访问异常'})

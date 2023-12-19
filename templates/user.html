@@ -113,7 +113,7 @@
                             {% endif %}
                         {% endif %}最近浏览</a></li>
                     <li class="breadcrumb-item" aria-current="page"><a href="#personal-post"><i
-                            class="bi bi-card-list"></i>
+                            class="bi bi-book"></i>
                         {% if request.session.login_user_id == user.user_id %}
                             个人
                         {% else %}
@@ -124,6 +124,12 @@
                             {% endif %}
                         {% endif %}发布
                     </a></li>
+                    {% if request.session.login_user_id == user.user_id %}
+                        <li class="breadcrumb-item" aria-current="page">
+                            <a href="/user/update?user_id={{ user.user_id }}"><i
+                                    class="bi bi-person"></i>管理个人信息</a>
+                        </li>
+                    {% endif %}
                 </ol>
             </nav>
         </div>
@@ -165,13 +171,16 @@
                                 <div class="about-story-content-footer d-flex flex-wrap justify-content-between">
                                     <ul class="footer-social-two">
                                         {% if user.user_qq %}
-                                            <li><a href="tencent://message/?uin={{ user.user_qq }}&Site=qq&Menu=Yes"><i class="bi bi-tencent-qq"></i></a></li>
+                                            <li><a href="tencent://message/?uin={{ user.user_qq }}&Site=qq&Menu=Yes"><i
+                                                    class="bi bi-tencent-qq"></i></a></li>
                                         {% endif %}
                                         {% if user.user_wechat %}
-                                            <li><a href="weinxin://{{ user.user_wechat }}" class="active"><i class="bi bi-wechat"></i></a></li>
+                                            <li><a href="weinxin://{{ user.user_wechat }}" class="active"><i
+                                                    class="bi bi-wechat"></i></a></li>
                                         {% endif %}
                                         {% if user.user_email %}
-                                            <li><a href="mailto:{{ user.user_email }}"><i class="fa fa-envelope"></i></a></li>
+                                            <li><a href="mailto:{{ user.user_email }}"><i
+                                                    class="fa fa-envelope"></i></a></li>
                                         {% endif %}
                                     </ul>
                                     <ul class="team-wish-list">
@@ -327,7 +336,7 @@
                                                  alt="{{ col.post_id.post_title }}"/>
                                         </div>
                                         <h3 class="title">{{ col.post_id.post_title }}</h3>
-                                        <p  class="text-truncate" style="width: 15rem">{{ col.post_id.post_content }}</p>
+                                        <p class="text-truncate" style="width: 15rem">{{ col.post_id.post_content }}</p>
                                     </a>
                                 </div>
                             </div>
@@ -411,7 +420,7 @@
                                     他的
                                 {% endif %}
                             {% endif %}最近浏览</h2>
-                        <p  class="text-truncate">浏览的轨迹如同星空中的流星，短暂而璀璨。 </p>
+                        <p class="text-truncate">浏览的轨迹如同星空中的流星，短暂而璀璨。 </p>
                     </div>
                 </div>
             </div>
@@ -485,7 +494,7 @@
                                     他的
                                 {% endif %}
                             {% endif %}发布</h2>
-                        <p  class="text-truncate">每一个发布都是一颗思想的种子，播撒在社交的土壤中，终将开出精彩的花朵。</p>
+                        <p class="text-truncate">每一个发布都是一颗思想的种子，播撒在社交的土壤中，终将开出精彩的花朵。</p>
                     </div>
                 </div>
             </div>
@@ -503,15 +512,21 @@
                                 </div>
                             </div>
                             <div class="team-details text-center">
-                                <a href="/post-{{ post.post_layout_mode }}/?post_id={{ post.post_id }}"><h3 class="title">{{ post.post_title }}</h3>
-                                <ul class="team-content">
-                                    <li class="text-truncate"><span>摘要：</span>{{ post.post_content }}</li>
-                                </ul></a>
+                                <a href="/post-{{ post.post_layout_mode }}/?post_id={{ post.post_id }}"><h3
+                                        class="title">{{ post.post_title }}</h3>
+                                    <ul class="team-content">
+                                        <li class="text-truncate"><span>摘要：</span>{{ post.post_content }}</li>
+                                    </ul>
+                                </a>
                                 <ul class="team-wish-list">
                                     <li><i class="fas fa-eye color-red"></i><span>{{ post.post_view }}</span></li>
                                     <li><i class="fas fa-heart color-yellow"></i><span>{{ post.post_like }}</span></li>
-                                    <li><i class="fas fa-star color-curious-blue"></i><span>{{ post.collection_set.count }}</span></li>
-                                    <li><i class="fas fa-comment color-curious-blue"></i><span>{{ post.review_set.count }}</span></li>
+                                    <li>
+                                        <i class="fas fa-star color-curious-blue"></i><span>{{ post.collection_set.count }}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-comment color-curious-blue"></i><span>{{ post.review_set.count }}</span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
