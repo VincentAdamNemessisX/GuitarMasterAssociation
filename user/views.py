@@ -1,3 +1,5 @@
+from copy import copy
+
 from django.contrib.auth.hashers import make_password, check_password
 from django.db.models import Sum
 from django.shortcuts import render, HttpResponseRedirect
@@ -115,7 +117,9 @@ def user_info_update(request):
         else:
             return render(request, '500.html', {'error': '用户访问异常'})
     if request.method == 'POST':
-        update_data = request.POST
+        update_data = copy(request.POST)
+        update_data.pop('csrfmiddlewaretoken')
+        print(type(update_data['user_sex']))
         if verify.verify_current_user(request):
             if User.objects.filter(user_id=request.session['login_user_id']).update(**update_data):
                 return render(request, 'user-update.html', {'success': '更新成功'})
