@@ -12,8 +12,7 @@ def get_all_zones_by_status(status):
 
 def get_archived_posts(zone_id):
     archived_posts_year = {}
-    archived_posts_years = set(
-        Post.objects.filter(post_status=1, zone_id=zone_id).values_list('post_create_time__year', flat=True))
+    archived_posts_years = set(Post.objects.filter(post_status=1, zone_id=zone_id).values_list('post_create_time__year', flat=True))
     for year in archived_posts_years:
         archived_posts_year[year] = Post.objects.filter(post_status=1, zone_id=zone_id,
                                                         post_create_time__year=year).count()
