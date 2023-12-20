@@ -98,7 +98,7 @@
         {% endif %}
     </ul>
 </div>
-<div id="success" class="alert-success">
+<div id="success" class="alert alert-success">
     <ul>
         {% if success %}
             <li>{{ success }}</li>
@@ -112,6 +112,11 @@
 				}
 
 				auto_hide_message();
+				setTimeout(reload, 3000);
+
+				function reload() {
+					window.location.href = window.location;
+				}
             </script>
         {% endif %}
     </ul>

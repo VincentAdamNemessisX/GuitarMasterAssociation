@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'review.apps.ReviewConfig',
     'user.apps.UserConfig',
     'zone.apps.ZoneConfig',
-    'exceptionhandler.apps.ExceptionhandlerConfig'
+    'exceptionhandler.apps.ExceptionhandlerConfig',
+    'custom.apps.CustomConfig',
 ]
 
 MIDDLEWARE = [

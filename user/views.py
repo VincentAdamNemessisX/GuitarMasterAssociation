@@ -1,3 +1,5 @@
+from copy import copy
+
 from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import render, HttpResponseRedirect
 
@@ -94,20 +96,32 @@ def user_info_update(request):
             return render(request, '500.html', {'error': '用户访问异常'})
     if request.method == 'POST':
         update_data = {}
+        post_data = copy(request.POST)
+        post_data['user_sex'] = int(post_data['user_sex'])
         keys = ['user_name', 'user_nickname', 'user_email', 'user_sex',
-                'user_description', 'user_headicon', 'user_wechat', 'user_qq', 'user_phone']
+                'user_description', 'user_wechat', 'user_qq', 'user_phone']
         current_user = get_specific_user(request.GET.get('user_id'))
+        temp = current_user.__dict__
         for key in keys:
-            if key in request.POST:
-                update_data[key] = request.POST.get(key)
-        # print(update_data)
+            if key in post_data.keys():
+                if temp[key] == post_data[key]:
+                    continue
+                update_data[key] = post_data[key]
+        if request.FILES.get('user_headicon'):
+            if request.FILES.get('user_headicon') != temp['user_headicon'].split('/')[-1]:
+                update_data['user_headicon'] = request.FILES.get('user_headicon')
+                update_data['user_headicon'] = data_handle.handle_uploaded_file(update_data['user_headicon'], current_user.user_name).split('/')[-2:]
+                update_data['user_headicon'] = '/'.join(update_data['user_headicon'])
+        print(update_data)
         if verify.verify_current_user(request):
             try:
-                if User.objects.filter(user_id=request.session['login_user_id']).update(**update_data):
-                    return render(request, 'user-update.html',
-                                  {'success': '更新成功', 'user': current_user})
+                if len(update_data) > 0:
+                    if User.objects.filter(user_id=request.session['login_user_id']).update(**update_data):
+                            return render(request, 'user-update.html',
+                                          {'success': '更新成功', 'user': current_user})
+                return render(request, 'user-update.html', {'error': '请修改要更新的项', 'user': current_user})
             except Exception as e:
                 return render(request, 'user-update.html',
-                              {'error': '更新失败, 错误状态码：'
-                                        + str(e.args[0]) + ',错误信息：' + e.args[1],
+                              {'error': '更新失败, 错误信息：'
+                                        + str(e.args.__str__()),
                                'user': current_user})

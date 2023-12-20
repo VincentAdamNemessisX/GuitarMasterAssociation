@@ -151,7 +151,7 @@
     <!-- user-details-section start -->
     <section class="member-details-section ptb-120">
         <div class="container">
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="member-details-area ml-b-10">
                     <div class="member-details-item-area d-flex flex-wrap mrb-10">
@@ -237,8 +237,9 @@
                             </div>
                             <div class="member-facilities">
                                 {% if user.user_headicon %}
-                                    <input type="image" name="user_headicon" id="user_headicon"
-                                           value="{{ user.user_headicon.url }}">
+                                    当前：<input disabled type="text" id="user_headicon" value="{{ user.user_headicon.url }}">
+                                    修改：<input accept="image/*"
+                                                class="form-control-file custom-file" type="file" name="user_headicon">
                                 {% else %}
                                     Unknown Error
                                 {% endif %}
