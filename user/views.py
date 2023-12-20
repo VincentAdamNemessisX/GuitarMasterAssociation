@@ -110,15 +110,16 @@ def user_info_update(request):
         if request.FILES.get('user_headicon'):
             if request.FILES.get('user_headicon') != temp['user_headicon'].split('/')[-1]:
                 update_data['user_headicon'] = request.FILES.get('user_headicon')
-                update_data['user_headicon'] = data_handle.handle_uploaded_file(update_data['user_headicon'], current_user.user_name).split('/')[-2:]
+                update_data['user_headicon'] = data_handle.handle_uploaded_file(update_data['user_headicon'],
+                                                                                current_user.user_name).split('/')[-2:]
                 update_data['user_headicon'] = '/'.join(update_data['user_headicon'])
-        print(update_data)
+        # print(update_data)
         if verify.verify_current_user(request):
             try:
                 if len(update_data) > 0:
                     if User.objects.filter(user_id=request.session['login_user_id']).update(**update_data):
-                            return render(request, 'user-update.html',
-                                          {'success': '更新成功', 'user': current_user})
+                        return render(request, 'user-update.html',
+                                      {'success': '更新成功', 'user': current_user})
                 return render(request, 'user-update.html', {'error': '请修改要更新的项', 'user': current_user})
             except Exception as e:
                 return render(request, 'user-update.html',

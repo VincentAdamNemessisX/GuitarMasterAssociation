@@ -22,6 +22,7 @@ from exceptionhandler import views as excep_views
 from post.views import *
 from user.views import *
 from zone.views import *
+from collection.views import *
 
 handler404 = excep_views.notfound
 handler500 = excep_views.nopower
@@ -34,6 +35,8 @@ urlpatterns = [
                   path('index/', index),
                   path('user/', user),
                   path('user/collection/more/', user_collection_more),
+                  path('collection/remove/', delete_specific_collection),
+                  path('post/remove/', delete_specific_collection),
                   path('user/update/', user_info_update),
                   path('signin/', signin),
                   path('signup/', signup),
