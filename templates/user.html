@@ -55,6 +55,11 @@
             width: 40px;
             text-align: center;
         }
+
+        .none-data {
+            text-align: center;
+            margin: 100px auto;
+        }
     </style>
 {% endblock %}
 {% block content %}
@@ -295,8 +300,9 @@
                 </div>
             </div>
             <div class="process-item-area" id="collectionContainer">
-                {% if user.collection_count <= 0 %}
-                    <h2 style="text-align: center">
+            {{ user.collection_count }}
+                {% if user.collection_count and user.collection_count <= 0 %}
+                    <h2 class="none-data">
                         {% if request.session.login_user_id == user.user_id %}
                             您
                         {% else %}
@@ -358,7 +364,7 @@
 											url: '/user/collection/more/',
 											type: 'POST',
 											data: {
-												user_id: {{ user.user_id }},
+												user_id: {% if request.GET.user_id  %}{{ request.GET.user_id }}{% else %}0{% endif %},
 												csrfmiddlewaretoken: '{{ csrf_token }}'
 											},
 											dataType: 'json',
@@ -372,8 +378,8 @@
 												}
 												for (let i = 0; i < data['data'].length; i++) {
 													// 动态添加元素
-													let html = `
-												<div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+													let html =
+												`<div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
                                                          data-wow-delay="0.3s">
                                                     <div class="process-item text-center">
                                                     <a href="/post-` + data['data'][i]['post_layout_mode'] + `/?post_id=` + data['data'][i]['post_id'] + `">
@@ -457,7 +463,7 @@
                                     </div>
                                 {% endfor %}
                             {% else %}
-                                <h2 style="text-align: center; margin: 0 auto">
+                                <h2 class="none-data">
                                     {% if request.session.login_user_id == user.user_id %}
                                         您
                                     {% else %}
@@ -533,7 +539,7 @@
                     {% endfor %}
                     </div>
                 {% else %}
-                    <h2 style="text-align: center; margin: 0 auto">
+                    <h2 class="none-data">
                         {% if request.session.login_user_id == user.user_id %}
                             您
                         {% else %}

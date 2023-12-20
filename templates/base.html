@@ -73,6 +73,7 @@
         </div><!-- /preloader-icon -->
     </div><!-- /preloader-inner -->
 </div><!-- /preloader -->
+{#message handle start#}
 <div id="error" class="alert alert-danger">
     <ul>
         {% if error %}
@@ -83,20 +84,40 @@
 					$('#error').show();
 					setTimeout(function () {
 						$('#error').hide();
-					}, 3000);
+					}, 5000);
 				}
 
 				auto_hide_error();
-
-				function go() {
-					window.history.back();
-				}
-
-				setTimeout('go()', 3000);
+				{% if back %}
+					function back() {
+						window.history.back();
+					}
+					setTimeout(back, 5000);
+				{% endif %}
             </script>
         {% endif %}
     </ul>
 </div>
+<div id="success" class="alert-success">
+    <ul>
+        {% if success %}
+            <li>{{ success }}</li>
+            <script src='{% static "assets/js/jquery-3.3.1.min.js" %}'></script>
+            <script>
+				function auto_hide_message() {
+					$('#success').show();
+					setTimeout(function () {
+						$('#success').hide();
+					}, 3000);
+				}
+
+				auto_hide_message();
+            </script>
+        {% endif %}
+    </ul>
+</div>
+{# message handle end #}
+
 <!-- header-section start -->
 <header class="header-section">
     <div class="header">
@@ -240,7 +261,8 @@
                     <h3 class="widget-title">快速导航</h3>
                     <ul>
                         {% for zone in request.session.zones.data %}
-                            <li><a href="/zone?zone_id={{ zone.zone_id }}"><i class="fas fa-angle-double-right"></i>{{ zone.zone_name }}专区</a></li>
+                            <li><a href="/zone?zone_id={{ zone.zone_id }}"><i
+                                    class="fas fa-angle-double-right"></i>{{ zone.zone_name }}专区</a></li>
                         {% endfor %}
                     </ul>
                 </div>
