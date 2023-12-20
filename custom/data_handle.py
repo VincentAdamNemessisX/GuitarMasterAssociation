@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-import os
+
 from django.forms.models import model_to_dict
 from django.http import HttpResponse
 
@@ -33,8 +33,8 @@ def db_to_json(request, data):
 
 
 def handle_uploaded_file(f, username):
-    path = "media/user_headicon/" + username + "." +  f.name.split('.')[1]
-    with open(path, "wb+") as destination:
+    path = "media/user_headicon/" + username + "." + f.name.split('.')[1]
+    with open(path, "wb") as destination:
         for chunk in f.chunks():
             destination.write(chunk)
     return path

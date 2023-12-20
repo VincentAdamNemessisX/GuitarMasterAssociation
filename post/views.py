@@ -66,11 +66,12 @@ def delete_specific_post(request):
     if request.method == 'POST':
         post_id = request.POST.get('post_id')
         if not post_id:
-            return HttpResponse({'message': '删除失败!','status': '400'})
+            return HttpResponse({'message': '删除失败!', 'status': '400'})
         if remove_post_by_id(post_id):
             return HttpResponse({'message': '删除成功!', 'status': '200'})
         else:
             return HttpResponse({'message': '删除失败!', 'status': '400'})
+    return render(request, '500.html', {'error': '请求错误!'})
 
 
 @redirect_referer
