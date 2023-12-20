@@ -1,13 +1,16 @@
 import random
 
 from django.db.models import Count, Subquery, OuterRef
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
+from custom.goto_controller import redirect_referer
 from custom.update_some_index import update_post_view_count
 from post.models import Post
 from user.get import get_sorted_authors_by_hot
 from zone.get import get_archived_posts
 from zone.models import Zone
+from .function import remove_post_by_id
 
 
 # Create your views here.
@@ -57,3 +60,23 @@ def random_post(request):
     rd = random.randint(0, len(post_ids) - 1)
     specific_post = Post.objects.get(post_id=post_ids[rd])
     return redirect('/post-' + specific_post.post_layout_mode + '?post_id=' + str(specific_post.post_id))
+
+
+def delete_specific_post(request):
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id')
+        if not post_id:
+            return HttpResponse({'message': '删除失败!','status': '400'})
+        if remove_post_by_id(post_id):
+            return HttpResponse({'message': '删除成功!', 'status': '200'})
+        else:
+            return HttpResponse({'message': '删除失败!', 'status': '400'})
+
+
+@redirect_referer
+def redirect_refer():
+    pass
+
+
+def update_post(request):
+    pass
