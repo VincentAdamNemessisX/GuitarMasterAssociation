@@ -1,8 +1,10 @@
 from datetime import datetime
+from typing import Tuple
 
 from django.shortcuts import redirect
 
 from post.models import Post
+from user.models import User, RecentBrowsing
 from zone.models import Zone
 
 
@@ -33,5 +35,20 @@ def update_post_like_count(func):
         post = Post.objects.get(post_id=request.GET.get('post_id'))
         post.post_like += 1
         post.save()
+        return None
+    return _
+
+
+def update_user_recent_post(func):
+    def _(request, *args, **keys):
+        func(request, *args, **keys)
+        post = Post.objects.get(post_id=request.GET.get('post_id'))
+        user = User.objects.get(user_id=request.session.get('login_user_id'))
+        if post and user:
+            if (post.post_id,) in user.recentbrowsing_set.values_list("recent_post_id"):
+                RecentBrowsing.objects.get(recent_user_id=user.user_id, recent_post_id=post.post_id).recent_browsing_time = datetime.now()
+            else:
+                RecentBrowsing.objects.create(recent_user_id=user, recent_post_id=post,
+                                              recent_browsing_time=datetime.now())
         return None
     return _

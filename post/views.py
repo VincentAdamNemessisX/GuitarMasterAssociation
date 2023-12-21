@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from custom.goto_controller import redirect_referer
-from custom.update_some_index import update_post_view_count
+from custom.update_some_index import update_post_view_count, update_user_recent_post
 from post.models import Post
 from user.get import get_sorted_authors_by_hot
 from zone.get import get_archived_posts
@@ -15,6 +15,8 @@ from .function import remove_post_by_id
 
 # Create your views here.
 def index(request):
+    hot_authors = get_sorted_authors_by_hot(1)[:4]
+    recent_posts = Post.objects.filter(post_status=1).order_by('-post_create_time')[:6]
     return render(request, 'index.html')
 
 
@@ -41,6 +43,7 @@ def post_normal(request):
                       })
 
 
+@update_user_recent_post
 @update_post_view_count
 def update_post_view_count(request):
     pass

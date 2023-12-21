@@ -44,7 +44,7 @@ def get_specific_user(user_id):
     user.collection_count = user.collection_set.count()
     if user.collection_count > 6:
         user.collection = user.collection[:6]
-    user.recent = user.recentbrowsing_set.order_by('-recent_create_time')[:10]
+    user.recent = user.recentbrowsing_set.order_by('-recent_browsing_time')[:10]
     user.recent_count = user.recentbrowsing_set.count()
     user.post = user.post_set.order_by('-post_create_time')
     user.post_count = user.post_set.count()

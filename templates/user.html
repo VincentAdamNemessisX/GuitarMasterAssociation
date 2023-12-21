@@ -235,7 +235,6 @@
                         </div>
                         <div class="member-facilities">
                             <span class="second">
-                                {% if user.user_sex %}
                                     {% if user.user_sex == 1 %}
                                         男生
                                     {% elif user.user_sex == 2 %}
@@ -243,9 +242,6 @@
                                     {% else %}
                                         保密
                                     {% endif %}
-                                {% else %}
-                                    Undefined User In
-                                {% endif %}
                             </span>
                         </div>
                     </div>

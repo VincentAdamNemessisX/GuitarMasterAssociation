@@ -12,4 +12,4 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(RecentBrowsing)
 class RecentAdmin(admin.ModelAdmin):
-    list_display = ['recent_id', 'recent_user_id', 'recent_post_id']
+    list_display = ['recent_id', 'recent_user_id', 'recent_post_id', 'recent_browsing_time']
