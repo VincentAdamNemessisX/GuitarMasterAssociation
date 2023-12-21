@@ -308,8 +308,7 @@
                 </div>
             </div>
             <div class="process-item-area" id="collectionContainer">
-                {{ user.collection_count }}
-                {% if user.collection_count and user.collection_count <= 0 %}
+                {% if user.collection_count <= 0 %}
                     <h2 class="none-data">
                         {% if request.session.login_user_id == user.user_id %}
                             您
@@ -363,31 +362,30 @@
                             <div class="text-center mrb-30" id="collectionViewMoreBtn" style="">
                                 <button class="btn btn-primary" onclick="loadMoreCollection()">查看更多</button>
                             </div>
-                            {% block custom_script %}
-                                <script>
-									function loadMoreCollection() {
-										let collectionContainer = document.getElementById('collectionContainer');
-										// Use AJAX or other methods to load more collection items and append to collectionContainer
-										$.ajax({
-											url: '/user/collection/more/',
-											type: 'POST',
-											data: {
-												user_id: {% if request.GET.user_id  %}{{ request.GET.user_id }}{% else %}0{% endif %},
-												csrfmiddlewaretoken: '{{ csrf_token }}'
-											},
-											dataType: 'json',
-											success: function (data) {
-												{#console.log(data['data'][0]['post_title']);#}
-												collectionContainer.innerHTML += "<div id='append_row' class=\"row justify-content-center\">";
-												collectionContainer = document.getElementById('append_row');
-												if (data['data'].length === 0) {
-													collectionContainer.innerHTML = "没有更多了";
-													return;
-												}
-												for (let i = 0; i < data['data'].length; i++) {
-													// 动态添加元素
-													let html =
-														`<div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                            <script>
+								function loadMoreCollection() {
+									let collectionContainer = document.getElementById('collectionContainer');
+									// Use AJAX or other methods to load more collection items and append to collectionContainer
+									$.ajax({
+										url: '/user/collection/more/',
+										type: 'POST',
+										data: {
+											user_id: {% if request.GET.user_id  %}{{ request.GET.user_id }}{% else %}0{% endif %},
+											csrfmiddlewaretoken: '{{ csrf_token }}'
+										},
+										dataType: 'json',
+										success: function (data) {
+											{#console.log(data['data'][0]['post_title']);#}
+											collectionContainer.innerHTML += "<div id='append_row' class=\"row justify-content-center\">";
+											collectionContainer = document.getElementById('append_row');
+											if (data['data'].length === 0) {
+												collectionContainer.innerHTML = "没有更多了";
+												return;
+											}
+											for (let i = 0; i < data['data'].length; i++) {
+												// 动态添加元素
+												let html =
+													`<div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
                                                          data-wow-delay="0.3s">
                                                     <div class="process-item text-center">
                                                     <a href="/post-` + data['data'][i]['post_layout_mode'] + `/?post_id=` + data['data'][i]['post_id'] + `">
@@ -399,16 +397,15 @@
                                                     </a>
                                                     </div>
                                                 </div>`;
-													collectionContainer.innerHTML += html;
-												}
-												{#collectionContainer.attributes['id'].value = '';#}
-												collectionContainer.innerHTML += "</div>";
-												$("#collectionViewMoreBtn").remove();
+												collectionContainer.innerHTML += html;
 											}
-										});
-									}
-                                </script>
-                            {% endblock %}
+											{#collectionContainer.attributes['id'].value = '';#}
+											collectionContainer.innerHTML += "</div>";
+											$("#collectionViewMoreBtn").remove();
+										}
+									});
+								}
+                            </script>
                         {% endif %}
                         {% endfor %}
                 {% endif %}
@@ -562,4 +559,6 @@
         </div>
     </section>
     <!-- personal-post-section end -->
+{% endblock %}
+{% block custom_script %}
 {% endblock %}

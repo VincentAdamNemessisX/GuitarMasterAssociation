@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="registration-form-area">
                                     <form id="registration-form" class="registration-form"
-                                          onsubmit="return validateForm()" action="/signin/" method="post">
+                                          onsubmit="return validateForm()" action="/signin/" method="post" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         <div class="row">
                                             <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
@@ -106,7 +106,7 @@
                                                 <div class="register-icon">
                                                     <i class="flaticon-user"></i>
                                                 </div>
-                                                <input type="text" name="username" id="username" placeholder="用户名">
+                                                <input type="text" name="username" id="username" placeholder="用户名" value="{{ info.username }}">
                                                 <span id="usernameError" class="error"></span>
                                             </div>
                                             <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
@@ -115,7 +115,7 @@
                                                     <i class="flaticon-shield-with-lock"></i>
                                                 </div>
                                                 <input type="password" id="password" name="password"
-                                                       placeholder="*************">
+                                                       placeholder="*************" value="{{ info.password }}">
                                                 <a href="#0" id="show-pass-two" class="show-pass"
                                                    onclick="togglePasswordVisibility('show-pass-two')">
                                                     <i class="fas fa-eye"></i></a>

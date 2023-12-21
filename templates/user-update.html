@@ -76,6 +76,11 @@
             text-align: center;
             margin: 100px auto;
         }
+
+        .cmn-btn {
+            margin-top: 1rem;
+            border-radius: 10px;
+        }
     </style>
 {% endblock %}
 {% block content %}
@@ -336,7 +341,7 @@
                     <div class="row justify-content-center">
                         {% for col in user.collection %}
                             <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                                 data-wow-delay="0.3s">
+                                 data-wow-delay="0.3s" id="collection-{{ col.collection_id }}">
                                 <div class="process-item text-center">
                                     <a href="/post-{{ col.post_id.post_layout_mode }}/?post_id={{ col.post_id.post_id }}">
                                         <div class="icon-gradient">
@@ -346,6 +351,9 @@
                                         <h3 class="title">{{ col.post_id.post_title }}</h3>
                                         <p class="text-truncate" style="width: 15rem">{{ col.post_id.post_content }}</p>
                                     </a>
+                                    <button class="cmn-btn" onclick="remove_collection({{ col.collection_id }})">
+                                        删除
+                                    </button>
                                 </div>
                             </div>
                         {% endfor %}
@@ -354,7 +362,7 @@
                     <div class="row justify-content-center">
                         {% for col in user.collection %}
                             <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                                 data-wow-delay="0.3s">
+                                 data-wow-delay="0.3s" id="collection-{{ col.collection_id }}">
                                 <div class="process-item text-center">
                                     <a href="/post-{{ col.post_id.post_layout_mode }}/?post_id={{ col.post_id.post_id }}">
                                         <div class="icon-gradient">
@@ -364,6 +372,9 @@
                                         <h3 class="title">{{ col.post_id.post_title }}</h3>
                                         <p class="text-truncate" style="width: 15rem">{{ col.post_id.post_content }}</p>
                                     </a>
+                                    <button class="cmn-btn" onclick="remove_collection({{ col.collection_id }})">
+                                        删除
+                                    </button>
                                 </div>
                             </div>
                             {% if forloop.counter == 3 %}
@@ -375,52 +386,53 @@
                             <div class="text-center mrb-30" id="collectionViewMoreBtn" style="">
                                 <button class="btn btn-primary" onclick="loadMoreCollection()">查看更多</button>
                             </div>
-                            {% block custom_script %}
-                                <script>
-									function loadMoreCollection() {
-										let collectionContainer = document.getElementById('collectionContainer');
-										// Use AJAX or other methods to load more collection items and append to collectionContainer
-										$.ajax({
-											url: '/user/collection/more/',
-											type: 'POST',
-											data: {
-												user_id: {{ request.GET.user_id }},
-												csrfmiddlewaretoken: '{{ csrf_token }}'
-											},
-											dataType: 'json',
-											success: function (data) {
-												{#console.log(data['data'][0]['post_title']);#}
-												collectionContainer.innerHTML += "<div id='append_row' class=\"row justify-content-center\">";
-												collectionContainer = document.getElementById('append_row');
-												if (data['data'].length === 0) {
-													collectionContainer.innerHTML = "没有更多了";
-													return;
-												}
-												for (let i = 0; i < data['data'].length; i++) {
-													// 动态添加元素
-													let html = `
+                            <script>
+								function loadMoreCollection() {
+									let collectionContainer = document.getElementById('collectionContainer');
+									// Use AJAX or other methods to load more collection items and append to collectionContainer
+									$.ajax({
+										url: '/user/collection/more/',
+										type: 'POST',
+										data: {
+											user_id: {{ request.GET.user_id }},
+											csrfmiddlewaretoken: '{{ csrf_token }}'
+										},
+										dataType: 'json',
+										success: function (data) {
+											{#console.log(data['data'][0]['post_title']);#}
+											collectionContainer.innerHTML += "<div id='append_row' class=\"row justify-content-center\">";
+											collectionContainer = document.getElementById('append_row');
+											if (data['data'].length === 0) {
+												collectionContainer.innerHTML = "没有更多了";
+												return;
+											}
+											for (let i = 0; i < data['data'].length; i++) {
+												// 动态添加元素
+												let html = `
 												<div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                                                         data-wow-delay="0.3s">
+                                                         data-wow-delay="0.3s" id="collection-` + data['data'][i]['post_id'] + `">
                                                     <div class="process-item text-center">
-                                                    <a href="/post-` + data['data'][i]['post_layout_mode'] + `/?post_id=` + data['data'][i]['post_id'] + `">
-                                                        <div class="icon-gradient">
-                                                            <img src="` + data['data'][i]['post_image'] + `" alt="` + data['data'][i]['post_title'] + `" />
-                                                        </div>
-                                                        <h3 class="title">` + data['data'][i]['post_title'] + `</h3>
-                                                        <p  class="text-truncate" style="width: 15rem">` + data['data'][i]['post_content'] + `</p>
-                                                    </a>
+                                                        <a href="/post-` + data['data'][i]['post_layout_mode'] + `/?post_id=` + data['data'][i]['post_id'] + `">
+                                                            <div class="icon-gradient">
+                                                                <img src="` + data['data'][i]['post_image'] + `" alt="` + data['data'][i]['post_title'] + `" />
+                                                            </div>
+                                                            <h3 class="title">` + data['data'][i]['post_title'] + `</h3>
+                                                            <p  class="text-truncate" style="width: 15rem">` + data['data'][i]['post_content'] + `</p>
+                                                        </a>
+                                                        <button class="cmn-btn" onclick="remove_collection(` + data['data'][i]['collection_id'] + `)">
+                                                            删除
+                                                        </button>
                                                     </div>
                                                 </div>`;
-													collectionContainer.innerHTML += html;
-												}
-												{#collectionContainer.attributes['id'].value = '';#}
-												collectionContainer.innerHTML += "</div>";
-												$("#collectionViewMoreBtn").remove();
+												collectionContainer.innerHTML += html;
 											}
-										});
-									}
-                                </script>
-                            {% endblock %}
+											{#collectionContainer.attributes['id'].value = '';#}
+											collectionContainer.innerHTML += "</div>";
+											$("#collectionViewMoreBtn").remove();
+										}
+									});
+								}
+                            </script>
                         {% endif %}
                         {% endfor %}
                 {% endif %}
@@ -432,7 +444,7 @@
     <section class="team-section pd-t-120 bg-overlay-white-two bg_img" id="personal-post"
              data-background={% static "assets/images/gallery/portfolio-bg.png" %}>
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" id="posts-container">
                 <div class="col-lg-7 text-center">
                     <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
                         <h2 class="section-title">
@@ -453,7 +465,7 @@
                 {% if user.post_set.count > 0 %}
                     {% for post in user.post %}
                         <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                             data-wow-delay="0.5s">
+                             data-wow-delay="0.5s" id="post-{{ post.post_id }}">
                             <div class="team-thumb">
                                 <img src="{{ post.post_image.url }}" alt="team">
                                 <div class="team-thumb-overlay">
@@ -466,7 +478,8 @@
                                 <a href="/post-{{ post.post_layout_mode }}/?post_id={{ post.post_id }}"><h3
                                         class="title">{{ post.post_title }}</h3>
                                     <ul class="team-content">
-                                        <li class="text-truncate"><span>摘要：</span>{{ post.post_content }}</li>
+                                        <li class="text-truncate" style="width: 10rem">
+                                            <span>摘要：</span>{{ post.post_content }}</li>
                                     </ul>
                                 </a>
                                 <ul class="team-wish-list">
@@ -479,6 +492,9 @@
                                         <i class="fas fa-comment color-curious-blue"></i><span>{{ post.review_set.count }}</span>
                                     </li>
                                 </ul>
+                                <button class="cmn-btn" onclick="remove_post({{ post.post_id }})">
+                                    删除
+                                </button>
                             </div>
                         </div>
                     {% endfor %}
@@ -499,5 +515,148 @@
         </div>
     </section>
     <!-- personal-post-section end -->
+{% endblock %}
+{% block custom_script %}
+    <script>
+		function remove_collection(collection_id) {
+			let x = document.getElementById("collection-" + collection_id);
+			$.ajax(
+				{
+					url: "/collection/remove/",
+					type: "POST",
+					data: {
+						collection_id: collection_id,
+						csrfmiddlewaretoken: "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data ===     '200') {
+							x.parentNode.removeChild(x);
+							check_collection();
+							let success_box = document.getElementById("success");
+							let msg_node = document.createElement("li");
+							msg_node.innerText = "已删除";
+							success_box.childNodes[1].appendChild(msg_node);
+							$('#success').show();
+							auto_hide_message();
+							setTimeout(function () {
+								success_box.childNodes[1].removeChild(msg_node);
+							}, 3000);
+							check_collection();
+							console.log(data);
+						} else {
+							let error_box = document.getElementById("error");
+							let msg_node = document.createElement("li");
+							msg_node.innerText = "删除失败";
+							error_box.childNodes[1].appendChild(msg_node);
+							$('#error').show();
+							auto_hide_error();
+							setTimeout(function () {
+								error_box.childNodes[1].removeChild(msg_node);
+							}, 5000);
+							check_collection();
+							console.log(data);
+						}
+					},
+					error: function (data) {
+						let error_box = document.getElementById("error");
+						let msg_node = document.createElement("li");
+						msg_node.innerText = "删除失败";
+						error_box.childNodes[1].appendChild(msg_node);
+						$('#error').show();
+						auto_hide_error();
+						setTimeout(function () {
+							error_box.childNodes[1].removeChild(msg_node);
+						}, 5000);
+						check_collection();
+						console.log(data);
+					}
+				}
+			);
+		}
 
+		function check_collection() {
+			let x = document.getElementById("collectionContainer").childNodes[1];
+			let x1 = document.getElementById("append_row");
+			try {
+				if (x.children.length <= 0 && x1.children.length <= 0) {
+					let child = document.createElement("h2");
+					child.class = "none-data";
+					child.innerText = "您的收藏夹空空如也！";
+					x.appendChild(child);
+				}
+			} catch (e) {
+				console.log(e);
+			}
+		}
+
+		function remove_post(post_id) {
+			let x = document.getElementById("post-" + post_id);
+			$.ajax(
+				{
+					url: "/post/remove/",
+					type: "POST",
+					data: {
+						post_id: post_id,
+						csrfmiddlewaretoken: "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data === '200') {
+							x.parentNode.removeChild(x);
+							check_posts();
+							let success_box = document.getElementById("success");
+							let msg_node = document.createElement("li");
+							msg_node.innerText = "已删除";
+							success_box.childNodes[1].appendChild(msg_node);
+							$('#success').show();
+							auto_hide_message();
+							setTimeout(function () {
+								success_box.childNodes[1].removeChild(msg_node);
+							}, 3000);
+							check_posts();
+							{#console.log(data);#}
+						} else {
+							let error_box = document.getElementById("error");
+							let msg_node = document.createElement("li");
+							msg_node.innerText = "删除失败";
+							error_box.childNodes[1].appendChild(msg_node);
+							$('#error').show();
+							auto_hide_error();
+							setTimeout(function () {
+								error_box.childNodes[1].removeChild(msg_node);
+							}, 5000);
+							check_posts();
+							console.log(data);
+						}
+					},
+					error: function (data) {
+						let error_box = document.getElementById("error");
+						let msg_node = document.createElement("li");
+						msg_node.innerText = "删除失败";
+						error_box.childNodes[1].appendChild(msg_node);
+						$('#error').show();
+						auto_hide_error();
+						setTimeout(function () {
+							error_box.childNodes[1].removeChild(msg_node);
+						}, 5000);
+						check_posts();
+						console.log(data);
+					}
+				}
+			);
+		}
+
+		function check_posts() {
+			let x = document.getElementById("posts-container");
+			try {
+				if (x.children.length <= 0) {
+					let child = document.createElement("h2");
+					child.class = "none-data";
+					child.innerText = "您还未发布任何内容！";
+					x.appendChild(child);
+				}
+			} catch (e) {
+				console.log(e);
+			}
+		}
+    </script>
 {% endblock %}

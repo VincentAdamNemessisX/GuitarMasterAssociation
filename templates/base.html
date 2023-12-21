@@ -46,7 +46,7 @@
         position: fixed;
         width: 100%;
         font-size: 20px;
-        z-index: 1000;
+        z-index: 100000;
     }
 
     .header-social i {
@@ -320,4 +320,30 @@
 <script src='{% static "assets/js/wow.min.js" %}'></script>
 <!-- main -->
 <script src='{% static "assets/js/main.js" %}'></script>
+<script>
+	function auto_hide_error() {
+		$('#error').show();
+		setTimeout(function () {
+			$('#error').hide();
+		}, 5000);
+	}
+
+	{% if back %}
+		function back() {
+			window.history.back();
+		}
+		setTimeout(back, 5000);
+	{% endif %}
+
+	function auto_hide_message() {
+		$('#success').show();
+		setTimeout(function () {
+			$('#success').hide();
+		}, 3000);
+	}
+
+	function reload() {
+		window.location.href = window.location;
+	}
+</script>
 </html>

@@ -15,13 +15,14 @@ def signin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        post_data = request.POST
         if User.objects.filter(user_name=username).exists():
             login_user = User.objects.get(user_name=username)
             if check_password(password, login_user.user_password):
                 if login_user.user_status == 0:
-                    return render(request, 'signin.html', {'error': '该用户已被禁用'})
+                    return render(request, 'signin.html', {'error': '该用户已被禁用', 'info': post_data})
                 if login_user.user_status == 2:
-                    return render(request, 'signin.html', {'error': '该用户已被冻结'})
+                    return render(request, 'signin.html', {'error': '该用户已被冻结', 'info': post_data})
                 if login_user.user_status == 1:
                     request.session['login_username'] = login_user.user_name
                     request.session['login_user_id'] = login_user.user_id
@@ -31,11 +32,11 @@ def signin(request):
                         user_last_active_time=verify.get_current_time())
                     return HttpResponseRedirect('/index/')
                 else:
-                    return render(request, 'signin.html', {'error': '未知错误'})
+                    return render(request, 'signin.html', {'error': '未知错误', 'info': post_data})
             else:
-                return render(request, 'signin.html', {'error': '用户名或密码错误'})
+                return render(request, 'signin.html', {'error': '用户名或密码错误', 'info': post_data})
         else:
-            return render(request, 'signin.html', {'error': '用户名或密码错误'})
+            return render(request, 'signin.html', {'error': '用户名或密码错误', 'info': post_data})
     return render(request, 'signin.html')
 
 
