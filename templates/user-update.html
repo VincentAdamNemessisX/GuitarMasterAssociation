@@ -495,6 +495,9 @@
                                 <button class="cmn-btn" onclick="remove_post({{ post.post_id }})">
                                     删除
                                 </button>
+                                <button class="cmn-btn" onclick="edit_post({{ post.post_id }})">
+                                    修改
+                                </button>
                             </div>
                         </div>
                     {% endfor %}
@@ -529,7 +532,7 @@
 						csrfmiddlewaretoken: "{{ csrf_token }}",
 					},
 					success: function (data) {
-						if (data ===     '200') {
+						if (data === '200') {
 							x.parentNode.removeChild(x);
 							check_collection();
 							let success_box = document.getElementById("success");
@@ -542,7 +545,7 @@
 								success_box.childNodes[1].removeChild(msg_node);
 							}, 3000);
 							check_collection();
-							console.log(data);
+							{#console.log(data);#}
 						} else {
 							let error_box = document.getElementById("error");
 							let msg_node = document.createElement("li");
@@ -657,6 +660,10 @@
 			} catch (e) {
 				console.log(e);
 			}
+		}
+
+		function edit_post(post_id) {
+			window.location.href = "/post/edit/?post_id=" + post_id;
 		}
     </script>
 {% endblock %}

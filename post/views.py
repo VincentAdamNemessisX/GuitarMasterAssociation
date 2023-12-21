@@ -23,7 +23,7 @@ def post_normal(request):
         if not request.GET.get('post_id'):
             return render(request, '404.html')
         current_post = Post.objects.get(post_id=request.GET.get('post_id'), post_status=1)
-        hot_authors = get_sorted_authors_by_hot(0)[:4]
+        hot_authors = get_sorted_authors_by_hot(1)[:4]
         recent_posts = Post.objects.filter(post_status=1).order_by('-post_create_time')[:6]
         archived_posts = get_archived_posts(zone_id=current_post.zone_id)
         # Subquery 用于获取每个专区的 post 数量
@@ -80,4 +80,6 @@ def redirect_refer():
 
 
 def update_post(request):
-    pass
+    if request.method == 'GET':
+        pass
+        return render(request, "post-edit.html", {'post_id': request.GET.get('post_id')})
