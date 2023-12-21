@@ -32,7 +32,7 @@
                             <h3 class="title"><a
                                     href="/post-{{ post.post_layout_mode }}?post_id={{ post.post_id }}">{{ post.post_title }}</a>
                             </h3>
-                            <span class="blog-user">由 <a href="/user/?userid={{ post.user_id.user_id }}">
+                            <span class="blog-user">由 <a href="/user/?user_id={{ post.user_id.user_id }}">
                                 {% if post.user_id.user_nickname %}
                                     {{ post.user_id.user_nickname }}
                                 {% else %}
@@ -56,7 +56,7 @@
                                  src='{{ author.user_headicon.url }}'>
                         </div>
                         <div class="author-content" style="margin: 1rem auto; text-align: center;">
-                            <h3 class="title"><a href="/user?userid={{ author.user_id }}">
+                            <h3 class="title"><a href="/user?user_id={{ author.user_id }}">
                                 {% if author.user_nickname %}
                                     {{ author.user_nickname }}
                                 {% else %}

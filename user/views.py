@@ -47,13 +47,14 @@ def signup(request):
         password = make_password(request.POST.get('password'))
         sex = request.POST.get('sex')
         headicon = request.POST.get('headicon')
+        post_data = request.POST
         if User.objects.filter(user_name=username).exists():
-            return render(request, 'signup.html', {'error': '用户名已存在'})
+            return render(request, 'signup.html', {'error': '用户名已存在', 'info': post_data})
         else:
             if User.objects.create(user_name=username, user_email=email, user_phone=phone, user_password=password,
                                    user_sex=sex, user_headicon=headicon):
                 return render(request, 'signin.html', {'success': '注册成功'})
-            return render(request, 'signup.html', {'error': '注册失败'})
+            return render(request, 'signup.html', {'error': '注册失败', 'info': post_data})
     return render(request, 'signup.html')
 
 
