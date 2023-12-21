@@ -10,14 +10,6 @@ def contact(request):
     return render(request, 'contact.html')
 
 
-def event(request):
-    return render(request, 'event.html')
-
-
-def faq(request):
-    return render(request, 'faq.html')
-
-
 def pricing(request):
     return render(request, 'pricing.html')
 

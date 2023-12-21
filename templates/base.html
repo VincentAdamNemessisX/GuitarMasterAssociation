@@ -153,8 +153,8 @@
                                 <div class="login-thumb">
                                     <i class="flaticon-user"></i>
                                 </div>
-                                <span><a
-                                        href="/user?user_id={{ request.session.login_user_id }}">{{ request.session.login_username }}</a></span>
+                                <span><a style="text-transform: none"
+                                         href="/user?user_id={{ request.session.login_user_id }}">{{ request.session.login_username }}</a></span>
                             </div>
                             <div class="login-bar d-flex flex-wrap login_bar_custom">
                                 <div class="login-thumb">
@@ -222,6 +222,7 @@
                                 {% endfor %}
                             </ul>
                         </li>
+                        <li><a href="/help">需要帮助？</a></li>
                     </ul>
                 </div>
                 <div class="header-right d-flex flex-wrap">
@@ -274,6 +275,7 @@
                             <li><a href="/zone?zone_id={{ zone.zone_id }}"><i
                                     class="fas fa-angle-double-right"></i>{{ zone.zone_name }}专区</a></li>
                         {% endfor %}
+                        <li><a href="/help"><i class="fas fa-angle-double-right"></i>需要帮助？</a></li>
                     </ul>
                 </div>
             </div>
@@ -301,8 +303,6 @@
 </div>
 <!-- footer-section end -->
 </body>
-{% block custom_script %}
-{% endblock %}
 <!-- jquery -->
 <script src='{% static "assets/js/jquery-3.3.1.min.js" %}'></script>
 <!-- migarate-jquery -->
@@ -325,6 +325,8 @@
 <script src='{% static "assets/js/wow.min.js" %}'></script>
 <!-- main -->
 <script src='{% static "assets/js/main.js" %}'></script>
+{% block custom_script %}
+{% endblock %}
 <script>
 	function auto_hide_error() {
 		$('#error').show();

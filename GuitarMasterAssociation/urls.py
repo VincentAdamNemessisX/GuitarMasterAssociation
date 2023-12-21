@@ -23,6 +23,7 @@ from post.views import *
 from user.views import *
 from zone.views import *
 from collection.views import *
+from feedback.views import *
 
 handler404 = excep_views.notfound
 handler500 = excep_views.nopower
@@ -48,8 +49,7 @@ urlpatterns = [
                   path('random-post/', random_post),
                   path('about/', about),
                   path('contact/', contact),
-                  path('event/', event),
-                  path('faq/', faq),
+                  path('help/', faq_help),
                   path('pricing/', pricing),
                   path('privacy/', privacy),
                   path('search/', search),

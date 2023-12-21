@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block custom_style %}
+    <style>
+        .col-lg-9 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .faq-content p {
+            text-indent: 2em;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <!-- inner-banner-section start -->
+    <section class="inner-banner-section bg-overlay-primary bg_img"
+             data-background={% static "assets/images/header/inner-2.png" %}>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 text-center">
+                    <div class="inner-content">
+                        <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
+                            需要帮助？看这里
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- inner-banner-section end -->
+
+
+    <a href="#" class="scrollToTop"><i class="fas fa-heart"></i></a>
+
+
+    <!-- breadcrumb-section start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>主页</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">帮助</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- breadcrumb-section end -->
+
+
+    <!-- faq-section start -->
+    <section class="faq-section ptb-120">
+        <div class="container">
+            <div class="row ml-b-30">
+
+                {#                分类帮助#}
+                {#                <div class="col-lg-3 mrb-30">#}
+                {#                    <div class="faq-list-area">#}
+                {#                        <h3 class="title">table of contents</h3>#}
+                {#                        <ul class="faq-list">#}
+                {#                            <li><a href="#0">Generel</a></li>#}
+                {#                            <li><a href="#0">Trust & Softy</a></li>#}
+                {#                            <li><a href="#0">Services</a></li>#}
+                {#                            <li><a href="#0">Billing</a></li>#}
+                {#                            <li><a href="#0">Offices</a></li>#}
+                {#                        </ul>#}
+                {#                    </div>#}
+                {#                </div>#}
+
+
+                <div class="col-lg-9 mrb-30">
+                    <div class="faq-wrapper" id="help-area">
+                        {% if help_list.count > 0 %}
+                            {% for help in help_list %}
+                                <div class="faq-item">
+                                    <h3 class="faq-title"><span class="title"><i
+                                            class="flaticon-chat"></i>{{ help.help_title }}</span><span
+                                            class="right-icon"></span></h3>
+                                    <div class="faq-content">
+                                        <p>{{ help.help_content }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="faq-item">
+                                <h3 class="faq-title"><span class="title"><i
+                                        class="flaticon-chat"></i>暂无帮助</span><span
+                                        class="right-icon"></span></h3>
+                                <div class="faq-content">
+                                    <p>站长太懒了，快去提出反馈吧！</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- faq-section end -->
+
+    <!-- brand-section start -->
+    <div class="brand-section ptb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="brand-wrapper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="../static/assets/images/brand/brand-1.png" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="../static/assets/images/brand/brand-2.png" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="../static/assets/images/brand/brand-3.png" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="../static/assets/images/brand/brand-4.png" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="../static/assets/images/brand/brand-5.png" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- brand-section end -->
+{% endblock %}
+{% block custom_script %}
+    <script>
+        $(document).ready(function () {
+			document.getElementById("help-area").children[0].classList.add("active");
+			document.getElementById("help-area").children[0].classList.add("open");
+        });
+    </script>
+{% endblock %}

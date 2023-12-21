@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'zone.apps.ZoneConfig',
     'exceptionhandler.apps.ExceptionhandlerConfig',
     'custom.apps.CustomConfig',
+    'feedback.apps.FeedbackConfig',
 ]
 
 MIDDLEWARE = [
