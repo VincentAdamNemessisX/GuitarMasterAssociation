@@ -18,7 +18,7 @@ class FrontEndLoginVerifyMiddleWare(MiddlewareMixin):
             if item in request.path:
                 return
         if request.session.get('login_username') is None:
-            verify_url = ['']
+            verify_url = []
             if request.path.strip('/') in verify_url:
                 return HttpResponseRedirect('/signin')
         else:

@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}
+    帮助中心
+{% endblock %}
 {% block custom_style %}
     <style>
         .col-lg-9 {
@@ -140,6 +143,27 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="../static/assets/images/brand/brand-6.png" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="../static/assets/images/brand/brand-7.png" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="../static/assets/images/brand/brand-8.png" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -150,9 +174,9 @@
 {% endblock %}
 {% block custom_script %}
     <script>
-        $(document).ready(function () {
+		$(document).ready(function () {
 			document.getElementById("help-area").children[0].classList.add("active");
 			document.getElementById("help-area").children[0].classList.add("open");
-        });
+		});
     </script>
 {% endblock %}
