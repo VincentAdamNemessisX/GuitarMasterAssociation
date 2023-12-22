@@ -46,6 +46,7 @@ urlpatterns = [
                   path('zone/', zone),
                   path('post-normal/', post_normal),
                   path('post/like/', update_post_like),
+                  path('post/collect/', update_post_collecion),
                   path('post-immersion/', post_immersion),
                   path('random-post/', random_post),
                   path('about/', about),

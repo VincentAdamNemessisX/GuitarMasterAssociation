@@ -132,7 +132,7 @@
                                     </li>
                                     <li>
                                         <button id="post_collection" class="button-85" role="button"
-                                                onclick="add_post_to_collection()">{% if post.is_collected %}取消收藏{% else %}收藏{% endif %}</button>
+                                                onclick="update_collection_post()">{% if post.is_collected %}取消收藏{% else %}收藏{% endif %}</button>
                                     </li>
                                     <!-- HTML !-->
 
@@ -233,7 +233,7 @@
     <script>
 		function update_post_like() {
 			let post_like_btn = document.getElementById("post_like");
-			if (post_like_btn.innerHTML === "点赞") {
+			if (post_like_btn.innerHTML.trim() === "点赞") {
 				$.ajax({
 					url: "/post/like/",
 					type: "POST",
@@ -276,11 +276,48 @@
 			}
 		}
 
-		function add_post_to_collection() {
-			if (document.getElementById("post_collection").innerHTML === "Add to favourite") {
-				document.getElementById("post_collection").innerHTML = "Added to favourite";
+		function update_collection_post() {
+			let post_like_btn = document.getElementById("post_collection");
+			if (post_like_btn.innerHTML.trim() === "收藏") {
+				$.ajax({
+					url: "/post/collect/",
+					type: "POST",
+					data: {
+						"post_id": {{ post.post_id }},
+						"method": "append",
+						"csrfmiddlewaretoken": "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data === '200') {
+							post_like_btn.innerHTML = "取消收藏";
+						} else {
+							console.log(data);
+						}
+					},
+					error: function (data) {
+						console.log(data);
+					}
+				});
 			} else {
-				document.getElementById("post_collection").innerHTML = "Add to favourite";
+				$.ajax({
+					url: "/post/collect/",
+					type: "POST",
+					data: {
+						"post_id": {{ post.post_id }},
+						"method": "remove",
+						"csrfmiddlewaretoken": "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data === '200') {
+							post_like_btn.innerHTML = "收藏";
+						} else {
+							console.log(data);
+						}
+					},
+					error: function (data) {
+						console.log(data);
+					}
+				});
 			}
 		}
     </script>

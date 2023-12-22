@@ -119,6 +119,26 @@ def update_post_like(request):
     return render(request, "500.html", {'error': '请求错误!'})
 
 
+def update_post_collecion(request):
+    if request.method == 'POST':
+        if request.POST.get('post_id') is None:
+            return HttpResponse({'更新失败!', '400'})
+        else:
+            if request.POST.get("method") == "append":
+                if add_post_collection(request):
+                    return HttpResponse({'200'})
+                else:
+                    return HttpResponse({'更新失败!', '404'})
+            elif request.POST.get("method") == "remove":
+                if remove_post_collection(request):
+                    return HttpResponse({'200'})
+                else:
+                    return HttpResponse({'更新失败!', '404'})
+            else:
+                return HttpResponse({'更新失败!', '400'})
+    return render(request, "500.html", {'error': '请求错误!'})
+
+
 def add_post_like_count(request):
     post = Post.objects.get(post_id=request.POST.get('post_id'))
     user = User.objects.get(user_id=request.session.get('login_user_id')) if request.session.get(
@@ -129,6 +149,35 @@ def add_post_like_count(request):
             post.save()
             post_like = PostLike.objects.create(user_id=user, post_id=post)
             post_like.save()
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+def add_post_collection(request):
+    post = Post.objects.get(post_id=request.POST.get('post_id'))
+    user = User.objects.get(user_id=request.session.get('login_user_id')) if request.session.get(
+        'login_user_id') else None
+    if post and user:
+        if not Collection.objects.filter(user_id=user, post_id=post).exists():
+            collection = Collection.objects.create(user_id=user, post_id=post, collection_status=1)
+            collection.save()
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+def remove_post_collection(request):
+    post = Post.objects.get(post_id=request.POST.get('post_id'))
+    user = User.objects.get(user_id=request.session.get('login_user_id')) if request.session.get(
+        'login_user_id') else None
+    if post and user:
+        if Collection.objects.filter(user_id=user, post_id=post).exists():
+            Collection.objects.filter(user_id=user, post_id=post).delete()
             return True
         else:
             return False
