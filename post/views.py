@@ -4,10 +4,12 @@ from django.db.models import Count, Subquery, OuterRef
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
+from collection.models import Collection
 from custom.goto_controller import redirect_referer
 from custom.update_some_index import update_post_view_count, update_user_recent_post
-from post.models import Post
+from post.models import Post, PostLike
 from user.get import get_sorted_authors_by_hot
+from user.models import User
 from zone.get import get_archived_posts
 from zone.models import Zone
 from .function import remove_post_by_id
@@ -25,6 +27,14 @@ def post_normal(request):
         if not request.GET.get('post_id'):
             return render(request, '404.html')
         current_post = Post.objects.get(post_id=request.GET.get('post_id'), post_status=1)
+        if request.session.get('login_user_id'):
+            current_post.is_liked = PostLike.objects.filter(user_id=request.session.get('login_user_id'),
+                                                            post_id=current_post.post_id).exists()
+            current_post.is_collected = Collection.objects.filter(user_id=request.session.get('login_user_id'),
+                                                                  post_id=current_post.post_id).exists()
+        else:
+            current_post.is_liked = False
+            current_post.is_collected = False
         hot_authors = get_sorted_authors_by_hot(1)[:4]
         recent_posts = Post.objects.filter(post_status=1).order_by('-post_create_time')[:6]
         archived_posts = get_archived_posts(zone_id=current_post.zone_id)
@@ -41,6 +51,7 @@ def post_normal(request):
                           'hot_zones': hot_zones, 'recent_posts': recent_posts,
                           'hot_authors': hot_authors, 'archived_posts': archived_posts
                       })
+    return render(request, '500.html', {'error': '请求错误！'})
 
 
 @update_user_recent_post
@@ -86,3 +97,57 @@ def update_post(request):
     if request.method == 'GET':
         pass
         return render(request, "post-edit.html", {'post_id': request.GET.get('post_id')})
+
+
+def update_post_like(request):
+    if request.method == 'POST':
+        if request.POST.get('post_id') is None:
+            return HttpResponse({'更新失败!', '400'})
+        else:
+            if request.POST.get("method") == "append":
+                if add_post_like_count(request):
+                    return HttpResponse({'200'})
+                else:
+                    return HttpResponse({'更新失败!', '404'})
+            elif request.POST.get("method") == "remove":
+                if remove_post_like_count(request):
+                    return HttpResponse({'200'})
+                else:
+                    return HttpResponse({'更新失败!', '404'})
+            else:
+                return HttpResponse({'更新失败!', '400'})
+    return render(request, "500.html", {'error': '请求错误!'})
+
+
+def add_post_like_count(request):
+    post = Post.objects.get(post_id=request.POST.get('post_id'))
+    user = User.objects.get(user_id=request.session.get('login_user_id')) if request.session.get(
+        'login_user_id') else None
+    if post and user:
+        if (post.post_id,) not in user.postlike_set.values_list("post_id"):
+            post.post_like += 1
+            post.save()
+            post_like = PostLike.objects.create(user_id=user, post_id=post)
+            post_like.save()
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+def remove_post_like_count(request):
+    post = Post.objects.get(post_id=request.POST.get('post_id'))
+    user = User.objects.get(user_id=request.session.get('login_user_id')) if request.session.get(
+        'login_user_id') else None
+    if post and user:
+        if (post.post_id,) in user.postlike_set.values_list("post_id"):
+            post.post_like -= 1
+            post.save()
+            post_like = PostLike.objects.get(user_id=user, post_id=post)
+            post_like.delete()
+            return True
+        else:
+            return False
+    else:
+        return False

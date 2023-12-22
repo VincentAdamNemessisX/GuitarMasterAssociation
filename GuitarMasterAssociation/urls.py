@@ -45,6 +45,7 @@ urlpatterns = [
                   path('signout/', signout),
                   path('zone/', zone),
                   path('post-normal/', post_normal),
+                  path('post/like/', update_post_like),
                   path('post-immersion/', post_immersion),
                   path('random-post/', random_post),
                   path('about/', about),

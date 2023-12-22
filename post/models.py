@@ -10,7 +10,8 @@ class Post(models.Model):
     post_content = models.TextField()
     post_image = models.ImageField(upload_to='post/%Y/%m', default='post/default.png')
     post_status = models.IntegerField(default=1, choices=((1, '正常'), (2, '审核中'), (3, '审核不通过')))
-    post_layout_mode = models.CharField(default='normal', choices=(('normal', '普通'), ('immersion', '沉浸式')), max_length=20)
+    post_layout_mode = models.CharField(default='normal', choices=(('normal', '普通'), ('immersion', '沉浸式')),
+                                        max_length=20)
     post_view = models.IntegerField(default=0)
     post_like = models.IntegerField(default=0)
     post_create_time = models.DateTimeField(auto_now_add=True)
@@ -23,3 +24,19 @@ class Post(models.Model):
 
     def __str__(self):
         return self.post_title
+
+
+class PostLike(models.Model):
+    post_like_id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey('user.User', on_delete=models.CASCADE)
+    post_id = models.ForeignKey('post.Post', on_delete=models.CASCADE)
+    post_like_time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'post_like'
+        verbose_name = '帖子点赞'
+        verbose_name_plural = verbose_name
+        unique_together = ('user_id', 'post_id')
+
+    def __str__(self):
+        return str(self.post_like_id)

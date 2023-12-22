@@ -3,15 +3,28 @@
 {% block title %}
     {{ post.post_title }}
 {% endblock %} %}
+{% block custom_style %}
+    <style>
+        .smaller-padding-with-vertical {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        .blog-details-tag-area .tag-list li {
+            background: none;
+        }
+    </style>
+{% endblock %}
 {% block content %}
     <!-- inner-banner-section start -->
-    <section class="inner-banner-section bg-overlay-primary bg_img"
+    <section class="inner-banner-section bg-overlay-primary bg_img smaller-padding-with-vertical"
              data-background={% static "assets/images/header/inner-3.png" %}>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12 text-center">
                     <div class="inner-content">
-                        <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">Blog Single</h2>
+                        <h2 class="title wow fade-in-up" data-wow-duration="1s"
+                            data-wow-delay="0.5s">{{ post.post_title }}</h2>
                     </div>
                 </div>
             </div>
@@ -28,9 +41,9 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>Home</a></li>
-                    <li class="breadcrumb-item"><a href="/blog-1">Blog Post</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Blog Single</li>
+                    <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>主页</a></li>
+                    <li class="breadcrumb-item"><i class="bi-house-heart-fill" style="font-size: 1.2rem"></i><a
+                            href="/zone?zone_id={{ post.zone_id.zone_id }}">{{ post.zone_id.zone_name }}</a></li>
                 </ol>
             </nav>
         </div>
@@ -45,14 +58,24 @@
                 <div class="col-lg-8 mrb-30">
                     <div class="blog-item mrb-60 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
                         <div class="blog-thumb">
-                            <img src={% static "assets/images/blog/blog-20.png" %} alt="blog">
+                            <img src="{{ post.post_image.url }}" alt="blog">
                         </div>
                         <div class="blog-content blog-content-two">
-                            <h3 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">Dictumst Ipsum
-                                Scelerisque Vestibuluma Tempu Tortor Lacus</h3>
+                            <h3 class="title wow fade-in-up" data-wow-duration="1s"
+                                data-wow-delay="0.5s">{{ post.post_title }}</h3>
                             <ul class="blog-content-list">
-                                <li><i class="far fa-heart"></i><span>03</span></li>
-                                <li><i class="far fa-comment-alt"></i><span>00</span></li>
+                                <li>
+                                    <i class="fas fa-eye"></i><span>{{ post.post_view }}</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-heart"></i><span>{{ post.post_like }}</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-star"></i><span>{{ post.collection_set.count }}</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-comment"></i><span>{{ post.review_set.count }}</span>
+                                </li>
                             </ul>
                             <p class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">Pretium et in
                                 vehicula duis, vel adipiscing maecenas est, velit urna a. Lorem vivammagna sem sodales
@@ -76,7 +99,7 @@
                                     <div class="col-lg-6 col-md-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
                                          data-wow-delay="0.5s">
                                         <div class="blog-details-thumb">
-                                            <img src={% static "assets/images/blog/blog-details-1.png" %} alt="image">
+                                            <img src="{% static "assets/images/blog/blog-details-1.png" %}" alt="image">
                                         </div>
                                         <div class="blog-details-thumb-details">
                                             <p>Photo by Ruddra Khan / Thesoftking</p>
@@ -103,9 +126,16 @@
                                 A pellentesque.</p>
                             <div class="blog-details-tag-area d-flex flex-wrap justify-content-between ml-b-30">
                                 <ul class="tag-list mrb-30">
-                                    <li><a href="#0">Dating</a></li>
-                                    <li><a href="#0">Love Stories</a></li>
-                                    <li><a href="#0">Privat Event</a></li>
+                                    <li>
+                                        <button id="post_like" class="button-85" role="button"
+                                                onclick="update_post_like()">{% if post.is_liked %}取消点赞{% else %}点赞{% endif %}</button>
+                                    </li>
+                                    <li>
+                                        <button id="post_collection" class="button-85" role="button"
+                                                onclick="add_post_to_collection()">{% if post.is_collected %}取消收藏{% else %}收藏{% endif %}</button>
+                                    </li>
+                                    <!-- HTML !-->
+
                                 </ul>
                                 <ul class="tag-social mrb-30">
                                     <li><a href="#0"><i class="fab fa-twitter"></i>twitter</a></li>
@@ -198,4 +228,60 @@
         </div>
     </section>
     <!-- blog-section start -->
+{% endblock %}
+{% block custom_script %}
+    <script>
+		function update_post_like() {
+			let post_like_btn = document.getElementById("post_like");
+			if (post_like_btn.innerHTML === "点赞") {
+				$.ajax({
+					url: "/post/like/",
+					type: "POST",
+					data: {
+						"post_id": {{ post.post_id }},
+						"method": "append",
+						"csrfmiddlewaretoken": "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data === '200') {
+							post_like_btn.innerHTML = "取消点赞";
+						} else {
+							console.log(data);
+						}
+					},
+					error: function (data) {
+						console.log(data);
+					}
+				});
+			} else {
+				$.ajax({
+					url: "/post/like/",
+					type: "POST",
+					data: {
+						"post_id": {{ post.post_id }},
+						"method": "remove",
+						"csrfmiddlewaretoken": "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data === '200') {
+							post_like_btn.innerHTML = "点赞";
+						} else {
+							console.log(data);
+						}
+					},
+					error: function (data) {
+						console.log(data);
+					}
+				});
+			}
+		}
+
+		function add_post_to_collection() {
+			if (document.getElementById("post_collection").innerHTML === "Add to favourite") {
+				document.getElementById("post_collection").innerHTML = "Added to favourite";
+			} else {
+				document.getElementById("post_collection").innerHTML = "Add to favourite";
+			}
+		}
+    </script>
 {% endblock %}
