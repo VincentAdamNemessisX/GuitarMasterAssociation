@@ -144,15 +144,20 @@
                                     <a href="#" class="social-share-icon icon-weibo"></a>
                                     <a href="#" class="social-share-icon icon-qq"></a>
                                     <a href="#" class="social-share-icon icon-qzone"></a>
+                                    <a href="#" class="social-share-icon icon-wechat"></a>
                                 </div>
                             </div>
-                            <div class="blog-details-btn-area d-flex flex-wrap justify-content-between">
-                                <div class="btn-left">
-                                    <a href="#0" class="btn-border">previous</a>
-                                </div>
-                                <div class="btn-right">
-                                    <a href="#0" class="btn-border">next</a>
-                                </div>
+                            <div id="prev-and-next-buttons" class="blog-details-btn-area d-flex flex-wrap justify-content-between">
+                                {% if prev_post %}
+                                    <div class="btn-left">
+                                        <a href="/post-{{ prev_post.post_layout_mode }}?post_id={{ prev_post.post_id }}" class="btn-border" style="padding: 12px 50px">上一篇</a>
+                                    </div>
+                                {% endif %}
+                                {% if next_post %}
+                                    <div class="btn-right">
+                                        <a href="/post-{{ next_post.post_layout_mode }}?post_id={{ next_post.post_id }}" class="btn-border">下一篇</a>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -162,7 +167,8 @@
                             <li>
                                 <div class="comment-item">
                                     <div class="comment-thumb">
-                                        <a href="#"><img src={% static "assets/images/blog/comment-1.png" %} alt="blog"></a>
+                                        <a href="#"><img src="{% static "assets/images/blog/comment-1.png" %}"
+                                                         alt="blog"></a>
                                     </div>
                                     <div class="comment-content">
                                         <h5 class="sub-title wow fade-in-up" data-wow-duration="1s"
@@ -404,5 +410,16 @@
 				});
 			}
 		}
+
+		$(document).ready(function () {
+			let area = document.getElementById("prev-and-next-buttons");
+			if (area.children.length === 1) {
+				area.classList.remove("justify-content-between");
+				area.classList.add("justify-content-center");
+			} else {
+				area.classList.remove("justify-content-center");
+				area.classList.add("justify-content-between");
+            }
+		})
     </script>
 {% endblock %}

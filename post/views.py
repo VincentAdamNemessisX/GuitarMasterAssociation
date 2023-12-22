@@ -27,11 +27,34 @@ def post_normal(request):
         if not request.GET.get('post_id'):
             return render(request, '404.html')
         current_post = Post.objects.get(post_id=request.GET.get('post_id'), post_status=1)
+        current_zone_posts = current_post.zone_id.post_set.values().order_by("post_create_time").reverse()
+        current_post_index = 0
+        for post in current_zone_posts:
+            if post['post_id'] == current_post.post_id:
+                print(current_post_index)
+                break
+            current_post_index += 1
+        try:
+            next_post = current_zone_posts[current_post_index + 1]
+            if next_post:
+                next_post = Post.objects.get(post_id=next_post['post_id'])
+            else:
+                next_post = None
+        except IndexError:
+            next_post = None
+        try:
+            prev_post = current_zone_posts[current_post_index - 1]
+            if prev_post:
+                prev_post = Post.objects.get(post_id=prev_post['post_id'])
+            else:
+                prev_post = None
+        except AssertionError:
+            prev_post = None
         if request.session.get('login_user_id'):
             current_post.is_liked = PostLike.objects.filter(user_id=request.session.get('login_user_id'),
                                                             post_id=current_post.post_id).exists()
             current_post.is_collected = Collection.objects.filter(user_id=request.session.get('login_user_id'),
-                                                                  post_id=current_post.post_id, collection_status=1).exists()
+                                                                  post_id=current_post.post_id).exists()
         else:
             current_post.is_liked = False
             current_post.is_collected = False
@@ -48,6 +71,7 @@ def post_normal(request):
         return render(request, 'post_details_normal.html',
                       {
                           'post': current_post,
+                          'next_post': next_post, 'prev_post': prev_post,
                           'hot_zones': hot_zones, 'recent_posts': recent_posts,
                           'hot_authors': hot_authors, 'archived_posts': archived_posts
                       })
