@@ -27,6 +27,8 @@
     <link rel="stylesheet" href='{% static "assets/css/animate.css" %}'>
     <!-- main style css link -->
     <link rel="stylesheet" href='{% static "assets/css/style.css" %}'>
+    {#share style#}
+    <link rel="stylesheet" href="{% static "assets/css/share.min.css" %}">
 </head>
 <style>
     .copyrights {
@@ -437,13 +439,31 @@
 <script src='{% static "assets/js/wow.min.js" %}'></script>
 <!-- main -->
 <script src='{% static "assets/js/main.js" %}'></script>
+<script src='{% static "assets/js/social-share.min.js" %}'></script>
 {% block custom_script %}
 {% endblock %}
 <script>
+	function check_error_and_success_list() {
+		let error_list = document.getElementById("error").childNodes[1];
+		let success_list = document.getElementById("success").childNodes[1];
+		try {
+			if (error_list.children.length <= 0) {
+				$("error").hide();
+				document.getElementById("error").style.display = "none";
+			}
+		} catch (e) {}
+		try {
+			if (success_list.children.length <= 0) {
+				$("success").hide();
+				document.getElementById("success").style.display = "none";
+			}
+		} catch (e) {}
+	}
+
 	function auto_hide_error() {
 		$('#error').show();
 		setTimeout(function () {
-			$('#error').hide();
+			check_error_and_success_list();
 		}, 5000);
 	}
 
@@ -457,7 +477,7 @@
 	function auto_hide_message() {
 		$('#success').show();
 		setTimeout(function () {
-			$('#success').hide();
+			check_error_and_success_list();
 		}, 3000);
 	}
 

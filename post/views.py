@@ -31,7 +31,7 @@ def post_normal(request):
             current_post.is_liked = PostLike.objects.filter(user_id=request.session.get('login_user_id'),
                                                             post_id=current_post.post_id).exists()
             current_post.is_collected = Collection.objects.filter(user_id=request.session.get('login_user_id'),
-                                                                  post_id=current_post.post_id).exists()
+                                                                  post_id=current_post.post_id, collection_status=1).exists()
         else:
             current_post.is_liked = False
             current_post.is_collected = False
@@ -119,7 +119,7 @@ def update_post_like(request):
     return render(request, "500.html", {'error': '请求错误!'})
 
 
-def update_post_collecion(request):
+def update_post_collection(request):
     if request.method == 'POST':
         if request.POST.get('post_id') is None:
             return HttpResponse({'更新失败!', '400'})
@@ -162,7 +162,7 @@ def add_post_collection(request):
         'login_user_id') else None
     if post and user:
         if not Collection.objects.filter(user_id=user, post_id=post).exists():
-            collection = Collection.objects.create(user_id=user, post_id=post, collection_status=1)
+            collection = Collection.objects.create(user_id=user, post_id=post)
             collection.save()
             return True
         else:

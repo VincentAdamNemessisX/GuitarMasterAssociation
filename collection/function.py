@@ -8,8 +8,7 @@ def remove_collection_by_id(collection_id):
     """
     if Collection.objects.get(collection_id=collection_id):
         temp = Collection.objects.get(collection_id=collection_id)
-        temp.collection_status = 0
-        temp.save()
+        temp.delete()
         return True
     else:
         return False
