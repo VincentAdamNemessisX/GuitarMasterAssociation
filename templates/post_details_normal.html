@@ -13,6 +13,22 @@
         .blog-details-tag-area .tag-list li {
             background: none;
         }
+
+        .comment-item .comment-content {
+            z-index: 1000;
+        }
+
+        .panel-info {
+            display: grid;
+        }
+
+        .panel-heading {
+            justify-self: center;
+        }
+
+        .comment-thumb {
+            border-radius: 50%;
+        }
     </style>
 {% endblock %}
 {% block content %}
@@ -165,10 +181,10 @@
                         </div>
                     </div>
                     <div class="comments-section" id="reviews_area"></div>
-                    <div class="leave-comment">
+                    <div class="leave-review">
                         <h3 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">Leave a
                             Comment</h3>
-                        <form class="comment-form">
+                        <form class="review-form" method="post" enctype="multipart/form-data" action="/review/publish/">
                             <div class="row">
                                 <div class="col-sm-12 form-group wow fade-in-bottom" data-wow-duration="1s"
                                      data-wow-delay="0.5s">
@@ -401,7 +417,7 @@
 					if (data.code === 200) {
 						let reviews_summary = document.createElement("h3");
 						reviews_summary.classList.add("title");
-						reviews_summary.innerText = data.data.length + "条评论";
+						reviews_summary.innerText = data.all_reviews_count + "条评论";
 						if (data.data.length === 0) {
 							reviews_summary.style.justifySelf = "center";
 							reviews_summary.innerText = "暂无评论";
@@ -409,51 +425,73 @@
 						reviews.appendChild(reviews_summary);
 						let reviews_wrapper = document.createElement("ul");
 						reviews_wrapper.classList.add("comment-wrapper");
+						let load_more_btn = document.createElement("button");
+						load_more_btn.style.display = "none";
+						if (data.all_reviews_count > 10) {
+							load_more_btn = document.createElement("button");
+							load_more_btn.classList.add("cmn-btn");
+							load_more_btn.style.display = "block";
+							load_more_btn.innerText = "加载更多";
+						}
 						for (const review_i in data.data) {
 							let review_item = document.createElement("li");
 							let time_period = formatTimePeriod(Date.now() - Date.parse(data.data[review_i].review_time));
 							{#console.log(time_period);#}
-							review_item.innerHTML = `
+							if (data.data[review_i].children_count > 0) {
+								review_item.innerHTML = `
                                 <div class="comment-item">
                                     <div class="comment-thumb">
-                                        <a href="/user/?user_id=` + data.data[review_i].author.user_id + `"><img src="` + data.data[review_i].author.user_headicon + `"
+                                        <a href="/user/?user_id=${data.data[review_i].author.user_id}"><img src="${data.data[review_i].author.user_headicon}"
                                                          alt="blog"></a>
                                     </div>
                                     <div class="comment-content">
                                         <h5 class="sub-title wow fade-in-up" data-wow-duration="1s"
-                                            data-wow-delay="0.5s"><a href="/user/?user_id=` + data.data[review_i].author.user_id + `">` + data.data[review_i].author.username + `</a></h5>
-                                        <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">` + time_period + `</span>
-                                        <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">` + data.data[review_i].content + `</p>
+                                            data-wow-delay="0.5s"><a href="/user/?user_id=${data.data[review_i].author.user_id}">${data.data[review_i].author.username}</a></h5>
+                                        <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">${time_period}</span>
+                                        <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">${data.data[review_i].content}</p>
                                         <a href="#" class="reply-button">回复</a>
                                     </div>
-                               </div>
+								    <div class="panel-group" style="width: 100%" id="accordion-${data.data[review_i].review_id}">
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a id="reply-list-button-${data.data[review_i].review_id}" style="color: white" onclick="get_review_children(${data.data[review_i].review_id})" data-toggle="collapse" data-parent="#accordion-${data.data[review_i].review_id}"
+                                                       href="#reply-${data.data[review_i].review_id}" class="cmn-btn">
+                                                        展开回复列表
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <ul id="reply-${data.data[review_i].review_id}" class="reply-wrapper panel-collapse collapse">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+								`;
+							} else {
+								review_item.innerHTML = `
+                                <div class="comment-item">
+                                    <div class="comment-thumb">
+                                        <a href="/user/?user_id=${data.data[review_i].author.user_id}"><img src="${data.data[review_i].author.user_headicon}"
+                                                         alt="blog"></a>
+                                    </div>
+                                    <div class="comment-content">
+                                        <h5 class="sub-title wow fade-in-up" data-wow-duration="1s"
+                                            data-wow-delay="0.5s"><a href="/user/?user_id=${data.data[review_i].author.user_id}">${data.data[review_i].author.username}</a></h5>
+                                        <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">${time_period}</span>
+                                        <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">${data.data[review_i].content}</p>
+                                        <a href="#" class="reply-button">回复</a>
+                                    </div>
+                                </div>
                                 `;
+							}
 							reviews_wrapper.appendChild(review_item);
 						}
 						reviews.appendChild(reviews_wrapper);
-						let reviews_list = `
-                                <ul class="reply-wrapper">
-                                    <li>
-                                        <div class="comment-item">
-                                            <div class="comment-thumb">
-                                                <a href="#"><img
-                                                        src="" alt="blog"></a>
-                                            </div>
-                                            <div class="comment-content">
-                                                <h5 class="sub-title wow fade-in-up" data-wow-duration="1s"
-                                                    data-wow-delay="0.5s"><a href="#">Mae Hayes</a></h5>
-                                                <span class="wow fade-in-up" data-wow-duration="1s"
-                                                      data-wow-delay="0.5s">2 day ago</span>
-                                                <p class="wow fade-in-bottom" data-wow-duration="1s"
-                                                   data-wow-delay="0.5s">Volutpat ut, est sed et tincidunt neque, ipsum
-                                                    consectetulierosV diam nec. Ridiculus justo volutpat dictum eget
-                                                    odio in. Ridiculus gravida arcu this is news post.</p>
-                                                <a href="#" class="reply-button">Reply</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                        `;
+						try {
+							reviews.appendChild(load_more_btn);
+						} catch (e) {
+							console.log(e);
+						}
 					} else {
 						let error_box = document.getElementById("error");
 						let msg_node = document.createElement("li");
@@ -484,6 +522,198 @@
 			})
 		})
 
+		{#get and layout review children#}
+		let counter = 0;
+
+		function get_review_children(review_id) {
+			$.ajax({
+				url: "/review/get/children/",
+				type: "POST",
+				enctype: 'application/json',
+				data: {
+					"review_id": review_id,
+					"csrfmiddlewaretoken": "{{ csrf_token }}",
+				},
+				success: function (data) {
+					if (data.code === 200) {
+						let review_children = document.getElementById("reply-" + review_id);
+						if (data.data.length <= 0) {
+							document.getElementById("accordion-" + review_id).parentNode.removeChild(document.getElementById("accordion-" + review_id));
+						} else {
+							if (counter % 2 === 0) {
+								for (const child_i in data.data) {
+									let child = document.createElement("li");
+									let time_period = formatTimePeriod(Date.now() - Date.parse(data.data[child_i].review_time));
+									child.innerHTML = `
+                                        <div class="comment-item">
+                                            <div class="comment-thumb">
+                                                <a href="/user/?user_id=${data.data[child_i].author.user_id}"><img src="${data.data[child_i].author.user_headicon}"
+                                                         alt="blog"></a>
+                                            </div>
+                                            <div class="comment-content">
+                                                <h5 class="sub-title wow fade-in-up" data-wow-duration="1s"
+                                                    data-wow-delay="0.5s"><a href="/user/?user_id=${data.data[child_i].author.user_id}">${data.data[child_i].author.username}</a></h5>
+                                                <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">${time_period}</span>
+                                                <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">${data.data[child_i].content}</p>
+                                                <a href="#" class="reply-button">回复</a>
+                                            </div>
+                                        </div>
+							`;
+									review_children.appendChild(child);
+								}
+								document.getElementById(`reply-list-button-${review_id}`).removeEventListener('click', get_review_children);
+								document.getElementById(`reply-list-button-${review_id}`).innerText =
+									document.getElementById(`reply-list-button-${review_id}`).innerText.replaceAll("展开", "收起");
+							} else {
+								document.getElementById(`reply-list-button-${review_id}`).innerText =
+									document.getElementById(`reply-list-button-${review_id}`).innerText.replace("收起", "展开");
+								review_children.innerHTML = "";
+							}
+							counter++;
+						}
+					} else {
+						let error_box = document.getElementById("error");
+						let msg_node = document.createElement("li");
+						msg_node.innerText = "回复加载失败，" + data.msg;
+						error_box.childNodes[1].appendChild(msg_node);
+						$('#error').show();
+						auto_hide_error();
+						setTimeout(function () {
+							error_box.childNodes[1].removeChild(msg_node);
+							check_error_and_success_list();
+						}, 5000);
+						{#console.log(data);#}
+					}
+				},
+				error: function (data) {
+					let error_box = document.getElementById("error");
+					let msg_node = document.createElement("li");
+					msg_node.innerText = "回复加载失败，" + data.msg;
+					error_box.childNodes[1].appendChild(msg_node);
+					$('#error').show();
+					auto_hide_error();
+					setTimeout(function () {
+						error_box.childNodes[1].removeChild(msg_node);
+						check_error_and_success_list();
+					}, 5000);
+					{#console.log(data);#}
+					{#console.log(data);#}
+				}
+			})
+		}
+
+
+		let page_num = 1;
+
+		function get_more_reviews() {
+			let reviews = document.getElementById("reviews_area");
+			$.ajax({
+				url: "/review/get/more/",
+				type: "POST",
+				enctype: 'application/json',
+				data: {
+					"post_id": {{ post.post_id }},
+					"page": page_num++,
+					"csrfmiddlewaretoken": "{{ csrf_token }}",
+				},
+				success: function (data) {
+					if (data.code === 200) {
+						let load_more_btn = document.createElement("button");
+						load_more_btn.classList.add("cmn-btn");
+						load_more_btn.innerText = "加载更多";
+						load_more_btn.style.display = "none";
+						if (data.all_reviews_count > page_num * 10) {
+							load_more_btn.style.display = "block";
+						}
+						for (const review_i in data.data) {
+							let review_item = document.createElement("li");
+							let time_period = formatTimePeriod(Date.now() - Date.parse(data.data[review_i].review_time));
+							{#console.log(time_period);#}
+							if (data.data[review_i].children_count > 0) {
+								review_item.innerHTML = `
+                                <div class="comment-item">
+                                    <div class="comment-thumb">
+                                        <a href="/user/?user_id=${data.data[review_i].author.user_id}"><img src="${data.data[review_i].author.user_headicon}"
+                                                         alt="blog"></a>
+                                    </div>
+                                    <div class="comment-content">
+                                        <h5 class="sub-title wow fade-in-up" data-wow-duration="1s"
+                                            data-wow-delay="0.5s"><a href="/user/?user_id=${data.data[review_i].author.user_id}">${data.data[review_i].author.username}</a></h5>
+                                        <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">${time_period}</span>
+                                        <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">${data.data[review_i].content}</p>
+                                        <a href="#" class="reply-button">回复</a>
+                                    </div>
+								    <div class="panel-group" style="width: 100%" id="accordion-${data.data[review_i].review_id}">
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a id="reply-list-button-${data.data[review_i].review_id}" style="color: white" onclick="get_review_children(${data.data[review_i].review_id})" data-toggle="collapse" data-parent="#accordion-${data.data[review_i].review_id}"
+                                                       href="#reply-${data.data[review_i].review_id}" class="cmn-btn">
+                                                        展开回复列表
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <ul id="reply-${data.data[review_i].review_id}" class="reply-wrapper panel-collapse collapse">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+								`;
+							} else {
+								review_item.innerHTML = `
+                                <div class="comment-item">
+                                    <div class="comment-thumb">
+                                        <a href="/user/?user_id=${data.data[review_i].author.user_id}"><img src="${data.data[review_i].author.user_headicon}"
+                                                         alt="blog"></a>
+                                    </div>
+                                    <div class="comment-content">
+                                        <h5 class="sub-title wow fade-in-up" data-wow-duration="1s"
+                                            data-wow-delay="0.5s"><a href="/user/?user_id=${data.data[review_i].author.user_id}">${data.data[review_i].author.username}</a></h5>
+                                        <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">${time_period}</span>
+                                        <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">${data.data[review_i].content}</p>
+                                        <a href="#" class="reply-button">回复</a>
+                                    </div>
+                                </div>
+                                `;
+							}
+							reviews_wrapper.appendChild(review_item);
+						}
+						reviews.appendChild(reviews_wrapper);
+						try {
+							reviews.appendChild(load_more_btn);
+						} catch (e) {
+							console.log(e);
+						}
+					} else {
+						let error_box = document.getElementById("error");
+						let msg_node = document.createElement("li");
+						msg_node.innerText = "评论加载失败，" + data.msg;
+						error_box.childNodes[1].appendChild(msg_node);
+						$('#error').show();
+						auto_hide_error();
+						setTimeout(function () {
+							error_box.childNodes[1].removeChild(msg_node);
+							check_error_and_success_list();
+						}, 5000);
+						{#console.log(data);#}
+					}
+				},
+				error: function (data) {
+					let error_box = document.getElementById("error");
+					let msg_node = document.createElement("li");
+					msg_node.innerText = "评论加载失败，" + data.msg;
+					error_box.childNodes[1].appendChild(msg_node);
+					$('#error').show();
+					auto_hide_error();
+					setTimeout(function () {
+						error_box.childNodes[1].removeChild(msg_node);
+						check_error_and_success_list();
+					}, 5000);
+					{#console.log(data);#}
+				}
+			})
+		}
+
 		function formatTimePeriod(timePeriod) {
 			const seconds = Math.floor(timePeriod / 1000);
 			const minutes = Math.floor(seconds / 60);
@@ -494,19 +724,26 @@
 			const years = Math.floor(days / 365);
 
 			if (years > 0) {
-				return `${years}年前`;
+				return `${years}
+								年前`;
 			} else if (months > 0) {
-				return `${months}个月前`;
+				return `${months}
+								个月前`;
 			} else if (weeks > 0) {
-				return `${weeks}周前`;
+				return `${weeks}
+								周前`;
 			} else if (days > 0) {
-				return `${days}天前`;
+				return `${days}
+								天前`;
 			} else if (hours > 0) {
-				return `${hours}小时前`;
+				return `${hours}
+								小时前`;
 			} else if (minutes > 0) {
-				return `${minutes}分钟前`;
+				return `${minutes}
+								分钟前`;
 			} else if (seconds > 0) {
-				return `${seconds}秒前`;
+				return `${seconds}
+								秒前`;
 			} else {
 				console.error('未来者时间，请站长注意！timePeriod is invalid!');
 				return '未来者时间，请站长注意！';
