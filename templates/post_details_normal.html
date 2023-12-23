@@ -424,14 +424,15 @@
 						}
 						reviews.appendChild(reviews_summary);
 						let reviews_wrapper = document.createElement("ul");
+						reviews_wrapper.id = "reviews_wrapper";
 						reviews_wrapper.classList.add("comment-wrapper");
 						let load_more_btn = document.createElement("button");
 						load_more_btn.style.display = "none";
+						load_more_btn.classList.add("cmn-btn");
+						load_more_btn.innerText = "加载更多";
 						if (data.all_reviews_count > 10) {
-							load_more_btn = document.createElement("button");
-							load_more_btn.classList.add("cmn-btn");
 							load_more_btn.style.display = "block";
-							load_more_btn.innerText = "加载更多";
+							load_more_btn.addEventListener("click", get_more_reviews);
 						}
 						for (const review_i in data.data) {
 							let review_item = document.createElement("li");
@@ -618,13 +619,11 @@
 				},
 				success: function (data) {
 					if (data.code === 200) {
+						let reviews_wrapper = document.getElementById("reviews_wrapper");
 						let load_more_btn = document.createElement("button");
 						load_more_btn.classList.add("cmn-btn");
 						load_more_btn.innerText = "加载更多";
 						load_more_btn.style.display = "none";
-						if (data.all_reviews_count > page_num * 10) {
-							load_more_btn.style.display = "block";
-						}
 						for (const review_i in data.data) {
 							let review_item = document.createElement("li");
 							let time_period = formatTimePeriod(Date.now() - Date.parse(data.data[review_i].review_time));
@@ -678,9 +677,13 @@
 							}
 							reviews_wrapper.appendChild(review_item);
 						}
-						reviews.appendChild(reviews_wrapper);
 						try {
-							reviews.appendChild(load_more_btn);
+							if (data.data.length < 10) {
+								reviews.lastChild.remove();
+							} else if (data.all_reviews_count > page_num * 10) {
+							} else {
+								reviews.lastChild.remove();
+							}
 						} catch (e) {
 							console.log(e);
 						}

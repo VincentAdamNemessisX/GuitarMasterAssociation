@@ -38,6 +38,7 @@ def load_more_reviews(request):
         if request.POST.get('post_id') and request.POST.get('page'):
             post_id = request.POST.get('post_id')
             page = request.POST.get('page')
+            print(page)
             if post_id and page:
                 reviews = Review.objects.filter(content_id=post_id, parent_id=None).order_by('-review_time_index')[
                           int(page) * 10:int(page) * 10 + 10]
@@ -56,7 +57,7 @@ def load_more_reviews(request):
                     }
                     for review in reviews
                 ]
-                return JsonResponse({'code': 200, 'data': serialized_reviews, 'msg': '获取成功'})
+                return JsonResponse({'code': 200,'all_reviews_count': Review.objects.filter(content_id=post_id).count(), 'data': serialized_reviews, 'msg': '获取成功'})
                 # return data_handle.db_to_json2(request, reviews)
             else:
                 return JsonResponse({'code': 400, 'msg': '参数错误'})

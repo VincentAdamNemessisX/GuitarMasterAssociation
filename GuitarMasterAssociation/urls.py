@@ -43,6 +43,7 @@ urlpatterns = [
                   path('post/edit/', update_post),
                   path('review/get/all/', get_init_reviews),
                   path('review/get/children/', get_specific_review_children),
+                  path('review/get/more/', load_more_reviews),
                   path('user/update/', user_info_update),
                   path('signin/', signin),
                   path('signup/', signup),
