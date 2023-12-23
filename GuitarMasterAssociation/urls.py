@@ -17,13 +17,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
+
 from TestUnit.views import *
+from collection.views import *
 from exceptionhandler import views as excep_views
+from feedback.views import *
 from post.views import *
 from user.views import *
 from zone.views import *
-from collection.views import *
-from feedback.views import *
+from review.views import *
 
 handler404 = excep_views.notfound
 handler500 = excep_views.nopower
@@ -39,6 +41,7 @@ urlpatterns = [
                   path('collection/remove/', delete_specific_collection),
                   path('post/remove/', delete_specific_post),
                   path('post/edit/', update_post),
+                  path('review/get/all/', get_all_reviews),
                   path('user/update/', user_info_update),
                   path('signin/', signin),
                   path('signup/', signup),

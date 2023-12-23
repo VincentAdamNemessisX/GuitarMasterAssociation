@@ -147,63 +147,24 @@
                                     <a href="#" class="social-share-icon icon-wechat"></a>
                                 </div>
                             </div>
-                            <div id="prev-and-next-buttons" class="blog-details-btn-area d-flex flex-wrap justify-content-between">
+                            <div id="prev-and-next-buttons"
+                                 class="blog-details-btn-area d-flex flex-wrap justify-content-between">
                                 {% if prev_post %}
                                     <div class="btn-left">
-                                        <a href="/post-{{ prev_post.post_layout_mode }}?post_id={{ prev_post.post_id }}" class="btn-border" style="padding: 12px 50px">上一篇</a>
+                                        <a href="/post-{{ prev_post.post_layout_mode }}?post_id={{ prev_post.post_id }}"
+                                           class="btn-border" style="padding: 12px 50px">上一篇</a>
                                     </div>
                                 {% endif %}
                                 {% if next_post %}
                                     <div class="btn-right">
-                                        <a href="/post-{{ next_post.post_layout_mode }}?post_id={{ next_post.post_id }}" class="btn-border">下一篇</a>
+                                        <a href="/post-{{ next_post.post_layout_mode }}?post_id={{ next_post.post_id }}"
+                                           class="btn-border">下一篇</a>
                                     </div>
                                 {% endif %}
                             </div>
                         </div>
                     </div>
-                    <div class="comments-section">
-                        <h3 class="title">03 comment</h3>
-                        <ul class="comment-wrapper">
-                            <li>
-                                <div class="comment-item">
-                                    <div class="comment-thumb">
-                                        <a href="#"><img src="{% static "assets/images/blog/comment-1.png" %}"
-                                                         alt="blog"></a>
-                                    </div>
-                                    <div class="comment-content">
-                                        <h5 class="sub-title wow fade-in-up" data-wow-duration="1s"
-                                            data-wow-delay="0.5s"><a href="#">Will Marvin</a></h5>
-                                        <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">1 Day ago</span>
-                                        <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
-                                            magnis nisl lectus velit parturient vitae, suspendisse fusce in
-                                            variultusetvnea. Hac metus dui facilisis.</p>
-                                        <a href="#" class="reply-button">Reply</a>
-                                    </div>
-                                </div>
-                                <ul class="reply-wrapper">
-                                    <li>
-                                        <div class="comment-item">
-                                            <div class="comment-thumb">
-                                                <a href="#"><img
-                                                        src={% static "assets/images/blog/comment-2.png" %} alt="blog"></a>
-                                            </div>
-                                            <div class="comment-content">
-                                                <h5 class="sub-title wow fade-in-up" data-wow-duration="1s"
-                                                    data-wow-delay="0.5s"><a href="#">Mae Hayes</a></h5>
-                                                <span class="wow fade-in-up" data-wow-duration="1s"
-                                                      data-wow-delay="0.5s">2 day ago</span>
-                                                <p class="wow fade-in-bottom" data-wow-duration="1s"
-                                                   data-wow-delay="0.5s">Volutpat ut, est sed et tincidunt neque, ipsum
-                                                    consectetulierosV diam nec. Ridiculus justo volutpat dictum eget
-                                                    odio in. Ridiculus gravida arcu this is news post.</p>
-                                                <a href="#" class="reply-button">Reply</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                    <div class="comments-section" id="reviews_area"></div>
                     <div class="leave-comment">
                         <h3 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">Leave a
                             Comment</h3>
@@ -411,6 +372,7 @@
 			}
 		}
 
+		{#layout prev and next buttons#}
 		$(document).ready(function () {
 			let area = document.getElementById("prev-and-next-buttons");
 			if (area.children.length === 1) {
@@ -419,7 +381,136 @@
 			} else {
 				area.classList.remove("justify-content-center");
 				area.classList.add("justify-content-between");
-            }
+			}
 		})
+
+
+		{#get all reviews for post#}
+		$(document).ready(function () {
+			let reviews = document.getElementById("reviews_area");
+			reviews.style.display = "grid";
+			$.ajax({
+				url: "/review/get/all/",
+				type: "POST",
+				enctype: 'application/json',
+				data: {
+					"post_id": {{ post.post_id }},
+					"csrfmiddlewaretoken": "{{ csrf_token }}",
+				},
+				success: function (data) {
+					if (data.code === 200) {
+						let reviews_summary = document.createElement("h3");
+						reviews_summary.classList.add("title");
+						reviews_summary.innerText = data.data.length + "条评论";
+						if (data.data.length === 0) {
+							reviews_summary.style.justifySelf = "center";
+							reviews_summary.innerText = "暂无评论";
+						}
+						reviews.appendChild(reviews_summary);
+						let reviews_wrapper = document.createElement("ul");
+						reviews_wrapper.classList.add("comment-wrapper");
+						for (const review_i in data.data) {
+							let review_item = document.createElement("li");
+							let time_period = formatTimePeriod(Date.now() - Date.parse(data.data[review_i].review_time));
+							{#console.log(time_period);#}
+							review_item.innerHTML = `
+                                <div class="comment-item">
+                                    <div class="comment-thumb">
+                                        <a href="/user/?user_id=` + data.data[review_i].author.user_id + `"><img src="` + data.data[review_i].author.user_headicon + `"
+                                                         alt="blog"></a>
+                                    </div>
+                                    <div class="comment-content">
+                                        <h5 class="sub-title wow fade-in-up" data-wow-duration="1s"
+                                            data-wow-delay="0.5s"><a href="/user/?user_id=` + data.data[review_i].author.user_id + `">` + data.data[review_i].author.username + `</a></h5>
+                                        <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">` + time_period + `</span>
+                                        <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">` + data.data[review_i].content + `</p>
+                                        <a href="#" class="reply-button">回复</a>
+                                    </div>
+                               </div>
+                                `;
+							reviews_wrapper.appendChild(review_item);
+						}
+						reviews.appendChild(reviews_wrapper);
+						let reviews_list = `
+                                <ul class="reply-wrapper">
+                                    <li>
+                                        <div class="comment-item">
+                                            <div class="comment-thumb">
+                                                <a href="#"><img
+                                                        src="" alt="blog"></a>
+                                            </div>
+                                            <div class="comment-content">
+                                                <h5 class="sub-title wow fade-in-up" data-wow-duration="1s"
+                                                    data-wow-delay="0.5s"><a href="#">Mae Hayes</a></h5>
+                                                <span class="wow fade-in-up" data-wow-duration="1s"
+                                                      data-wow-delay="0.5s">2 day ago</span>
+                                                <p class="wow fade-in-bottom" data-wow-duration="1s"
+                                                   data-wow-delay="0.5s">Volutpat ut, est sed et tincidunt neque, ipsum
+                                                    consectetulierosV diam nec. Ridiculus justo volutpat dictum eget
+                                                    odio in. Ridiculus gravida arcu this is news post.</p>
+                                                <a href="#" class="reply-button">Reply</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                        `;
+					} else {
+						let error_box = document.getElementById("error");
+						let msg_node = document.createElement("li");
+						msg_node.innerText = "评论加载失败，" + data.msg;
+						error_box.childNodes[1].appendChild(msg_node);
+						$('#error').show();
+						auto_hide_error();
+						setTimeout(function () {
+							error_box.childNodes[1].removeChild(msg_node);
+							check_error_and_success_list();
+						}, 5000);
+						{#console.log(data);#}
+					}
+				},
+				error: function (data) {
+					let error_box = document.getElementById("error");
+					let msg_node = document.createElement("li");
+					msg_node.innerText = "评论加载失败，" + data.msg;
+					error_box.childNodes[1].appendChild(msg_node);
+					$('#error').show();
+					auto_hide_error();
+					setTimeout(function () {
+						error_box.childNodes[1].removeChild(msg_node);
+						check_error_and_success_list();
+					}, 5000);
+					{#console.log(data);#}
+				}
+			})
+		})
+
+		function formatTimePeriod(timePeriod) {
+			const seconds = Math.floor(timePeriod / 1000);
+			const minutes = Math.floor(seconds / 60);
+			const hours = Math.floor(minutes / 60);
+			const days = Math.floor(hours / 24);
+			const weeks = Math.floor(days / 7);
+			const months = Math.floor(days / 30);
+			const years = Math.floor(days / 365);
+
+			if (years > 0) {
+				return `${years}年前`;
+			} else if (months > 0) {
+				return `${months}个月前`;
+			} else if (weeks > 0) {
+				return `${weeks}周前`;
+			} else if (days > 0) {
+				return `${days}天前`;
+			} else if (hours > 0) {
+				return `${hours}小时前`;
+			} else if (minutes > 0) {
+				return `${minutes}分钟前`;
+			} else if (seconds > 0) {
+				return `${seconds}秒前`;
+			} else {
+				console.error('未来者时间，请站长注意！timePeriod is invalid!');
+				return '未来者时间，请站长注意！';
+			}
+		}
     </script>
 {% endblock %}

@@ -31,7 +31,7 @@ def post_normal(request):
         current_post_index = 0
         for post in current_zone_posts:
             if post['post_id'] == current_post.post_id:
-                print(current_post_index)
+                # print(current_post_index)
                 break
             current_post_index += 1
         try:

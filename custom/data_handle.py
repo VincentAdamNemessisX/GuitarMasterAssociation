@@ -26,9 +26,10 @@ def db_to_json(request, data):
     ]
 
     # Construct the result dictionary
-    result = {"message": 'success', "code": '0', "data": serialized_data}
-
+    result = {"message": 'success', "code": '200', "data": serialized_data}
+    # result = serialized_data
     # Convert to JSON and return the response
+    # print(result)
     return result
 
 
