@@ -33,9 +33,19 @@ def db_to_json(request, data):
     return result
 
 
-def handle_uploaded_file(f, username):
+def handle_uploaded_headicon(f, username):
     path = "media/user_headicon/" + username + "." + f.name.split('.')[1]
     with open(path, "wb") as destination:
         for chunk in f.chunks():
             destination.write(chunk)
     return path
+
+
+def handle_uploaded_image(f):
+    path = ("media/post/" + datetime.now().strftime('%Y') + "/"
+            + datetime.now().strftime('%m') + "/" + datetime.now().strftime('%Y-%m-%d-%h-%s') + f.name)
+    with open(path, "wb") as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+    return path
+

@@ -112,8 +112,8 @@ def user_info_update(request):
         if request.FILES.get('user_headicon'):
             if request.FILES.get('user_headicon') != temp['user_headicon'].split('/')[-1]:
                 update_data['user_headicon'] = request.FILES.get('user_headicon')
-                update_data['user_headicon'] = data_handle.handle_uploaded_file(update_data['user_headicon'],
-                                                                                current_user.user_name).split('/')[-2:]
+                update_data['user_headicon'] = data_handle.handle_uploaded_headicon(update_data['user_headicon'],
+                                                                                    current_user.user_name).split('/')[-2:]
                 update_data['user_headicon'] = '/'.join(update_data['user_headicon'])
         # print(update_data)
         if verify.verify_current_user(request):

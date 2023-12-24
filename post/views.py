@@ -1,11 +1,13 @@
+import json
 import random
 
 from django.db.models import Count, Subquery, OuterRef
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
+from django.core import serializers
 from collection.models import Collection
 from custom.goto_controller import redirect_referer
+from custom.data_handle import handle_uploaded_image
 from custom.update_some_index import update_post_view_count, update_user_recent_post
 from post.models import Post, PostLike
 from user.get import get_sorted_authors_by_hot
@@ -231,3 +233,23 @@ def post_publish(request):
         if request.POST.get('post_title') is None or request.POST.get('post_content') is None:
             return HttpResponse({'发布失败!', '400'})
     return render(request, "post_publish.html")
+
+
+def post_upload_image(request):
+    if request.method == 'POST':
+        if request.FILES.get('post-upload-image') is not None:
+            # print(request.META.get("HTTP_HOST"))
+            path = handle_uploaded_image(request.FILES.get('post-upload-image'))
+            if path:
+                return HttpResponse(json.dumps({"errno": 0,
+                                                "data": {
+                                                    "url": "/" + path,
+                                                    "alt": path.split("/")[-1].split(".")[0],
+                                                    "href": 'http://' + request.META.get("HTTP_HOST") + "/" + path}
+                                                }),
+                                    content_type='application/json')
+        else:
+            return HttpResponse(json.dumps({"errno": 400, "message": "后台获取图片信息失败！"}),
+                                content_type='application/json')
+    return HttpResponse(json.dumps({"errno": 401, "message": "api请求方式错误！"}),
+                        content_type='application/json')

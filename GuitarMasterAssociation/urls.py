@@ -40,6 +40,7 @@ urlpatterns = [
                   path('user/collection/more/', user_collection_more),
                   path('collection/remove/', delete_specific_collection),
                   path('post/publish/', post_publish),
+                  path('api/post/upload/image/', post_upload_image),
                   path('post/remove/', delete_specific_post),
                   path('post/edit/', update_post),
                   path('review/get/all/', get_init_reviews),
