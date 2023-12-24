@@ -524,7 +524,7 @@
 		})
 
 		{#get and layout review children#}
-		let counter = 0;
+		let counter = {};
 
 		function get_review_children(review_id) {
 			$.ajax({
@@ -537,15 +537,49 @@
 				},
 				success: function (data) {
 					if (data.code === 200) {
+						counter[review_id] = counter[review_id] || {};
+						counter[review_id]['parent_id'] = counter[review_id]['parent_id'] || data.parent_id;
+						counter[review_id]['count'] = counter[review_id]['count'] || 0;
 						let review_children = document.getElementById("reply-" + review_id);
 						if (data.data.length <= 0) {
 							document.getElementById("accordion-" + review_id).parentNode.removeChild(document.getElementById("accordion-" + review_id));
 						} else {
-							if (counter % 2 === 0) {
+							if (counter[review_id]['count'] % 2 === 0) {
 								for (const child_i in data.data) {
 									let child = document.createElement("li");
 									let time_period = formatTimePeriod(Date.now() - Date.parse(data.data[child_i].review_time));
-									child.innerHTML = `
+									if (data.data[child_i].children_count > 0) {
+										child.innerHTML = `
+                                        <div class="comment-item">
+                                            <div class="comment-thumb">
+                                                <a href="/user/?user_id=${data.data[child_i].author.user_id}"><img src="${data.data[child_i].author.user_headicon}"
+                                                         alt="blog"></a>
+                                            </div>
+                                            <div class="comment-content">
+                                                <h5 class="sub-title wow fade-in-up" data-wow-duration="1s"
+                                                    data-wow-delay="0.5s"><a href="/user/?user_id=${data.data[child_i].author.user_id}">${data.data[child_i].author.username}</a></h5>
+                                                <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">${time_period}</span>
+                                                <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">${data.data[child_i].content}</p>
+                                                <a href="#" class="reply-button">回复</a>
+                                            </div>
+                                            <div class="panel-group" style="width: 100%" id="accordion-${data.data[child_i].review_id}">
+                                                <div class="panel panel-info">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a id="reply-list-button-${data.data[child_i].review_id}" style="color: white" onclick="get_review_children(${data.data[child_i].review_id})" data-toggle="collapse" data-parent="#accordion-${data.data[child_i].review_id}"
+                                                               href="#reply-${data.data[child_i].review_id}" class="cmn-btn">
+                                                                展开回复列表
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <ul id="reply-${data.data[child_i].review_id}" class="reply-wrapper panel-collapse collapse">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+							            `;
+									} else {
+										child.innerHTML = `
                                         <div class="comment-item">
                                             <div class="comment-thumb">
                                                 <a href="/user/?user_id=${data.data[child_i].author.user_id}"><img src="${data.data[child_i].author.user_headicon}"
@@ -559,10 +593,13 @@
                                                 <a href="#" class="reply-button">回复</a>
                                             </div>
                                         </div>
-							`;
+							            `;
+									}
 									review_children.appendChild(child);
 								}
-								document.getElementById(`reply-list-button-${review_id}`).removeEventListener('click', get_review_children);
+								document.getElementById(`reply-list-button-${review_id}`).removeEventListener('click', function () {
+									get_review_children(review_id);
+								});
 								document.getElementById(`reply-list-button-${review_id}`).innerText =
 									document.getElementById(`reply-list-button-${review_id}`).innerText.replaceAll("展开", "收起");
 							} else {
@@ -570,7 +607,7 @@
 									document.getElementById(`reply-list-button-${review_id}`).innerText.replace("收起", "展开");
 								review_children.innerHTML = "";
 							}
-							counter++;
+							counter[review_id]['count']++;
 						}
 					} else {
 						let error_box = document.getElementById("error");
@@ -603,6 +640,21 @@
 			})
 		}
 
+
+		let parent_count = 0;
+
+		function check_counter(temp_parent_id) {
+			for (const item in counter) {
+				// 检查当前项是否有parent_id属性，且等于传入的temp_parent_id
+				if (counter[item]['parent_id'] === temp_parent_id) {
+					parent_count++;
+					// 递归调用，检查当前项的子集
+					parent_count += check_counter(item);
+				}
+			}
+			// 判断递归回复子集数量是否超过4个
+			return parent_count <= 4;
+		}
 
 		let page_num = 1;
 
@@ -658,6 +710,7 @@
                                     </div>
                                 </div>
 								`;
+								get_review_children(data.data[review_i].review_id);
 							} else {
 								review_item.innerHTML = `
                                 <div class="comment-item">

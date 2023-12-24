@@ -52,6 +52,7 @@ def load_more_reviews(request):
                             'username': review.user_id.user_nickname if review.user_id.user_nickname else review.user_id.user_name,
                             'user_headicon': review.user_id.user_headicon.url,
                         },
+                        'review_parent_id': review.parent_id.review_id if review.parent_id else None,
                         'review_time': review.review_time.strftime('%Y-%m-%d %H:%M:%S'),
                         'children_count': Review.objects.filter(parent_id=review.review_id).count(),
                     }
@@ -70,6 +71,7 @@ def get_specific_review_children(request):
     if request.method == 'POST':
         if request.POST.get('review_id'):
             review_id = request.POST.get('review_id')
+            specific_review = Review.objects.get(review_id=review_id)
             if review_id:
                 reviews = Review.objects.filter(parent_id=review_id).order_by('-review_time_index')
                 # 将关联的发布者信息也序列化为字典形式
@@ -82,11 +84,13 @@ def get_specific_review_children(request):
                             'username': review.user_id.user_nickname if review.user_id.user_nickname else review.user_id.user_name,
                             'user_headicon': review.user_id.user_headicon.url,
                         },
+                        'review_parent_id': review.parent_id.review_id if review.parent_id else None,
                         'review_time': review.review_time.strftime('%Y-%m-%d %H:%M:%S'),
+                        'children_count': Review.objects.filter(parent_id=review.review_id).count(),
                     }
                     for review in reviews
                 ]
-                return JsonResponse({'code': 200, 'data': serialized_reviews, 'msg': '获取成功'})
+                return JsonResponse({'code': 200, 'parent_id': specific_review.parent_id.review_id if specific_review.parent_id else None, 'data': serialized_reviews, 'msg': '获取成功'})
                 # return data_handle.db_to_json2(request, reviews)
             else:
                 return JsonResponse({'code': 400, 'msg': '参数错误'})
