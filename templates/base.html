@@ -29,6 +29,8 @@
     <link rel="stylesheet" href='{% static "assets/css/style.css" %}'>
     {#share style#}
     <link rel="stylesheet" href="{% static "assets/css/share.min.css" %}">
+    {#    editor style#}
+    <link rel="stylesheet" href="{% static "assets/css/wang_editor.css" %}">
 </head>
 <style>
     .copyrights {
@@ -437,9 +439,11 @@
 <script src='{% static "assets/js/swiper.min.js" %}'></script>
 <!-- wow js file -->
 <script src='{% static "assets/js/wow.min.js" %}'></script>
+<script src="{% static "assets/js/wang_editor.js" %}"></script>
 <!-- main -->
 <script src='{% static "assets/js/main.js" %}'></script>
 <script src='{% static "assets/js/social-share.min.js" %}'></script>
+<script></script>
 {% block custom_script %}
 {% endblock %}
 <script>
@@ -451,13 +455,15 @@
 				$("error").hide();
 				document.getElementById("error").style.display = "none";
 			}
-		} catch (e) {}
+		} catch (e) {
+		}
 		try {
 			if (success_list.children.length <= 0) {
 				$("success").hide();
 				document.getElementById("success").style.display = "none";
 			}
-		} catch (e) {}
+		} catch (e) {
+		}
 	}
 
 	function auto_hide_error() {

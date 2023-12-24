@@ -224,3 +224,10 @@ def remove_post_like_count(request):
             return False
     else:
         return False
+
+
+def post_publish(request):
+    if request.method == 'POST':
+        if request.POST.get('post_title') is None or request.POST.get('post_content') is None:
+            return HttpResponse({'发布失败!', '400'})
+    return render(request, "post_publish.html")

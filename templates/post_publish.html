@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    发布帖子
+{% endblock %}
+{% block custom_style %}
+    <style>
+        .whole_frame {
+            width: 80%;
+            height: 50rem;
+            margin: 1rem auto 3rem auto;
+            position: relative;
+        }
+
+        form {
+            height: 30%;
+        }
+
+        .editor {
+            min-height: 60%;
+            max-height: 95%;
+            overflow: auto;
+        }
+
+        .nice-select {
+            width: 80%;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="shadow whole_frame">
+        <form method="post" enctype="multipart/form-data" style="display: grid">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">标题:</label>
+                <input type="text" class="form-control no-border" id="title" name="post_title"
+                       placeholder="请输入标题">
+            </div>
+            <div class="form-group">
+                <label for="zone">分类:</label>
+                <select class="form-control" id="zone" name="zone_id">
+                    <option value="0" selected>请选择分类</option>
+                    {% for zone in request.session.zones.data %}
+                        <option value="{{ zone.zone_id }}">{{ zone.zone_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="layout_mode">页面显示风格:</label>
+                <select class="form-control" id="layout_mode" name="post_layout_mode">
+                    <option value="0" selected>请选择风格</option>
+                    <option value="normal">默认风格</option>
+                    <option value="immersion">沉浸风格</option>
+                </select>
+            </div>
+        </form>
+        <div id="editor-container" style="z-index: 1000; height: 70%">
+            <div id="editor-tool-bar"></div>
+            <div id="editor" class="editor clearfix"></div>
+        </div>
+    </div>
+{% endblock %}
+{% block custom_script %}
+    <script>
+		const {createEditor, createToolbar} = window.wangEditor
+
+		const editorConfig = {
+			placeholder: '请在这里输入正文...',
+            readOnly: false,
+            scroll: true,
+		}
+
+		const editor = createEditor({
+			selector: '#editor',
+			html: '<p><br></p>',
+			config: editorConfig,
+			mode: 'default',
+		})
+
+		const toolbarConfig = {}
+
+		toolbarConfig.excludeKeys = [
+			"underline",
+			'codeBlock',
+			'insertTable',
+			"insertVideo",
+			"through",
+			"clearStyle",
+		]
+
+		const toolbar = createToolbar({
+			editor,
+			selector: '#editor-tool-bar',
+			config: toolbarConfig,
+			mode: 'simple',
+		})
+    </script>
+{% endblock %}
