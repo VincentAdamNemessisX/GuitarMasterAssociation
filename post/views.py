@@ -1,13 +1,14 @@
 import json
 import random
 
+import bs4
 from django.db.models import Count, Subquery, OuterRef
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.core import serializers
+
 from collection.models import Collection
-from custom.goto_controller import redirect_referer
 from custom.data_handle import handle_uploaded_image
+from custom.goto_controller import redirect_referer
 from custom.update_some_index import update_post_view_count, update_user_recent_post
 from post.models import Post, PostLike
 from user.get import get_sorted_authors_by_hot
@@ -231,7 +232,30 @@ def remove_post_like_count(request):
 def post_publish(request):
     if request.method == 'POST':
         if request.POST.get('post_title') is None or request.POST.get('post_content') is None:
-            return HttpResponse({'发布失败!', '400'})
+            return HttpResponse(json.dumps({'status': '402', 'message': '标题和内容异常!'}))
+        if request.POST.get('zone_id') is None or request.POST.get('post_layout_mode') is None:
+            return HttpResponse(json.dumps({'status': '402', 'message': '所属专区和页面布局方式异常!'}))
+        post_image = bs4.BeautifulSoup(request.POST.get('post_content'), 'html.parser').find('img').get("src").split("/", 2)[-1]
+        print(post_image)
+        if post_image:
+            post = Post.objects.create(user_id=User.objects.get(user_id=request.session.get('login_user_id')),
+                                       zone_id=Zone.objects.get(zone_id=request.POST.get('zone_id')),
+                                       post_title=request.POST.get('post_title'),
+                                       post_content=request.POST.get('post_content'),
+                                       post_layout_mode=request.POST.get('post_layout_mode'),
+                                       post_status=1,
+                                       post_image=post_image,
+                                       )
+        else:
+            post = Post.objects.create(user_id=User.objects.get(user_id=request.session.get('login_user_id')),
+                                       zone_id=Zone.objects.get(zone_id=request.POST.get('zone_id')),
+                                       post_title=request.POST.get('post_title'),
+                                       post_content=request.POST.get('post_content'),
+                                       post_layout_mode=request.POST.get('post_layout_mode'),
+                                       post_status=1,
+                                       )
+        post.save()
+        return HttpResponse(json.dumps({'status': 200}))
     return render(request, "post_publish.html")
 
 

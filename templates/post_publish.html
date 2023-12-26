@@ -7,18 +7,18 @@
     <style>
         .whole_frame {
             width: 80%;
-            height: 50rem;
+            height: 70rem;
             margin: 1rem auto 3rem auto;
             position: relative;
         }
 
         form {
-            height: 50%;
+            height: 30%;
         }
 
         .editor-container {
             z-index: 1000;
-            height: 50%
+            height: 70%
         }
 
         .editor {
@@ -28,6 +28,7 @@
         }
 
         form {
+            display: grid;
             padding-left: 3rem;
         }
 
@@ -35,36 +36,44 @@
             text-align: center;
         }
 
-        form input {
-            background-color: #e9f2ff;
-        }
-
-        .nice_color {
+        form input, .nice_color, .nice-select {
             background-color: #e9f2ff;
         }
 
         .nice-select {
-            background-color: #e9f2ff;
             width: 30%;
             padding: 0;
             text-align: center;
         }
 
-        .clearfix::after {
-            content: "";
-            display: table;
-            clear: both;
+        .right_side {
+            position: absolute;
+            right: 0;
+            top: 15%;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: right;
+        }
+
+        .post-btn {
+            margin-right: 2rem;
+            font-size: larger;
+        }
+
+        .post-title {
+            width: 30%;
         }
     </style>
 {% endblock %}
 {% block content %}
     <div class="shadow whole_frame">
-        <form method="post" enctype="multipart/form-data" style="display: grid">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-group">
+            <div class="post-title">
                 <label for="title">标题:</label>
-                <input type="text" class="form-control nice_color" id="title" name="post_title"
-                       placeholder="请输入标题">
+                <input type="text" class="form-control nice_color" id="title"
+                       placeholder="请输入标题" style="height: 3.2rem; line-height: 3.2rem;">
             </div>
             <div class="form-group">
                 <label for="zone">分类:</label>
@@ -77,20 +86,21 @@
             </div>
             <div class="form-group">
                 <label for="layout_mode">页面显示风格:</label>
-                <select class="form-control" id="layout_mode" name="post_layout_mode">
+                <select class="form-control" id="layout_mode">
                     <option value="0" selected>请选择风格</option>
                     <option value="normal">默认风格</option>
                     <option value="immersion">沉浸风格</option>
                 </select>
             </div>
-            <div class="form-btn-group">
-                <button type="submit" class="btn btn-primary">发布</button>
-                <button type="button" class="btn btn-secondary" onclick="window.history.back()">取消</button>
+            <div class="form-btn-group right_side">
+                <button type="button" class="btn btn-primary cmn-btn post-btn" onclick="publish_post()">发布
+                </button>
+                <button type="button" class="btn btn-secondary cmn-btn post-btn" onclick="reset_logic()">取消</button>
             </div>
         </form>
         <div id="editor-container" class="editor-container">
             <div id="editor-tool-bar"></div>
-            <div id="editor" class="editor clearfix"></div>
+            <div id="editor" class="editor"></div>
         </div>
     </div>
 {% endblock %}
@@ -198,5 +208,130 @@
 				},
 			}
 		})
+
+		function reset_logic() {
+			document.forms[1].reset();
+			let x = document.getElementsByClassName('current');
+			for (const xKey in x) {
+				try {
+					x[xKey].parentNode.childNodes[0].textContent =
+						x[xKey].parentNode.childNodes[1].childNodes[0].textContent;
+				} catch (e) {
+					console.log(e.message);
+				}
+			}
+			editor.clear();
+		}
+
+
+		function check_post_content() {
+			if (editor.getHtml() === '<p><br></p>') {
+				show_and_hide_error("文章内容不能为空！");
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function check_post_title() {
+			let title = document.getElementById("title").value;
+			if (title === "") {
+				show_and_hide_error("文章标题不能为空！");
+				return false;
+			} else {
+				if (/^[\u4E00-\u9FA5A-Za-z0-9]{3,200}$/.test(title)) {
+					return true;
+				} else {
+					show_and_hide_error("文章标题为200个字符之内的汉字、字母或数字组成！");
+					return false;
+				}
+			}
+		}
+
+		function check_post_zone_and_layout_mode() {
+			let x = document.getElementsByClassName('current');
+			let flag = true;
+			for (const xKey in x) {
+				try {
+					let x1 = x[xKey].parentElement.children[1].children;
+					for (const x1Key in x1) {
+						if (x1[x1Key].classList[1] === "selected") {
+							if (x1[x1Key].getAttribute("data-value") === "0") {
+								show_and_hide_error("请检查分类和页面显示风格");
+								flag = false;
+							}
+						}
+					}
+				} catch (e) {
+				}
+			}
+			return flag;
+		}
+
+		function get_zone() {
+			let x = document.getElementsByClassName('current')[0];
+			for (const xKey in x) {
+				try {
+					let x1 = x[xKey].parentElement.children[1].children;
+					for (const x1Key in x1) {
+						if (x1[x1Key].classList[1] === "selected") {
+							return x1[x1Key].getAttribute("data-value");
+						}
+					}
+				} catch (e) {
+				}
+			}
+			return null;
+		}
+
+		function get_layout_mode() {
+			let x = document.getElementsByClassName('current')[1];
+			for (const xKey in x) {
+				try {
+					let x1 = x[xKey].parentElement.children[1].children;
+					for (const x1Key in x1) {
+						if (x1[x1Key].classList[1] === "selected") {
+							return x1[x1Key].getAttribute("data-value");
+						}
+					}
+				} catch (e) {
+				}
+			}
+			return null;
+		}
+
+		function validate_post() {
+			return !!(check_post_title() && check_post_zone_and_layout_mode() && check_post_content());
+		}
+
+		function publish_post() {
+			if (validate_post()) {
+				let post_title = document.getElementById("title").value;
+				let post_content = editor.getHtml();
+				let post_zone = get_zone();
+				let post_layout_mode = get_layout_mode();
+				$.ajax({
+					url: "/post/publish/",
+					type: "POST",
+					data: {
+						"post_title": post_title,
+						"post_content": post_content,
+						"zone_id": post_zone,
+						"post_layout_mode": post_layout_mode,
+                        "csrfmiddlewaretoken": "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data.status === 200) {
+							show_and_hide_success("发布成功！");
+						} else {
+							show_and_hide_error("发布失败，" + data.message);
+						}
+					},
+					error: function (data) {
+						show_and_hide_error("发布异常，" + data.message);
+					}
+				})
+			}
+		}
     </script>
 {% endblock %}

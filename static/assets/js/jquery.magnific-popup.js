@@ -1544,7 +1544,7 @@
 			if (mfp.currTemplate[IFRAME_NS]) {
 				var el = mfp.currTemplate[IFRAME_NS].find('iframe');
 				if (el.length) {
-					// reset src after the popup is closed to avoid "video keeps playing after popup is closed" bug
+					// reset_logic src after the popup is closed to avoid "video keeps playing after popup is closed" bug
 					if (!isShowing) {
 						el[0].src = _emptyPage;
 					}

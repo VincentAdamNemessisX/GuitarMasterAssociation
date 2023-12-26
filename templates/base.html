@@ -490,5 +490,31 @@
 	function reload() {
 		window.location.href = window.location;
 	}
+
+
+	function show_and_hide_error(message) {
+		let error_box = document.getElementById("error");
+		let msg_node = document.createElement("li");
+		msg_node.innerText = message;
+		error_box.childNodes[1].appendChild(msg_node);
+		$('#error').show();
+		auto_hide_error();
+		setTimeout(function () {
+			error_box.childNodes[1].removeChild(msg_node);
+			check_error_and_success_list();
+		}, 5000)
+	}
+
+	function show_and_hide_success(message) {
+		let success_box = document.getElementById("success");
+		let msg_node = document.createElement("li");
+		msg_node.innerText = message;
+		success_box.childNodes[1].appendChild(msg_node);
+		$('#success').show();
+		auto_hide_message();
+		setTimeout(function () {
+			success_box.childNodes[1].removeChild(msg_node);
+		}, 2000)
+	}
 </script>
 </html>

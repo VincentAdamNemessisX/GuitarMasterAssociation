@@ -93,53 +93,9 @@
                                     <i class="fas fa-comment"></i><span>{{ post.review_set.count }}</span>
                                 </li>
                             </ul>
-                            <p class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">Pretium et in
-                                vehicula duis, vel adipiscing maecenas est, velit urna a. Lorem vivammagna sem sodales
-                                mattis, libero lorem eligendi. Mauris wisi, phasellus etiam neque mattviverra mi eget
-                                justo, molestiae nec accumsan enim aliquam volutpat a, a nec vitae nulla facilisi enim
-                                malesuada. Enim egestas. Non sed, imperdiet vehicula neque convallis eratpedesed proin
-                                vitae sed vitae quam maecenas. Aliquet pede in dapibus neque in lorem, ut mauris ipsum,
-                                sem eu donec curabitur maecenas interdum, tempus sagittis orci id nec eleifend phasellus
-                                et sapien. Nonummy duis malesuada, nascetur pellentesque purus, ut nibh ipsum
-                                suspendisse integer scelerisque laoreet wisi sed fringilla curae ligula sit. Tincidunt
-                                id donec adipiscing enim ut, cursus tortor maecenas risus in, est felis sit, vitae
-                                vehicula sapien repellat posuere.</p>
-                            <blockquote>
-                                <p class="quote-content wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultricegrida.
-                                    Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
-                            </blockquote>
-                            <div class="blog-details-thumb-area">
-                                <div class="row justify-content-center no-gutter ml-b-30">
-                                    <div class="col-lg-6 col-md-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                                         data-wow-delay="0.5s">
-                                        <div class="blog-details-thumb">
-                                            <img src="{% static "assets/images/blog/blog-details-1.png" %}" alt="image">
-                                        </div>
-                                        <div class="blog-details-thumb-details">
-                                            <p>Photo by Ruddra Khan / Thesoftking</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                                         data-wow-delay="0.7s">
-                                        <div class="blog-details-thumb">
-                                            <img src={% static "assets/images/blog/blog-details-2.png" %} alt="image">
-                                        </div>
-                                        <div class="blog-details-thumb-details">
-                                            <p>Photo by Ratul Khan / Thesoftking</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">Nceptos rutrum
-                                erat, elementum bibendum nullam mi, odio malesuada blandit lectus sed ligula elementum,
-                                elit convallis at non. Est suspendisse vel dolor consectetuer turpis. In nulla nulla ac
-                                elit, purus wisi. Dui tortor ut, condimentum est mauris sed non aliquam, pellentesque
-                                anim massa adipiscing, consectetuer maecenas suscipit sed ligula curabitur, nec lacinia
-                                felis cubilia interdum eu. Magna cum. Venenatis sed lobortis urna, in amet quo sapien ut
-                                nec, nunc mauris aenean at mattis vestibulum vel, sed nunc per lectus. Justo eros elit.
-                                A pellentesque.</p>
+                            {# post content section start #}
+                            <div id="post-content">{{ post.post_content|safe }}</div>
+                            {# post content section end #}
                             <div class="blog-details-tag-area d-flex flex-wrap justify-content-between ml-b-30">
                                 <ul class="tag-list mrb-30">
                                     <li>
@@ -153,7 +109,6 @@
                                             取消收藏{% else %}收藏{% endif %}</button>
                                     </li>
                                     <!-- HTML !-->
-
                                 </ul>
                                 <div class="social-share" data-initialized="true"
                                      style="background: none; box-shadow: none">

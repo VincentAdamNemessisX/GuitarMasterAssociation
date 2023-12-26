@@ -4673,7 +4673,7 @@
 								distance = -leafTextRemaining;
 								break;
 							} // Successfully walked `distance` offsets through `leafText`
-							// to catch up with `blockText`, so we can reset `distance`
+							// to catch up with `blockText`, so we can reset_logic `distance`
 							// and yield this position in this node.
 							
 							
@@ -18973,7 +18973,7 @@
 				files: updatedFiles,
 				totalProgress: 0
 			});
-			this.emit('reset-progress');
+			this.emit('reset_logic-progress');
 		}
 		
 		addPreProcessor(fn) {
@@ -19490,7 +19490,7 @@
 			return _classPrivateFieldLooseBase$6(this, _runUpload)[_runUpload](uploadID);
 		}
 		
-		reset() {
+		reset_logic() {
 			this.cancelAll();
 		}
 		
@@ -41467,7 +41467,7 @@
 							string: /[\s\S]+/
 						}
 					}
-				}), t.languages.markup && (t.languages.markup.tag.addInlined("script", "javascript"), t.languages.markup.tag.addAttribute(/on(?:abort|blur|change|click|composition(?:end|start|update)|dblclick|error|focus(?:in|out)?|key(?:down|up)|load|mouse(?:down|enter|leave|move|out|over|up)|reset|resize|scroll|select|slotchange|submit|unload|wheel)/.source, "javascript")), t.languages.js = t.languages.javascript, function () {
+				}), t.languages.markup && (t.languages.markup.tag.addInlined("script", "javascript"), t.languages.markup.tag.addAttribute(/on(?:abort|blur|change|click|composition(?:end|start|update)|dblclick|error|focus(?:in|out)?|key(?:down|up)|load|mouse(?:down|enter|leave|move|out|over|up)|reset_logic|resize|scroll|select|slotchange|submit|unload|wheel)/.source, "javascript")), t.languages.js = t.languages.javascript, function () {
 					if (void 0 !== t && "undefined" != typeof document) {
 						Element.prototype.matches || (Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector);
 						var e = {

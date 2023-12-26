@@ -43,7 +43,7 @@ def handle_uploaded_headicon(f, username):
 
 def handle_uploaded_image(f):
     path = ("media/post/" + datetime.now().strftime('%Y') + "/"
-            + datetime.now().strftime('%m') + "/" + datetime.now().strftime('%Y-%m-%d-%h-%s') + f.name)
+            + datetime.now().strftime('%m') + "/" + datetime.now().strftime('%Y-%m-%d-%h-%s-') + f.name)
     with open(path, "wb") as destination:
         for chunk in f.chunks():
             destination.write(chunk)
