@@ -29,7 +29,10 @@ def post_normal(request):
     if request.method == 'GET':
         if not request.GET.get('post_id'):
             return render(request, '404.html')
-        current_post = Post.objects.get(post_id=request.GET.get('post_id'), post_status=1)
+        try:
+            current_post = Post.objects.get(post_id=request.GET.get('post_id'), post_status=1)
+        except Post.DoesNotExist:
+            return render(request, '404.html', {'error': '帖子不存在'})
         current_zone_posts = current_post.zone_id.post_set.values().order_by("post_create_time").reverse()
         current_post_index = 0
         for post in current_zone_posts:
@@ -225,7 +228,7 @@ def remove_post_like_count(request):
 
 def post_publish(request):
     if request.method == 'POST':
-        post_logic(request)
+        return post_logic(request)
     return render(request, "post_publish.html")
 
 
@@ -258,10 +261,10 @@ def update_post(request):
             return render(request, "post-edit.html", {'error': '该帖子不存在'})
         return render(request, "post-edit.html", {'post': post})
     if request.method == 'POST':
-        post_logic(request)
+        return post_logic(request, method='update')
 
 
-def post_logic(request):
+def post_logic(request, method='post'):
     if request.POST.get('post_title') is None or request.POST.get('post_content') is None:
         return HttpResponse(json.dumps({'status': 402, 'message': '标题和内容异常!'}),
                             content_type='application/json')
@@ -280,23 +283,52 @@ def post_logic(request):
                             content_type='application/json')
     if post_image_path:
         post_image_path = post_image_path.get("src").split("/", 2)[-1]
-        post = Post.objects.create(user_id=author,
-                                   zone_id=zone,
-                                   post_title=request.POST.get('post_title'),
-                                   post_content=request.POST.get('post_content'),
-                                   post_layout_mode=request.POST.get('post_layout_mode'),
-                                   post_status=1,  # todo next time change to 2
-                                   post_image=post_image_path,
-                                   )
+        if method == 'post':
+            post = Post.objects.create(
+                user_id=author,
+                zone_id=zone,
+                post_title=request.POST.get('post_title'),
+                post_content=request.POST.get('post_content'),
+                post_layout_mode=request.POST.get('post_layout_mode'),
+                post_status=2,
+                post_image=post_image_path,
+            )
+            post.save()
+        elif method == 'update':
+            post = Post.objects.get(post_id=request.POST.get('post_id'))
+            post.post_title = request.POST.get('post_title')
+            post.user_id = author
+            post.zone_id = zone
+            post.post_content = request.POST.get('post_content')
+            post.post_layout_mode = request.POST.get('post_layout_mode')
+            post.post_image = post_image_path
+            post.save()
+        else:
+            post = None
     else:
-        post = Post.objects.create(user_id=author,
-                                   zone_id=zone,
-                                   post_title=request.POST.get('post_title'),
-                                   post_content=request.POST.get('post_content'),
-                                   post_layout_mode=request.POST.get('post_layout_mode'),
-                                   post_status=1,  # todo next time change to 2
-                                   )
-    post.save()
-    pst = Post.objects.get(post_id=post.post_id)
-    data = {'post_id': pst.post_id, 'post_layout_mode': pst.post_layout_mode}
-    return HttpResponse(json.dumps({'status': 200, 'data': data}), content_type='application/json')
+        if method == 'post':
+            post = Post.objects.create(
+                user_id=author,
+                zone_id=zone,
+                post_title=request.POST.get('post_title'),
+                post_content=request.POST.get('post_content'),
+                post_layout_mode=request.POST.get('post_layout_mode'),
+                post_status=2,
+            )
+        elif method == 'update':
+            post = Post.objects.get(post_id=request.POST.get('post_id'))
+            post.user_id = author
+            post.zone_id = zone
+            post.post_title = request.POST.get('post_title')
+            post.post_content = request.POST.get('post_content')
+            post.post_layout_mode = request.POST.get('post_layout_mode')
+            post.post_image = post_image_path
+            post.save()
+        else:
+            post = None
+    if post:
+        pst = Post.objects.get(post_id=post.post_id)
+        data = {'post_id': pst.post_id, 'post_layout_mode': pst.post_layout_mode}
+        return HttpResponse(json.dumps({'status': 200, 'data': data}), content_type='application/json')
+    else:
+        return HttpResponse(json.dumps({'status': 402, 'message': '操作失败!'}), content_type='application/json')

@@ -93,7 +93,7 @@
                 </select>
             </div>
             <div class="form-btn-group right_side">
-                <button type="button" class="btn btn-primary cmn-btn post-btn" onclick="publish_post()">发布
+                <button type="button" class="btn btn-primary cmn-btn post-btn" onclick="update_post()">更新
                 </button>
                 <button type="button" class="btn btn-secondary cmn-btn post-btn" onclick="reset_logic()">取消</button>
             </div>
@@ -116,7 +116,7 @@
 
 		const editor = createEditor({
 			selector: '#editor',
-			html: {{ post.post_content| safe }},
+			html: {% if post.post_content %}'{{ post.post_content | safe }}'{% else %}''{% endif %},
 			config: editorConfig,
 			mode: 'default',
 		})
@@ -211,16 +211,8 @@
 
 		function reset_logic() {
 			document.forms[1].reset();
-			let x = document.getElementsByClassName('current');
-			for (const xKey in x) {
-				try {
-					x[xKey].parentNode.childNodes[0].textContent =
-						x[xKey].parentNode.childNodes[1].childNodes[0].textContent;
-				} catch (e) {
-					console.log(e.message);
-				}
-			}
-			editor.clear();
+			set_zone(); set_layout_mode();
+			editor.setHtml(`{% if post.post_content %}{{ post.post_content | safe }}{% else %}''{% endif %}`);
 		}
 
 
@@ -290,6 +282,7 @@
 				try {
 					let x1 = x[xKey].parentElement.children[1].children;
 					for (const x1Key in x1) {
+						x1[x1Key].classList.remove("selected");
 						if (x1[x1Key].getAttribute("data-value") === "{{ post.zone_id.zone_id }}") {
 							x1[x1Key].classList.add("selected");
 							x.innerText = x1[x1Key].innerText;
@@ -323,6 +316,7 @@
 				try {
 					let x1 = x[xKey].parentElement.children[1].children;
 					for (const x1Key in x1) {
+						x1[x1Key].classList.remove("selected");
 						if (x1[x1Key].getAttribute("data-value") === "{{ post.post_layout_mode }}") {
 							x1[x1Key].classList.add("selected");
 							x.innerText = x1[x1Key].innerText;
@@ -339,7 +333,7 @@
 			return !!(check_post_title() && check_post_zone_and_layout_mode() && check_post_content());
 		}
 
-		function publish_post() {
+		function update_post() {
 			if (validate_post()) {
 				let post_title = document.getElementById("title").value;
 				let post_content = editor.getHtml();
@@ -349,6 +343,7 @@
 					url: "/post/update/",
 					type: "POST",
 					data: {
+						"post_id": "{{ post.post_id }}",
 						"post_title": post_title,
 						"post_content": post_content,
 						"zone_id": post_zone,
@@ -381,8 +376,8 @@
 		}
 
 		$(document).ready(function () {
+			layout_init_post();
 			{% if error == "参数异常" %}
-				show_and_hide_error("{{ error }}");
 				setTimeout(function () {
 					window.history.back();
 				}, 5000);
