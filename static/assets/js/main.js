@@ -531,7 +531,10 @@
 	/* ---------------------------------------------
 				## Count Down
 			--------------------------------------------- */
-	if ($('.countdown').length) {
+	if (!$('.countdown').length) {
+		return;
+	}
+	try {
 		$('.countdown').syotimer({
 			year: 2020,
 			month: 3,
@@ -539,6 +542,7 @@
 			hour: 20,
 			minute: 30
 		});
+	} catch (e) {
 	}
 	
 })(jQuery);        

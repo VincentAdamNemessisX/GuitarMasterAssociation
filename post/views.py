@@ -32,7 +32,7 @@ def post_normal(request):
         try:
             current_post = Post.objects.get(post_id=request.GET.get('post_id'), post_status=1)
         except Post.DoesNotExist:
-            return render(request, '404.html', {'error': '帖子不存在'})
+            return render(request, '404.html', {'error': '帖子不存在或审核中，请核实后重新浏览！'})
         current_zone_posts = current_post.zone_id.post_set.values().order_by("post_create_time").reverse()
         current_post_index = 0
         for post in current_zone_posts:
@@ -94,8 +94,48 @@ def post_immersion(request):
     if request.method == 'GET':
         if not request.GET.get('post_id'):
             return render(request, '404.html')
+        try:
+            current_post = Post.objects.get(post_id=request.GET.get('post_id'), post_status=1)
+        except Post.DoesNotExist:
+            return render(request, '404.html', {'error': '帖子不存在或审核中，请核实后重新浏览！'})
+        current_zone_posts = current_post.zone_id.post_set.values().order_by("post_create_time").reverse()
+        current_post_index = 0
+        for post in current_zone_posts:
+            if post['post_id'] == current_post.post_id:
+                # print(current_post_index)
+                break
+            current_post_index += 1
+        try:
+            next_post = current_zone_posts[current_post_index + 1]
+            if next_post:
+                next_post = Post.objects.get(post_id=next_post['post_id'])
+            else:
+                next_post = None
+        except IndexError:
+            next_post = None
+        try:
+            prev_post = current_zone_posts[current_post_index - 1]
+            if prev_post:
+                prev_post = Post.objects.get(post_id=prev_post['post_id'])
+            else:
+                prev_post = None
+        except AssertionError:
+            prev_post = None
+        if request.session.get('login_user_id'):
+            current_post.is_liked = PostLike.objects.filter(user_id=request.session.get('login_user_id'),
+                                                            post_id=current_post.post_id).exists()
+            current_post.is_collected = Collection.objects.filter(user_id=request.session.get('login_user_id'),
+                                                                  post_id=current_post.post_id).exists()
+        else:
+            current_post.is_liked = False
+            current_post.is_collected = False
         update_post_view_count(request)
-    return render(request, 'post_details_immersion.html')
+        return render(request, 'post_details_immersion.html',
+                      {
+                          'post': current_post,
+                          'next_post': next_post, 'prev_post': prev_post,
+                      })
+    return render(request, '500.html', {'error': '请求错误！'})
 
 
 def random_post(request):
@@ -126,40 +166,40 @@ def redirect_refer():
 def update_post_like(request):
     if request.method == 'POST':
         if request.POST.get('post_id') is None:
-            return HttpResponse({'更新失败!', '400'})
+            return HttpResponse(json.dumps({'获取帖子失败!'}))
         else:
             if request.POST.get("method") == "append":
                 if add_post_like_count(request):
                     return HttpResponse({'200'})
                 else:
-                    return HttpResponse({'更新失败!', '404'})
+                    return HttpResponse({'用户未登录或帖子不存在，点赞失败!'})
             elif request.POST.get("method") == "remove":
                 if remove_post_like_count(request):
                     return HttpResponse({'200'})
                 else:
-                    return HttpResponse({'更新失败!', '404'})
+                    return HttpResponse({'用户未登录或帖子不存在，取消点赞失败!', '404'})
             else:
-                return HttpResponse({'更新失败!', '400'})
+                return HttpResponse({'未知方法点赞失败!'})
     return render(request, "500.html", {'error': '请求错误!'})
 
 
 def update_post_collection(request):
     if request.method == 'POST':
         if request.POST.get('post_id') is None:
-            return HttpResponse({'更新失败!', '400'})
+            return HttpResponse({'获取帖子失败!'})
         else:
             if request.POST.get("method") == "append":
                 if add_post_collection(request):
                     return HttpResponse({'200'})
                 else:
-                    return HttpResponse({'更新失败!', '404'})
+                    return HttpResponse({'用户未登录或帖子不存在，添加个人收藏失败!'})
             elif request.POST.get("method") == "remove":
                 if remove_post_collection(request):
                     return HttpResponse({'200'})
                 else:
-                    return HttpResponse({'更新失败!', '404'})
+                    return HttpResponse({'用户未登录或帖子不存在，取消收藏失败!'})
             else:
-                return HttpResponse({'更新失败!', '400'})
+                return HttpResponse({'未知方法收藏失败!', '400'})
     return render(request, "500.html", {'error': '请求错误!'})
 
 
@@ -322,7 +362,6 @@ def post_logic(request, method='post'):
             post.post_title = request.POST.get('post_title')
             post.post_content = request.POST.get('post_content')
             post.post_layout_mode = request.POST.get('post_layout_mode')
-            post.post_image = post_image_path
             post.save()
         else:
             post = None

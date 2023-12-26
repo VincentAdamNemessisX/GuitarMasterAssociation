@@ -60,6 +60,10 @@
             text-align: center;
             margin: 100px auto;
         }
+
+        .team-content .text-truncate {
+            width: 20ch;
+        }
     </style>
 {% endblock %}
 {% block content %}
@@ -327,7 +331,7 @@
                                                  alt="{{ col.post_id.post_title }}"/>
                                         </div>
                                         <h3 class="title">{{ col.post_id.post_title }}</h3>
-                                        <p class="text-truncate" style="width: 15rem">{{ col.post_id.post_content }}</p>
+                                        <p class="text-truncate" style="width: 15rem">{{ col.post_id.post_content}}</p>
                                     </a>
                                 </div>
                             </div>
@@ -345,7 +349,7 @@
                                                  alt="{{ col.post_id.post_title }}"/>
                                         </div>
                                         <h3 class="title">{{ col.post_id.post_title }}</h3>
-                                        <p class="text-truncate" style="width: 15rem">{{ col.post_id.post_content }}</p>
+                                        <p class="text-truncate" style="width: 15rem">{{ col.post_id.post_content}}</p>
                                     </a>
                                 </div>
                             </div>
