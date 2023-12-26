@@ -1,298 +1,392 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
+{% block title %}
+    更新帖子
+{% endblock %}
+{% block custom_style %}
+    <style>
+        .whole_frame {
+            width: 80%;
+            height: 70rem;
+            margin: 1rem auto 3rem auto;
+            position: relative;
+        }
+
+        form {
+            height: 30%;
+        }
+
+        .editor-container {
+            z-index: 1000;
+            height: 70%
+        }
+
+        .editor {
+            min-height: 60%;
+            max-height: 90%;
+            overflow: auto;
+        }
+
+        form {
+            display: grid;
+            padding-left: 3rem;
+        }
+
+        .nice-select .option, .current {
+            text-align: center;
+        }
+
+        form input, .nice_color, .nice-select {
+            background-color: #e9f2ff;
+        }
+
+        .nice-select {
+            width: 30%;
+            padding: 0;
+            text-align: center;
+        }
+
+        .right_side {
+            position: absolute;
+            right: 0;
+            top: 15%;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: right;
+        }
+
+        .post-btn {
+            margin-right: 2rem;
+            font-size: larger;
+        }
+
+        .post-title {
+            width: 30%;
+        }
+    </style>
+{% endblock %}
 {% block content %}
-    <!-- inner-banner-section start -->
-    <section class="inner-banner-section bg-overlay-primary bg_img"
-             data-background={% static "assets/images/header/inner-5.png" %}>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12 text-center">
-                    <div class="inner-content">
-                        <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">Event Details</h2>
-                    </div>
-                </div>
+    <div class="shadow whole_frame">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="post-title">
+                <label for="title">标题:</label>
+                <input type="text" class="form-control nice_color" id="title" value={{ post.post_title }}
+                        placeholder="请输入标题" style="height: 3.2rem; line-height: 3.2rem;">
             </div>
-        </div>
-    </section>
-    <!-- inner-banner-section end -->
-
-
-    <a href="#" class="scrollToTop"><i class="fas fa-heart"></i></a>
-
-
-    <!-- breadcrumb-section start -->
-    <div class="breadcrumb-area">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>Home</a></li>
-                    <li class="breadcrumb-item"><a href="/event">Event</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Event Details</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <!-- breadcrumb-section end -->
-
-
-    <!-- event-details-section start -->
-    <section class="event-details-section ptb-120">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="event-details-area">
-                        <div class="event-details-thumb">
-                            <img src="../static/assets/images/event/event-details-1.png" alt="event">
-                        </div>
-                        <div class="event-details-content">
-                            <h3 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">Event
-                                Details</h3>
-                            <span class="wow fade-in-up" data-wow-duration="1s"
-                                  data-wow-delay="0.5s">10 november, 2019</span>
-                            <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">Nullam turpis
-                                dolorem, vivamus placerat in donec est, nonummy tristique massa a, dui felis in. Nulla
-                                lorem aenean montes varius ultrices masshicula sed, ut at ante, quis velit, at amet amet
-                                placerat. Vestibulum in porttitor ipsum eros vel in, imperdiet amet aliquam et purus
-                                dictum. In nunc nulla orci. A massa curabitur, etiam iure vestibulum, blandit
-                                ullamcorper, justo at aenean pulvinar. Felis aliquam hac duis et feugiat eu. Duis
-                                feugiat volutpat bibendum, eget a nisl est eros, nibh metus placerat faucibus penatibus,
-                                natoque diam.Nullam turpis dolorem, vivamus placerat in donec est, nommy tristique massa
-                                a, dui felis in. Nulla lorem aenean montes varius ultrices massa, vehicula sed, ut at
-                                ante, quis velit, at amet amet placerat. Vestibulum in porttitor ipsum eros vel in,
-                                imperdiet amet aliquam et purus dictum. In nunc nulla orci. A massa curabitur, etiam
-                                iure vestibulum, blandit ulla, justo at aenean pulvinar. Felis aliquam hac duis et
-                                feugiat eu. Duis feugiat volutpat bibendum.</p>
-                            <div class="event-choose-area">
-                                <div class="row justify-content-center ml-b-30">
-                                    <div class="col-lg-6 col-md-6 mrb-30 wow fade-in-left" data-wow-duration="1s"
-                                         data-wow-delay="0.5s">
-                                        <div class="event-choose-thumb bg_img"
-                                             data-background={% static "assets/images/event/event-details-2.png" %}>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 mrb-30">
-                                        <div class="event-choose-content">
-                                            <h3 class="title wow fade-in-up" data-wow-duration="1s"
-                                                data-wow-delay="0.5s">Why Important This Event</h3>
-                                            <p class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                                                Pulvinar nullam rerum non porttitor pharetra mollisnommy ultrices nibh
-                                                morbi, venenatis justo gravida est ipsum sem id, felis augue id mauris
-                                                in per. </p>
-                                            <div class="event-choose-item-list d-flex flex-wrap align-items-center wow fade-in-bottom"
-                                                 data-wow-duration="1s" data-wow-delay="0.5s">
-                                                <div class="event-choose-item-icon">
-                                                    <i class="flaticon-add"></i>
-                                                </div>
-                                                <span class="sub-title">Free Registration for Membership</span>
-                                            </div>
-                                            <div class="event-choose-item-list d-flex flex-wrap align-items-center wow fade-in-bottom"
-                                                 data-wow-duration="1s" data-wow-delay="0.7s">
-                                                <div class="event-choose-item-icon">
-                                                    <i class="fas fa-coffee"></i>
-                                                </div>
-                                                <span class="sub-title">Unlimited Coffee</span>
-                                            </div>
-                                            <div class="event-choose-item-list d-flex flex-wrap align-items-center wow fade-in-bottom"
-                                                 data-wow-duration="1s" data-wow-delay="0.9s">
-                                                <div class="event-choose-item-icon">
-                                                    <i class="flaticon-front-of-bus"></i>
-                                                </div>
-                                                <span class="sub-title">Free Transport </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-blockquote">Dorem donec metus malesuada, mauris sit diam rutrum elementum
-                                vitae vel, vitae eu ultrices nulla quis. Nulla posutiam lacus id. Orci vestibulum totam
-                                nibh wisi. Proin vehicula, varius sodales congue dui lectus congue. Id sed eget
-                                urninrdum cursus, nullam tempor fringilla ac, nec pellentesque praesent velit. In enim
-                                sed lacinia. Platea ligula sed ut sem in amet. Lacinia quis placerat tortor nullam
-                                magna.
-                            </div>
-                            <div class="event-faq-area">
-                                <h3 class="title">Konw About Event</h3>
-                                <div class="faq-wrapper">
-                                    <div class="faq-item active open">
-                                        <h3 class="faq-title"><span class="title"><i class="flaticon-chat"></i> Mauris euismod etiam tempor facilisis?</span><span
-                                                class="right-icon"></span></h3>
-                                        <div class="faq-content">
-                                            <p>Fermentum nec erat dictum nec fusce. In id ipsum qui nisl mauris dui, per
-                                                condimentum tortocumsan nisi pellentesque, lacus elit suspendisse in
-                                                lacus curabitur metus, potenti massa ut luctus lorerphaslus est quis id
-                                                lacus ultrices interdum. At sem quis aliquet. Id modi neque quisque
-                                                cillumapien vestibulum ligula tellus imperdiet iaculis est. Tortor ut
-                                                nullam at nibh mauris est aliquam sed praesent. </p>
-                                        </div>
-                                    </div>
-                                    <div class="faq-item">
-                                        <h3 class="faq-title"><span class="title"><i class="flaticon-chat"></i>Turpis maecenas proin commodo auctor?</span><span
-                                                class="right-icon"></span></h3>
-                                        <div class="faq-content">
-                                            <p>Fermentum nec erat dictum nec fusce. In id ipsum qui nisl mauris dui, per
-                                                condimentum tortocumsan nisi pellentesque, lacus elit suspendisse in
-                                                lacus curabitur metus, potenti massa ut luctus lorerphaslus est quis id
-                                                lacus ultrices interdum. At sem quis aliquet. Id modi neque quisque
-                                                cillumapien vestibulum ligula tellus imperdiet iaculis est. Tortor ut
-                                                nullam at nibh mauris est aliquam sed praesent. </p>
-                                        </div>
-                                    </div>
-                                    <div class="faq-item">
-                                        <h3 class="faq-title"><span class="title"><i class="flaticon-chat"></i> Phasellus est quis id lacus ultrices interdum?</span><span
-                                                class="right-icon"></span></h3>
-                                        <div class="faq-content">
-                                            <p>Fermentum nec erat dictum nec fusce. In id ipsum qui nisl mauris dui, per
-                                                condimentum tortocumsan nisi pellentesque, lacus elit suspendisse in
-                                                lacus curabitur metus, potenti massa ut luctus lorerphaslus est quis id
-                                                lacus ultrices interdum. At sem quis aliquet. Id modi neque quisque
-                                                cillumapien vestibulum ligula tellus imperdiet iaculis est. Tortor ut
-                                                nullam at nibh mauris est aliquam sed praesent.</p>
-                                        </div>
-                                    </div>
-                                    <div class="faq-item">
-                                        <h3 class="faq-title"><span class="title"><i class="flaticon-chat"></i>Dignissim aliquam tincidunt lorem aenean lacus?</span><span
-                                                class="right-icon"></span></h3>
-                                        <div class="faq-content">
-                                            <p>Fermentum nec erat dictum nec fusce. In id ipsum qui nisl mauris dui, per
-                                                condimentum tortocumsan nisi pellentesque, lacus elit suspendisse in
-                                                lacus curabitur metus, potenti massa ut luctus lorerphaslus est quis id
-                                                lacus ultrices interdum. At sem quis aliquet. Id modi neque quisque
-                                                cillumapien vestibulum ligula tellus imperdiet iaculis est. Tortor ut
-                                                nullam at nibh mauris est aliquam sed praesent. </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label for="zone">分类:</label>
+                <select class="form-control" id="zone" name="zone_id">
+                    <option value="0" selected>请选择分类</option>
+                    {% for zone in request.session.zones.data %}
+                        <option value="{{ zone.zone_id }}">{{ zone.zone_name }}</option>
+                    {% endfor %}
+                </select>
             </div>
-        </div>
-    </section>
-    <!-- event-details-section end -->
-
-
-
-    <!-- pricing-section start -->
-    <section class="pricing-section pricing-section-two sec-bg pd-t-120">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7 text-center">
-                    <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title">Buy Your Event Ticket</h2>
-                        <p>Suspendisse lectus vivamus donec turpis egestas, sed at massa orci, et nibh massa augue
-                            Fermentum arcu, potenti tellus praesent integer aliquam. </p>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label for="layout_mode">页面显示风格:</label>
+                <select class="form-control" id="layout_mode">
+                    <option value="0" selected>请选择风格</option>
+                    <option value="normal">默认风格</option>
+                    <option value="immersion">沉浸风格</option>
+                </select>
             </div>
-            <div class="row justify-content-center ml-b-30">
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.5s">
-                    <div class="pricing-item">
-                        <div class="pricing-header">
-                            <h3 class="title">Silver</h3>
-                        </div>
-                        <div class="pricing-body">
-                            <ul class="pricing-list">
-                                <li><i class="fas fa-check"></i>Lifetime membership</li>
-                                <li><i class="fas fa-check"></i>Profile security</li>
-                                <li><i class="fas fa-check"></i>free notification</li>
-                                <li><i class="fas fa-check"></i>email services</li>
-                            </ul>
-                            <h3 class="amount">$280</h3>
-                            <a href="#0" class="cmn-btn">buy now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.8s">
-                    <div class="pricing-item">
-                        <div class="pricing-header">
-                            <h3 class="title">Golden</h3>
-                        </div>
-                        <div class="pricing-body">
-                            <ul class="pricing-list">
-                                <li><i class="fas fa-check"></i>Lifetime membership</li>
-                                <li><i class="fas fa-check"></i>Profile security</li>
-                                <li><i class="fas fa-check"></i>free notification</li>
-                                <li><i class="fas fa-check"></i>email services</li>
-                            </ul>
-                            <h3 class="amount">$280</h3>
-                            <a href="#0" class="cmn-btn">buy now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="1s">
-                    <div class="pricing-item">
-                        <div class="pricing-header">
-                            <h3 class="title">Diamond</h3>
-                        </div>
-                        <div class="pricing-body">
-                            <ul class="pricing-list">
-                                <li><i class="fas fa-check"></i>Lifetime membership</li>
-                                <li><i class="fas fa-check"></i>Profile security</li>
-                                <li><i class="fas fa-check"></i>free notification</li>
-                                <li><i class="fas fa-check"></i>email services</li>
-                            </ul>
-                            <h3 class="amount">$280</h3>
-                            <a href="#0" class="cmn-btn">buy now</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="form-btn-group right_side">
+                <button type="button" class="btn btn-primary cmn-btn post-btn" onclick="publish_post()">发布
+                </button>
+                <button type="button" class="btn btn-secondary cmn-btn post-btn" onclick="reset_logic()">取消</button>
             </div>
-        </div>
-    </section>
-    <!-- pricing-section end -->
-
-
-    <!-- brand-section start -->
-    <div class="brand-section ptb-120 sec-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="brand-wrapper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-1.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-2.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-3.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-4.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="BrandSlider">
-                                    <div class="brand-item">
-                                        <img src="../static/assets/images/brand/brand-5.png" alt="logo images">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </form>
+        <div id="editor-container" class="editor-container">
+            <div id="editor-tool-bar"></div>
+            <div id="editor" class="editor"></div>
         </div>
     </div>
-    <!-- brand-section end -->
+{% endblock %}
+{% block custom_script %}
+    <script>
+		const {createEditor, createToolbar} = window.wangEditor
+
+		const editorConfig = {
+			placeholder: '请在这里输入正文...',
+			readOnly: false,
+			scroll: true,
+		}
+
+		const editor = createEditor({
+			selector: '#editor',
+			html: {{ post.post_content| safe }},
+			config: editorConfig,
+			mode: 'default',
+		})
+
+		const toolbarConfig = {}
+
+		toolbarConfig.excludeKeys = [
+			"underline",
+			'codeBlock',
+			'insertTable',
+			"insertVideo",
+			"through",
+			"clearStyle",
+		]
+
+		const toolbar = createToolbar({
+			editor,
+			selector: '#editor-tool-bar',
+			config: toolbarConfig,
+			mode: 'simple',
+		})
+
+		$(document).ready(function () {
+			editor.getConfig().hoverbarKeys.text.menuKeys = [
+				"bgColor", "color", "bold",
+				"|", "bulletedList", "insertLink"
+			];
+			editor.getConfig().MENU_CONF['uploadImage'] = {
+				server: '/api/post/upload/image/',
+				// form-data fieldName ，默认值 'wangeditor-uploaded-image'
+				fieldName: 'post-upload-image',
+				// 单个文件的最大体积限制，默认为 2M
+				maxFileSize: 10 * 1024 * 1024, // 10M
+				// 最多可上传几个文件，默认为 100
+				maxNumberOfFiles: 10,
+				// 选择文件时的类型限制，默认为 ['image/*'] 。如不想限制，则设置为 []
+				allowedFileTypes: ['image/*'],
+				// 自定义上传参数，例如传递验证的 token 等。参数会被添加到 formData 中，一起上传到服务端。
+				meta: {
+					"csrfmiddlewaretoken": "{{ csrf_token }}",
+				}
+				,
+				// 将 meta 拼接到 url 参数中，默认 false
+				metaWithUrl: false,
+				// 自定义增加 http  header
+				headers: {
+					Accept: 'text/x-json',
+				}
+				,
+				// 跨域是否传递 cookie ，默认为 false
+				withCredentials: true,
+				// 超时时间，默认为 10 秒
+				timeout:
+					5 * 1000, // 5 秒
+				// 上传之前触发
+				{#onBeforeUpload(file: File) { // TS 语法#}
+				onBeforeUpload(file) {    // JS 语法
+					// file 选中的文件，格式如 { key: file }
+					return file
+
+					// 可以 return
+					// 1. return file 或者 new 一个 file ，接下来将上传
+					// 2. return false ，不上传这个 file
+				},
+
+				// 上传进度的回调函数
+				{#onProgress(progress: number) {  // TS 语法#}
+				onProgress(progress) {       // JS 语法
+					// progress 是 0-100 的数字
+					console.log('progress', progress)
+				},
+
+				// 单个文件上传成功之后
+				{#onSuccess(file: File, res: any) {  // TS 语法#}
+				onSuccess(file, res) {          // JS 语法
+					console.log(`${file.name} 上传成功`, res)
+				},
+
+				// 单个文件上传失败
+				{#onFailed(file: File, res: any) {   // TS 语法#}
+				onFailed(file, res) {           // JS 语法
+					console.log(`${file.name} 上传失败`, res)
+				},
+
+				// 上传错误，或者触发 timeout 超时
+				{#onError(file: File, err: any, res: any) {  // TS 语法#}
+				onError(file, err, res) {               // JS 语法
+					console.log(`${file.name} 上传出错`, err, res)
+				},
+			}
+		})
+
+		function reset_logic() {
+			document.forms[1].reset();
+			let x = document.getElementsByClassName('current');
+			for (const xKey in x) {
+				try {
+					x[xKey].parentNode.childNodes[0].textContent =
+						x[xKey].parentNode.childNodes[1].childNodes[0].textContent;
+				} catch (e) {
+					console.log(e.message);
+				}
+			}
+			editor.clear();
+		}
+
+
+		function check_post_content() {
+			if (editor.getHtml() === '<p><br></p>') {
+				show_and_hide_error("文章内容不能为空！");
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function check_post_title() {
+			let title = document.getElementById("title").value;
+			if (title === "") {
+				show_and_hide_error("文章标题不能为空！");
+				return false;
+			} else {
+				if (/^[\u4E00-\u9FA5A-Za-z0-9]{3,200}$/.test(title)) {
+					return true;
+				} else {
+					show_and_hide_error("文章标题为200个字符之内的汉字、字母或数字组成！");
+					return false;
+				}
+			}
+		}
+
+		function check_post_zone_and_layout_mode() {
+			let x = document.getElementsByClassName('current');
+			let flag = true;
+			for (const xKey in x) {
+				try {
+					let x1 = x[xKey].parentElement.children[1].children;
+					for (const x1Key in x1) {
+						if (x1[x1Key].classList[1] === "selected") {
+							if (x1[x1Key].getAttribute("data-value") === "0") {
+								show_and_hide_error("请检查分类和页面显示风格");
+								flag = false;
+							}
+						}
+					}
+				} catch (e) {
+				}
+			}
+			return flag;
+		}
+
+		function get_zone() {
+			let x = document.getElementsByClassName('current')[0];
+			for (const xKey in x) {
+				try {
+					let x1 = x[xKey].parentElement.children[1].children;
+					for (const x1Key in x1) {
+						if (x1[x1Key].classList[1] === "selected") {
+							return x1[x1Key].getAttribute("data-value");
+						}
+					}
+				} catch (e) {
+				}
+			}
+			return null;
+		}
+
+		function set_zone() {
+			let x = document.getElementsByClassName('current')[0];
+			for (const xKey in x) {
+				try {
+					let x1 = x[xKey].parentElement.children[1].children;
+					for (const x1Key in x1) {
+						if (x1[x1Key].getAttribute("data-value") === "{{ post.zone_id.zone_id }}") {
+							x1[x1Key].classList.add("selected");
+							x.innerText = x1[x1Key].innerText;
+							break;
+						}
+					}
+				} catch (e) {
+				}
+			}
+		}
+
+		function get_layout_mode() {
+			let x = document.getElementsByClassName('current')[1];
+			for (const xKey in x) {
+				try {
+					let x1 = x[xKey].parentElement.children[1].children;
+					for (const x1Key in x1) {
+						if (x1[x1Key].classList[1] === "selected") {
+							return x1[x1Key].getAttribute("data-value");
+						}
+					}
+				} catch (e) {
+				}
+			}
+			return null;
+		}
+
+		function set_layout_mode() {
+			let x = document.getElementsByClassName('current')[1];
+			for (const xKey in x) {
+				try {
+					let x1 = x[xKey].parentElement.children[1].children;
+					for (const x1Key in x1) {
+						if (x1[x1Key].getAttribute("data-value") === "{{ post.post_layout_mode }}") {
+							x1[x1Key].classList.add("selected");
+							x.innerText = x1[x1Key].innerText;
+							break;
+						}
+					}
+				} catch (e) {
+				}
+			}
+			return null;
+		}
+
+		function validate_post() {
+			return !!(check_post_title() && check_post_zone_and_layout_mode() && check_post_content());
+		}
+
+		function publish_post() {
+			if (validate_post()) {
+				let post_title = document.getElementById("title").value;
+				let post_content = editor.getHtml();
+				let post_zone = get_zone();
+				let post_layout_mode = get_layout_mode();
+				$.ajax({
+					url: "/post/update/",
+					type: "POST",
+					data: {
+						"post_title": post_title,
+						"post_content": post_content,
+						"zone_id": post_zone,
+						"post_layout_mode": post_layout_mode,
+						"csrfmiddlewaretoken": "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data.status === 200) {
+							show_and_hide_success("更新成功！");
+							setTimeout(function () {
+								window.location.href = "/post-" + data.data.post_layout_mode + "?post_id=" + data.data.post_id;
+							}, 2000);
+						} else {
+							show_and_hide_error("更新失败，" + data.message);
+						}
+					},
+					error: function (data) {
+						show_and_hide_error("更新异常，" + data.message);
+					}
+				})
+			}
+		}
+
+		function layout_init_post() {
+			let title = document.getElementById("title");
+            set_zone(); set_layout_mode();
+			if (title.value === "") {
+				title.value = "{{ post.title }}";
+			}
+		}
+
+		$(document).ready(function () {
+			{% if error == "参数异常" %}
+				show_and_hide_error("{{ error }}");
+				setTimeout(function () {
+					window.history.back();
+				}, 5000);
+			{% endif %}
+		});
+    </script>
 {% endblock %}
