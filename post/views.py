@@ -232,30 +232,39 @@ def remove_post_like_count(request):
 def post_publish(request):
     if request.method == 'POST':
         if request.POST.get('post_title') is None or request.POST.get('post_content') is None:
-            return HttpResponse(json.dumps({'status': '402', 'message': '标题和内容异常!'}))
+            return HttpResponse(json.dumps({'status': 402, 'message': '标题和内容异常!'}), content_type='application/json')
         if request.POST.get('zone_id') is None or request.POST.get('post_layout_mode') is None:
-            return HttpResponse(json.dumps({'status': '402', 'message': '所属专区和页面布局方式异常!'}))
-        post_image = bs4.BeautifulSoup(request.POST.get('post_content'), 'html.parser').find('img').get("src").split("/", 2)[-1]
-        print(post_image)
-        if post_image:
-            post = Post.objects.create(user_id=User.objects.get(user_id=request.session.get('login_user_id')),
-                                       zone_id=Zone.objects.get(zone_id=request.POST.get('zone_id')),
+            return HttpResponse(json.dumps({'status': 402, 'message': '所属专区和页面布局方式异常!'}), content_type='application/json')
+        post_image_path = \
+            bs4.BeautifulSoup(request.POST.get('post_content'), 'html.parser').find('img')
+        author = User.objects.get(user_id=request.session.get('login_user_id'))
+        zone = Zone.objects.get(zone_id=request.POST.get('zone_id'))
+        if author is None:
+            return HttpResponse(json.dumps({'status': 402,'message': '未登录用户非法操作!'}), content_type='application/json')
+        if zone is None:
+            return HttpResponse(json.dumps({'status': 402,'message': '所属专区不存在,请刷新后重试!'}), content_type='application/json')
+        if post_image_path:
+            post_image_path = post_image_path.get("src").split("/", 2)[-1]
+            post = Post.objects.create(user_id=author,
+                                       zone_id=zone,
                                        post_title=request.POST.get('post_title'),
                                        post_content=request.POST.get('post_content'),
                                        post_layout_mode=request.POST.get('post_layout_mode'),
                                        post_status=1,
-                                       post_image=post_image,
+                                       post_image=post_image_path,
                                        )
         else:
-            post = Post.objects.create(user_id=User.objects.get(user_id=request.session.get('login_user_id')),
-                                       zone_id=Zone.objects.get(zone_id=request.POST.get('zone_id')),
+            post = Post.objects.create(user_id=author,
+                                       zone_id=zone,
                                        post_title=request.POST.get('post_title'),
                                        post_content=request.POST.get('post_content'),
                                        post_layout_mode=request.POST.get('post_layout_mode'),
                                        post_status=1,
                                        )
         post.save()
-        return HttpResponse(json.dumps({'status': 200}))
+        pst = Post.objects.get(post_id=post.post_id)
+        data = {'post_id': pst.post_id, 'post_layout_mode': pst.post_layout_mode}
+        return HttpResponse(json.dumps({'status': 200, 'data': data}), content_type='application/json')
     return render(request, "post_publish.html")
 
 

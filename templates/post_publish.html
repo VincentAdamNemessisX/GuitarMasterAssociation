@@ -318,11 +318,14 @@
 						"post_content": post_content,
 						"zone_id": post_zone,
 						"post_layout_mode": post_layout_mode,
-                        "csrfmiddlewaretoken": "{{ csrf_token }}",
+						"csrfmiddlewaretoken": "{{ csrf_token }}",
 					},
 					success: function (data) {
 						if (data.status === 200) {
 							show_and_hide_success("发布成功！");
+							setTimeout(function () {
+								window.location.href = "/post-"  + data.data.post_layout_mode + "?post_id=" + data.data.post_id;
+							}, 2000);
 						} else {
 							show_and_hide_error("发布失败，" + data.message);
 						}
