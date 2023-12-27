@@ -29,6 +29,23 @@
         .comment-thumb {
             border-radius: 50%;
         }
+
+        input {
+            text-transform: none;
+        }
+
+        .custom_title {
+            margin-bottom: 0;
+            height: 100%;
+            line-height: 100%;
+        }
+
+        #review_button {
+            cursor: not-allowed;
+            background: -webkit-linear-gradient(20deg, #ff36a9 0%, #9459d4 54%, #297bff 91%);
+            background: -ms-linear-gradient(20deg, #ff36a9 0%, #9459d4 54%, #297bff 91%);
+            background: linear-gradient(20deg, #ff36a9 0%, #9459d4 54%, #297bff 91%);
+        }
     </style>
 {% endblock %}
 {% block content %}
@@ -136,30 +153,34 @@
                         </div>
                     </div>
                     <div class="comments-section" id="reviews_area"></div>
-                    <div class="leave-review">
-                        <h3 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">Leave a
-                            Comment</h3>
+                    <div id="leave-review" class="leave-review leave-comment">
+                        <h3 class="title wow fade-in-up text-center" data-wow-duration="1s" data-wow-delay="0.5s">
+                            发表评论</h3>
                         <form class="review-form" method="post" enctype="multipart/form-data" action="/review/publish/">
+                            {% csrf_token %}
                             <div class="row">
-                                <div class="col-sm-12 form-group wow fade-in-bottom" data-wow-duration="1s"
+                                <div class="col-sm-12 form-group wow fade-in-up" data-wow-duration="1s"
                                      data-wow-delay="0.5s">
-                                    <input type="text" placeholder="your name ">
+                                    <label for="user_name">用户名:</label><input name="username" id="user_name"
+                                                                                 type="text" placeholder="用户名"
+                                                                                 value="{{ request.session.login_username }}"
+                                                                                 readonly
+                                                                                 style="float: left; margin-left: 30px; margin-top: -48px">
                                 </div>
                                 <div class="col-sm-12 form-group wow fade-in-up" data-wow-duration="1s"
                                      data-wow-delay="0.5s">
-                                    <input type="text" placeholder="Email address">
-                                </div>
-                                <div class="col-sm-12 form-group wow fade-in-bottom" data-wow-duration="1s"
-                                     data-wow-delay="0.5s">
-                                    <input type="text" placeholder="web site ">
+                                    <textarea placeholder="请在这里写评论..." id="review_content"
+                                              name="review_content" onchange="validateForm()"
+                                              onloadeddata="validateForm()" onmouseout="validateForm()"></textarea>
                                 </div>
                                 <div class="col-sm-12 form-group wow fade-in-up" data-wow-duration="1s"
                                      data-wow-delay="0.5s">
-                                    <textarea placeholder="write a comment"></textarea>
-                                </div>
-                                <div class="col-sm-12 form-group wow fade-in-up" data-wow-duration="1s"
-                                     data-wow-delay="0.5s">
-                                    <input type="submit" class="cmn-btn" value="post comment ">
+                                    <input type="hidden" name="user_id" id="user_id"
+                                           value="{{ request.session.login_user_id }}">
+                                    <input type="hidden" name="post_id" id="post_id" value="{{ post.post_id }}">
+                                    <input type="hidden" id="parent_id" name="parent_id" value="">
+                                    <input type="button" class="cmn-btn btn-border" id="review_button" value="发表评论"
+                                           onclick="publish_review()">
                                 </div>
                             </div>
                         </form>
@@ -358,6 +379,10 @@
 
 		{#get all reviews for post#}
 		$(document).ready(function () {
+			get_all_reviews();
+		})
+
+		function get_all_reviews() {
 			let reviews = document.getElementById("reviews_area");
 			reviews.style.display = "grid";
 			$.ajax({
@@ -371,6 +396,8 @@
 				success: function (data) {
 					if (data.code === 200) {
 						let reviews_summary = document.createElement("h3");
+						reviews_summary.style.marginBottom = "0";
+						reviews_summary.classList.add("custom_title");
 						reviews_summary.classList.add("title");
 						reviews_summary.innerText = data.all_reviews_count + "条评论";
 						if (data.data.length === 0) {
@@ -405,7 +432,8 @@
                                             data-wow-delay="0.5s"><a href="/user/?user_id=${data.data[review_i].author.user_id}">${data.data[review_i].author.username}</a></h5>
                                         <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">${time_period}</span>
                                         <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">${data.data[review_i].content}</p>
-                                        <a href="#" class="reply-button">回复</a>
+                                        <a href="#leave-review"
+                                        onclick="assignment_parent_id(${data.data[review_i].review_id}, '${data.data[review_i].author.username}', '${data.data[review_i].content}')" class="reply-button">回复</a>
                                     </div>
 								    <div class="panel-group" style="width: 100%" id="accordion-${data.data[review_i].review_id}">
                                         <div class="panel panel-info">
@@ -435,7 +463,8 @@
                                             data-wow-delay="0.5s"><a href="/user/?user_id=${data.data[review_i].author.user_id}">${data.data[review_i].author.username}</a></h5>
                                         <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">${time_period}</span>
                                         <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">${data.data[review_i].content}</p>
-                                        <a href="#" class="reply-button">回复</a>
+                                        <a href="#leave-review"
+                                        onclick="assignment_parent_id(${data.data[review_i].review_id}, '${data.data[review_i].author.username}', '${data.data[review_i].content}')" class="reply-button">回复</a>
                                     </div>
                                 </div>
                                 `;
@@ -476,7 +505,7 @@
 					{#console.log(data);#}
 				}
 			})
-		})
+		}
 
 		{#get and layout review children#}
 		let counter = {};
@@ -494,7 +523,7 @@
 					if (data.code === 200) {
 						counter[review_id] = counter[review_id] || {};
 						counter[review_id]['parent_id'] = counter[review_id]['parent_id'] || data.parent_id;
-						counter[review_id]['count'] = counter[review_id]['count'] || 0;
+						counter[review_id]['count'] = counter[review_id]['count'] || 1;
 						let review_children = document.getElementById("reply-" + review_id);
 						if (data.data.length <= 0) {
 							document.getElementById("accordion-" + review_id).parentNode.removeChild(document.getElementById("accordion-" + review_id));
@@ -515,7 +544,8 @@
                                                     data-wow-delay="0.5s"><a href="/user/?user_id=${data.data[child_i].author.user_id}">${data.data[child_i].author.username}</a></h5>
                                                 <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">${time_period}</span>
                                                 <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">${data.data[child_i].content}</p>
-                                                <a href="#" class="reply-button">回复</a>
+                                                <a href="#leave-review"
+                                                onclick="assignment_parent_id(${data.data[child_i].review_id}, '${data.data[child_i].author.username}', '${data.data[child_i].content}')" class="reply-button">回复</a>
                                             </div>
                                             <div class="panel-group" style="width: 100%" id="accordion-${data.data[child_i].review_id}">
                                                 <div class="panel panel-info">
@@ -545,7 +575,8 @@
                                                     data-wow-delay="0.5s"><a href="/user/?user_id=${data.data[child_i].author.user_id}">${data.data[child_i].author.username}</a></h5>
                                                 <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">${time_period}</span>
                                                 <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">${data.data[child_i].content}</p>
-                                                <a href="#" class="reply-button">回复</a>
+                                                <a href="#leave-review"
+                                                onclick="assignment_parent_id(${data.data[child_i].review_id}, '${data.data[child_i].author.username}', '${data.data[child_i].content}')" class="reply-button">回复</a>
                                             </div>
                                         </div>
 							            `;
@@ -647,7 +678,7 @@
                                             data-wow-delay="0.5s"><a href="/user/?user_id=${data.data[review_i].author.user_id}">${data.data[review_i].author.username}</a></h5>
                                         <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">${time_period}</span>
                                         <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">${data.data[review_i].content}</p>
-                                        <a href="#" class="reply-button">回复</a>
+                                        <a href="#leave-review" onclick="assignment_parent_id(${data.data[review_i].review_id})" class="reply-button">回复</a>
                                     </div>
 								    <div class="panel-group" style="width: 100%" id="accordion-${data.data[review_i].review_id}">
                                         <div class="panel panel-info">
@@ -678,7 +709,8 @@
                                             data-wow-delay="0.5s"><a href="/user/?user_id=${data.data[review_i].author.user_id}">${data.data[review_i].author.username}</a></h5>
                                         <span class="wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">${time_period}</span>
                                         <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">${data.data[review_i].content}</p>
-                                        <a href="#" class="reply-button">回复</a>
+                                        <a href="#leave-review"
+                                        onclick="assignment_parent_id(${data.data[review_i].review_id}, '${data.data[review_i].author.username}', '${data.data[review_i].content}')" class="reply-button">回复</a>
                                     </div>
                                 </div>
                                 `;
@@ -758,6 +790,91 @@
 			} else {
 				console.error('未来者时间，请站长注意！timePeriod is invalid!');
 				return '未来者时间，请站长注意！';
+			}
+		}
+
+		function validateForm() {
+			let user_id = document.getElementById("user_id").value;
+			let post_id = document.getElementById("post_id").value;
+			let parent_id = document.getElementById("parent_id").value;
+			let review_content = document.getElementById("review_content").value;
+			let review_button = document.getElementById("review_button");
+			if (user_id.length === 0) {
+				show_and_hide_error("请先登录");
+				review_button.style.cursor = "not-allowed";
+				return false;
+			} else if (post_id.length === 0) {
+				show_and_hide_error("非法请求，请先选择文章");
+				review_button.style.cursor = "not-allowed";
+				return false;
+			} else if (review_content.length < 5) {
+				{#console.log(review_content)#}
+				show_and_hide_error("评论内容太少了，再写点儿吧！");
+				review_button.style.cursor = "not-allowed";
+				return false;
+			} else {
+				if (!/^[0-9]{1,30}$/.test(user_id)) {
+					show_and_hide_error("非法请求，请先选择文章");
+					review_button.style.cursor = "not-allowed";
+					return false;
+				} else {
+					if (!(/^[0-9]{1,30}$/.test(parent_id) || parent_id === "")) {
+						show_and_hide_error("非法请求，请核实后重试");
+						review_button.style.cursor = "not-allowed";
+						return false;
+					} else {
+						if (!/^[\u4E00-\u9FA5A-Za-z0-9]{3,200}$/.test(review_content)) {
+							show_and_hide_error("评论内容不合法或超过200个字符，请核实后重试！");
+							review_button.style.cursor = "not-allowed";
+							return false;
+						} else {
+							review_button.style.cursor = "pointer";
+							return true;
+						}
+					}
+				}
+			}
+		}
+
+		function assignment_parent_id(review_id, review_author, review_content) {
+			let parent_id_node = document.getElementById("parent_id");
+			let review_button = document.getElementById("review_button");
+			let review_content_node = document.getElementById("review_content");
+			parent_id_node.value = review_id;
+			review_content_node.value = "";
+            review_content_node.placeholder = "@" + review_author + ":" + review_content;
+			review_button.value = "回复评论";
+		}
+
+		function publish_review() {
+			if (validateForm()) {
+				$.ajax({
+					url: "/api/post/review/",
+					type: "POST",
+					data: {
+						user_id: document.getElementById("user_id").value,
+						post_id: document.getElementById("post_id").value,
+						parent_id: document.getElementById("parent_id").value,
+						review_content: document.getElementById("review_content").value,
+						csrfmiddlewaretoken: '{{ csrf_token }}'
+					},
+					success: function (data) {
+						if (data.status === 200) {
+							show_and_hide_success("评论成功");
+							document.getElementById("review_content").textContent = "";
+							document.getElementById("parent_id").value = "";
+							document.getElementById("reviews_area").innerHTML = "";
+							setTimeout(function () {
+								window.location.reload();
+							}, 1500);
+						} else {
+							show_and_hide_error("评论失败，" + data.msg);
+						}
+					},
+					error: function (data) {
+						show_and_hide_error("评论失败，" + data.msg);
+					}
+				})
 			}
 		}
     </script>

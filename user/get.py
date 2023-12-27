@@ -23,9 +23,9 @@ def get_sorted_authors_by_hot(reverse=1):
                                     .aggregate(Sum('post_like')).get('post_like__sum') * 150)
         else:
             user.hot_volume = 0
-        if Review.objects.filter(content_id__in=user.post_set.values_list('post_id', flat=True)):
+        if Review.objects.filter(post_id__in=user.post_set.values_list('post_id', flat=True)):
             user.hot_volume += Review.objects.filter(
-                content_id__in=user.post_set.values_list('post_id', flat=True)).count() * 300
+                post_id__in=user.post_set.values_list('post_id', flat=True)).count() * 300
         if Collection.objects.filter(post_id__in=user.post_set.values_list('post_id', flat=True)):
             user.hot_volume += Collection.objects.filter(
                 post_id__in=user.post_set.values_list('post_id', flat=True)).count() * 400

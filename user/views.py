@@ -27,6 +27,7 @@ def signin(request):
                     request.session['login_username'] = login_user.user_name
                     request.session['login_user_id'] = login_user.user_id
                     request.session['login_user_headicon'] = login_user.user_headicon.url
+                    request.session['login_user_email'] = login_user.user_email
                     request.session.set_expiry(60 * 60)
                     User.objects.filter(user_id=login_user.user_id).update(
                         user_last_active_time=verify.get_current_time())

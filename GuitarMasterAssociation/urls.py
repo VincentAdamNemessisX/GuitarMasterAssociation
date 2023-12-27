@@ -43,6 +43,7 @@ urlpatterns = [
                   path('post/update/', update_post),
                   path('api/post/upload/image/', post_upload_image),
                   path('post/remove/', delete_specific_post),
+                  path('api/post/review/', publish_review),
                   path('review/get/all/', get_init_reviews),
                   path('review/get/children/', get_specific_review_children),
                   path('review/get/more/', load_more_reviews),
