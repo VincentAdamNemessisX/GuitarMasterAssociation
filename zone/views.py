@@ -53,7 +53,7 @@ def zone(request):
                              + Post.objects.filter(zone_id=zone_info.zone_id, post_status=1).aggregate(
                     Sum('post_like')).get('post_like__sum') * 150
                              + Review.objects.filter(
-                    content_id__in=zone_all_posts.values_list('post_id', flat=True)).count() * 200
+                    post_id__in=zone_all_posts.values_list('post_id', flat=True)).count() * 200
                              + Collection.objects.filter(
                     post_id__collection__in=zone_all_posts.values_list('post_id', flat=True)).count() * 300
                              )

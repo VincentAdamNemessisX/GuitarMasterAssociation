@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{ k }}搜索结果
+{% endblock %}
+{% block custom_style %}
+    <style>
+        .team-thumb {
+            width: 275px;
+            height: 15rem;
+        }
+
+        .team-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10%;
+        }
+
+        .team-wish-list li {
+            width: 40px;
+            text-align: center;
+        }
+
+        .team-content .text-truncate {
+            width: 20ch;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <!-- inner-banner-section start -->
+    <section class="inner-banner-section bg-overlay-primary bg_img"
+             data-background="{% static "assets/images/brand/brand-7.png" %}">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 text-center">
+                    <div class="inner-content">
+                        <h2 class="title wow fade-in-up" data-wow-duration="1s"
+                            data-wow-delay="0.5s" style="text-transform: none">{{ k }}搜索结果</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- inner-banner-section end -->
+
+
+    <a href="#" class="scrollToTop"><i class="fas fa-heart"></i></a>
+
+
+    <!-- breadcrumb-section start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>主页</a></li>
+                    <li class="breadcrumb-item"><a><i class="flaticon-house"></i>搜索结果</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- breadcrumb-section end -->
+
+    <!-- team-section start -->
+    <section class="team-section ptb-120">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 text-center">
+                    <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
+                        {% if result_count > 0 %}
+                            <h2 class="section-title">搜索结果 : {{ result_count }}</h2>
+                        {% else %}
+                            <h2 class="section-title">搜索结果 : 0</h2>
+                        {% endif %}
+                        <p>搜索如同探险，每次输入是一次迈向未知的冒险。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center ml-b-30">
+                {% if result_count > 0 %}
+                    {% for post in result %}
+                        <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                             data-wow-delay="0.5s">
+                            <div class="team-thumb">
+                                <img src="{{ post.post_image.url }}" alt="team">
+                                <div class="team-thumb-overlay">
+                                    <a class="image-popup" title="{{ post.post_title }}"
+                                       href="{{ post.post_image.url }}"><i
+                                            class="fas fa-search"></i></a>
+                                </div>
+                            </div>
+                            <div class="team-details text-center">
+                                <a href="/post-{{ post.post_layout_mode }}/?post_id={{ post.post_id }}"><h3
+                                        class="title">{{ post.post_title }}</h3>
+                                    <ul class="team-content">
+                                        <li class="text-truncate"><span>摘要：</span>{{ post.post_content }}</li>
+                                    </ul>
+                                </a>
+                                <ul class="team-wish-list">
+                                    <li><i class="fas fa-eye color-red"></i><span>{{ post.post_view }}</span></li>
+                                    <li><i class="fas fa-heart color-yellow"></i><span>{{ post.post_like }}</span></li>
+                                    <li>
+                                        <i class="fas fa-star color-hr-dv-orange"></i><span>{{ post.collection_set.count }}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-comment color-medium-purple"></i><span>{{ post.review_set.count }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h2 class="title-text">暂无搜索结果！</h2>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!-- team-section end -->
+
+
+    <!-- member-details-slide section start -->
+    <section class="member-details-slide-section pd-t-120">
+        <div class="container">
+            <div class="member-details-slide-section-area">
+                <div class="member-slider">
+                    <div class="swiper-wrapper">
+                        {% for post in recommend %}
+                            <div class="swiper-slide">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="member-details-slider-thumb">
+                                            <img src="{{ post.post_image.url }}" alt="member">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="member-details-slider-content">
+                                            <h2 class="title wow fade-in-up" data-wow-duration="1s"
+                                                data-wow-delay="0.5s" style="line-height: 2em">
+                                                {{ post.post_title }}</h2>
+                                            <div class="wow fade-in-bottom" data-wow-duration="1s"
+                                                 data-wow-delay="0.5s">
+                                                {{ post.post_content|truncatewords_html:300 }}
+                                            </div>
+                                            <a href="#0" class="cmn-btn wow fade-in-bottom" data-wow-duration="1s"
+                                               data-wow-delay="0.5s">查看详情</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="counter-area counter-area-two counter-area--style wow fadeInUp" data-wow-duration="0.7s"
+                     data-wow-delay="0.9s">
+                    <div class="row justify-content-end ml-b-30">
+                        <div class="col-lg-3 col-md-6 col-sm-6 text-center mrb-30" style="margin-bottom: 5rem">
+                            <div class="counter-item">
+                                <h2 class="counter-number">{{ site_data.site_views }}</h2>
+                                <span class="counter-content">网站总浏览量</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 text-center mrb-30">
+                            <div class="counter-item">
+                                <h2 class="counter-number">{{ site_data.site_users }}</h2>
+                                <span class="counter-content">网站总用户量</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- member-details-slide section end -->
+
+    <!-- brand-section start -->
+    <div class="brand-section ptb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="brand-wrapper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="{% static  "assets/images/brand/brand-1.png" %}" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="{% static  "assets/images/brand/brand-2.png" %}" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="{% static  "assets/images/brand/brand-3.png" %}" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="{% static  "assets/images/brand/brand-4.png" %}" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="{% static  "assets/images/brand/brand-5.png" %}" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="{% static  "assets/images/brand/brand-6.png" %}" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="{% static  "assets/images/brand/brand-7.png" %}" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="{% static  "assets/images/brand/brand-8.png" %}" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- brand-section end -->
+{% endblock %}

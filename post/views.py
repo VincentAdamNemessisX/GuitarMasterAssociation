@@ -2,7 +2,7 @@ import json
 import random
 
 import bs4
-from django.db.models import Count, Subquery, OuterRef
+from django.db.models import Count, Subquery, OuterRef, Sum
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -15,7 +15,7 @@ from user.get import get_sorted_authors_by_hot
 from user.models import User
 from zone.get import get_archived_posts
 from zone.models import Zone
-from .function import remove_post_by_id
+from .function import remove_post_by_id, get_posts_by_any_with_vague, get_recommend_posts
 
 
 # Create your views here.
@@ -371,3 +371,40 @@ def post_logic(request, method='post'):
         return HttpResponse(json.dumps({'status': 200, 'data': data}), content_type='application/json')
     else:
         return HttpResponse(json.dumps({'status': 402, 'message': '操作失败!'}), content_type='application/json')
+
+
+def search_posts(request):
+    if request.method == 'GET':
+        recommend_posts = get_recommend_posts()
+        site_data = {
+            'site_views': Post.objects.filter(post_status=1).aggregate(site_views=Sum('post_view')).get('site_views'),
+            'site_users': User.objects.all().count(),
+        }
+
+        if request.GET.get('keyword') is None:
+            return render(request, "post-search.html",
+                          {
+                              'k': request.GET.get('keyword'),
+                              'error': '参数异常',
+                              'recommend': recommend_posts,
+                              'site_data': site_data
+                          })
+        result, result_count = get_posts_by_any_with_vague(request.GET.get('keyword'))
+        if result:
+            return render(request, "post-search.html",
+                          {
+                              'k': request.GET.get('keyword'),
+                              'result': result,
+                              'result_count': result_count,
+                              'recommend': recommend_posts,
+                              'site_data': site_data
+                          })
+        else:
+            return render(request, "post-search.html",
+                          {
+                              'k': request.GET.get('keyword'),
+                              'err': '没有找到相关帖子',
+                              'recommend': recommend_posts,
+                              'site_data': site_data
+                          })
+    return render(request, "post-search.html")

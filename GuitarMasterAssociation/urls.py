@@ -43,6 +43,7 @@ urlpatterns = [
                   path('post/update/', update_post),
                   path('api/post/upload/image/', post_upload_image),
                   path('post/remove/', delete_specific_post),
+                  path('search/posts/', search_posts),
                   path('api/post/review/', publish_review),
                   path('review/get/all/', get_init_reviews),
                   path('review/get/children/', get_specific_review_children),
@@ -62,7 +63,6 @@ urlpatterns = [
                   path('help/', faq_help),
                   path('pricing/', pricing),
                   path('privacy/', privacy),
-                  path('search/', search),
                   path('story/', story),
                   path('story-details/', story_details),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

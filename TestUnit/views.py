@@ -19,7 +19,7 @@ def privacy(request):
 
 
 def search(request):
-    return render(request, 'search.html')
+    return render(request, 'post-search.html')
 
 
 def story(request):
