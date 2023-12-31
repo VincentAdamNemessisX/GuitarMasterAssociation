@@ -11,7 +11,7 @@ class User(models.Model):
     user_qq = models.CharField(max_length=12, default='', blank=True)
     user_phone = models.CharField(max_length=11, db_index=True)
     user_nickname = models.CharField(max_length=20, default='', blank=True)
-    user_sex = models.IntegerField(default=0, choices=((1, '男'), (2, '女'), (3, '保密')))
+    user_sex = models.IntegerField(default=0, choices=((1, '男'), (2, '女'), (0, '保密')))
     user_status = models.IntegerField(default=1, choices=((1, '正常'), (2, '禁用'), (3, '冻结')))
     user_headicon = models.ImageField(upload_to='user_headicon', default='user_headicon/default.png')
     user_description = models.CharField(max_length=200, default='', blank=True)

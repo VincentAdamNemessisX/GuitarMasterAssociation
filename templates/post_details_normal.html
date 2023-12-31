@@ -523,7 +523,7 @@
 					if (data.code === 200) {
 						counter[review_id] = counter[review_id] || {};
 						counter[review_id]['parent_id'] = counter[review_id]['parent_id'] || data.parent_id;
-						counter[review_id]['count'] = counter[review_id]['count'] || 1;
+						counter[review_id]['count'] = counter[review_id]['count'] || 0;
 						let review_children = document.getElementById("reply-" + review_id);
 						if (data.data.length <= 0) {
 							document.getElementById("accordion-" + review_id).parentNode.removeChild(document.getElementById("accordion-" + review_id));

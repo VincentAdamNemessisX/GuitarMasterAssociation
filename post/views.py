@@ -11,18 +11,42 @@ from custom.data_handle import handle_uploaded_image
 from custom.goto_controller import redirect_referer
 from custom.update_some_index import update_post_view_count, update_user_recent_post
 from post.models import Post, PostLike
-from user.get import get_sorted_authors_by_hot
+from review.models import Review
+from user.get import get_sorted_authors_by_hot, get_best_readers_by_heating, get_specific_user
 from user.models import User
-from zone.get import get_archived_posts
+from zone.get import get_archived_posts, get_zones_by_heating
 from zone.models import Zone
-from .function import remove_post_by_id, get_posts_by_any_with_vague, get_recommend_posts
+from .function import (remove_post_by_id, get_posts_by_any_with_vague,
+                       get_recommend_posts, get_the_most_popular_post,
+                       get_posts_order_by_hotness)
 
 
 # Create your views here.
 def index(request):
-    hot_authors = get_sorted_authors_by_hot(1)[:4]
-    recent_posts = Post.objects.filter(post_status=1).order_by('-post_create_time')[:6]
-    return render(request, 'index.html')
+    hot_authors = get_sorted_authors_by_hot(1)[:3]
+    latest_posts = Post.objects.filter(post_status=1).order_by('-post_create_time')[:6]
+    the_most_popular_post = get_the_most_popular_post()
+    hot_posts = get_posts_order_by_hotness()
+    best_readers = get_best_readers_by_heating()[:3]
+    hottest_zone = get_zones_by_heating()[0]
+    hottest_zone_posts = Zone.objects.get(zone_id=hottest_zone.zone_id).post_set.filter(post_status=1).order_by(
+        '-post_create_time')[:7]
+    if hot_authors:
+        for i in range(len(hot_authors)):
+            hot_authors[i] = get_specific_user(hot_authors[i].user_id)
+    if hot_posts:
+        for i in range(len(hot_posts)):
+            hot_posts[i].post_content = (
+                bs4.BeautifulSoup(hot_posts[i].post_content, 'html.parser').text)
+            hot_posts[i].review_count = Review.objects.filter(post_id=hot_posts[i].post_id).count()
+    if the_most_popular_post:
+        the_most_popular_post.post_content = (
+            bs4.BeautifulSoup(the_most_popular_post.post_content, 'html.parser').text)
+    return render(request, 'index.html',
+                  {'latest_posts': latest_posts, 'selected_post': the_most_popular_post,
+                   'hot_authors': hot_authors, 'hot_posts': hot_posts, 'best_readers': best_readers,
+                   'hottest_zone': hottest_zone, 'hottest_zone_posts': hottest_zone_posts
+                   })
 
 
 def post_normal(request):

@@ -1,15 +1,59 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block custom_style %}
+    <style>
+        .gallery-thumb {
+            width: 275px;
+            height: 15rem;
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10%;
+        }
+
+        .client-thumb {
+            width: 13rem;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .client-thumb img {
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .member-thumb img {
+            object-fit: cover;
+        }
+
+        .team-thumb {
+            width: 275px;
+            height: 15rem;
+        }
+
+        .team-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10%;
+        }
+    </style>
+{% endblock %}
 {% block content %}
     <!-- banner-section start -->
-    <section class="banner-section bg-overlay bg_img" data-background={% static "assets/images/header/banner.png" %}>
+    <section class="banner-section bg-overlay bg_img" data-background=''>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12 text-center">
                     <div class="banner-content wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="title">Premium Dating Site With Over 1 Million Members</h2>
-                        <p>Accumsan ultrices aliquam molestie risus, nulla egestas elit metus vitae pulvinar quis
-                            scelerisque felis et vivamus libero, sapien augue et ante integer vestibulum </p>
+                        <h2 class="title">专业吉他爱好者平台携手世界爱好者出发</h2>
+                        <p>
+                            欢迎来到吉他爱好者平台，这里是专为吉他爱好者打造的独特社区。我们汇聚了一群对吉他充满热爱的朋友，无论你是初学者还是已经是资深的吉他手，这里都是你探索、学习和分享的理想场所。</p>
+                        <p>
+                            加入我们，和全球的吉他爱好者一起，用音符书写属于我们的故事。探索音乐的无限可能，让吉他爱好者平台成为你吉他旅程中的不可或缺的伙伴！</p>
                     </div>
                 </div>
             </div>
@@ -20,465 +64,267 @@
 
     <a href="#" class="scrollToTop"><i class="fas fa-heart"></i></a>
 
-
-    <!-- find-area start -->
-    <div class="find-section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-9">
-                    <div class="find-area wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="1s">
-                        <form class="find-form">
-                            <div class="row">
-                                <div class="col-lg-6 form-group">
-                                    <label>Hello, I am a</label>
-                                    <select class="nice-select">
-                                        <option data-display="Man">Man</option>
-                                        <option value="1">Woman</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-6 form-group">
-                                    <label>Looking For</label>
-                                    <select class="nice-select">
-                                        <option data-display="Woman">Woman</option>
-                                        <option value="1">Man</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-6 form-group">
-                                    <label>Country</label>
-                                    <select class="nice-select">
-                                        <option data-display="USA">USA</option>
-                                        <option value="1">INDIA</option>
-                                        <option value="1">BANGLADESH</option>
-                                        <option value="1">AUSTRALIA</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-6 form-group">
-                                    <label>Age Between</label>
-                                    <div class="row">
-                                        <div class="col-lg-6 form-group">
-                                            <select class="nice-select">
-                                                <option data-display="18">18</option>
-                                                <option value="1">19</option>
-                                                <option value="1">20</option>
-                                                <option value="1">21</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6 form-group">
-                                            <select class="nice-select">
-                                                <option data-display="25">25</option>
-                                                <option value="1">26</option>
-                                                <option value="1">27</option>
-                                                <option value="1">28</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 form-group">
-                                    <input type="submit" class="cmn-btn" value="find your love">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- find-area end -->
-
-
-    <!-- feature-section start -->
-    <section class="feature-section pd-t-120">
-        <div class="container">
-            <div class="feature-item-area">
-                <div class="row justify-content-center ml-b-30">
-                    <div class="col-lg-6 col-md-6 mrb-30">
-                        <div class="feature-left-area bg-overlay-white bg_img"
-                             data-background={% static "assets/images/feature/feature-1.png" %}>
-                            <div class="feature-left-content">
-                                <h2 class="title">The Worlds Most Exclusive Dating Site For Beautiful People Only</h2>
-                                <div class="feature-icon wow fade-in-left" data-wow-duration="1s" data-wow-delay="1.1s">
-                                    <i class="fas fa-arrow-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 mrb-30">
-                        <div class="feature-right-area wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
-                            <div class="row justify-content-center ml-b-30">
-                                <div class="col-lg-6 col-md-6 mrb-30">
-                                    <div class="feature-right-thumb">
-                                        <img alt="feature" src={% static "assets/images/feature/feature-2.png" %}>
-                                    </div>
-                                    <div class="feature-right-content">
-                                        <h3 class="title">Why we are</h3>
-                                        <p>imperdiet sodales lectus nqununc facilisis amet sociis. Quisque cras. Nisl
-                                            risus donec pellentesqununc ac donec utconvallis et et nulla </p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 mrb-30">
-                                    <div class="feature-right-thumb">
-                                        <img alt="feature" src={% static "assets/images/feature/feature-3.png" %}>
-                                    </div>
-                                    <div class="feature-right-content">
-                                        <h3 class="title">About us</h3>
-                                        <p>imperdiet sodales lectus nqununc facilisis amet sociis. Quisque cras. Nisl
-                                            risus donec pellentesqununc ac donec utconvallis et et nulla </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- feature-section end -->
-
-
     <!-- team-section start -->
     <section class="team-section ptb-120">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-7 text-center">
                     <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title">our New members</h2>
-                        <p>Suspendisse lectus vivamus donec turpis egestas, sed at massa orci, et nibh massa augue
-                            Fermentum arcu, potenti tellus praesent integer aliquam. </p>
+                        <h2 class="section-title">高能作者</h2>
+                        <p>在高能创作的舞台上，每一个句点都是能量的释放，每一篇作品都是心灵的奔放。不拘一格，方能创作出令人瞩目的精彩之作。</p>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center ml-b-30">
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.5s">
-                    <div class="team-thumb">
-                        <img alt="team" src={% static "assets/images/team/team-1.png" %}>
-                        <div class="team-thumb-overlay">
-                            <a class="image-popup" title="team image" href={% static "assets/images/team/team-1.png" %}><i
-                                    class="flaticon-add-1"></i></a>
+                {% if hot_authors %}
+                    {% for hot_author in hot_authors %}
+                        <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                             data-wow-delay="0.5s">
+                            <div class="team-thumb">
+                                <img alt="team" src='{{ hot_author.user_headicon.url }}'>
+                                <div class="team-thumb-overlay">
+                                    <a class="image-popup" title="{{ hot_author.user_name }}"
+                                       href='{{ hot_author.user_headicon.url }}'><i
+                                            class="flaticon-add-1"></i></a>
+                                </div>
+                            </div>
+                            <div class="team-details text-center">
+                                <h3 class="title"><a href="/member-details">
+                                    {% if hot_author.user_nickname %}{{ hot_author.user_nickname }}{% else %}
+                                        {{ hot_author.user_name }}{% endif %}</a></h3>
+                                <ul class="team-content">
+                                    <li>{% if hot_author.user_description %}{{ hot_author.user_description }}{% else %}
+                                        这个人太懒了，什么都没写！{% endif %}</li>
+                                    <li>
+                                        {% if hot_author.user_sex == 1 %}
+                                            <i class="fa fa-mars">先生</i>
+                                        {% elif hot_author.user_sex == 2 %}
+                                            <i class="fa fa-venus">女士</i>
+                                        {% else %}
+                                            <i class="fa fa-genderless">保密</i>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                                <ul class="team-wish-list">
+                                    <li><i class="fas fa-eye color-red"></i>
+                                        <span>
+                                            {% if hot_author.user_view %}
+                                                {{ hot_author.user_view }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                    <li><i class="fas fa-thumbs-up color-curious-blue"></i>
+                                        <span>
+                                            {% if hot_author.user_like %}
+                                                {{ hot_author.user_like }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                    <li><i class="fas fa-star color-yellow"></i>
+                                        <span>
+                                            {{ hot_author.user_collection }}
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="team-details text-center">
-                        <h3 class="title"><a href="/member-details">Marina Kubora</a></h3>
-                        <ul class="team-content">
-                            <li>Mellbourne , Australia</li>
-                            <li>25 years Old</li>
-                        </ul>
-                        <ul class="team-wish-list">
-                            <li><i class="fas fa-heart color-red"></i><span>25</span></li>
-                            <li><i class="fas fa-star color-yellow"></i><span>48</span></li>
-                            <li><i class="fas fa-thumbs-up color-curious-blue"></i><span>56</span></li>
-                            <li><i class="fas fa-thumbs-down color-curious-blue"></i><span>21</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.9s">
-                    <div class="team-thumb">
-                        <img alt="team" src={% static "assets/images/team/team-2.png" %}>
-                        <div class="team-thumb-overlay">
-                            <a class="image-popup" title="team image" href={% static "assets/images/team/team-2.png" %}><i
-                                    class="flaticon-add-1"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-details text-center">
-                        <h3 class="title"><a href="/member-details">Bartin Nikoriyas</a></h3>
-                        <ul class="team-content">
-                            <li>Mellbourne , Australia</li>
-                            <li>30 years Old</li>
-                        </ul>
-                        <ul class="team-wish-list">
-                            <li><i class="fas fa-heart color-red"></i><span>25</span></li>
-                            <li><i class="fas fa-star color-yellow"></i><span>48</span></li>
-                            <li><i class="fas fa-thumbs-up color-curious-blue"></i><span>56</span></li>
-                            <li><i class="fas fa-thumbs-down color-curious-blue"></i><span>21</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="1.2s">
-                    <div class="team-thumb">
-                        <img alt="team" src={% static "assets/images/team/team-3.png" %}>
-                        <div class="team-thumb-overlay">
-                            <a class="image-popup" title="team image" href={% static "assets/images/team/team-3.png" %}><i
-                                    class="flaticon-add-1"></i></a>
-                        </div>
-                    </div>
-                    <div class="team-details text-center">
-                        <h3 class="title"><a href="/member-details">monika chunityra</a></h3>
-                        <ul class="team-content">
-                            <li>Mellbourne , Australia</li>
-                            <li>32 years Old</li>
-                        </ul>
-                        <ul class="team-wish-list">
-                            <li><i class="fas fa-heart color-red"></i><span>25</span></li>
-                            <li><i class="fas fa-star color-yellow"></i><span>48</span></li>
-                            <li><i class="fas fa-thumbs-up color-curious-blue"></i><span>56</span></li>
-                            <li><i class="fas fa-thumbs-down color-curious-blue"></i><span>21</span></li>
-                        </ul>
-                    </div>
-                </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </section>
     <!-- team-section end -->
 
-
-    <!-- know-section start -->
-    <section class="know-section ptb-120">
-        <div class="know-element-one">
-            <img alt="shape" src={% static "assets/images/know-shape-1.png" %}>
-        </div>
-        <div class="know-element-two">
-            <img alt="shape" src={% static "assets/images/know-shape-2.png" %}>
-        </div>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <div class="know-content">
-                        <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">We’re Here For
-                            You</h2>
-                        <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">Augue ut taciti.
-                            Integer id leo eleifend nullam, odio urna a, in tempus platea amet. Luctus scrisque non
-                            quis, tincidunt faucibus, ac ligula sed nec fusce etiam malesuada. Voluptas non viverra
-                            nunc. Lacus consequat, curae commodo erat habitasse ac, id feugiat elit in vestibulum.</p>
-                        <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">WE’RE AVAILABLE 24/7,
-                            365 DAYS A YEAR </p>
-                        <a href="/contact" class="btn-white wow fade-in-bottom" data-wow-duration="1s"
-                           data-wow-delay="0.5s">know more</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- know-section end -->
-
-
-    <!-- member-section start -->
-    <section class="member-section ptb-120">
+    <!-- hottest-zone-section start -->
+    <section class="member-section ptb-120 text-center">
         <div class="container-fluid">
-            <div class="row ml-b-30">
+            <div class="row ml-b-30" style="align-items: center">
                 <div class="col-lg-6 mrb-30">
                     <div class="member-area">
-                        <div class="single-member-area">
-                            <div class="single-member">
-                                <div class="member">
-                                    <div class="member-thumb">
-                                        <img alt="member" src={% static "assets/images/team/member-1.png" %}>
+                        {% if hottest_zone_posts.count >= 7 %}
+                            <div class="single-member-area">
+                                <div class="single-member">
+                                    <div class="member">
+                                        <div class="member-thumb">
+                                            <img alt="member" src='{{ hottest_zone_posts.0.post_image.url }}'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-member">
+                                    <div class="member">
+                                        <div class="member-thumb">
+                                            <img alt="member" src='{{ hottest_zone_posts.1.post_image.url }}'>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="single-member">
-                                <div class="member">
-                                    <div class="member-thumb">
-                                        <img alt="member" src={% static "assets/images/team/member-2.png" %}>
+                            <div class="single-member-area">
+                                <div class="single-member">
+                                    <div class="member">
+                                        <div class="member-thumb">
+                                            <img alt="member" src='{{ hottest_zone_posts.2.post_image.url }}'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-member">
+                                    <div class="member">
+                                        <div class="member-thumb">
+                                            <img alt="member" src='{{ hottest_zone_posts.3.post_image.url }}'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-member">
+                                    <div class="member">
+                                        <div class="member-thumb">
+                                            <img alt="member" src='{{ hottest_zone_posts.4.post_image.url }}'>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="single-member-area">
-                            <div class="single-member">
-                                <div class="member">
-                                    <div class="member-thumb">
-                                        <img alt="member" src={% static "assets/images/team/member-3.png" %}>
+                            <div class="single-member-area">
+                                <div class="single-member">
+                                    <div class="member">
+                                        <div class="member-thumb">
+                                            <img alt="member" src='{{ hottest_zone_posts.5.post_image.url }}'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-member">
+                                    <div class="member">
+                                        <div class="member-thumb">
+                                            <img alt="member" src='{{ hottest_zone_posts.6.post_image.url }}'>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="single-member">
-                                <div class="member">
-                                    <div class="member-thumb">
-                                        <img alt="member" src={% static "assets/images/team/member-4.png" %}>
+                        {% elif hottest_zone_posts.count >= 5 %}
+                            <div class="single-member-area">
+                                <div class="single-member">
+                                    <div class="member">
+                                        <div class="member-thumb">
+                                            <img alt="member" src='{{ hottest_zone_posts.0.post_image.url }}'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-member">
+                                    <div class="member">
+                                        <div class="member-thumb">
+                                            <img alt="member" src='{{ hottest_zone_posts.1.post_image.url }}'>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="single-member">
-                                <div class="member">
-                                    <div class="member-thumb">
-                                        <img alt="member" src={% static "assets/images/team/member-5.png" %}>
+                            <div class="single-member-area">
+                                <div class="single-member">
+                                    <div class="member">
+                                        <div class="member-thumb">
+                                            <img alt="member" src='{{ hottest_zone_posts.2.post_image.url }}'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-member">
+                                    <div class="member">
+                                        <div class="member-thumb">
+                                            <img alt="member" src='{{ hottest_zone_posts.3.post_image.url }}'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-member">
+                                    <div class="member">
+                                        <div class="member-thumb">
+                                            <img alt="member" src='{{ hottest_zone_posts.4.post_image.url }}'>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="single-member-area">
-                            <div class="single-member">
-                                <div class="member">
-                                    <div class="member-thumb">
-                                        <img alt="member" src={% static "assets/images/team/member-6.png" %}>
+                        {% elif hottest_zone_posts.count >= 2 %}
+                            <div class="single-member-area">
+                                {% for hottest_zone_post in hottest_zone_posts %}
+                                    <div class="single-member">
+                                        <div class="member">
+                                            <div class="member-thumb">
+                                                <img alt="member" src='{{ hottest_zone_post.post_image.url }}'>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                {% endfor %}
                             </div>
-                            <div class="single-member">
-                                <div class="member">
-                                    <div class="member-thumb">
-                                        <img alt="member" src={% static "assets/images/team/member-7.png" %}>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-lg-6 mrb-30">
                     <div class="member-content">
-                        <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">Jons &
-                            Natalie</h2>
-                        <h4 class="sub-title wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">Conubia
-                            eleifend porttitor donec etiam sitorpce erat turpis massa arcu elementum, etiam semper neque
-                            fames eros vehicula maecenas, cum urna, odio turpis sed nonummy, et ut posuere nibh
-                            suspendisse. </h4>
-                        <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">Lorem ipsum dolor sit
-                            amet, varius nunc. Nonummy tellus nibh ut suspendisse, velit nam maecenas dictum,vehicula
-                            tellus montes scelerisque elit sem. Dolor sed etiam amet mauris porta. Sodales pellentesque,
-                            mauris quis eget at. Tincidunt aptent vel mus sem ac. Nunc pede vestibulum aliquam,
-                            vestibulum dignissim nulla ac, vitae feugiat wisi accumsan rutrum justo ligula</p>
-                        <a href="/member-details" class="cmn-btn wow fade-in-bottom" data-wow-duration="1s"
-                           data-wow-delay="0.5s">know more</a>
+                        <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
+                            最热专区
+                        </h2>
+                        <h4 class="sub-title wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
+                            {{ hottest_zone.zone_name }}
+                        </h4>
+                        <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
+                            {% if hottest_zone.zone_description %}
+                                {{ hottest_zone.zone_description }}
+                            {% else %}
+                                暂无描述
+                            {% endif %}
+                        </p>
+                        <a href="/zone?zone_id={{ hottest_zone.zone_id }}"
+                           class="cmn-btn wow fade-in-bottom" data-wow-duration="1s"
+                           data-wow-delay="0.5s">了解更多</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- member-section end -->
+    {#    <!-- hottest-zone-section end -->#}
 
-
-    <!-- process-section start -->
-    <section class="process-section ptb-120">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7 text-center">
-                    <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title">how to find your love</h2>
-                        <p>Suspendisse lectus vivamus donec turpis egestas, sed at massa orci, et nibh massa augue
-                            Fermentum arcu, potenti tellus praesent integer aliquam. </p>
-                    </div>
-                </div>
-            </div>
-            <div class="process-item-area">
-                <div class="process-element wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="1s">
-                    <img alt="line" src={% static "assets/images/line.png" %}>
-                </div>
-                <div class="row justify-content-center ml-b-30">
-                    <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                         data-wow-delay="0.3s">
-                        <div class="process-item text-center">
-                            <div class="icon-gradient">
-                                <i class="flaticon-login"></i>
-                            </div>
-                            <h3 class="title">Create a Profile</h3>
-                            <p>Phasellus pulvinar diam vnec purus metus, vestibulum turpis ne trtique acmagna cubilia
-                                euilortisest. </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                         data-wow-delay="0.5s">
-                        <div class="process-item text-center">
-                            <div class="icon-gradient">
-                                <i class="flaticon-dating-app"></i>
-                            </div>
-                            <h3 class="title">Search Matches</h3>
-                            <p>Phasellus pulvinar diam vnec purus metus, vestibulum turpis ne trtique acmagna cubilia
-                                euilortisest. </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                         data-wow-delay="0.8s">
-                        <div class="process-item text-center">
-                            <div class="icon-gradient">
-                                <i class="flaticon-handshake"></i>
-                            </div>
-                            <h3 class="title">Start Dating</h3>
-                            <p>Phasellus pulvinar diam vnec purus metus, vestibulum turpis ne trtique acmagna cubilia
-                                euilortisest. </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- process-section end -->
-
-
-    <!-- client-section start -->
+    <!-- the-best-readers-section start -->
     <section class="client-section pd-t-120">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12 text-center">
                     <div class="client-slider-area">
                         <div class="client-header">
-                            <h3 class="title">testimonial</h3>
+                            <h3 class="title">最佳读者</h3>
                         </div>
                         <div class="client-slider">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="client-item">
-                                        <div class="client-thumb">
-                                            <img alt="client" src={% static "assets/images/client/client-1.png" %}>
-                                        </div>
-                                        <div class="client-content">
-                                            <p>Malesuada eget nibh amet quam ac, odio in ante morbi amet in id. Pharetra
-                                                metuenaeos aliquet. Ut a mauris pulvinar augue pcerat lacinia maecenas,
-                                                consequat abitur ipsum eu duis, ultrices justo Nunc mauris ac dolor
-                                                sapien </p>
-                                            <div class="client-details">
-                                                <h3 class="title">monika chunityra</h3>
-                                                <span>Student</span>
-                                                <div class="client-icon">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
+                                {% for reader in best_readers %}
+                                    <div class="swiper-slide">
+                                        <div class="client-item">
+                                            <div class="client-thumb">
+                                                <img alt="client" src='{{ reader.user_headicon.url }}'>
+                                            </div>
+                                            <div class="client-content">
+                                                <p>
+                                                    {% if reader.user_description %}
+                                                        {{ reader.user_description|truncatechars:200 }}
+                                                    {% else %}
+                                                        这个人太懒了，什么都没写！
+                                                    {% endif %}
+                                                </p>
+                                                <div class="client-details">
+                                                    <h3 class="title" style="text-transform: none">
+                                                        {% if reader.user_nickname %}
+                                                            {{ reader.user_nickname }}{% else %}
+                                                            {{ reader.user_name }}{% endif %}</h3>
+                                                    <span>
+                                                        {% if reader.user_sex == 1 %}
+                                                            <i class="fa fa-mars">先生</i>
+                                                        {% elif reader.user_sex == 2 %}
+                                                            <i class="fa fa-venus">女士</i>
+                                                        {% else %}
+                                                            <i class="fa fa-genderless">保密</i>
+                                                        {% endif %}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="client-item">
-                                        <div class="client-thumb">
-                                            <img alt="client" src={% static "assets/images/client/client-1.png" %}>
-                                        </div>
-                                        <div class="client-content">
-                                            <p>Malesuada eget nibh amet quam ac, odio in ante morbi amet in id. Pharetra
-                                                metuenaeos aliquet. Ut a mauris pulvinar augue pcerat lacinia maecenas,
-                                                consequat abitur ipsum eu duis, ultrices justo Nunc mauris ac dolor
-                                                sapien </p>
-                                            <div class="client-details">
-                                                <h3 class="title">monika chunityra</h3>
-                                                <span>Student</span>
-                                                <div class="client-icon">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="client-item">
-                                        <div class="client-thumb">
-                                            <img alt="client" src={% static "assets/images/client/client-1.png" %}>
-                                        </div>
-                                        <div class="client-content">
-                                            <p>Malesuada eget nibh amet quam ac, odio in ante morbi amet in id. Pharetra
-                                                metuenaeos aliquet. Ut a mauris pulvinar augue pcerat lacinia maecenas,
-                                                consequat abitur ipsum eu duis, ultrices justo Nunc mauris ac dolor
-                                                sapien </p>
-                                            <div class="client-details">
-                                                <h3 class="title">monika chunityra</h3>
-                                                <span>Student</span>
-                                                <div class="client-icon">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                             <div class="swiper-pagination"></div>
                         </div>
@@ -487,7 +333,7 @@
             </div>
         </div>
     </section>
-    <!-- client-section end -->
+    <!-- the-best-readers-section end -->
 
 
     <!-- brand-section start -->
@@ -532,6 +378,27 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img alt="logo images" src={% static "assets/images/brand/brand-6.png" %}>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img alt="logo images" src={% static "assets/images/brand/brand-7.png" %}>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img alt="logo images" src={% static "assets/images/brand/brand-8.png" %}>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -541,15 +408,15 @@
     <!-- brand-section end -->
 
 
-    <!-- gallery-section start -->
+    <!-- hot-posts-section start -->
     <section class="gallery-section pd-t-120">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-7 text-center">
                     <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title">Our sweet love Photo</h2>
-                        <p>Suspendisse lectus vivamus donec turpis egestas, sed at massa orci, et nibh massa augue
-                            Fermentum arcu, potenti tellus praesent integer aliquam. </p>
+                        <h2 class="section-title">热门帖子</h2>
+                        <p>
+                            热门帖子，是我们的集体智慧展示馆，是共鸣和思辨的舞台。在这里，每一个帖子都是热度和深度的交融，成就着我们共同的精彩故事。</p>
                     </div>
                 </div>
             </div>
@@ -559,96 +426,54 @@
                 <div class="col-lg-12 pl-0 pr-0">
                     <div class="gallery-slider">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="gallery-item">
-                                    <div class="gallery-thumb">
-                                        <img alt="gallery" src={% static "assets/images/gallery/gallery-1.png" %}>
-                                        <div class="gallery-thumb-overlay">
-                                            <a href="#0"><i class="fas fa-search"></i></a>
-                                            <div class="gallery-overlay-content text-center">
-                                                <h3 class="title">jons & luchia`s sweet love</h3>
-                                                <ul class="overlay-list">
-                                                    <li><i class="far fa-heart"></i><span>03</span></li>
-                                                    <li><i class="far fa-comment-alt"></i><span>00</span></li>
-                                                </ul>
+                            {% for hot_post in hot_posts %}
+                                <div class="swiper-slide">
+                                    <div class="gallery-item">
+                                        <div class="gallery-thumb">
+                                            <img src="{{ hot_post.post_image.url }}"
+                                                 alt="gallery">
+                                            <div class="gallery-thumb-overlay">
+                                                <a href="/post-{{ hot_post.post_layout_mode }}/?post_id={{ hot_post.post_id }}"><i
+                                                        class="fas fa-search"></i></a>
+                                                <div class="gallery-overlay-content text-center">
+                                                    <h3 class="title">{{ hot_post.post_title }}</h3>
+                                                    <ul class="overlay-list">
+                                                        <li>
+                                                            <i class="far fa-heart"></i><span>{{ hot_post.post_like }}</span>
+                                                        </li>
+                                                        <li>
+                                                            <i class="far fa-comment-alt"></i><span>{{ hot_post.review_count }}</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="gallery-item">
-                                    <div class="gallery-thumb">
-                                        <img alt="gallery" src={% static "assets/images/gallery/gallery-2.png" %}>
-                                        <div class="gallery-thumb-overlay">
-                                            <a href="#0"><i class="fas fa-search"></i></a>
-                                            <div class="gallery-overlay-content text-center">
-                                                <h3 class="title">jons & luchia`s sweet love</h3>
-                                                <ul class="overlay-list">
-                                                    <li><i class="far fa-heart"></i><span>03</span></li>
-                                                    <li><i class="far fa-comment-alt"></i><span>00</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="gallery-item">
-                                    <div class="gallery-thumb">
-                                        <img alt="gallery" src={% static "assets/images/gallery/gallery-3.png" %}>
-                                        <div class="gallery-thumb-overlay">
-                                            <a href="#0"><i class="fas fa-search"></i></a>
-                                            <div class="gallery-overlay-content text-center">
-                                                <h3 class="title">jons & luchia`s sweet love</h3>
-                                                <ul class="overlay-list">
-                                                    <li><i class="far fa-heart"></i><span>03</span></li>
-                                                    <li><i class="far fa-comment-alt"></i><span>00</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="gallery-item">
-                                    <div class="gallery-thumb">
-                                        <img alt="gallery" src={% static "assets/images/gallery/gallery-4.png" %}>
-                                        <div class="gallery-thumb-overlay">
-                                            <a href="#0"><i class="fas fa-search"></i></a>
-                                            <div class="gallery-overlay-content text-center">
-                                                <h3 class="title">jons & luchia`s sweet love</h3>
-                                                <ul class="overlay-list">
-                                                    <li><i class="far fa-heart"></i><span>03</span></li>
-                                                    <li><i class="far fa-comment-alt"></i><span>00</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- gallery-section end -->
+    <!-- hot-posts-section end -->
 
 
-    <!-- event-section start -->
+    <!-- selected-post-section start -->
     <section class="event-section pd-t-120">
         <div class="container">
             <div class="event-section-header-area">
                 <div class="row justify-content-between">
                     <div class="col-lg-5">
                         <div class="event-section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                            <h2 class="title">coming soon!<br> dating & Private Events</h2>
+                            <h2 class="title">精选优质帖子</h2>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="event-header-btn wow fade-in-right" data-wow-duration="1s" data-wow-delay="0.5s">
-                            <a href="/event" class="cmn-btn">see all event</a>
+                            <a href="/post-{{ selected_post.post_layout_mode }}/?post_id={{ selected_post.post_id }}"
+                               class="cmn-btn">查看详情</a>
                         </div>
                     </div>
                 </div>
@@ -660,13 +485,7 @@
                             <div class="col-lg-6 col-md-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
                                  data-wow-delay="0.5s">
                                 <div class="event-thumb">
-                                    <img alt="event" src={% static "assets/images/event/event-1.png" %}>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                                 data-wow-delay="0.8s">
-                                <div class="event-thumb">
-                                    <img alt="event" src={% static "assets/images/event/event-2.png" %}>
+                                    <img alt="event" src='{{ selected_post.post_image.url }}'>
                                 </div>
                             </div>
                         </div>
@@ -674,216 +493,99 @@
                 </div>
                 <div class="col-lg-6 mrb-30">
                     <div class="event-content">
-                        <p>Rrem ipsum dolor sit amet, consectetur adipiscing elit, do eimod tempor incididunt ut labore
-                            magna aliqua. Quis ipsum pendisse ultrices gravida. Risu viver maecenas accumsan lacus vel
-                            facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eimod tempor
-                            incididunt ut labore magna aliqua.</p>
-                        <P>Lorem ipsum dolor sit amet, consectetur adipiscing elit, espiidunt ut labore magna aliqua.
-                            Quis ipsum suspendisse ultrices gravida. Risu viver maecenas accumsan.</p>
+                        {{ selected_post.post_content }}
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- event-section end -->
+    <!-- selected-post-section end -->
 
-
-    <!-- pricing-section start -->
-    <section class="pricing-section pd-t-120">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7 text-center">
-                    <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title">Our Membership Pack</h2>
-                        <p>Suspendisse lectus vivamus donec turpis egestas, sed at massa orci, et nibh massa augue
-                            Fermentum arcu, potenti tellus praesent integer aliquam. </p>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center ml-b-30">
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.5s">
-                    <div class="pricing-item">
-                        <div class="pricing-header">
-                            <h3 class="title">Free Pack</h3>
-                        </div>
-                        <div class="pricing-body">
-                            <h3 class="amount">$00</h3>
-                            <ul class="pricing-list">
-                                <li>Lifetime membership</li>
-                                <li>Profile security</li>
-                                <li>free notification</li>
-                            </ul>
-                            <a href="/pricing" class="btn-border">buy now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.8s">
-                    <div class="pricing-item">
-                        <div class="pricing-header">
-                            <h3 class="title">Golden Pack</h3>
-                        </div>
-                        <div class="pricing-body">
-                            <h3 class="amount">$280</h3>
-                            <ul class="pricing-list">
-                                <li>Lifetime membership</li>
-                                <li>Profile security</li>
-                                <li>free notification</li>
-                            </ul>
-                            <a href="/pricing" class="btn-border">buy now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="1s">
-                    <div class="pricing-item">
-                        <div class="pricing-header">
-                            <h3 class="title">Diamond Pack</h3>
-                        </div>
-                        <div class="pricing-body">
-                            <h3 class="amount">$459</h3>
-                            <ul class="pricing-list">
-                                <li>Lifetime membership</li>
-                                <li>Profile security</li>
-                                <li>free notification</li>
-                            </ul>
-                            <a href="/pricing" class="btn-border">buy now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- pricing-section end -->
-
-
-    <!-- get-section start -->
+    <!-- support-section start -->
     <section class="get-section ptb-120">
         <div class="container">
             <div class="row justify-content-center ml-b-30">
                 <div class="col-lg-6 mrb-30">
                     <div class="get-thumb">
-                        <img alt="phone" src={% static "assets/images/get/get-1.png" %}>
+                        <img alt="support" src=''>
                     </div>
                 </div>
                 <div class="col-lg-6 mrb-30">
                     <div class="get-content-area">
                         <div class="get-content">
-                            <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">download app
-                                for find love</h2>
-                            <p class="wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">Adipiscing, arcu
-                                enim ullamcorper massa mattis. Varius aene sed suspendisse pellentesque magnis
-                                hendrerit, tristique integer est aptent morbi bibendum vitae. dignissim in tristique
-                                duis, urltus ultricies donec, volutpat imperdiet ac blandit vehicula nisl eros. Dolor
-                                arcu justo morbi quis euismod vitae, varius elementum in. Lacus suscipit purus, dui duis
-                                nulla, nulla augue gravida tempor elit sed condimentum morbi tincidunt </p>
-                            <div class="get-btn-area d-flex flex-wrap">
-                                <div class="get-btn-1">
-                                    <a href="#0"><img alt="button" src={% static "assets/images/get/get-2.png" %}></a>
-                                </div>
-                                <div class="get-btn-2">
-                                    <a href="#0"><img alt="button" src={% static "assets/images/get/get-3.png" %}></a>
-                                </div>
-                            </div>
+                            <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
+                                支持我们
+                            </h2>
+                            <p class="wow fade-in-bottom" style="text-indent: 2em" data-wow-duration="1s"
+                               data-wow-delay="0.5s">
+                                亲爱的社区成员和支持者，
+                                在我们的成长之路中，我们一直致力于打造一个独特而充满活力的社区。我们深知，这一切离不开您的鼎力支持和赞助。
+                                现在，我们正面临一些发展和提升的机遇，为了更好地服务社区，我们希望能够得到您的慷慨支持。您的赞助将直接用于改进社区基础设施、丰富内容资源、以及推动更多创新项目的启动。
+                                支持我们，不仅是对社区的支持，更是对共同理念和热爱的体现。我们承诺，将秉持着开放、包容、创新的精神，不断为您提供更优质、更丰富的社区体验。
+                                无论您选择的方式是赞助、捐赠还是其他形式的支持，每一份帮助都将成为社区发展的重要动力。感谢您成为我们成长历程中的一部分。
+                                期待您的携手与支持！
+                            <p style="text-align: right">衷心感谢，<br/>
+                                李新宇团队</p>
+                            {#                            <div class="get-btn-area d-flex flex-wrap">#}
+                            {#                                <div class="get-btn-1">#}
+                            {#                                    // wechat collect money function#}
+                            {#                                    <a href="#0"><img alt="button" src={% static "assets/images/get/get-2.png" %}></a>#}
+                            {#                                </div>#}
+                            {#                                <div class="get-btn-2">#}
+                            {#                                    // alipay collect money function#}
+                            {#                                    <a href="#0"><img alt="button" src={% static "assets/images/get/get-3.png" %}></a>#}
+                            {#                                </div>#}
+                            {#                            </div>#}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- get-section end -->
+    <!-- support-section end -->
 
-
-    <!-- newslatter-section start -->
-    <section class="newslatter-section ptb-120 bg-overlay-primary bg_img"
-             data-background={% static "assets/images/news.png" %}>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12 text-center">
-                    <div class="newslatter-content mb-30 wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="title">Subscribe Our Newslatter</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <form class="newslatter-form wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <div class="form-group">
-                            <input type="email" name="email" placeholder="Enter email address">
-                        </div>
-                        <button type="submit" class="subscribe-btn icon-gradient"><i class="flaticon-send"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- newslatter-section end -->
-
-
-    <!-- blog-section start -->
+    <!-- latest-post-section start -->
     <section class="blog-section ptb-120">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-7 text-center">
                     <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2 class="section-title">latest news & tips</h2>
-                        <p>Suspendisse lectus vivamus donec turpis egestas, sed at massa orci, et nibh massa augue
-                            Fermentum arcu, potenti tellus praesent integer aliquam. </p>
+                        <h2 class="section-title">最新帖子</h2>
+                        <p>最新帖子板块，承载着当下的热度与关注；每一次更新，都是用户参与的时代印记。</p>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center ml-b-30">
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.5s">
-                    <div class="blog-item">
-                        <div class="blog-thumb">
-                            <img alt="blog" src={% static "assets/images/blog/blog-1.png" %}>
-                        </div>
-                        <div class="blog-content">
-                            <h3 class="title"><a href="/blog-details">Dictumst Ipsum Scelerisque Vestibuluma Tempus</a>
-                            </h3>
-                            <ul class="blog-content-list">
-                                <li><i class="far fa-heart"></i><span>03</span></li>
-                                <li><i class="far fa-comment-alt"></i><span>00</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="0.8s">
-                    <div class="blog-item">
-                        <div class="blog-thumb">
-                            <img alt="blog" src={% static "assets/images/blog/blog-2.png" %}>
-                        </div>
-                        <div class="blog-content">
-                            <h3 class="title"><a href="/blog-details">Suspendisse Malesuadand Taciti Nteger
-                                Tristique.</a></h3>
-                            <ul class="blog-content-list">
-                                <li><i class="far fa-heart"></i><span>03</span></li>
-                                <li><i class="far fa-comment-alt"></i><span>00</span></li>
-                            </ul>
+                {% for post in latest_posts %}
+                    <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                         data-wow-delay="0.5s">
+                        <div class="blog-item">
+                            <div class="blog-thumb">
+                                <img alt="{{ post.post_title }}" src={{ post.post_image.url }}>
+                            </div>
+                            <div class="blog-content">
+                                <h3 class="title"><a
+                                        href="/post-{{ post.post_layout_mode }}?post_id={{ post.post_id }}">{{ post.post_title }}</a>
+                                </h3>
+                                <ul class="blog-content-list">
+                                    <li><i class="fas fa-eye color-red"></i><span>{{ post.post_view }}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-heart color-yellow"></i><span>{{ post.post_like }}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-star color-curious-blue"></i><span>{{ post.collection_set.count }}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-comment color-curious-blue"></i><span>{{ post.review_set.count }}</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                     data-wow-delay="1s">
-                    <div class="blog-item">
-                        <div class="blog-thumb">
-                            <img alt="blog" src={% static "assets/images/blog/blog-3.png" %}>
-                        </div>
-                        <div class="blog-content">
-                            <h3 class="title"><a href="/blog-details">Rutrum Libero in Vitaema Ecenas Sollicitudin</a>
-                            </h3>
-                            <ul class="blog-content-list">
-                                <li><i class="far fa-heart"></i><span>03</span></li>
-                                <li><i class="far fa-comment-alt"></i><span>00</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
-    <!-- blog-section start -->
+    <!-- latest-post-section start -->
 {% endblock %}

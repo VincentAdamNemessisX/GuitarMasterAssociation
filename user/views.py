@@ -1,5 +1,6 @@
 from copy import copy
 
+import bs4
 from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import render, HttpResponseRedirect
 

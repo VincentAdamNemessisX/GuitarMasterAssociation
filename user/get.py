@@ -1,9 +1,9 @@
 from django.db.models import Sum
 
 from collection.models import Collection
-from post.models import Post
+from post.models import Post, PostLike
 from review.models import Review
-from .models import User
+from .models import User, RecentBrowsing
 
 
 def get_sorted_authors_by_hot(reverse=1):
@@ -13,7 +13,7 @@ def get_sorted_authors_by_hot(reverse=1):
     else:
         reverse = False
     for user in users:
-        if Post.objects.filter(user_id=user.user_id, post_status=1).count() * 900:
+        if Post.objects.filter(user_id=user.user_id, post_status=1):
             user.hot_volume = Post.objects.filter(user_id=user.user_id, post_status=1).count() * 900
             if Post.objects.filter(user_id=user.user_id, post_status=1)[0].post_view:
                 user.hot_volume += (Post.objects.filter(user_id=user.user_id, post_status=1)
@@ -49,3 +49,24 @@ def get_specific_user(user_id):
     user.post = user.post_set.order_by('-post_create_time')
     user.post_count = user.post_set.count()
     return user
+
+
+def get_best_readers_by_heating(reverse=1):
+    users = User.objects.filter(user_status=1)
+    if reverse == 1:
+        reverse = True
+    else:
+        reverse = False
+    for user in users:
+        if PostLike.objects.filter(user_id=user).count():
+            user.heating = PostLike.objects.filter(user_id=user).count() * 200
+        else:
+            user.heating = 0
+        if RecentBrowsing.objects.filter(recent_user_id=user).count():
+            user.heating += RecentBrowsing.objects.filter(recent_user_id=user).count() * 100
+        if Review.objects.filter(user_id=user, review_status=1):
+            user.heating += Review.objects.filter(user_id=user, review_status=1).count() * 799
+        if Collection.objects.filter(user_id=user):
+            user.heating += Collection.objects.filter(user_id=user).count() * 300
+    best_readers = sorted(users, key=lambda x: x.heating, reverse=reverse)
+    return best_readers
