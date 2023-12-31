@@ -31,11 +31,16 @@
     <link rel="stylesheet" href="{% static "assets/css/share.min.css" %}">
     {#    editor style#}
     <link rel="stylesheet" href="{% static "assets/css/wang_editor.css" %}">
+    {#    message notification#}
+    <link href="{% static 'assets/css/light-theme.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/dark-theme.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/colored-theme.min.css' %}" rel="stylesheet">
 </head>
 <style>
     body {
         text-transform: none;
     }
+
     .copyrights {
         text-indent: -9999px;
         height: 0;
@@ -184,6 +189,10 @@
             padding: 0 2.6rem;
         }
     }
+
+    .growl-notification {
+        z-index: 10000;
+    }
 </style>
 {% block custom_style %}
 {% endblock %}
@@ -270,7 +279,7 @@
                         {% if request.session.login_username %}
                             <div class="login-bar d-flex flex-wrap login_bar_custom">
                                 <div class="login-thumb">
-                                    <i class="flaticon-user"></i>
+                                    <i style="border-radius:50%; background-image: url('{{ request.session.login_user_headicon }}');background-size: contain;background-repeat: no-repeat;width: 28px;height: 28px;display: block;"></i>
                                 </div>
                                 <span><a style="text-transform: none"
                                          href="/user?user_id={{ request.session.login_user_id }}">{{ request.session.login_username }}</a></span>
@@ -323,9 +332,7 @@
                         <li class="menu_has_children"><a href="#0">其他未排布页面<i class="fas fa-caret-down"></i></a>
                             <ul class="sub-menu">
                                 <li><a href="/privacy">隐私页面</a></li>
-                                <li><a href="/pricing">订阅付费页面</a></li>
-                                <li><a href="/search">搜索结果页面</a></li>
-                                <li><a href="/faq">帮助页面</a></li>
+                                <li><a href="/message/help">消息帮助页面</a></li>
                             </ul>
                         </li>
                         <li class="menu_has_children"><a href="#0">Post<i class="fas fa-caret-down"></i></a>
@@ -359,7 +366,7 @@
                     </div>
                 </div>
                 <div class="header-action d-flex flex-wrap align-items-center justify-content-end">
-                    <a href="/random-post/" class="cmn-btn">随心看看</a>
+                    <a href="/random-post/" class="cmn-btn" style="width: 10rem">随心看看</a>
                 </div>
             </nav>
         </div>
@@ -455,7 +462,8 @@
 <!-- main -->
 <script src='{% static "assets/js/main.js" %}'></script>
 <script src='{% static "assets/js/social-share.min.js" %}'></script>
-<script></script>
+{#notification #}
+<script src="{% static 'assets/js/growl-notification.min.js' %}"></script>
 {% block custom_script %}
 {% endblock %}
 <script>
@@ -529,5 +537,92 @@
 			check_error_and_success_list();
 		}, 3000)
 	}
+
+	/*
+     * 通知
+     * title: 标题
+     * description: 内容
+     * type: 类型
+     * time: 显示时间
+     * position: 位置
+     * image: 图标
+     * showButtons: 是否显示按钮
+     * buttons: 按钮
+     * leftButtonCallBack: 左侧按钮回调函数
+     */
+	function message_notification(title = '测试标题', description = '测试消息',
+	                              type = 'warning', time = 0, showButtons = false,
+	                              showProgress = true,
+	                              leftButtonCallBack = function () {
+		                              this.close()
+	                              }, position = 'top-right') {
+		GrowlNotification.notify({
+			title: title,
+			description: description,
+			image: '{% static 'assets/images/message_icon/warning.png' %}',
+			type: type,
+			position: position,
+			closeTimeout: time,
+			showProgress: showProgress,
+			showButtons: showButtons,
+			buttons: {
+				action: {
+					text: '已读',
+					callback: leftButtonCallBack
+				},
+				cancel: {
+					text: '忽略'
+				}
+			}
+		});
+	}
+	{% if request.session.login_user_id %}
+		function get_user_messages() {
+			$.ajax({
+				url: '/api/get/messages/',
+				type: 'POST',
+				data: {
+					user_id: '{{ request.session.login_user_id }}',
+					csrfmiddlewaretoken: '{{ csrf_token }}'
+				},
+				dataType: 'json',
+				success: function (data) {
+					if (data.status === 200) {
+						for (const dataKey in data.data) {
+							message_notification('系统通知', data.data[dataKey].message_content,
+								'warning', 20000, true, true,
+								function () {
+									$.ajax({
+										url: '/api/read/message/',
+										type: 'POST',
+										data: {
+											message_id: data.data[dataKey].message_id,
+											csrfmiddlewaretoken: '{{ csrf_token }}'
+										},
+										dataType: 'json',
+										success: function (data) {
+											if (data.status === 200) {
+											} else {
+												message_notification('警告', '标记消息为已读失败,' + data.msg, 'error', 5000, false);
+											}
+										}, error: function (error) {
+											message_notification('警告', '标记消息为已读失败,' + error.msg, 'error', 5000, true);
+										}
+									})
+								});
+						}
+					} else {
+						message_notification('警告', '获取用户消息失败,' + data.msg, 'error', 5000, false);
+					}
+				}, error: function (error) {
+					message_notification('警告', '获取用户消息失败,' + error.msg, 'error', 5000, false);
+				}
+			})
+		}
+		$(document).ready(function () {
+			get_user_messages();
+		});
+		setInterval(get_user_messages, 60000);
+	{% endif %}
 </script>
 </html>

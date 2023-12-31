@@ -9,7 +9,7 @@ class Message(models.Model):
     receiver_id = models.ForeignKey('user.User', on_delete=models.CASCADE)
     message_content = models.TextField()
     message_time = models.DateTimeField(auto_now_add=True, db_index=True)
-    message_status = models.IntegerField(default=1, choices=((1, '已读'), (0, '未读')), db_index=True)
+    message_status = models.IntegerField(default=0, choices=((1, '已读'), (0, '未读')), db_index=True)
 
     class Meta:
         db_table = 'message'

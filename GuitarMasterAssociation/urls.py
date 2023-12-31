@@ -26,6 +26,7 @@ from post.views import *
 from user.views import *
 from zone.views import *
 from review.views import *
+from message.views import *
 
 handler404 = excep_views.notfound
 handler500 = excep_views.nopower
@@ -58,12 +59,10 @@ urlpatterns = [
                   path('post/collect/', update_post_collection),
                   path('post-immersion/', post_immersion),
                   path('random-post/', random_post),
-                  path('about/', about),
-                  path('contact/', contact),
+                  path('message/help/', message_help),
+                  path('api/get/messages/', get_messages),
+                  path('api/read/message/', read_message),
                   path('help/', faq_help),
-                  path('pricing/', pricing),
-                  path('privacy/', privacy),
-                  path('story/', story),
-                  path('story-details/', story_details),
+                  path('about/', about),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 document_root = settings.STATIC_ROOT

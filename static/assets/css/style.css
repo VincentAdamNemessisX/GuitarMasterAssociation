@@ -1,12 +1,4 @@
 @charset "UTF-8";
-/*
-Template Name: Caleon - Cable TV & ISP Business HTML Template
-Template URI: https://user/thesoftking/
-Author: creative-wp
-Author URI: https://user/thesoftking/
-Description: A 'Activito – Water Sports Business HTML Template' is perfect if you like a clean and modern design. This theme is ideal for Business, Cable TV, Internet, ISP or any multipurpose and those who need an easy, attractive and effective way to share their work with clients.
-Version: 1.0
-*/
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
@@ -8810,8 +8802,8 @@ a:hover, a:active {
     width: 100%;
     position: relative;
     z-index: 1;
-    mask: url(./img/img-mask.png) no-repeat center center;
-    -webkit-mask: url(./img/img-mask.png) no-repeat center center;
+    mask: url(./img/thumb-mask.png) no-repeat center center;
+    -webkit-mask: url(./img/thumb-mask.png) no-repeat center center;
     mask-size: contain;
     -webkit-mask-size: contain;
 }

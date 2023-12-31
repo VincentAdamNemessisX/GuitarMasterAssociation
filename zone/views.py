@@ -35,7 +35,7 @@ def zone(request):
             page_size = 6
         zone_info.page_count = zone_info.posts_count // page_size
         zone_info.page_list = []
-        for i in range(0, zone_info.page_count + 1):
+        for i in range(0, zone_info.page_count):
             zone_info.page_list.append(str(i + 1))
         if len(zone_info.page_list) > 5:
             zone_info.page_list = zone_info.page_list[:5]
