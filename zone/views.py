@@ -55,7 +55,7 @@ def zone(request):
                              + Review.objects.filter(
                     post_id__in=zone_all_posts.values_list('post_id', flat=True)).count() * 200
                              + Collection.objects.filter(
-                    post_id__collection__in=zone_all_posts.values_list('post_id', flat=True)).count() * 300
+                    post_id__in=zone_all_posts.values_list('post_id', flat=True)).count() * 300
                              )
         zone_info.heating = int(zone_info.heating)
         update_zone_active_time(request)

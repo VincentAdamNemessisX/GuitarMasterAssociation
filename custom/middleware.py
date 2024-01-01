@@ -12,7 +12,7 @@ class FrontEndLoginVerifyMiddleWare(MiddlewareMixin):
         db_zones = Zone.objects.all().filter(zone_status=1)
         request.session['zones'] = data_handle.db_to_json(request, db_zones)
         skip_url = ['admin']
-        if request.path.strip().strip('/') == "favicon.ico":
+        if request.path.split('/')[-2] == "favicon.ico":
             return HttpResponseRedirect('/static/fav.png')
         for item in skip_url:
             if item in request.path:

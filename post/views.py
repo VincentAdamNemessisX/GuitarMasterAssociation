@@ -29,7 +29,7 @@ def index(request):
     the_most_popular_post = get_the_most_popular_post()
     hot_posts = get_posts_order_by_hotness()
     best_readers = get_best_readers_by_heating()[:3]
-    hottest_zone = get_zones_by_heating()[0]
+    hottest_zone = get_zones_by_heating()[0] if get_zones_by_heating() else None
     hottest_zone_posts = Zone.objects.get(zone_id=hottest_zone.zone_id).post_set.filter(post_status=1).order_by(
         '-post_create_time')[:7]
     if hot_authors:

@@ -14,10 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
+from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
-
+from django.urls import path, re_path
+from django.views.generic import RedirectView
+from django.views.static import serve
 from TestUnit.views import *
 from collection.views import *
 from exceptionhandler import views as excep_views
@@ -32,6 +34,8 @@ handler404 = excep_views.notfound
 handler500 = excep_views.nopower
 
 urlpatterns = [
+                  re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+                  url(r'^favicon.ico$', RedirectView.as_view(url=r'/static/fav.png')),
                   path('admin/', admin.site.urls),
                   path('', index),
                   path('404/', excep_views.notfound),
