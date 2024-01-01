@@ -2,10 +2,11 @@ import json
 import random
 
 import bs4
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Subquery, OuterRef, Sum
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-
+from django.contrib import messages
 from collection.models import Collection
 from custom.data_handle import handle_uploaded_image
 from custom.goto_controller import redirect_referer
@@ -432,3 +433,45 @@ def search_posts(request):
                               'site_data': site_data
                           })
     return render(request, "post-search.html")
+
+
+@redirect_referer
+@login_required
+def pass_audit_post(request):
+    if request.method == 'GET':
+        post_id = request.GET.get('post_id')
+        review_status = request.GET.get('post_status')
+        if post_id and review_status:
+            if Post.objects.filter(post_id=post_id).exists():
+                post = Post.objects.get(post_id=post_id)
+                post.post_status = 1
+                post.save()
+                messages.success(request, '已通过该帖子！')
+                return JsonResponse({'status': 200, 'msg': '审核通过'})
+            messages.warning(request, '帖子不存在！')
+            return JsonResponse({'status': 400, 'msg': '帖子不存在'})
+        messages.error(request, '参数错误！')
+        return JsonResponse({'status': 400, 'msg': '参数错误'})
+    messages.error(request, '请求方式错误！')
+    return JsonResponse({'status': 401, 'msg': '请求方式错误'})
+
+
+@redirect_referer
+@login_required
+def reject_audit_post(request):
+    if request.method == 'GET':
+        post_id = request.GET.get('post_id')
+        review_status = request.GET.get('post_status')
+        if post_id and review_status:
+            if Post.objects.filter(post_id=post_id).exists():
+                post = Post.objects.get(post_id=post_id)
+                post.post_status = 3
+                post.save()
+                messages.success(request, '已拒绝该帖子！')
+                return JsonResponse({'status': 200, 'msg': '已拒绝该帖子'})
+            messages.warning(request, '帖子不存在！')
+            return JsonResponse({'status': 400, 'msg': '帖子不存在'})
+        messages.error(request, '参数错误！')
+        return JsonResponse({'status': 400, 'msg': '参数错误'})
+    messages.error(request, '请求方式错误！')
+    return JsonResponse({'status': 401, 'msg': '请求方式错误'})

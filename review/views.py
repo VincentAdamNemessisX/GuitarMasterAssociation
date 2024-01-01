@@ -1,5 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
+from custom.goto_controller import redirect_referer
+from django.contrib import messages
 from post.models import Post
 from review.models import Review
 from user.models import User
@@ -122,7 +125,7 @@ def publish_review(request):
                                 post_id=publish_post,
                                 parent_id=parent_review,
                                 review_content=review_content,
-                                review_status=1 if Review.objects.filter(parent_id=parent_id).count() < 3 else 2
+                                review_status=1 if Review.objects.filter(user_id=publish_user, post_id=publish_post).count() < 3 else 2
                             )
                             review.save()
                             return JsonResponse({'status': 200, 'review_id': review.review_id, 'msg': '发布成功'})
@@ -133,7 +136,7 @@ def publish_review(request):
                             user_id=publish_user,
                             post_id=publish_post,
                             review_content=review_content,
-                            review_status=1 if Review.objects.filter(parent_id__isnull=True).count() < 3 else 2
+                            review_status=1 if Review.objects.filter(user_id=publish_user, post_id=publish_post).count() < 3 else 2
                         )
                         review.save()
                         return JsonResponse({'status': 200, 'review_id': review.review_id, 'msg': '发布成功'})
@@ -142,4 +145,46 @@ def publish_review(request):
             else:
                 return JsonResponse({'status': 400, 'msg': '用户不存在'})
         return JsonResponse({'status': 400, 'msg': '参数错误'})
-    return JsonResponse({'status': 401,'msg': '请求方式错误'})
+    return JsonResponse({'status': 401, 'msg': '请求方式错误'})
+
+
+@redirect_referer
+@login_required
+def pass_audit_review(request):
+    if request.method == 'GET':
+        review_id = request.GET.get('review_id')
+        review_status = request.GET.get('review_status')
+        if review_id and review_status:
+            if Review.objects.filter(review_id=review_id).exists():
+                review = Review.objects.get(review_id=review_id)
+                review.review_status = 1
+                review.save()
+                messages.success(request, '已通过该评论！')
+                return JsonResponse({'status': 200, 'msg': '审核通过'})
+            messages.warning(request, '评论不存在！')
+            return JsonResponse({'status': 400, 'msg': '评论不存在'})
+        messages.error(request, '参数错误！')
+        return JsonResponse({'status': 400, 'msg': '参数错误'})
+    messages.error(request, '请求方式错误！')
+    return JsonResponse({'status': 401, 'msg': '请求方式错误'})
+
+
+@redirect_referer
+@login_required
+def reject_audit_review(request):
+    if request.method == 'GET':
+        review_id = request.GET.get('review_id')
+        review_status = request.GET.get('review_status')
+        if review_id and review_status:
+            if Review.objects.filter(review_id=review_id).exists():
+                review = Review.objects.get(review_id=review_id)
+                review.review_status = 3
+                review.save()
+                messages.success(request, '已拒绝该评论！')
+                return JsonResponse({'status': 200, 'msg': '审核不通过'})
+            messages.warning(request, '评论不存在！')
+            return JsonResponse({'status': 400, 'msg': '评论不存在'})
+        messages.error(request, '参数错误！')
+        return JsonResponse({'status': 400, 'msg': '参数错误'})
+    messages.error(request, '请求方式错误！')
+    return JsonResponse({'status': 401, 'msg': '请求方式错误'})

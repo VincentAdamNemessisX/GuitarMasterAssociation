@@ -1,9 +1,10 @@
 from copy import copy
 
-import bs4
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password, check_password
+from django.http import JsonResponse
 from django.shortcuts import render, HttpResponseRedirect
-
+from django.contrib import messages
 from custom import verify, data_handle
 from custom.goto_controller import redirect_referer
 from post.models import Post
@@ -20,11 +21,9 @@ def signin(request):
         if User.objects.filter(user_name=username).exists():
             login_user = User.objects.get(user_name=username)
             if check_password(password, login_user.user_password):
-                if login_user.user_status == 0:
-                    return render(request, 'signin.html', {'error': '该用户已被禁用', 'info': post_data})
                 if login_user.user_status == 2:
                     return render(request, 'signin.html', {'error': '该用户已被冻结', 'info': post_data})
-                if login_user.user_status == 1:
+                elif login_user.user_status == 1:
                     request.session['login_username'] = login_user.user_name
                     request.session['login_user_id'] = login_user.user_id
                     request.session['login_user_headicon'] = login_user.user_headicon.url
@@ -115,7 +114,8 @@ def user_info_update(request):
             if request.FILES.get('user_headicon') != temp['user_headicon'].split('/')[-1]:
                 update_data['user_headicon'] = request.FILES.get('user_headicon')
                 update_data['user_headicon'] = data_handle.handle_uploaded_headicon(update_data['user_headicon'],
-                                                                                    current_user.user_name).split('/')[-2:]
+                                                                                    current_user.user_name).split('/')[
+                                               -2:]
                 update_data['user_headicon'] = '/'.join(update_data['user_headicon'])
         # print(update_data)
         if verify.verify_current_user(request):
@@ -130,3 +130,45 @@ def user_info_update(request):
                               {'error': '更新失败, 错误信息：'
                                         + str(e.args.__str__()),
                                'user': current_user})
+
+
+@redirect_referer
+@login_required
+def freeze_user(request):
+    if request.method == 'GET':
+        user_id = request.GET.get('user_id')
+        user_status = request.GET.get('user_status')
+        if user_id and user_status:
+            if User.objects.filter(user_id=user_id).exists():
+                user = User.objects.get(user_id=user_id)
+                user.user_status = 2
+                user.save()
+                messages.success(request, '已冻结该用户！')
+                return JsonResponse({'status': 200, 'msg': '已冻结该用户'})
+            messages.warning(request, '用户不存在！')
+            return JsonResponse({'status': 400, 'msg': '用户不存在'})
+        messages.error(request, '参数错误！')
+        return JsonResponse({'status': 400, 'msg': '参数错误'})
+    messages.error(request, '请求方式错误！')
+    return JsonResponse({'status': 401, 'msg': '请求方式错误'})
+
+
+@redirect_referer
+@login_required
+def unfreeze_user(request):
+    if request.method == 'GET':
+        user_id = request.GET.get('user_id')
+        user_status = request.GET.get('user_status')
+        if user_id and user_status:
+            if User.objects.filter(user_id=user_id).exists():
+                user = User.objects.get(user_id=user_id)
+                user.user_status = 1
+                user.save()
+                messages.success(request, '已解冻该用户！')
+                return JsonResponse({'status': 200, 'msg': '已解冻该用户'})
+            messages.warning(request, '用户不存在！')
+            return JsonResponse({'status': 400, 'msg': '用户不存在'})
+        messages.error(request, '参数错误！')
+        return JsonResponse({'status': 400, 'msg': '参数错误'})
+    messages.error(request, '请求方式错误！')
+    return JsonResponse({'status': 401, 'msg': '请求方式错误'})

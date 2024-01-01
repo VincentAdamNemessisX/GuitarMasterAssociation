@@ -928,7 +928,7 @@
 			}
 			
 		} else {
-			// clone options obj
+			// clone options self
 			options = $.extend(true, {}, options);
 			
 			/*

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import format_html
 
 
 # Create your models here.
@@ -16,6 +17,24 @@ class Review(models.Model):
         db_table = 'review'
         verbose_name = '评论管理'
         verbose_name_plural = verbose_name
+
+    def pass_audit(self):
+        parameter_str = 'review_id={}&review_status={}'.format(str(self.review_id), str(self.review_status))
+        btn_str = '<a class="btn btn-xs btn-danger color-green" href="{}">' \
+                  '<input style="background-color: green" name="通过审核"' \
+                  'type="button" id="passButton" ' \
+                  'title="passButton" value="通过审核">' \
+                  '</a>'
+        return format_html(btn_str, '/api/review/pass/audit/?{}'.format(parameter_str))
+
+    def reject_audit(self):
+        parameter_str = 'review_id={}&review_status={}'.format(str(self.review_id), str(self.review_status))
+        btn_str = '<a class="btn btn-xs btn-danger" href="{}">' \
+                  '<input style="background-color: red" name="拒绝审核"' \
+                  'type="button" id="rejectButton"' \
+                  'title="rejectButton" value="拒绝审核">' \
+                  '</a>'
+        return format_html(btn_str, '/api/review/reject/audit/?{}'.format(parameter_str))
 
     def __str__(self):
         return self.review_content

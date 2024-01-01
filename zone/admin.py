@@ -7,3 +7,5 @@ from zone.models import Zone
 @admin.register(Zone)
 class ZoneAdmin(admin.ModelAdmin):
     list_display = ['zone_id', 'zone_name', 'zone_layout_mode', 'zone_create_time', 'zone_last_active_time', 'zone_description', 'zone_image', 'zone_status']
+    list_filter = ['zone_create_time', 'zone_last_active_time', 'zone_status']
+    search_fields = ['zone_name', 'zone_description']

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import format_html
 
 
 # Create your models here.
@@ -12,7 +13,7 @@ class User(models.Model):
     user_phone = models.CharField(max_length=11, db_index=True)
     user_nickname = models.CharField(max_length=20, default='', blank=True)
     user_sex = models.IntegerField(default=0, choices=((1, '男'), (2, '女'), (0, '保密')))
-    user_status = models.IntegerField(default=1, choices=((1, '正常'), (2, '禁用'), (3, '冻结')))
+    user_status = models.IntegerField(default=1, choices=((1, '正常'), (2, '冻结')))
     user_headicon = models.ImageField(upload_to='user_headicon', default='user_headicon/default.png')
     user_description = models.CharField(max_length=200, default='', blank=True)
     user_create_time = models.DateTimeField(auto_now_add=True)
@@ -23,6 +24,24 @@ class User(models.Model):
         db_table = 'user'
         verbose_name = '用户管理'
         verbose_name_plural = verbose_name
+
+    def freeze(self):
+        parameter_str = 'user_id={}&user_status={}'.format(str(self.user_id), str(self.user_status))
+        btn_str = '<a class="btn btn-xs btn-danger color-green" href="{}">' \
+                  '<input style="background-color: green" name="冻结"' \
+                  'type="button" id="passButton" ' \
+                  'title="passButton" value="冻结">' \
+                  '</a>'
+        return format_html(btn_str, '/api/user/freeze/?{}'.format(parameter_str))
+
+    def unfreeze(self):
+        parameter_str = 'user_id={}&user_status={}'.format(str(self.user_id), str(self.user_status))
+        btn_str = '<a class="btn btn-xs btn-danger" href="{}">' \
+                  '<input style="background-color: red" name="解冻"' \
+                  'type="button" id="rejectButton"' \
+                  'title="rejectButton" value="解冻">' \
+                  '</a>'
+        return format_html(btn_str, '/api/user/unfreeze/?{}'.format(parameter_str))
 
     def __str__(self):
         return self.user_name

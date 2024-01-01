@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import format_html
 
 
 # Create your models here.
@@ -21,6 +22,24 @@ class Post(models.Model):
         db_table = 'post'
         verbose_name = '帖子管理'
         verbose_name_plural = verbose_name
+
+    def pass_audit(self):
+        parameter_str = 'post_id={}&post_status={}'.format(str(self.post_id), str(self.post_status))
+        btn_str = '<a class="btn btn-xs btn-danger color-green" href="{}">' \
+                  '<input style="background-color: green" name="通过审核"' \
+                  'type="button" id="passButton" ' \
+                  'title="passButton" value="通过审核">' \
+                  '</a>'
+        return format_html(btn_str, '/api/post/pass/audit/?{}'.format(parameter_str))
+
+    def reject_audit(self):
+        parameter_str = 'post_id={}&post_status={}'.format(str(self.post_id), str(self.post_status))
+        btn_str = '<a class="btn btn-xs btn-danger" href="{}">' \
+                  '<input style="background-color: red" name="拒绝审核"' \
+                  'type="button" id="rejectButton"' \
+                  'title="rejectButton" value="拒绝审核">' \
+                  '</a>'
+        return format_html(btn_str, '/api/post/reject/audit/?{}'.format(parameter_str))
 
     def __str__(self):
         return self.post_title
