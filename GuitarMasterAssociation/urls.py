@@ -22,11 +22,11 @@ from TestUnit.views import *
 from collection.views import *
 from exceptionhandler import views as excep_views
 from feedback.views import *
+from message.views import *
 from post.views import *
+from review.views import *
 from user.views import *
 from zone.views import *
-from review.views import *
-from message.views import *
 
 handler404 = excep_views.notfound
 handler500 = excep_views.nopower

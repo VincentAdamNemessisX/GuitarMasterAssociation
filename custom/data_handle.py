@@ -1,4 +1,5 @@
 import json
+import os
 from datetime import datetime
 
 from django.forms.models import model_to_dict
@@ -42,10 +43,12 @@ def handle_uploaded_headicon(f, username):
 
 
 def handle_uploaded_image(f):
+    path = str("media/post/" + datetime.now().strftime('%Y') + "/"+ datetime.now().strftime('%m'))
+    if not os.path.exists(path):
+        os.makedirs(path)
     path = ("media/post/" + datetime.now().strftime('%Y') + "/"
             + datetime.now().strftime('%m') + "/" + datetime.now().strftime('%Y-%m-%d-%h-%s-') + f.name)
     with open(path, "wb") as destination:
         for chunk in f.chunks():
             destination.write(chunk)
     return path
-
