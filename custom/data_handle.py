@@ -43,11 +43,13 @@ def handle_uploaded_headicon(f, username):
 
 
 def handle_uploaded_image(f):
-    path = str("media/post/" + datetime.now().strftime('%Y') + "/"+ datetime.now().strftime('%m'))
+    path = str("media/post/" + datetime.now().strftime('%Y') + "/" + datetime.now().strftime('%m'))
     if not os.path.exists(path):
         os.makedirs(path)
-    path = ("media/post/" + datetime.now().strftime('%Y') + "/"
-            + datetime.now().strftime('%m') + "/" + datetime.now().strftime('%Y-%m-%d-%h-%s-') + f.name)
+    # print(datetime.now().strftime('%Y-%m-%d-%h-%m'))
+    path = ("media/post/" + str(datetime.now().strftime('%Y')) + "/"
+            + str(datetime.now().strftime('%m')) +
+            "/" + str(datetime.now().strftime('%Y-%m-%d-%H-%M-%S-')) + f.name)
     with open(path, "wb") as destination:
         for chunk in f.chunks():
             destination.write(chunk)
