@@ -13,35 +13,65 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls import url
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
+from django.views.generic import RedirectView
+from django.views.static import serve
 from TestUnit.views import *
+from collection.views import *
+from exceptionhandler import views as excep_views
+from feedback.views import *
+from message.views import *
+from post.views import *
+from review.views import *
+from user.views import *
+from zone.views import *
+
+handler404 = excep_views.notfound
+handler500 = excep_views.nopower
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', index),
-    path('404/', notfound),
-    path('about/', about),
-    path('blog-1/', blog_1),
-    path('blog-2/', blog_2),
-    path('blog-3/', blog_3),
-    path('blog-4/', blog_4),
-    path('blog-5/', blog_5),
-    path('blog-details/', blog_details),
-    path('contact/', contact),
-    path('event/', event),
-    path('event-details/', event_details),
-    path('faq/', faq),
-    path('gallery/', gallery),
-    path('index/', index),
-    path('index-2/', index_2),
-    path('member/', member),
-    path('member-details/', member_details),
-    path('pricing/', pricing),
-    path('privacy/', privacy),
-    path('search/', search),
-    path('signin/', signin),
-    path('signup/', signup),
-    path('story/', story),
-    path('story-details/', story_details),
-]
+                  re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+                  url(r'^favicon.ico$', RedirectView.as_view(url=r'/static/fav.png')),
+                  path('admin/', admin.site.urls),
+                  path('', index),
+                  path('404/', excep_views.notfound),
+                  path('500/', excep_views.nopower),
+                  path('index/', index),
+                  path('user/', user),
+                  path('user/update/', user_info_update),
+                  path('user/collection/more/', user_collection_more),
+                  path('collection/remove/', delete_specific_collection),
+                  path('post/publish/', post_publish),
+                  path('post/update/', update_post),
+                  path('post/remove/', delete_specific_post),
+                  path('search/posts/', search_posts),
+                  path('review/get/all/', get_init_reviews),
+                  path('review/get/children/', get_specific_review_children),
+                  path('review/get/more/', load_more_reviews),
+                  path('signin/', signin),
+                  path('signup/', signup),
+                  path('signout/', signout),
+                  path('zone/', zone),
+                  path('help/', faq_help),
+                  path('post-normal/', post_normal),
+                  path('post/like/', update_post_like),
+                  path('post/collect/', update_post_collection),
+                  path('post-immersion/', post_immersion),
+                  path('random-post/', random_post),
+                  path('message/help/', message_help),
+                  path('api/post/upload/image/', post_upload_image),
+                  path('api/post/review/', publish_review),
+                  path('api/get/messages/', get_messages),
+                  path('api/read/message/', read_message),
+                  path('api/review/pass/audit/', pass_audit_review),
+                  path('api/review/reject/audit/', reject_audit_review),
+                  path('api/post/pass/audit/', pass_audit_post),
+                  path('api/post/reject/audit/', reject_audit_post),
+                  path('api/user/freeze/', freeze_user),
+                  path('api/user/unfreeze/', unfreeze_user),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+document_root = settings.STATIC_ROOT

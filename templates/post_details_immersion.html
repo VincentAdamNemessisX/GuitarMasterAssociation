@@ -1,0 +1,337 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{ post.post_title }}
+{% endblock %}
+{% block custom_style %}
+    <style>
+        .blog-details-tag-area .tag-list li {
+            background: none;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <!-- inner-banner-section start -->
+    <section class="inner-banner-section bg-overlay-primary bg_img"
+             data-background="{{ post.post_image.url }}">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 text-center">
+                    <div class="inner-content">
+                        <h2 class="title wow fade-in-up" data-wow-duration="1s"
+                            data-wow-delay="0.5s">{{ post.post_title }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- inner-banner-section end -->
+
+
+    <a href="#" class="scrollToTop"><i class="fas fa-heart"></i></a>
+
+
+    <!-- breadcrumb-section start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>主页</a></li>
+                    <li class="breadcrumb-item"><i class="bi-house-heart-fill" style="font-size: 1.2rem"></i><a
+                            href="/zone?zone_id={{ post.zone_id.zone_id }}">{{ post.zone_id.zone_name }}</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- breadcrumb-section end -->
+
+
+    <!-- event-details-section start -->
+    <section class="event-details-section ptb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="event-details-area">
+                        {# post content section start #}
+                        <div id="post-content">{{ post.post_content|safe }}</div>
+                        {# post content section end #}
+                        <div class="blog-details-tag-area d-flex flex-wrap justify-content-between ml-b-30">
+                            <ul class="tag-list mrb-30">
+                                <li>
+                                    <button id="post_like" class="button-85" role="button"
+                                            onclick="update_post_like()">{% if post.is_liked %}取消点赞{% else %}
+                                        点赞{% endif %}</button>
+                                </li>
+                                <li>
+                                    <button id="post_collection" class="button-85" role="button"
+                                            onclick="update_collection_post()">{% if post.is_collected %}
+                                        取消收藏{% else %}收藏{% endif %}</button>
+                                </li>
+                                <!-- HTML !-->
+                            </ul>
+                            <div class="social-share" data-initialized="true"
+                                 style="background: none; box-shadow: none">
+                                <a href="#" class="social-share-icon icon-weibo"></a>
+                                <a href="#" class="social-share-icon icon-qq"></a>
+                                <a href="#" class="social-share-icon icon-qzone"></a>
+                                <a href="#" class="social-share-icon icon-wechat"></a>
+                            </div>
+                        </div>
+                        <div id="prev-and-next-buttons"
+                             class="blog-details-btn-area d-flex flex-wrap justify-content-between">
+                            {% if prev_post %}
+                                <div class="btn-left">
+                                    <a href="/post-{{ prev_post.post_layout_mode }}?post_id={{ prev_post.post_id }}"
+                                       class="btn-border" style="padding: 12px 50px">上一篇</a>
+                                </div>
+                            {% endif %}
+                            {% if next_post %}
+                                <div class="btn-right">
+                                    <a href="/post-{{ next_post.post_layout_mode }}?post_id={{ next_post.post_id }}"
+                                       class="btn-border">下一篇</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- event-details-section end -->
+
+
+    <!-- brand-section start -->
+    <div class="brand-section ptb-120 sec-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="brand-wrapper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="../static/assets/images/brand/brand-1.png" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="../static/assets/images/brand/brand-2.png" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="../static/assets/images/brand/brand-3.png" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="../static/assets/images/brand/brand-4.png" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="BrandSlider">
+                                    <div class="brand-item">
+                                        <img src="../static/assets/images/brand/brand-5.png" alt="logo images">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- brand-section end -->
+{% endblock %}
+{% block custom_script %}
+    <script>
+		function update_post_like() {
+			let post_like_btn = document.getElementById("post_like");
+			if (post_like_btn.innerHTML.trim() === "点赞") {
+				$.ajax({
+					url: "/post/like/",
+					type: "POST",
+					data: {
+						"post_id": {{ post.post_id }},
+						"method": "append",
+						"csrfmiddlewaretoken": "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data === '200') {
+							post_like_btn.innerHTML = "取消点赞";
+						} else {
+							let error_box = document.getElementById("error");
+							let msg_node = document.createElement("li");
+							msg_node.innerText = "点赞失败，" + data;
+							error_box.childNodes[1].appendChild(msg_node);
+							$('#error').show();
+							auto_hide_error();
+							setTimeout(function () {
+								error_box.childNodes[1].removeChild(msg_node);
+								check_error_and_success_list();
+							}, 5000);
+							console.log(data);
+						}
+					},
+					error: function (data) {
+						let error_box = document.getElementById("error");
+						let msg_node = document.createElement("li");
+						msg_node.innerText = "点赞失败，" + data;
+						error_box.childNodes[1].appendChild(msg_node);
+						$('#error').show();
+						auto_hide_error();
+						setTimeout(function () {
+							error_box.childNodes[1].removeChild(msg_node);
+							check_error_and_success_list();
+						}, 5000);
+						console.log(data);
+					}
+				});
+			} else {
+				$.ajax({
+					url: "/post/like/",
+					type: "POST",
+					data: {
+						"post_id": {{ post.post_id }},
+						"method": "remove",
+						"csrfmiddlewaretoken": "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data === '200') {
+							post_like_btn.innerHTML = "点赞";
+						} else {
+							let error_box = document.getElementById("error");
+							let msg_node = document.createElement("li");
+							msg_node.innerText = "取消点赞失败，" + data;
+							error_box.childNodes[1].appendChild(msg_node);
+							$('#error').show();
+							auto_hide_error();
+							setTimeout(function () {
+								error_box.childNodes[1].removeChild(msg_node);
+								check_error_and_success_list();
+							}, 5000);
+							console.log(data);
+						}
+					},
+					error: function (data) {
+						let error_box = document.getElementById("error");
+						let msg_node = document.createElement("li");
+						msg_node.innerText = "取消点赞失败，" + data;
+						error_box.childNodes[1].appendChild(msg_node);
+						$('#error').show();
+						auto_hide_error();
+						setTimeout(function () {
+							error_box.childNodes[1].removeChild(msg_node);
+							check_error_and_success_list();
+						}, 5000);
+						console.log(data);
+					}
+				});
+			}
+		}
+
+		function update_collection_post() {
+			let post_like_btn = document.getElementById("post_collection");
+			if (post_like_btn.innerHTML.trim() === "收藏") {
+				$.ajax({
+					url: "/post/collect/",
+					type: "POST",
+					data: {
+						"post_id": {{ post.post_id }},
+						"method": "append",
+						"csrfmiddlewaretoken": "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data === '200') {
+							post_like_btn.innerHTML = "取消收藏";
+						} else {
+							let error_box = document.getElementById("error");
+							let msg_node = document.createElement("li");
+							msg_node.innerText = "收藏失败，" + data;
+							error_box.childNodes[1].appendChild(msg_node);
+							$('#error').show();
+							auto_hide_error();
+							setTimeout(function () {
+								error_box.childNodes[1].removeChild(msg_node);
+								check_error_and_success_list();
+							}, 5000);
+							console.log(data);
+						}
+					},
+					error: function (data) {
+						let error_box = document.getElementById("error");
+						let msg_node = document.createElement("li");
+						msg_node.innerText = "收藏失败，" + data;
+						error_box.childNodes[1].appendChild(msg_node);
+						$('#error').show();
+						auto_hide_error();
+						setTimeout(function () {
+							error_box.childNodes[1].removeChild(msg_node);
+							check_error_and_success_list();
+						}, 5000);
+						console.log(data);
+					}
+				});
+			} else {
+				$.ajax({
+					url: "/post/collect/",
+					type: "POST",
+					data: {
+						"post_id": {{ post.post_id }},
+						"method": "remove",
+						"csrfmiddlewaretoken": "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data === '200') {
+							post_like_btn.innerHTML = "收藏";
+						} else {
+							let error_box = document.getElementById("error");
+							let msg_node = document.createElement("li");
+							msg_node.innerText = "取消收藏失败，" + data;
+							error_box.childNodes[1].appendChild(msg_node);
+							$('#error').show();
+							auto_hide_error();
+							setTimeout(function () {
+								error_box.childNodes[1].removeChild(msg_node);
+								check_error_and_success_list();
+							}, 5000);
+							{#console.log(data);#}
+						}
+					},
+					error: function (data) {
+						let error_box = document.getElementById("error");
+						let msg_node = document.createElement("li");
+						msg_node.innerText = "取消收藏失败，" + data;
+						error_box.childNodes[1].appendChild(msg_node);
+						$('#error').show();
+						auto_hide_error();
+						setTimeout(function () {
+							error_box.childNodes[1].removeChild(msg_node);
+							check_error_and_success_list();
+						}, 5000);
+						{#console.log(data);#}
+					}
+				});
+			}
+		}
+
+		{#layout prev and next buttons#}
+		$(document).ready(function () {
+			let area = document.getElementById("prev-and-next-buttons");
+			if (area.children.length === 1) {
+				area.classList.remove("justify-content-between");
+				area.classList.add("justify-content-center");
+			} else {
+				area.classList.remove("justify-content-center");
+				area.classList.add("justify-content-between");
+			}
+		})
+    </script>
+{% endblock %}

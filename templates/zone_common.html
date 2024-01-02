@@ -1,0 +1,70 @@
+{% load static %}
+<!-- inner-banner-section start -->
+<section class="inner-banner-section bg-overlay-primary bg_img"
+         data-background={{ zone.zone_image.url }}>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center">
+                <div class="inner-content">
+                    <h2 class="title wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
+                        {% if zone.zone_name %}
+                            {{ zone.zone_name }}
+                        {% endif %}专区
+                    </h2>
+                    <h3 class="color-white">专区热度：{{ zone.heating }}</h3>
+                    <h3 class="color-white">
+                        简介：
+                        {% if zone.zone_description %}
+                            {{ zone.zone_description }}
+                        {% else %}
+                            这里是{{ zone.zone_name }}专区
+                        {% endif %}
+                    </h3>
+                    <h4 class="color-white">
+                        自{{ zone.zone_name }}专区创建之日起，已经运行了
+                        <span class="counter" id="runtime"></span>！
+                        {% block custom_script %}
+                            <script>
+								var zone_create_time = new Date("{{ zone.zone_create_time|date:"c" }}").getTime();
+								var x = setInterval(function () {
+									var now = new Date().getTime();
+									var distance = now - zone_create_time;
+									var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+									var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+									var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+									var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+									document.getElementById("runtime").innerHTML = days + "天" + hours + "小时" + minutes + "分" + seconds + "秒";
+								}, 1000);
+                            </script>
+                        {% endblock %}
+                    </h4>
+                    <h4 class="color-white">
+                        上次活跃时间：<span class="counter"
+                                           id="last_active_time">{{ zone.zone_last_active_time|date:"Y年m月d日 H时i分" }}</span>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- inner-banner-section end -->
+
+
+<a href="#" class="scrollToTop"><i class="fas fa-heart"></i></a>
+
+
+<!-- breadcrumb-section start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/index"><i class="flaticon-house"></i>主页</a></li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="#zone-start"><i class="bi-house-heart-fill" style="font-size: 1.2rem"></i>{% if zone.zone_name %}
+                        {{ zone.zone_name }}{% endif %}</a>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- breadcrumb-section end -->

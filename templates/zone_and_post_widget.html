@@ -1,0 +1,93 @@
+{% load static %}
+<div class="col-lg-4 col-sm-8">
+    <div class="sidebar">
+        <div class="widget-box mrb-60">
+            <form action="/search/posts/" method="get" enctype="multipart/form-data">
+                <div class="search-option">
+                    <input type="text" name="keyword" placeholder="请输入搜索内容">
+                </div>
+                <button class="search-submit" type="submit">
+                    <i class="flaticon-magnifying-glass-1"></i>
+                </button>
+            </form>
+        </div>
+        <div class="widget-box mrb-60">
+            <div class="category-box">
+                <span class="caption"><i class="flaticon-newspaper"></i>热门专区</span>
+                <ul class="category-content">
+                    {% for zon in hot_zones %}
+                        <li><a href="/zone?zone_id={{ zon.zone_id }}">{{ zon.zone_name }}</a><span
+                                class="count">{{ zon.post_set.count }}篇</span></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="widget-box mrb-60">
+            <span class="caption"><i class="far fa-file"></i>最近发布</span>
+            <div class="popular-item-area">
+                {% for post in recent_posts %}
+                    <div class="single-popular-item d-flex flex-wrap">
+                        <div class="popular-item-thumb">
+                            <img alt="{{ post.post_title }}" src='{{ post.post_image.url }}'>
+                        </div>
+                        <div class="popular-item-content">
+                            <h3 class="title"><a
+                                    href="/post-{{ post.post_layout_mode }}?post_id={{ post.post_id }}">{{ post.post_title }}</a>
+                            </h3>
+                            <span class="blog-user" style="padding-right: 0">由 <a
+                                    href="/user/?user_id={{ post.user_id.user_id }}">
+                                {% if post.user_id.user_nickname %}
+                                    {{ post.user_id.user_nickname }}
+                                {% else %}
+                                    {{ post.user_id.user_name }}
+                                {% endif %}
+                            </a> 发布</span><span
+                                class="blog-date"
+                                style="padding-left: 0">于{{ post.post_create_time|date:"Y年m月d日" }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="widget-box mrb-60">
+            <span class="caption"><i class="far fa-file"></i>高能作者墙</span>
+            <div class="popular-item-area">
+                {% for author in hot_authors %}
+                    <div class="single-popular-item d-flex flex-wrap">
+                        <div class="author-headicon">
+                            <img style="border-radius: 50%" alt="{{ author.user_nickname }}"
+                                 src='{{ author.user_headicon.url }}'>
+                        </div>
+                        <div class="author-content" style="margin: 1rem auto; text-align: center;">
+                            <h3 class="title"><a href="/user?user_id={{ author.user_id }}">
+                                {% if author.user_nickname %}
+                                    {{ author.user_nickname }}
+                                {% else %}
+                                    {{ author.user_name }}
+                                {% endif %}
+                            </a>
+                            </h3>
+                            <span class="blog-date" style="padding-left: 0">
+                                加入于{{ author.user_create_time|date:"Y年m月d日" }}
+                            </span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="widget-box mrb-60">
+            <div class="category-box">
+                <span class="caption"><i class="fas fa-stopwatch"></i>专区归档</span>
+                <ul class="category-content">
+                    {% for year in archived_posts.items %}
+                        {% for month in year.1.items %}
+                            <li><a><span>{{ month.0 }}月</span>
+                                <span>({{ month.1 }}篇)</span></a>
+                                <span style="float: right">{{ year.0 }}年</span></li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

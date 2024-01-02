@@ -5,254 +5,604 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i,800,800i%7CQuicksand:300,400,500,600,700%7CRoboto:400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i,800,800i%7CQuicksand:300,400,500,600,700%7CRoboto:400,400i,500,500i,700,700i,900,900i&display=swap"
+          rel="stylesheet">
     <!-- fontawesome css link -->
-    <link rel="stylesheet" href={% static "assets/css/fontawesome-all.min.css" %}>
+    <link rel="stylesheet" href='{% static "assets/css/fontawesome-all.min.css" %}'>
     <!-- flaticon css -->
-    <link rel="stylesheet" href={% static "assets/font/flaticon.css" %}>
+    <link rel="stylesheet" href='{% static "assets/font/flaticon.css" %}'>
     <!-- magnific popup -->
-    <link rel="stylesheet" href={% static "assets/css/magnific-popup.css" %}>
+    <link rel="stylesheet" href='{% static "assets/css/magnific-popup.css" %}'>
     <!-- nice-select css -->
-    <link rel="stylesheet" href={% static "assets/css/nice-select.css" %}>
+    <link rel="stylesheet" href='{% static "assets/css/nice-select.css" %}'>
     <!-- bootstrap css link -->
-    <link rel="stylesheet" href={% static "assets/css/bootstrap.min.css" %}>
+    <link rel="stylesheet" href='{% static "assets/css/bootstrap.min.css" %}'>
+    <link rel="stylesheet" href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css'>
     <!-- swipper css link -->
-    <link rel="stylesheet" href={% static "assets/css/swiper.min.css" %}>
+    <link rel="stylesheet" href='{% static "assets/css/swiper.min.css" %}'>
     <!-- favicon -->
-    <link rel="shortcut icon" href={% static "assets/images/fav.png" %} type="image/x-icon">
+    <link rel="shortcut icon" href='{% static "fav.png" %}' type="image/x-icon">
     <!-- animate.css -->
-    <link rel="stylesheet" href={% static "assets/css/animate.css" %}>
+    <link rel="stylesheet" href='{% static "assets/css/animate.css" %}'>
     <!-- main style css link -->
-    <link rel="stylesheet" href={% static "assets/css/style.css" %}>
+    <link rel="stylesheet" href='{% static "assets/css/style.css" %}'>
+    {#share style#}
+    <link rel="stylesheet" href="{% static "assets/css/share.min.css" %}">
+    {#    editor style#}
+    <link rel="stylesheet" href="{% static "assets/css/wang_editor.css" %}">
+    {#    message notification#}
+    <link href="{% static 'assets/css/light-theme.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/dark-theme.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/colored-theme.min.css' %}" rel="stylesheet">
 </head>
 <style>
-.copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
+    body {
+        text-transform: none;
+    }
+
+    .copyrights {
+        text-indent: -9999px;
+        height: 0;
+        line-height: 0;
+        font-size: 0;
+        overflow: hidden;
+    }
+
+    .login_bar_custom {
+        margin-right: 10px;
+    }
+
+    #error, #success {
+        display: none;
+        position: fixed;
+        width: 100%;
+        font-size: 20px;
+        z-index: 100000;
+    }
+
+    .header-social i {
+        font-size: 20px;
+    }
+
+    .header-bottom-area .navbar-collapse .main-menu li:last-child .sub-menu {
+        left: 0;
+    }
+
+    .footer-section p {
+        text-indent: 2em;
+    }
+
+    .cmn-btn {
+        margin-top: 1rem;
+        border-radius: 10px;
+    }
+
+    .brand-item {
+        width: 200px;
+        height: 200px;
+    }
+
+    .brand-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+
+    .button-85 {
+        padding: 0.6em 3em;
+        border: none;
+        outline: none;
+        color: rgb(255, 255, 255);
+        background: -webkit-linear-gradient(20deg, #ff36a9 0%, #9459d4 54%, #297bff 91%);
+        cursor: pointer;
+        position: relative;
+        z-index: 0;
+        border-radius: 10px;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .button-85:before {
+        content: "";
+        background: linear-gradient(
+                45deg,
+                #ff0000,
+                #ff7300,
+                #fffb00,
+                #48ff00,
+                #00ffd5,
+                #002bff,
+                #7a00ff,
+                #ff00c8,
+                #ff0000
+        );
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        background-size: 400%;
+        z-index: -1;
+        filter: blur(5px);
+        -webkit-filter: blur(5px);
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        animation: glowing-button-85 20s linear infinite;
+        transition: opacity 0.3s ease-in-out;
+        border-radius: 10px;
+    }
+
+    @keyframes glowing-button-85 {
+        0% {
+            background-position: 0 0;
+        }
+        50% {
+            background-position: 400% 0;
+        }
+        100% {
+            background-position: 0 0;
+        }
+    }
+
+    .button-85:after {
+        z-index: -1;
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #222;
+        left: 0;
+        top: 0;
+        border-radius: 10px;
+    }
+
+    .button-36 {
+        background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+        border-radius: 8px;
+        border-style: none;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        flex-shrink: 0;
+        font-family: "Inter UI", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        height: 4rem;
+        padding: 0 1.6rem;
+        text-align: center;
+        text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+        transition: all .5s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .button-36:hover {
+        box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+        transition-duration: .1s;
+    }
+
+    @media (min-width: 768px) {
+        .button-36 {
+            padding: 0 2.6rem;
+        }
+    }
+
+    .growl-notification {
+        z-index: 10000;
+    }
 </style>
+{% block custom_style %}
+{% endblock %}
 <body>
 {#Start Preloader#}
-    <div class="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-icon">
-                <span></span>
-                <span></span>
-            </div><!-- /preloader-icon -->
-        </div><!-- /preloader-inner -->
-    </div><!-- /preloader -->
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-icon">
+            <span></span>
+            <span></span>
+        </div><!-- /preloader-icon -->
+    </div><!-- /preloader-inner -->
+</div><!-- /preloader -->
+{#message handle start#}
+<div id="error" class="alert alert-danger">
+    <ul>
+        {% if error %}
+            <li>{{ error }}</li>
+            <script src='{% static "assets/js/jquery-3.3.1.min.js" %}'></script>
+            <script>
+				function auto_hide_error() {
+					$('#error').show();
+					setTimeout(function () {
+						$('#error').hide();
+					}, 5000);
+				}
 
+				auto_hide_error();
+				{% if back %}
+					function back() {
+						window.history.back();
+					}
+					setTimeout(back, 5000);
+				{% endif %}
+            </script>
+        {% endif %}
+    </ul>
+</div>
+<div id="success" class="alert alert-success">
+    <ul>
+        {% if success %}
+            <li>{{ success }}</li>
+            <script src='{% static "assets/js/jquery-3.3.1.min.js" %}'></script>
+            <script>
+				function auto_hide_message() {
+					$('#success').show();
+					setTimeout(function () {
+						$('#success').hide();
+					}, 3000);
+				}
 
-    <!-- header-section start -->
-    <header class="header-section">
-        <div class="header">
-            <div class="header-top-area">
-                <div class="container">
-                    <div class="header-top-content d-flex flex-wrap align-items-center justify-content-between">
-                        <div class="header-top-left d-flex flex-wrap align-items-center">
-                            <ul class="header-social">
-                                <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#0" class="active"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#0"><i class="fab fa-linkedin-in"></i></a></li>
-                            </ul>
-                            <div class="header-mail-area">
-                                <a href="#0">
-                                    <i class="fas fa-envelope"></i>
-                                    <span>demo@gmail.com</span>
-                                </a>
-                            </div>
+				auto_hide_message();
+				setTimeout(reload, 3000);
+
+				function reload() {
+					window.location.href = window.location;
+				}
+            </script>
+        {% endif %}
+    </ul>
+</div>
+{# message handle end #}
+
+<!-- header-section start -->
+<header class="header-section">
+    <div class="header">
+        <div class="header-top-area">
+            <div class="container">
+                <div class="header-top-content d-flex flex-wrap align-items-center justify-content-between">
+                    <div class="header-top-left d-flex flex-wrap align-items-center">
+                        <ul class="header-social">
+                            <li><a href="tencent://message/?uin=970968377&Site=qq&Menu=Yes"><i
+                                    class="bi bi-tencent-qq"></i></a></li>
+                            <li><a href="weinxin://laosh1ren1"><i class="bi bi-wechat"></i></a></li>
+                        </ul>
+                        <div class="header-mail-area">
+                            <a href="#0">
+                                <i class="fas fa-envelope"></i>
+                                <span><a href="mailto:lixinyu@gmail.com">lixinyu@gmail.com</a></span>
+                            </a>
                         </div>
-                        <div class="header-top-right d-flex flex-wrap align-items-center">
-                            <div class="language-select-list d-flex flex-wrap">
-                                <div class="language-thumb">
-                                    <i class="flaticon-planetary-grid-symbol"></i>
+                    </div>
+                    <div class="header-top-right d-flex flex-wrap align-items-center">
+                        {% if request.session.login_username %}
+                            <div class="login-bar d-flex flex-wrap login_bar_custom">
+                                <div class="login-thumb">
+                                    <i style="border-radius:50%; background-image: url('{{ request.session.login_user_headicon }}');background-size: contain;background-repeat: no-repeat;width: 28px;height: 28px;display: block;"></i>
                                 </div>
-                                <div class="language-select d-flex flex-wrap">
-                                    <select class="select-bar nice-select">
-                                        <option data-display="Languages" class="current">Languages</option>
-                                        <option value="1">Bangla</option>
-                                        <option value="2">Hindi</option>
-                                    </select>
-                                </div>
+                                <span><a style="text-transform: none"
+                                         href="/user?user_id={{ request.session.login_user_id }}">{{ request.session.login_username }}</a></span>
                             </div>
-                            <div class="login-bar d-flex flex-wrap">
+                            <div class="login-bar d-flex flex-wrap login_bar_custom">
+                                <div class="login-thumb">
+                                    <i class="bi bi-door-open"></i>
+                                </div>
+                                <div style="margin-top: 2px"><a href="/signout">登出</a></div>
+                            </div>
+                        {% else %}
+                            <div class="login-bar d-flex flex-wrap login_bar_custom">
+                                <div class="login-thumb">
+                                    <i class="bi bi-box-arrow-in-right"></i>
+                                </div>
+                                <span><a href="/signin">登录</a></span>
+                            </div>
+                            <div class="login-bar d-flex flex-wrap login_bar_custom">
                                 <div class="login-thumb">
                                     <i class="flaticon-add"></i>
                                 </div>
-                                <span> <a href="/signin">Login</a></span>
+                                <span><a href="/signup">注册</a></span>
                             </div>
-                        </div>
+                        {% endif %}
                     </div>
-                </div>
-            </div>
-            <div class="header-bottom-area">
-                <div class="container">
-                    <nav class="navbar navbar-expand-lg p-0" >
-                        <a class="site-logo site-title" href="/index"><img src={% static "assets/images/header/logo.png" %} alt="site-logo"></a>
-                        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="fas fa-bars"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav main-menu">
-                                <li class="menu_has_children"><a href="#0">Home<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/index">Home One</a></li>
-                                        <li><a href="/index-2">Home Two</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="/about">About</a></li>
-                                <li class="menu_has_children"><a href="#0">Dating<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/event">Events</a></li>
-                                        <li><a href="/event-details">Events Details</a></li>
-                                        <li><a href="/story">Story</a></li>
-                                        <li><a href="/story-details">Story Details</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu_has_children"><a href="#0">Profile<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/member">Member</a></li>
-                                        <li><a href="/member-details">Member Details</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu_has_children"><a href="#0">Pages<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/privacy">Privacy Page</a></li>
-                                        <li><a href="/pricing">Pricing Page</a></li>
-                                        <li><a href="/gallery">Gallery Page</a></li>
-                                        <li><a href="/search">Search Page</a></li>
-                                        <li><a href="/faq">Faq Page</a></li>
-                                        <li><a href="/signin">Sign In</a></li>
-                                        <li><a href="/signup">Sign Up</a></li>
-                                        <li><a href="/404">404 Page</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu_has_children"><a href="#0">Blog<i class="fas fa-caret-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/blog-1">Blog Post One</a></li>
-                                        <li><a href="/blog-2">Blog Post Two</a></li>
-                                        <li><a href="/blog-3">Blog Post Three</a></li>
-                                        <li><a href="/blog-4">Blog Post Four</a></li>
-                                        <li><a href="/blog-5">Blog Post Five</a></li>
-                                        <li><a href="/blog-details">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="/contact">Contact</a></li>
-                            </ul>
-                        </div>
-                        <div class="header-right d-flex flex-wrap">
-                            <div class="search-bar">
-                                <a href="#0"><i class="flaticon-magnifying-glass-1"></i></a>
-                                <div class="header-top-search-area">
-                                    <form class="header-search-form">
-                                        <input type="search" name="header_search" id="header_search" placeholder="Search here...">
-                                        <button class="header-search-btn"><i class="flaticon-magnifying-glass-1"></i></button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="header-action d-flex flex-wrap align-items-center justify-content-end">
-                            <a href="faq" class="cmn-btn">get free quote</a>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- header-section end -->
-    {% block content %}
-    {% endblock %}
-    <!-- footer-section start -->
-    <footer class="footer-section ptb-120 bg_img" style="background-image: url('{% static "assets/images/footer.png"  %}')" data-background={% static "assets/images/footer.png" %}>
-        <div class="container">
-            <div class="row ml-b-30">
-                <div class="col-lg-4 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
-                    <div class="footer-widget widget-menu">
-                        <div class="footer-logo">
-                            <a href="#"><img  alt="logo" src={% static "assets/images/header/logo.png" %}></a>
-                            <p>Lorem ipsum dolor amet consectetding elit sed eiusm tempor incididunt ut laborlore magna aliqua enim ad minim veniam quis.</p>
-                            <ul class="footer-social">
-                                <li><a href="#0"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#0" class="active"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#0"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#0"><i class="fab fa-linkedin-in"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.7s">
-                    <div class="footer-widget widget-menu">
-                        <h3 class="widget-title">company</h3>
-                        <ul>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>About</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>new members</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>testimonial</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>privacy</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>pricing plan</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.9s">
-                    <div class="footer-widget widget-menu">
-                        <h3 class="widget-title">Qucik link</h3>
-                        <ul>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>sucess stoies</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>high hopes</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>weeding event</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>relationship</a></li>
-                            <li><a href="#"><i class="fas fa-angle-double-right"></i>find love</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="1s">
-                    <div class="footer-widget widget-menu">
-                        <h3 class="widget-title">contact info</h3>
-                        <ul class="footer-contact-list">
-                            <li>medino,  kitaniya road , USA</li>
-                            <li>Call Us Now 1-234-567-890</li>
-                            <li>demosupport@.com</li>
-                            <li>www.exmaple4500@gmail.com</li>
-                            <li>www.democompany@gmail.com</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <div class="privacy-area bg_img" style="background-image: url('{% static "assets/images/footer.png"  %}')" data-background={% static "assets/images/footer.png"  %}>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; 2020.Company name All rights reserved.</p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- footer-section end -->
-<div class="copyrights">
-	Collect from <a href="http://www.cssmoban.com/"  title="网站模板">模板之家</a>
-	<a href="https://www.chazidian.com/"  title="查字典">查字典</a>
+    <div class="header-bottom-area">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg p-0">
+                <a class="site-logo site-title" href="/index"><img
+                        src='{% static "assets/images/header/logo.png" %}' alt="site-logo"></a>
+                <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fas fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width: 60%">
+                    <ul class="navbar-nav main-menu">
+{#                        <li class="menu_has_children"><a href="#0">专区<i class="fas fa-caret-down"></i></a>#}
+{#                            <ul class="sub-menu">#}
+                                {% for zone in request.session.zones.data %}
+                                    <li><a href="/zone?zone_id={{ zone.zone_id }}">{{ zone.zone_name }}专区</a></li>
+                                {% endfor %}
+{#                            </ul>#}
+{#                        </li>#}
+                        <li><a href="/help">需要帮助？</a></li>
+                        <li><a href="/post/publish">发表帖子</a></li>
+                    </ul>
+                </div>
+                <div class="header-right d-flex flex-wrap">
+                    <div class="search-bar">
+                        <a href="#0"><i class="flaticon-magnifying-glass-1"></i></a>
+                        <div class="header-top-search-area">
+                            <form class="header-search-form" method="get" action="/search/posts/">
+                                <input type="search" name="keyword" id="header_search"
+                                       placeholder="输入搜索内容" style="text-transform: none">
+                                <button class="header-search-btn"><i class="flaticon-magnifying-glass-1"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-action d-flex flex-wrap align-items-center justify-content-end">
+                    <a href="/random-post/" class="cmn-btn" style="width: 10rem">随心看看</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<!-- header-section end -->
+{% block content %}
+{% endblock %}
+<!-- footer-section start -->
+<footer class="footer-section ptb-120 bg_img" data-background='{% static "assets/images/footer.png" %}'>
+    <div class="container">
+        <div class="row ml-b-30">
+            <div class="col-lg-4 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
+                <div class="footer-widget widget-menu">
+                    <div class="footer-logo">
+                        <a href="#"><img alt="logo" src='{% static "assets/images/header/logo.png" %}'></a>
+                        <p>在吉他乐园，我们热切期待你的加入，一同奏响激情的旋律，共享音乐之美。
+                            让我们在和弦声中建立深厚的友谊，共同见证吉他音乐的无限可能！</p>
+                        <ul class="footer-social">
+                            <li><a href="tencent://message/?uin=970968377&Site=qq&Menu=Yes"><i
+                                    class="bi bi-tencent-qq"></i></a></li>
+                            <li><a href="weinxin://laosh1ren1"><i class="bi bi-wechat"></i></a></li>
+                            <li><a href="mailto:lixinyu@qq.com"><i class="fas fa-envelope"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.9s">
+                <div class="footer-widget widget-menu">
+                    <h3 class="widget-title">专区指南</h3>
+                    <ul>
+                        {% for zone in request.session.zones.data %}
+                            <li><a href="/zone?zone_id={{ zone.zone_id }}"><i
+                                    class="fas fa-angle-double-right"></i>{{ zone.zone_name }}专区</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.9s">
+                <div class="footer-widget widget-menu">
+                    <h3 class="widget-title">快捷导航</h3>
+                    <ul>
+                        <li><a href="/help"><i class="fas fa-angle-double-right"></i>需要帮助？</a></li>
+                        <li><a href="/post/publish"><i class="fas fa-angle-double-right"></i>发表帖子</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="1s">
+                <div class="footer-widget widget-menu">
+                    <h3 class="widget-title">站长信息</h3>
+                    <ul class="footer-contact-list">
+                        <li>联系地址：河南省商丘市商丘工学院</li>
+                        <li>联系电话： 136-2391-7933</li>
+                        <li style="text-transform: none">联系邮箱：970968377@qq.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="privacy-area bg_img" data-background='{% static "assets/images/footer.png" %}'>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <p>Copyright &copy; 2023-2024.Mr Lixinyu. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- footer-section end -->
 </body>
 <!-- jquery -->
-<script src= {% static "assets/js/jquery-3.3.1.min.js" %}></script>
+<script src='{% static "assets/js/jquery-3.3.1.min.js" %}'></script>
 <!-- migarate-jquery -->
-<script src={% static "assets/js/jquery-migrate-3.0.0.js" %}></script>
+<script src='{% static "assets/js/jquery-migrate-3.0.0.js" %}'></script>
 <!-- waypoints js link -->
-<script src={% static "assets/js/jquery.waypoints.min.js" %}></script>
+<script src='{% static "assets/js/jquery.waypoints.min.js" %}'></script>
 <!-- counterup js -->
-<script src={% static "assets/js/jquery.counterup.min.js" %}></script>
+<script src='{% static "assets/js/jquery.counterup.min.js" %}'></script>
 <!-- magnific-popup js -->
-<script src={% static "assets/js/jquery.magnific-popup.js" %}></script>
+<script src='{% static "assets/js/jquery.magnific-popup.js" %}'></script>
 <!-- isotope -->
-<script src={% static "assets/js/isotope.pkgd.min.js" %}></script>
+<script src='{% static "assets/js/isotope.pkgd.min.js" %}'></script>
 <!-- nice-select js-->
-<script src={% static "assets/js/jquery.nice-select.js" %}></script>
+<script src='{% static "assets/js/jquery.nice-select.js" %}'></script>
 <!-- bootstrap js -->
-<script src={% static "assets/js/bootstrap.min.js" %}></script>
+<script src='{% static "assets/js/bootstrap.min.js" %}'></script>
 <!-- swipper js -->
-<script src={% static "assets/js/swiper.min.js" %}></script>
+<script src='{% static "assets/js/swiper.min.js" %}'></script>
 <!-- wow js file -->
-<script src={% static "assets/js/wow.min.js" %}></script>
+<script src='{% static "assets/js/wow.min.js" %}'></script>
 <!-- main -->
-<script src={% static "assets/js/main.js" %}></script>
+<script src='{% static "assets/js/main.js" %}'></script>
+<script src='{% static "assets/js/social-share.min.js" %}'></script>
+{#notification #}
+<script src="{% static 'assets/js/growl-notification.min.js' %}"></script>
+<script src='{% static 'assets/js/wang_editor.js' %}'></script>
+{% block custom_script %}
+{% endblock %}
+<script>
+	function check_error_and_success_list() {
+		let error_list = document.getElementById("error").childNodes[1];
+		let success_list = document.getElementById("success").childNodes[1];
+		try {
+			if (error_list.children.length <= 0) {
+				$("error").hide();
+				document.getElementById("error").style.display = "none";
+			}
+		} catch (e) {
+		}
+		try {
+			if (success_list.children.length <= 0) {
+				$("success").hide();
+				document.getElementById("success").style.display = "none";
+			}
+		} catch (e) {
+		}
+	}
+
+	function auto_hide_error() {
+		$('#error').show();
+		setTimeout(function () {
+			check_error_and_success_list();
+		}, 5000);
+	}
+
+	{% if back %}
+		function back() {
+			window.history.back();
+		}
+		setTimeout(back, 5000);
+	{% endif %}
+
+	function auto_hide_message() {
+		$('#success').show();
+		setTimeout(function () {
+			check_error_and_success_list();
+		}, 3000);
+	}
+
+	function reload() {
+		window.location.href = window.location;
+	}
+
+
+	function show_and_hide_error(message) {
+		let error_box = document.getElementById("error");
+		let msg_node = document.createElement("li");
+		msg_node.innerText = message;
+		error_box.childNodes[1].appendChild(msg_node);
+		$('#error').show();
+		auto_hide_error();
+		setTimeout(function () {
+			error_box.childNodes[1].removeChild(msg_node);
+			check_error_and_success_list();
+		}, 5000)
+	}
+
+	function show_and_hide_success(message) {
+		let success_box = document.getElementById("success");
+		let msg_node = document.createElement("li");
+		msg_node.innerText = message;
+		success_box.childNodes[1].appendChild(msg_node);
+		$('#success').show();
+		auto_hide_message();
+		setTimeout(function () {
+			success_box.childNodes[1].removeChild(msg_node);
+			check_error_and_success_list();
+		}, 3000)
+	}
+
+	/*
+     * 通知
+     * title: 标题
+     * description: 内容
+     * type: 类型
+     * time: 显示时间
+     * position: 位置
+     * image: 图标
+     * showButtons: 是否显示按钮
+     * buttons: 按钮
+     * leftButtonCallBack: 左侧按钮回调函数
+     */
+	function message_notification(title = '测试标题', description = '测试消息',
+	                              type = 'warning', time = 0, showButtons = false,
+	                              showProgress = true,
+	                              leftButtonCallBack = function () {
+		                              this.close()
+	                              }, position = 'top-right') {
+		GrowlNotification.notify({
+			title: title,
+			description: description,
+			image: '{% static 'assets/images/message_icon/warning.png' %}',
+			type: type,
+			position: position,
+			closeTimeout: time,
+			showProgress: showProgress,
+			showButtons: showButtons,
+			buttons: {
+				action: {
+					text: '已读',
+					callback: leftButtonCallBack
+				},
+				cancel: {
+					text: '忽略'
+				}
+			}
+		});
+	}
+	{% if request.session.login_user_id %}
+		function get_user_messages() {
+			$.ajax({
+				url: '/api/get/messages/',
+				type: 'POST',
+				data: {
+					user_id: '{{ request.session.login_user_id }}',
+					csrfmiddlewaretoken: '{{ csrf_token }}'
+				},
+				dataType: 'json',
+				success: function (data) {
+					if (data.status === 200) {
+						for (const dataKey in data.data) {
+							message_notification('系统通知', data.data[dataKey].message_content,
+								'warning', 20000, true, true,
+								function () {
+									$.ajax({
+										url: '/api/read/message/',
+										type: 'POST',
+										data: {
+											message_id: data.data[dataKey].message_id,
+											csrfmiddlewaretoken: '{{ csrf_token }}'
+										},
+										dataType: 'json',
+										success: function (data) {
+											if (data.status === 200) {
+											} else {
+												message_notification('警告', '标记消息为已读失败,' + data.msg, 'error', 5000, false);
+											}
+										}, error: function (error) {
+											message_notification('警告', '标记消息为已读失败,' + error.msg, 'error', 5000, true);
+										}
+									})
+								});
+						}
+					} else {
+						message_notification('警告', '获取用户消息失败,' + data.msg, 'error', 5000, false);
+					}
+				}, error: function (error) {
+					message_notification('警告', '获取用户消息失败,' + error.msg, 'error', 5000, false);
+				}
+			})
+		}
+		$(document).ready(function () {
+			get_user_messages();
+		});
+		setInterval(get_user_messages, 60000);
+	{% endif %}
+</script>
 </html>

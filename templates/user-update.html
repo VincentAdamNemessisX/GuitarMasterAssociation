@@ -1,0 +1,670 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {% if user.user_nickname %}
+        {{ user.user_nickname }}
+    {% elif user.user_name %}
+        {{ user.user_name }}
+    {% else %}
+        Undefined User In
+    {% endif %}
+    用户详情
+{% endblock %}
+{% block custom_style %}
+    <style>
+        .team-thumb-overlay a {
+            border: none;
+        }
+
+        .icon-gradient img {
+            height: 10rem;
+            width: 10rem;
+            border-radius: 20%;
+            object-fit: cover;
+        }
+
+        span {
+            text-align: center;
+        }
+
+        .gallery-thumb {
+            width: 275px;
+            height: 15rem;
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10%;
+        }
+
+        .team-thumb {
+            width: 275px;
+            height: 15rem;
+        }
+
+        .team-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10%;
+        }
+
+        .team-wish-list li {
+            width: 40px;
+            text-align: center;
+        }
+
+        form input {
+            background-color: #fafafa;
+            color: #777777;
+            padding: 0;
+            text-transform: none;
+        }
+
+        .nice-select {
+            padding: 0;
+            border: none;
+            background-color: #fafafa;
+            color: #777777;
+            width: 100%;
+            height: 100%;
+        }
+
+        .none-data {
+            text-align: center;
+            margin: 100px auto;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <a href="#" class="scrollToTop"><i class="fas fa-heart"></i></a>
+    <!-- about-story-section start -->
+    <section class="about-story-section pd-t-120">
+        <div class="container">
+            <div class="row justify-content-center ml-b-30">
+                <div class="col-lg-12 mrb-30">
+                    <div class="about-story-area about-story-area-two d-flex flex-wrap align-items-center">
+                        <div class="about-story-thumb">
+                            {% if user.user_headicon %}
+                                <img src="{{ user.user_headicon.url }}" alt="headicon">
+                            {% else %}
+                                <img src="/media/user_headicon/default.png" alt="headicon">
+                            {% endif %}
+                        </div>
+                        <div class="about-story-content-two">
+                            <div class="about-story-content-body-two">
+                                <h3 class="title">
+                                    {% if user.user_nickname %}
+                                        {{ user.user_nickname }}
+                                    {% elif user.user_name %}
+                                        {{ user.user_name }}
+                                    {% else %}
+                                        Undefined User In
+                                    {% endif %}
+                                </h3>
+                                <p>
+                                    {% if user.user_description %}
+                                        {{ user.user_description }}
+                                    {% else %}
+                                        这个人很懒，什么都没写！
+                                    {% endif %}
+                                </p>
+                                <div class="about-story-content-footer d-flex flex-wrap justify-content-between">
+                                    <ul class="footer-social-two">
+                                        {% if user.user_qq %}
+                                            <li><a href="tencent://message/?uin={{ user.user_qq }}&Site=qq&Menu=Yes"><i
+                                                    class="bi bi-tencent-qq"></i></a></li>
+                                        {% endif %}
+                                        {% if user.user_wechat %}
+                                            <li><a href="weinxin://{{ user.user_wechat }}" class="active"><i
+                                                    class="bi bi-wechat"></i></a></li>
+                                        {% endif %}
+                                        {% if user.user_email %}
+                                            <li><a href="mailto:{{ user.user_email }}"><i
+                                                    class="fa fa-envelope"></i></a></li>
+                                        {% endif %}
+                                    </ul>
+                                    <ul class="team-wish-list">
+                                        <li><i class="fas fa-eye color-red"></i>
+                                            <span>
+                                                {% if user.user_view %}
+                                                    {{ user.user_view }}
+                                                {% else %}
+                                                    0
+                                                {% endif %}
+                                            </span>
+                                        </li>
+                                        <li><i class="fas fa-thumbs-up color-curious-blue"></i>
+                                            <span>
+                                                {% if user.user_like %}
+                                                    {{ user.user_like }}
+                                                {% else %}
+                                                    0
+                                                {% endif %}
+                                            </span>
+                                        </li>
+                                        <li><i class="fas fa-star color-yellow"></i>
+                                            <span>
+                                                {{ user.user_collection }}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- about-story-section end -->
+
+    <!-- user-details-section start -->
+    <section class="member-details-section ptb-120">
+        <div class="container">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="member-details-area ml-b-10">
+                    <div class="member-details-item-area d-flex flex-wrap mrb-10">
+                        <div class="member-details-single-item sec-bg d-flex flex-wrap">
+                            <div class="member-facilities">
+                                <label for="user_name"><i class="fas fa-user"></i>用户名</label>
+                            </div>
+                            <div class="member-facilities">
+                                {% if user.user_name %}
+                                    <input type="text" id="user_name" name="user_name" value="{{ user.user_name }}">
+                                {% else %}
+                                    Undefined User In
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="member-details-single-item sec-bg d-flex flex-wrap">
+                            <div class="member-facilities">
+                                <label for="user_nickname"><i class="bi bi-nut"></i>昵称</label>
+                            </div>
+                            <div class="member-facilities">
+                                {% if user.user_nickname %}
+                                    <input type="text" id="user_nickname" name="user_nickname"
+                                           value="{{ user.user_nickname }}">
+                                {% else %}
+                                    <input type="text" id="user_nickname" name="user_nickname" value="暂未设置昵称">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="member-details-single-item sec-bg d-flex flex-wrap">
+                            <div class="member-facilities">
+                                <label for="user_email"><i class="fas fa-mail-bulk"></i>邮箱</label>
+                            </div>
+                            <div class="member-facilities">
+                                {% if user.user_email %}
+                                    <input type="email" name="user_email" id="user_email" value="{{ user.user_email }}">
+                                {% else %}
+                                    <input type="email" name="user_email" id="user_email" value="Unknown Error">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="member-details-single-item sec-bg d-flex flex-wrap">
+                            <div class="member-facilities">
+                                <label for="user_sex"><i class="bi bi-gender-trans"></i>性别</label>
+                            </div>
+                            <div class="member-facilities">
+                                <select id="user_sex" name="user_sex">
+                                    {% if user.user_sex == 0 %}
+                                        <option value="0" selected><i class="bi bi-gender-trans"></i>保密</option>
+                                        <option value="1"><i class="bi bi-gender-male"></i>男</option>
+                                        <option value="2"><i class="bi bi-gender-female"></i>女</option>
+                                    {% elif user.user_sex == 1 %}
+                                        <option value="0"><i class="bi bi-gender-trans"></i>保密</option>
+                                        <option value="1" selected><i class="bi bi-gender-male"></i>男</option>
+                                        <option value="2"><i class="bi bi-gender-female"></i>女</option>
+                                    {% elif user.user_sex == 2 %}
+                                        <option value="0"><i class="bi bi-gender-trans"></i>保密</option>
+                                        <option value="1"><i class="bi bi-gender-male"></i>男</option>
+                                        <option value="2" selected><i class="bi bi-gender-female"></i>女</option>
+                                    {% else %}
+                                        <option value="0"><i class="bi bi-gender-trans"></i>保密</option>
+                                        <option value="1"><i class="bi bi-gender-male"></i>男</option>
+                                        <option value="2"><i class="bi bi-gender-female"></i>女</option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="member-details-single-item sec-bg d-flex flex-wrap">
+                            <div class="member-facilities">
+                                <label for="user_description"><i class="bi bi-info-square"></i>个人简介</label>
+                            </div>
+                            <div class="member-facilities">
+                                {% if user.user_description %}
+                                    <input type="text" name="user_description" id="user_description"
+                                           value="{{ user.user_description }}">
+                                {% else %}
+                                    <input type="text" name="user_description" id="user_description" value="暂无简介">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="member-details-single-item sec-bg d-flex flex-wrap">
+                            <div class="member-facilities">
+                                <label for="user_headicon"><i class="bi bi-card-image"></i>头像</label>
+                            </div>
+                            <div class="member-facilities">
+                                {% if user.user_headicon %}
+                                    当前：
+                                    <input disabled type="text" id="user_headicon" value="{{ user.user_headicon.url }}">
+                                    修改：<input accept="image/*"
+                                                class="form-control-file custom-file" type="file" name="user_headicon">
+                                {% else %}
+                                    Unknown Error
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="member-details-single-item sec-bg d-flex flex-wrap">
+                            <div class="member-facilities">
+                                <label for="user_wechat"><i class="bi bi-wechat"></i>微信</label>
+                            </div>
+                            <div class="member-facilities">
+                                <input type="text" name="user_wechat" id="user_wechat" value="{{ user.user_wechat }}">
+                            </div>
+                        </div>
+                        <div class="member-details-single-item sec-bg d-flex flex-wrap">
+                            <div class="member-facilities">
+                                <label for="user_qq"><i class="bi bi-tencent-qq"></i>QQ</label>
+                            </div>
+                            <div class="member-facilities">
+                            <span class="second">
+                                    <input type="text" name="user_qq" id="user_qq" value="{{ user.user_qq }}">
+                            </span>
+                            </div>
+                        </div>
+                        <div class="member-details-single-item sec-bg d-flex flex-wrap">
+                            <div class="member-facilities">
+                                <label for="user_phone"><i class="fas fa-phone"></i>电话</label>
+                            </div>
+                            <div class="member-facilities">
+                                <input type="tel" name="user_phone" id="user_phone" value="{{ user.user_phone }}">
+                            </div>
+                        </div>
+                        <div class="member-details-single-item sec-bg d-flex flex-wrap">
+                            <div class="member-facilities">
+                                <button type="submit" class="cmn-btn">更新</button>
+                            </div>
+                            <div class="member-facilities">
+                                <button type="reset" class="cmn-btn">重置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- user-details-section end -->
+    <!-- personal-collection-section start -->
+    <section class="process-section ptb-120" id="personal-collection">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 text-center">
+                    <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <h2 class="section-title">
+                            {% if request.session.login_user_id == user.user_id %}
+                                个人
+                            {% else %}
+                                {% if user.user_sex == 2 %}
+                                    她的
+                                {% else %}
+                                    他的
+                                {% endif %}
+                            {% endif %}收藏
+                        </h2>
+                        <p class="text-truncate">收藏是心灵的一扇窗，透过它我们看到自己曾经热爱、留恋的瞬间。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="process-item-area" id="collectionContainer">
+                {% if user.collection_count <= 0 %}
+                    <h2 class="none-data">
+                        {% if request.session.login_user_id == user.user_id %}
+                            您
+                        {% else %}
+                            {% if user.user_sex == 2 %}
+                                她
+                            {% else %}
+                                他
+                            {% endif %}
+                        {% endif %}的收藏夹空空如也！</h2>
+                {% elif user.collection_count <= 3 %}
+                    <div class="row justify-content-center">
+                        {% for col in user.collection %}
+                            <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                                 data-wow-delay="0.3s" id="collection-{{ col.collection_id }}">
+                                <div class="process-item text-center">
+                                    <a href="/post-{{ col.post_id.post_layout_mode }}/?post_id={{ col.post_id.post_id }}">
+                                        <div class="icon-gradient">
+                                            <img src="/media/{{ col.post_id.post_image }}"
+                                                 alt="{{ col.post_id.post_title }}"/>
+                                        </div>
+                                        <h3 class="title">{{ col.post_id.post_title }}</h3>
+                                        <p class="text-truncate" style="width: 15rem">{{ col.post_id.post_content }}</p>
+                                    </a>
+                                    <button class="cmn-btn" onclick="remove_collection({{ col.collection_id }})">
+                                        删除
+                                    </button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="row justify-content-center">
+                        {% for col in user.collection %}
+                            <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                                 data-wow-delay="0.3s" id="collection-{{ col.collection_id }}">
+                                <div class="process-item text-center">
+                                    <a href="/post-{{ col.post_id.post_layout_mode }}/?post_id={{ col.post_id.post_id }}">
+                                        <div class="icon-gradient">
+                                            <img src="{{ col.post_id.post_image.url }}"
+                                                 alt="{{ col.post_id.post_title }}"/>
+                                        </div>
+                                        <h3 class="title">{{ col.post_id.post_title }}</h3>
+                                        <p class="text-truncate" style="width: 15rem">{{ col.post_id.post_content }}</p>
+                                    </a>
+                                    <button class="cmn-btn" onclick="remove_collection({{ col.collection_id }})">
+                                        删除
+                                    </button>
+                                </div>
+                            </div>
+                            {% if forloop.counter == 3 %}
+                                </div>
+                                <div class="row justify-content-center">
+                            {% endif %}
+                        {% if forloop.counter == 6 and user.collection_count > 6 %}
+                            </div>
+                            <div class="text-center mrb-30" id="collectionViewMoreBtn" style="">
+                                <button class="btn btn-primary" onclick="loadMoreCollection()">查看更多</button>
+                            </div>
+                            <script>
+								function loadMoreCollection() {
+									let collectionContainer = document.getElementById('collectionContainer');
+									// Use AJAX or other methods to load more collection items and append to collectionContainer
+									$.ajax({
+										url: '/user/collection/more/',
+										type: 'POST',
+										data: {
+											user_id: {{ request.GET.user_id }},
+											csrfmiddlewaretoken: '{{ csrf_token }}'
+										},
+										dataType: 'json',
+										success: function (data) {
+											{#console.log(data['data'][0]['post_title']);#}
+											collectionContainer.innerHTML += "<div id='append_row' class=\"row justify-content-center\">";
+											collectionContainer = document.getElementById('append_row');
+											if (data['data'].length === 0) {
+												collectionContainer.innerHTML = "没有更多了";
+												return;
+											}
+											for (let i = 0; i < data['data'].length; i++) {
+												// 动态添加元素
+												let html = `
+												<div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                                                         data-wow-delay="0.3s" id="collection-` + data['data'][i]['post_id'] + `">
+                                                    <div class="process-item text-center">
+                                                        <a href="/post-` + data['data'][i]['post_layout_mode'] + `/?post_id=` + data['data'][i]['post_id'] + `">
+                                                            <div class="icon-gradient">
+                                                                <img src="` + data['data'][i]['post_image'] + `" alt="` + data['data'][i]['post_title'] + `" />
+                                                            </div>
+                                                            <h3 class="title">` + data['data'][i]['post_title'] + `</h3>
+                                                            <p  class="text-truncate" style="width: 15rem">` + data['data'][i]['post_content'] + `</p>
+                                                        </a>
+                                                        <button class="cmn-btn" onclick="remove_collection(` + data['data'][i]['collection_id'] + `)">
+                                                            删除
+                                                        </button>
+                                                    </div>
+                                                </div>`;
+												collectionContainer.innerHTML += html;
+											}
+											{#collectionContainer.attributes['id'].value = '';#}
+											collectionContainer.innerHTML += "</div>";
+											$("#collectionViewMoreBtn").remove();
+										}
+									});
+								}
+                            </script>
+                        {% endif %}
+                        {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!-- personal-collection-section end -->
+    <!-- personal-post-section start -->
+    <section class="team-section pd-t-120 bg-overlay-white-two bg_img" id="personal-post"
+             data-background={% static "assets/images/gallery/portfolio-bg.png" %}>
+        <div class="container">
+            <div class="row justify-content-center" id="posts-container">
+                <div class="col-lg-7 text-center">
+                    <div class="section-header wow fade-in-up" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <h2 class="section-title">
+                            {% if request.session.login_user_id == user.user_id %}
+                                个人
+                            {% else %}
+                                {% if user.user_sex == 2 %}
+                                    她的
+                                {% else %}
+                                    他的
+                                {% endif %}
+                            {% endif %}发布</h2>
+                        <p class="text-truncate">每一个发布都是一颗思想的种子，播撒在社交的土壤中，终将开出精彩的花朵。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                {% if user.post_set.count > 0 %}
+                    {% for post in user.post %}
+                        <div class="col-lg-4 col-md-6 col-sm-8 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                             data-wow-delay="0.5s" id="post-{{ post.post_id }}">
+                            <div class="team-thumb">
+                                <img src="{{ post.post_image.url }}" alt="team">
+                                <div class="team-thumb-overlay">
+                                    <a class="image-popup" title="{{ post.post_title }}"
+                                       href="{{ post.post_image.url }}"><i
+                                            class="fas fa-search"></i></a>
+                                </div>
+                            </div>
+                            <div class="team-details text-center">
+                                <a href="/post-{{ post.post_layout_mode }}/?post_id={{ post.post_id }}"><h3
+                                        class="title">{{ post.post_title }}</h3>
+                                    <ul class="team-content">
+                                        <li class="text-truncate" style="width: 10rem">
+                                            <span>摘要：</span>{{ post.post_content }}</li>
+                                    </ul>
+                                </a>
+                                <ul class="team-wish-list">
+                                    <li><i class="fas fa-eye color-red"></i><span>{{ post.post_view }}</span></li>
+                                    <li><i class="fas fa-heart color-yellow"></i><span>{{ post.post_like }}</span></li>
+                                    <li>
+                                        <i class="fas fa-star color-curious-blue"></i><span>{{ post.collection_set.count }}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-comment color-curious-blue"></i><span>{{ post.review_set.count }}</span>
+                                    </li>
+                                </ul>
+                                <button class="cmn-btn" onclick="remove_post({{ post.post_id }})">
+                                    删除
+                                </button>
+                                <button class="cmn-btn" onclick="edit_post({{ post.post_id }})">
+                                    修改
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    <h2 class="none-data">
+                        {% if request.session.login_user_id == user.user_id %}
+                            您
+                        {% else %}
+                            {% if user.user_sex == 2 %}
+                                她
+                            {% else %}
+                                他
+                            {% endif %}
+                        {% endif %}
+                        还没有发布过任何内容！</h2>
+                {% endif %}
+        </div>
+    </section>
+    <!-- personal-post-section end -->
+{% endblock %}
+{% block custom_script %}
+    <script>
+		function remove_collection(collection_id) {
+			let x = document.getElementById("collection-" + collection_id);
+			$.ajax(
+				{
+					url: "/collection/remove/",
+					type: "POST",
+					data: {
+						collection_id: collection_id,
+						csrfmiddlewaretoken: "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data === '200') {
+							x.parentNode.removeChild(x);
+							check_collection();
+							let success_box = document.getElementById("success");
+							let msg_node = document.createElement("li");
+							msg_node.innerText = "已删除";
+							success_box.childNodes[1].appendChild(msg_node);
+							$('#success').show();
+							auto_hide_message();
+							setTimeout(function () {
+								success_box.childNodes[1].removeChild(msg_node);
+								check_error_and_success_list();
+							}, 3000);
+							check_collection();
+							{#console.log(data);#}
+						} else {
+							let error_box = document.getElementById("error");
+							let msg_node = document.createElement("li");
+							msg_node.innerText = "删除失败" + data;
+							error_box.childNodes[1].appendChild(msg_node);
+							$('#error').show();
+							auto_hide_error();
+							setTimeout(function () {
+								error_box.childNodes[1].removeChild(msg_node);
+								check_error_and_success_list();
+							}, 5000);
+							check_collection();
+							console.log(data);
+						}
+					},
+					error: function (data) {
+						let error_box = document.getElementById("error");
+						let msg_node = document.createElement("li");
+						msg_node.innerText = "删除失败" + data;
+						error_box.childNodes[1].appendChild(msg_node);
+						$('#error').show();
+						auto_hide_error();
+						setTimeout(function () {
+							error_box.childNodes[1].removeChild(msg_node);
+							check_error_and_success_list();
+						}, 5000);
+						check_collection();
+						console.log(data);
+					}
+				}
+			);
+		}
+
+		function check_collection() {
+			let x = document.getElementById("collectionContainer").childNodes[1];
+			let x1 = document.getElementById("append_row");
+			try {
+				if (x.children.length <= 0 && x1.children.length <= 0) {
+					let child = document.createElement("h2");
+					child.class = "none-data";
+					child.innerText = "您的收藏夹空空如也！";
+					x.appendChild(child);
+				}
+			} catch (e) {
+				console.log(e);
+			}
+		}
+
+		function remove_post(post_id) {
+			let x = document.getElementById("post-" + post_id);
+			$.ajax(
+				{
+					url: "/post/remove/",
+					type: "POST",
+					data: {
+						post_id: post_id,
+						csrfmiddlewaretoken: "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data === '200') {
+							x.parentNode.removeChild(x);
+							check_posts();
+							let success_box = document.getElementById("success");
+							let msg_node = document.createElement("li");
+							msg_node.innerText = "已删除";
+							success_box.childNodes[1].appendChild(msg_node);
+							$('#success').show();
+							auto_hide_message();
+							setTimeout(function () {
+								success_box.childNodes[1].removeChild(msg_node);
+								check_error_and_success_list();
+							}, 3000);
+							check_posts();
+							{#console.log(data);#}
+						} else {
+							let error_box = document.getElementById("error");
+							let msg_node = document.createElement("li");
+							msg_node.innerText = "删除失败," + data;
+							error_box.childNodes[1].appendChild(msg_node);
+							$('#error').show();
+							auto_hide_error();
+							setTimeout(function () {
+								error_box.childNodes[1].removeChild(msg_node);
+								check_error_and_success_list();
+							}, 5000);
+							check_posts();
+							console.log(data);
+						}
+					},
+					error: function (data) {
+						let error_box = document.getElementById("error");
+						let msg_node = document.createElement("li");
+						msg_node.innerText = "删除失败" + data;
+						error_box.childNodes[1].appendChild(msg_node);
+						$('#error').show();
+						auto_hide_error();
+						setTimeout(function () {
+							error_box.childNodes[1].removeChild(msg_node);
+							check_error_and_success_list();
+						}, 5000);
+						check_posts();
+						console.log(data);
+					}
+				}
+			);
+		}
+
+		function check_posts() {
+			let x = document.getElementById("posts-container");
+			try {
+				if (x.children.length <= 0) {
+					let child = document.createElement("h2");
+					child.class = "none-data";
+					child.innerText = "您还未发布任何内容！";
+					x.appendChild(child);
+				}
+			} catch (e) {
+				console.log(e);
+			}
+		}
+
+		function edit_post(post_id) {
+			window.location.href = "/post/update/?post_id=" + post_id;
+		}
+    </script>
+{% endblock %}

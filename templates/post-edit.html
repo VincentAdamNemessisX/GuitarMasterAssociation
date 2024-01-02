@@ -1,0 +1,387 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    更新帖子
+{% endblock %}
+{% block custom_style %}
+    <style>
+        .whole_frame {
+            width: 80%;
+            height: 70rem;
+            margin: 1rem auto 3rem auto;
+            position: relative;
+        }
+
+        form {
+            height: 30%;
+        }
+
+        .editor-container {
+            z-index: 1000;
+            height: 70%
+        }
+
+        .editor {
+            min-height: 60%;
+            max-height: 90%;
+            overflow: auto;
+        }
+
+        form {
+            display: grid;
+            padding-left: 3rem;
+        }
+
+        .nice-select .option, .current {
+            text-align: center;
+        }
+
+        form input, .nice_color, .nice-select {
+            background-color: #e9f2ff;
+        }
+
+        .nice-select {
+            width: 30%;
+            padding: 0;
+            text-align: center;
+        }
+
+        .right_side {
+            position: absolute;
+            right: 0;
+            top: 15%;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: right;
+        }
+
+        .post-btn {
+            margin-right: 2rem;
+            font-size: larger;
+        }
+
+        .post-title {
+            width: 30%;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="shadow whole_frame">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="post-title">
+                <label for="title">标题:</label>
+                <input type="text" class="form-control nice_color" id="title" value={{ post.post_title }}
+                        placeholder="请输入标题" style="height: 3.2rem; line-height: 3.2rem;">
+            </div>
+            <div class="form-group">
+                <label for="zone">分类:</label>
+                <select class="form-control" id="zone" name="zone_id">
+                    <option value="0" selected>请选择分类</option>
+                    {% for zone in request.session.zones.data %}
+                        <option value="{{ zone.zone_id }}">{{ zone.zone_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="layout_mode">页面显示风格:</label>
+                <select class="form-control" id="layout_mode">
+                    <option value="0" selected>请选择风格</option>
+                    <option value="normal">默认风格</option>
+                    <option value="immersion">沉浸风格</option>
+                </select>
+            </div>
+            <div class="form-btn-group right_side">
+                <button type="button" class="btn btn-primary cmn-btn post-btn" onclick="update_post()">更新
+                </button>
+                <button type="button" class="btn btn-secondary cmn-btn post-btn" onclick="reset_logic()">取消</button>
+            </div>
+        </form>
+        <div id="editor-container" class="editor-container">
+            <div id="editor-tool-bar"></div>
+            <div id="editor" class="editor"></div>
+        </div>
+    </div>
+{% endblock %}
+{% block custom_script %}
+    <script>
+		const {createEditor, createToolbar} = window.wangEditor
+
+		const editorConfig = {
+			placeholder: '请在这里输入正文...',
+			readOnly: false,
+			scroll: true,
+		}
+
+		const editor = createEditor({
+			selector: '#editor',
+			html: {% if post.post_content %}'{{ post.post_content | safe }}'{% else %}''{% endif %},
+			config: editorConfig,
+			mode: 'default',
+		})
+
+		const toolbarConfig = {}
+
+		toolbarConfig.excludeKeys = [
+			"underline",
+			'codeBlock',
+			'insertTable',
+			"insertVideo",
+			"through",
+			"clearStyle",
+		]
+
+		const toolbar = createToolbar({
+			editor,
+			selector: '#editor-tool-bar',
+			config: toolbarConfig,
+			mode: 'simple',
+		})
+
+		$(document).ready(function () {
+			editor.getConfig().hoverbarKeys.text.menuKeys = [
+				"bgColor", "color", "bold",
+				"|", "bulletedList", "insertLink"
+			];
+			editor.getConfig().MENU_CONF['uploadImage'] = {
+				server: '/api/post/upload/image/',
+				// form-data fieldName ，默认值 'wangeditor-uploaded-image'
+				fieldName: 'post-upload-image',
+				// 单个文件的最大体积限制，默认为 2M
+				maxFileSize: 10 * 1024 * 1024, // 10M
+				// 最多可上传几个文件，默认为 100
+				maxNumberOfFiles: 10,
+				// 选择文件时的类型限制，默认为 ['image/*'] 。如不想限制，则设置为 []
+				allowedFileTypes: ['image/*'],
+				// 自定义上传参数，例如传递验证的 token 等。参数会被添加到 formData 中，一起上传到服务端。
+				meta: {
+					"csrfmiddlewaretoken": "{{ csrf_token }}",
+				}
+				,
+				// 将 meta 拼接到 url 参数中，默认 false
+				metaWithUrl: false,
+				// 自定义增加 http  header
+				headers: {
+					Accept: 'text/x-json',
+				}
+				,
+				// 跨域是否传递 cookie ，默认为 false
+				withCredentials: true,
+				// 超时时间，默认为 10 秒
+				timeout:
+					5 * 1000, // 5 秒
+				// 上传之前触发
+				{#onBeforeUpload(file: File) { // TS 语法#}
+				onBeforeUpload(file) {    // JS 语法
+					// file 选中的文件，格式如 { key: file }
+					return file
+
+					// 可以 return
+					// 1. return file 或者 new 一个 file ，接下来将上传
+					// 2. return false ，不上传这个 file
+				},
+
+				// 上传进度的回调函数
+				{#onProgress(progress: number) {  // TS 语法#}
+				onProgress(progress) {       // JS 语法
+					// progress 是 0-100 的数字
+					console.log('progress', progress)
+				},
+
+				// 单个文件上传成功之后
+				{#onSuccess(file: File, res: any) {  // TS 语法#}
+				onSuccess(file, res) {          // JS 语法
+					console.log(`${file.name} 上传成功`, res)
+				},
+
+				// 单个文件上传失败
+				{#onFailed(file: File, res: any) {   // TS 语法#}
+				onFailed(file, res) {           // JS 语法
+					console.log(`${file.name} 上传失败`, res)
+				},
+
+				// 上传错误，或者触发 timeout 超时
+				{#onError(file: File, err: any, res: any) {  // TS 语法#}
+				onError(file, err, res) {               // JS 语法
+					console.log(`${file.name} 上传出错`, err, res)
+				},
+			}
+		})
+
+		function reset_logic() {
+			document.forms[1].reset();
+			set_zone(); set_layout_mode();
+			editor.setHtml(`{% if post.post_content %}{{ post.post_content | safe }}{% else %}''{% endif %}`);
+		}
+
+
+		function check_post_content() {
+			if (editor.getHtml() === '<p><br></p>') {
+				show_and_hide_error("文章内容不能为空！");
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function check_post_title() {
+			let title = document.getElementById("title").value;
+			if (title === "") {
+				show_and_hide_error("文章标题不能为空！");
+				return false;
+			} else {
+				if (/^[\u4E00-\u9FA5A-Za-z0-9]{3,200}$/.test(title)) {
+					return true;
+				} else {
+					show_and_hide_error("文章标题为200个字符之内的汉字、字母或数字组成！");
+					return false;
+				}
+			}
+		}
+
+		function check_post_zone_and_layout_mode() {
+			let x = document.getElementsByClassName('current');
+			let flag = true;
+			for (const xKey in x) {
+				try {
+					let x1 = x[xKey].parentElement.children[1].children;
+					for (const x1Key in x1) {
+						if (x1[x1Key].classList[1] === "selected") {
+							if (x1[x1Key].getAttribute("data-value") === "0") {
+								show_and_hide_error("请检查分类和页面显示风格");
+								flag = false;
+							}
+						}
+					}
+				} catch (e) {
+				}
+			}
+			return flag;
+		}
+
+		function get_zone() {
+			let x = document.getElementsByClassName('current')[0];
+			for (const xKey in x) {
+				try {
+					let x1 = x[xKey].parentElement.children[1].children;
+					for (const x1Key in x1) {
+						if (x1[x1Key].classList[1] === "selected") {
+							return x1[x1Key].getAttribute("data-value");
+						}
+					}
+				} catch (e) {
+				}
+			}
+			return null;
+		}
+
+		function set_zone() {
+			let x = document.getElementsByClassName('current')[0];
+			for (const xKey in x) {
+				try {
+					let x1 = x[xKey].parentElement.children[1].children;
+					for (const x1Key in x1) {
+						x1[x1Key].classList.remove("selected");
+						if (x1[x1Key].getAttribute("data-value") === "{{ post.zone_id.zone_id }}") {
+							x1[x1Key].classList.add("selected");
+							x.innerText = x1[x1Key].innerText;
+							break;
+						}
+					}
+				} catch (e) {
+				}
+			}
+		}
+
+		function get_layout_mode() {
+			let x = document.getElementsByClassName('current')[1];
+			for (const xKey in x) {
+				try {
+					let x1 = x[xKey].parentElement.children[1].children;
+					for (const x1Key in x1) {
+						if (x1[x1Key].classList[1] === "selected") {
+							return x1[x1Key].getAttribute("data-value");
+						}
+					}
+				} catch (e) {
+				}
+			}
+			return null;
+		}
+
+		function set_layout_mode() {
+			let x = document.getElementsByClassName('current')[1];
+			for (const xKey in x) {
+				try {
+					let x1 = x[xKey].parentElement.children[1].children;
+					for (const x1Key in x1) {
+						x1[x1Key].classList.remove("selected");
+						if (x1[x1Key].getAttribute("data-value") === "{{ post.post_layout_mode }}") {
+							x1[x1Key].classList.add("selected");
+							x.innerText = x1[x1Key].innerText;
+							break;
+						}
+					}
+				} catch (e) {
+				}
+			}
+			return null;
+		}
+
+		function validate_post() {
+			return !!(check_post_title() && check_post_zone_and_layout_mode() && check_post_content());
+		}
+
+		function update_post() {
+			if (validate_post()) {
+				let post_title = document.getElementById("title").value;
+				let post_content = editor.getHtml();
+				let post_zone = get_zone();
+				let post_layout_mode = get_layout_mode();
+				$.ajax({
+					url: "/post/update/",
+					type: "POST",
+					data: {
+						"post_id": "{{ post.post_id }}",
+						"post_title": post_title,
+						"post_content": post_content,
+						"zone_id": post_zone,
+						"post_layout_mode": post_layout_mode,
+						"csrfmiddlewaretoken": "{{ csrf_token }}",
+					},
+					success: function (data) {
+						if (data.status === 200) {
+							show_and_hide_success("更新成功！");
+							setTimeout(function () {
+								window.location.href = "/post-" + data.data.post_layout_mode + "?post_id=" + data.data.post_id;
+							}, 2000);
+						} else {
+							show_and_hide_error("更新失败，" + data.message);
+						}
+					},
+					error: function (data) {
+						show_and_hide_error("更新异常，" + data.message);
+					}
+				})
+			}
+		}
+
+		function layout_init_post() {
+			let title = document.getElementById("title");
+            set_zone(); set_layout_mode();
+			if (title.value === "") {
+				title.value = "{{ post.title }}";
+			}
+		}
+
+		$(document).ready(function () {
+			layout_init_post();
+			{% if error == "参数异常" %}
+				setTimeout(function () {
+					window.history.back();
+				}, 5000);
+			{% endif %}
+		});
+    </script>
+{% endblock %}

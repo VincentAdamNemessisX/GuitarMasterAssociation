@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- 404-section start -->
+    <section class="four-not-four-section bg-overlay-two bg_img" data-background={% static "assets/images/500.png" %}>
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-12 text-center">
+                    <div class="four-not-four-content">
+                        <span class="sub-title">警告</span>
+                        <img alt="500" src={% static "assets/images/500.png" %}>
+                        <h3 class="title">无权访问</h3>
+                        <a href="javascript:history.back();" class="btn-border-white">返回上页</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 404-section end -->
+{% endblock %}
