@@ -1,6 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="GuitarMasterAssociation" type="Python.DjangoServer" factoryName="Django server">
     <module name="GuitarMasterAssociation" />
+    <option name="ENV_FILES" value="" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />
     <envs>
@@ -8,14 +9,13 @@
       <env name="DJANGO_SETTINGS_MODULE" value="GuitarMasterAssociation.settings" />
     </envs>
     <option name="SDK_HOME" value="$USER_HOME$/anaconda3/envs/django/bin/python" />
-    <option name="SDK_NAME" value="django" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-    <option name="IS_MODULE_SDK" value="false" />
+    <option name="IS_MODULE_SDK" value="true" />
     <option name="ADD_CONTENT_ROOTS" value="true" />
-    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="false" />
     <option name="launchJavascriptDebuger" value="false" />
-    <option name="port" value="2222" />
-    <option name="host" value="127.0.0.1" />
+    <option name="port" value="22222" />
+    <option name="host" value="localhost" />
     <option name="additionalOptions" value="" />
     <option name="browserUrl" value="" />
     <option name="runTestServer" value="false" />

@@ -2,11 +2,12 @@ import json
 import random
 
 import bs4
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Subquery, OuterRef, Sum
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from django.contrib import messages
+
 from collection.models import Collection
 from custom.data_handle import handle_uploaded_image
 from custom.goto_controller import redirect_referer
@@ -367,6 +368,7 @@ def post_logic(request, method='post'):
             post.post_content = request.POST.get('post_content')
             post.post_layout_mode = request.POST.get('post_layout_mode')
             post.post_image = post_image_path
+            post.post_status = 2
             post.save()
         else:
             post = None
@@ -387,6 +389,7 @@ def post_logic(request, method='post'):
             post.post_title = request.POST.get('post_title')
             post.post_content = request.POST.get('post_content')
             post.post_layout_mode = request.POST.get('post_layout_mode')
+            post.post_status = 2
             post.save()
         else:
             post = None
@@ -400,7 +403,7 @@ def post_logic(request, method='post'):
 
 def search_posts(request):
     if request.method == 'GET':
-        recommend_posts = get_recommend_posts()
+        recommend_posts = get_recommend_posts()[:3]
         site_data = {
             'site_views': Post.objects.filter(post_status=1).aggregate(site_views=Sum('post_view')).get('site_views'),
             'site_users': User.objects.all().count(),

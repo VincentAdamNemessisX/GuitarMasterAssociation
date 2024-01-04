@@ -85,11 +85,11 @@ WSGI_APPLICATION = 'GuitarMasterAssociation.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'GuitarMasterAssociation',
+        'NAME': 'GuitarMaster',
         'HOST': 'localhost',
         'PORT': '3306',
-        'USER': 'lbwznb',
-        'PASSWORD': 'lbwznb',
+        'USER': 'root',
+        'PASSWORD': 'ic3344',
     }
 }
 

@@ -9,8 +9,8 @@
         Undefined User In
     {% endif %}
     用户详情
-{% endblock %}
-{% block custom_style %}
+{% endblock %} 
+{% block custom_style %} 
     <style>
         .team-thumb-overlay a {
             border: none;
@@ -437,7 +437,7 @@
     <!-- personal-collection-section end -->
     <!-- personal-post-section start -->
     <section class="team-section pd-t-120 bg-overlay-white-two bg_img" id="personal-post"
-             data-background={% static "assets/images/gallery/portfolio-bg.png" %}>
+             data-background={% static "assets/images/portfolio-bg.png" %}>
         <div class="container">
             <div class="row justify-content-center" id="posts-container">
                 <div class="col-lg-7 text-center">
@@ -666,5 +666,7 @@
 		function edit_post(post_id) {
 			window.location.href = "/post/update/?post_id=" + post_id;
 		}
+        
+        
     </script>
 {% endblock %}

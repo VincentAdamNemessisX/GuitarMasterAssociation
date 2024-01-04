@@ -61,7 +61,7 @@ def get_posts_by_any_with_vague(content, user_name='', zone_name=''):
 
 
 def get_recommend_posts():
-    return Post.objects.filter(post_status=1).order_by('post_like').order_by('post_view')[:5]
+    return Post.objects.filter(post_status=1).order_by('post_like').order_by('post_view')
 
 
 def get_the_most_popular_post():

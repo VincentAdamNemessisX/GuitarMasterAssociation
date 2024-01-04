@@ -141,7 +141,8 @@
                                                  data-wow-delay="0.5s">
                                                 {{ post.post_content|truncatewords_html:300 }}
                                             </div>
-                                            <a href="#0" class="cmn-btn wow fade-in-bottom" data-wow-duration="1s"
+                                            <a href="/post-{{ post.post_layout_mode }}?post_id={{ post.post_id }}"
+                                               class="cmn-btn wow fade-in-bottom" data-wow-duration="1s"
                                                data-wow-delay="0.5s">查看详情</a>
                                         </div>
                                     </div>
