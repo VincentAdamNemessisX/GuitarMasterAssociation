@@ -193,11 +193,11 @@
     .growl-notification {
         z-index: 10000;
     }
-    
+
     #w-e-textarea-1 {
         min-height: 20rem;
     }
-    
+
     input[type="checkbox"] {
         width: auto;
     }
@@ -227,7 +227,7 @@
 						$('#error').hide();
 					}, 5000);
 				}
-
+				
 				auto_hide_error();
 				{% if back %}
 					function back() {
@@ -251,10 +251,10 @@
 						$('#success').hide();
 					}, 3000);
 				}
-
+				
 				auto_hide_message();
 				setTimeout(reload, 3000);
-
+				
 				function reload() {
 					window.location.href = window.location;
 				}
@@ -329,13 +329,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width: 60%">
                     <ul class="navbar-nav main-menu">
-{#                        <li class="menu_has_children"><a href="#0">专区<i class="fas fa-caret-down"></i></a>#}
-{#                            <ul class="sub-menu">#}
-                                {% for zone in request.session.zones.data %}
-                                    <li><a href="/zone?zone_id={{ zone.zone_id }}">{{ zone.zone_name }}专区</a></li>
-                                {% endfor %}
-{#                            </ul>#}
-{#                        </li>#}
+                        {#                        <li class="menu_has_children"><a href="#0">专区<i class="fas fa-caret-down"></i></a>#}
+                        {#                            <ul class="sub-menu">#}
+                        {% for zone in request.session.zones.data %}
+                            <li><a href="/zone?zone_id={{ zone.zone_id }}">{{ zone.zone_name }}专区</a></li>
+                        {% endfor %}
+                        {#                            </ul>#}
+                        {#                        </li>#}
                         <li><a href="/help">需要帮助？</a></li>
                         <li><a href="/post/publish">发表帖子</a></li>
                     </ul>
@@ -473,33 +473,33 @@
 		} catch (e) {
 		}
 	}
-
+	
 	function auto_hide_error() {
 		$('#error').show();
 		setTimeout(function () {
 			check_error_and_success_list();
 		}, 5000);
 	}
-
+	
 	{% if back %}
 		function back() {
 			window.history.back();
 		}
 		setTimeout(back, 5000);
 	{% endif %}
-
+	
 	function auto_hide_message() {
 		$('#success').show();
 		setTimeout(function () {
 			check_error_and_success_list();
 		}, 3000);
 	}
-
+	
 	function reload() {
 		window.location.href = window.location;
 	}
-
-
+	
+	
 	function show_and_hide_error(message) {
 		let error_box = document.getElementById("error");
 		let msg_node = document.createElement("li");
@@ -512,7 +512,7 @@
 			check_error_and_success_list();
 		}, 5000)
 	}
-
+	
 	function show_and_hide_success(message) {
 		let success_box = document.getElementById("success");
 		let msg_node = document.createElement("li");
@@ -525,7 +525,7 @@
 			check_error_and_success_list();
 		}, 3000)
 	}
-
+	
 	/*
      * 通知
      * title: 标题
@@ -612,5 +612,34 @@
 		});
 		setInterval(get_user_messages, 60000);
 	{% endif %}
+let lastScrollTop = 0;
+let delayTimer;
+
+document.body.onscroll = function () {
+    let currentScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+    // 判断滚动方向
+    if (currentScrollTop > lastScrollTop) {
+        // 向下滚动
+        if (currentScrollTop > 50) {
+            // 隐藏 header
+            document.getElementsByClassName("header-bottom-area")[0].style.display = "none";
+        }
+    } else {
+        // 向上滚动
+        if (currentScrollTop > 50) {
+            // 延迟显示 header
+            clearTimeout(delayTimer);
+            delayTimer = setTimeout(function () {
+                document.getElementsByClassName("header-bottom-area")[0].style.display = "block";
+            }, 10); // 延迟时间，单位为毫秒
+        }
+    }
+
+    lastScrollTop = currentScrollTop;
+};
+
+
+
 </script>
 </html>
