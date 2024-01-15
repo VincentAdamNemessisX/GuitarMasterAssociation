@@ -71,6 +71,7 @@
 				$('#error').hide();
 			}, 3000);
 		}
+
 		auto_hide_error_message();
     </script>
 {% endif %}
@@ -98,7 +99,8 @@
                                 </div>
                                 <div class="registration-form-area">
                                     <form id="registration-form" class="registration-form"
-                                          onsubmit="return validateForm()" action="/signin/" method="post" enctype="multipart/form-data">
+                                          onsubmit="return validateForm()" action="/signin/" method="post"
+                                          enctype="multipart/form-data">
                                         {% csrf_token %}
                                         <div class="row">
                                             <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
@@ -106,7 +108,8 @@
                                                 <div class="register-icon">
                                                     <i class="flaticon-user"></i>
                                                 </div>
-                                                <input type="text" name="username" id="username" placeholder="用户名" value="{{ info.username }}">
+                                                <input type="text" name="username" id="username" placeholder="用户名"
+                                                       value="{{ info.username }}">
                                                 <span id="usernameError" class="error"></span>
                                             </div>
                                             <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"

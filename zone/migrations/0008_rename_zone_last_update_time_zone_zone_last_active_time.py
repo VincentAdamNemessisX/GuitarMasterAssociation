@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('zone', '0007_zone_zone_last_update_time'),
     ]

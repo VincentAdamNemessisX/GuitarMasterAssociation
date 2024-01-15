@@ -23,30 +23,41 @@
     <section class="blog-section blog-section-two ptb-120" id="zone-start">
         <div class="container">
             <div class="row justify-content-center ml-b-30">
-                {% for post in posts %}
-                    <div class="col-lg-4 col-md-6 col-sm-8 mrb-30">
-                        <div class="blog-item wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
-                            <div class="blog-thumb">
-                                <img src='{{ post.post_image.url }}' alt="{{ post.post_title }}">
+                {% if posts.count > 0 %}
+                    {% for post in posts %}
+                        <div class="col-lg-4 col-md-6 col-sm-8 mrb-30">
+                            <div class="blog-item wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
+                                <div class="blog-thumb">
+                                    <img src='{{ post.post_image.url }}' alt="{{ post.post_title }}">
+                                </div>
+                                <div class="blog-content text-center">
+                                    <h3 class="title"><a
+                                            href="/post-{{ post.post_layout_mode }}?post_id={{ post.post_id }}">{{ post.post_title }}</a>
+                                    </h3>
+                                    <ul class="blog-content-list">
+                                        <li><i class="fas fa-eye color-red"></i><span>{{ post.post_view }}</span></li>
+                                        <li><i class="fas fa-heart color-yellow"></i><span>{{ post.post_like }}</span>
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-star color-curious-blue"></i><span>{{ post.collection_set.count }}</span>
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-comment color-curious-blue"></i><span>{{ post.review_set.count }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-lg-4 col-md-6 col-sm-8 mrb-30" style="margin-top: 10rem">
+                        <div class="blog-item wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
                             <div class="blog-content text-center">
-                                <h3 class="title"><a
-                                        href="/post-{{ post.post_layout_mode }}?post_id={{ post.post_id }}">{{ post.post_title }}</a>
-                                </h3>
-                                <ul class="blog-content-list">
-                                    <li><i class="fas fa-eye color-red"></i><span>{{ post.post_view }}</span></li>
-                                    <li><i class="fas fa-heart color-yellow"></i><span>{{ post.post_like }}</span></li>
-                                    <li>
-                                        <i class="fas fa-star color-curious-blue"></i><span>{{ post.collection_set.count }}</span>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-comment color-curious-blue"></i><span>{{ post.review_set.count }}</span>
-                                    </li>
-                                </ul>
+                                <h3 class="title" style="height: 1.2em"><a href="#">本专区暂无帖子！</a></h3>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+                {% endif %}
             </div>
             {#        pagination-section start #}
             {% include 'zone_pagination.html' %}

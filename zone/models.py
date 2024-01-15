@@ -8,7 +8,8 @@ class Zone(models.Model):
     zone_description = models.TextField()
     zone_image = models.ImageField(upload_to='zone_images/')
     zone_layout_mode = models.IntegerField(default=1,
-                                           choices=((1, '普通'), (2, '融合'), (3, '普通排行'), (4, '融合排行'), (5, '普通沉浸排行')))
+                                           choices=((1, '普通'), (2, '融合'), (3, '普通排行'), (4, '融合排行'),
+                                                    (5, '普通沉浸排行')))
     zone_status = models.IntegerField(default=1, choices=((1, '正常'), (0, '异常')))
     zone_create_time = models.DateTimeField(auto_now_add=True)
     zone_last_active_time = models.DateTimeField()

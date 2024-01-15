@@ -612,33 +612,32 @@
 		});
 		setInterval(get_user_messages, 60000);
 	{% endif %}
-let lastScrollTop = 0;
-let delayTimer;
-
-document.body.onscroll = function () {
-    let currentScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-
-    // 判断滚动方向
-    if (currentScrollTop > lastScrollTop) {
-        // 向下滚动
-        if (currentScrollTop > 50) {
-            // 隐藏 header
-            document.getElementsByClassName("header-bottom-area")[0].style.display = "none";
-        }
-    } else {
-        // 向上滚动
-        if (currentScrollTop > 50) {
-            // 延迟显示 header
-            clearTimeout(delayTimer);
-            delayTimer = setTimeout(function () {
-                document.getElementsByClassName("header-bottom-area")[0].style.display = "block";
-            }, 10); // 延迟时间，单位为毫秒
-        }
-    }
-
-    lastScrollTop = currentScrollTop;
-};
-
+	let lastScrollTop = 0;
+	let delayTimer;
+	
+	document.body.onscroll = function () {
+		let currentScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+		
+		// 判断滚动方向
+		if (currentScrollTop > lastScrollTop) {
+			// 向下滚动
+			if (currentScrollTop > 50) {
+				// 隐藏 header
+				document.getElementsByClassName("header-bottom-area")[0].style.display = "none";
+			}
+		} else {
+			// 向上滚动
+			if (currentScrollTop > 50) {
+				// 延迟显示 header
+				clearTimeout(delayTimer);
+				delayTimer = setTimeout(function () {
+					document.getElementsByClassName("header-bottom-area")[0].style.display = "block";
+				}, 10); // 延迟时间，单位为毫秒
+			}
+		}
+		
+		lastScrollTop = currentScrollTop;
+	};
 
 
 </script>

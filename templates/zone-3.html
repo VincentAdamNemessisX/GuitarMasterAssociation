@@ -24,34 +24,48 @@
             <div class="row justify-content-center ml-b-30">
                 <div class="col-lg-8">
                     <div class="row justify-content-center ml-b-30">
-                        {% for post in posts %}
-                            <div class="col-lg-6 col-md-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
-                                 data-wow-delay="0.5s">
-                                <div class="blog-item">
-                                    <div class="blog-thumb">
-                                        <img alt="{{ post.post_title }}" src={{ post.post_image.url }}>
+                        {% if posts.count > 0 %}
+                            {% for post in posts %}
+                                <div class="col-lg-6 col-md-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                                     data-wow-delay="0.5s">
+                                    <div class="blog-item">
+                                        <div class="blog-thumb">
+                                            <img alt="{{ post.post_title }}" src={{ post.post_image.url }}>
+                                        </div>
+                                        <div class="blog-content">
+                                            <h3 class="title"><a
+                                                    href="/post-{{ post.post_layout_mode }}?post_id={{ post.post_id }}">{{ post.post_title }}</a>
+                                            </h3>
+                                            <ul class="blog-content-list">
+                                                <li>
+                                                    <i class="fas fa-eye color-red"></i><span>{{ post.post_view }}</span>
+                                                </li>
+                                                <li>
+                                                    <i class="fas fa-heart color-yellow"></i><span>{{ post.post_like }}</span>
+                                                </li>
+                                                <li>
+                                                    <i class="fas fa-star color-curious-blue"></i><span>{{ post.collection_set.count }}</span>
+                                                </li>
+                                                <li>
+                                                    <i class="fas fa-comment color-curious-blue"></i><span>{{ post.review_set.count }}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-lg-12 col-md-12 col-sm-12 mrb-30 wow fade-in-bottom" data-wow-duration="1s"
+                                 data-wow-delay="1s">
+                                <div class="blog-item">
                                     <div class="blog-content">
-                                        <h3 class="title"><a
-                                                href="/post-{{ post.post_layout_mode }}?post_id={{ post.post_id }}">{{ post.post_title }}</a>
+                                        <h3 class="title text-center" style="height: 1.2em">
+                                            <a href="#">本专区暂无帖子！</a>
                                         </h3>
-                                        <ul class="blog-content-list">
-                                            <li><i class="fas fa-eye color-red"></i><span>{{ post.post_view }}</span>
-                                            </li>
-                                            <li>
-                                                <i class="fas fa-heart color-yellow"></i><span>{{ post.post_like }}</span>
-                                            </li>
-                                            <li>
-                                                <i class="fas fa-star color-curious-blue"></i><span>{{ post.collection_set.count }}</span>
-                                            </li>
-                                            <li>
-                                                <i class="fas fa-comment color-curious-blue"></i><span>{{ post.review_set.count }}</span>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                        {% endfor %}
+                        {% endif %}
                     </div>
                     {#        pagination-section start #}
                     {% include 'zone_pagination.html' %}

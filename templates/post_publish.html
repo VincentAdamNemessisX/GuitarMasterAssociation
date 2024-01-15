@@ -141,7 +141,7 @@
 
 		$(document).ready(function () {
 			editor.getConfig().hoverbarKeys.text.menuKeys = [
-                "bold", "bulletedList", "insertLink"
+				"bold", "bulletedList", "insertLink"
 			];
 			editor.getConfig().MENU_CONF['uploadImage'] = {
 				server: '/api/post/upload/image/',
@@ -323,7 +323,7 @@
 						if (data.status === 200) {
 							show_and_hide_success("发布成功！");
 							setTimeout(function () {
-								window.location.href = "/post-"  + data.data.post_layout_mode + "?post_id=" + data.data.post_id;
+								window.location.href = "/post-" + data.data.post_layout_mode + "?post_id=" + data.data.post_id;
 							}, 2000);
 						} else {
 							show_and_hide_error("发布失败，" + data.message);

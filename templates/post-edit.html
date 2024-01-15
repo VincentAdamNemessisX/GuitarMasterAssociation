@@ -141,7 +141,7 @@
 
 		$(document).ready(function () {
 			editor.getConfig().hoverbarKeys.text.menuKeys = [
-                "bold", "bulletedList", "insertLink"
+				"bold", "bulletedList", "insertLink"
 			];
 			editor.getConfig().MENU_CONF['uploadImage'] = {
 				server: '/api/post/upload/image/',
@@ -210,7 +210,8 @@
 
 		function reset_logic() {
 			document.forms[1].reset();
-			set_zone(); set_layout_mode();
+			set_zone();
+			set_layout_mode();
 			editor.setHtml(`{% if post.post_content %}{{ post.post_content | safe }}{% else %}''{% endif %}`);
 		}
 
@@ -368,7 +369,8 @@
 
 		function layout_init_post() {
 			let title = document.getElementById("title");
-            set_zone(); set_layout_mode();
+			set_zone();
+			set_layout_mode();
 			if (title.value === "") {
 				title.value = "{{ post.title }}";
 			}

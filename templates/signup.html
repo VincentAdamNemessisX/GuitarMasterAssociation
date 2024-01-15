@@ -70,6 +70,7 @@
 						$('#error').hide();
 					}, 3000);
 				}
+
 				auto_hide_error();
             </script>
         {% endif %}
@@ -87,6 +88,7 @@
 						$('#success').hide();
 					}, 3000);
 				}
+
 				auto_hide_error();
             </script>
         {% endif %}
@@ -120,7 +122,8 @@
                                 </div>
                                 <div class="registration-form-area">
                                     <form id="registration-form" class="registration-form" method="post"
-                                          action="/signup/" onsubmit="return validateForm()" enctype="multipart/form-data">
+                                          action="/signup/" onsubmit="return validateForm()"
+                                          enctype="multipart/form-data">
                                         {% csrf_token %}
                                         <div class="row">
                                             <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
@@ -128,14 +131,16 @@
                                                 <div class="register-icon">
                                                     <i class="flaticon-user"></i>
                                                 </div>
-                                                <input type="text" id="username" name="username" placeholder="用户名" value="{{ info.username }}">
+                                                <input type="text" id="username" name="username" placeholder="用户名"
+                                                       value="{{ info.username }}">
                                             </div>
                                             <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
                                                  data-wow-delay="0.5s">
                                                 <div class="register-icon">
                                                     <i class="flaticon-envelope"></i>
                                                 </div>
-                                                <input type="email" id="email" name="email" placeholder="电子邮箱" value="{{ info.email }}">
+                                                <input type="email" id="email" name="email" placeholder="电子邮箱"
+                                                       value="{{ info.email }}">
                                             </div>
                                             <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
                                                  data-wow-delay="0.5s">
@@ -144,12 +149,19 @@
                                                 </div>
                                                 <select style="text-align: center" style="width: 80%; margin-left: 53px"
                                                         id="sex" name="sex" onchange="changeGender()">
-                                                    <option value="0" {% if info.sex == 0 %}{{ selected }}{% endif %}>保密</option>
-                                                    <option value="1" {% if info.sex == 1 %}{{ selected }}{% endif %}>男</option>
-                                                    <option value="2" {% if info.sex == 2 %}{{ selected }}{% endif %}>女</option>
+                                                    <option value="0" {% if info.sex == 0 %}{{ selected }}{% endif %}>
+                                                        保密
+                                                    </option>
+                                                    <option value="1" {% if info.sex == 1 %}{{ selected }}{% endif %}>
+                                                        男
+                                                    </option>
+                                                    <option value="2" {% if info.sex == 2 %}{{ selected }}{% endif %}>
+                                                        女
+                                                    </option>
                                                 </select>
                                             </div>
-                                            <input type="hidden" id="headicon_value" name="headicon" value="{{ info.headicon }}">
+                                            <input type="hidden" id="headicon_value" name="headicon"
+                                                   value="{{ info.headicon }}">
                                             <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
                                                  data-wow-delay="0.5s">
                                                 <div class="register-icon">
@@ -162,7 +174,8 @@
                                                               d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                                                     </svg>
                                                 </div>
-                                                <input type="tel" id="phone" name="phone" placeholder="手机号" value="{{ info.phone }}">
+                                                <input type="tel" id="phone" name="phone" placeholder="手机号"
+                                                       value="{{ info.phone }}">
                                             </div>
                                             <div class="col-lg-12 form-group wow fade-in-bottom" data-wow-duration="1s"
                                                  data-wow-delay="0.5s">

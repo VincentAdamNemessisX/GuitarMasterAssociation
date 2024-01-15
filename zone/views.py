@@ -1,6 +1,7 @@
 # Create your views here.
 from django.db.models import Sum, Count, Subquery, OuterRef
 from django.shortcuts import render
+
 from collection.models import Collection
 from custom.update_some_index import update_zone_active_time
 from post.models import Post
@@ -22,7 +23,8 @@ def zone(request):
         subquery = Post.objects.filter(zone_id=OuterRef('zone_id')).values('zone_id').annotate(
             post_count=Count('zone_id')).values('post_count')[:1]
         # hot_zones 包含了每个热门专区以及其对应的 post 数量
-        hot_zones = Zone.objects.filter(zone_status=1).exclude(zone_id=zone_info.zone_id).annotate(post_count=Subquery(subquery)).order_by('-post_count')[
+        hot_zones = Zone.objects.filter(zone_status=1).exclude(zone_id=zone_info.zone_id).annotate(
+            post_count=Subquery(subquery)).order_by('-post_count')[
                     :5]
         current_page = int(request.GET.get('page')) if request.GET.get('page') else 1
         zone_info.posts_count = Post.objects.filter(zone_id=zone_info.zone_id, post_status=1).count()
@@ -44,14 +46,24 @@ def zone(request):
         zone_all_posts = Post.objects.filter(zone_id=zone_info.zone_id, post_status=1).order_by(
             '-post_create_time').all()
         zone_posts = zone_all_posts[(current_page - 1) * page_size:current_page * page_size]
+        if Post.objects.filter(zone_id=zone_info.zone_id, post_status=1).aggregate(
+                Sum('post_view')).get('post_view__sum'):
+            zone_total_post_view = Post.objects.filter(zone_id=zone_info.zone_id, post_status=1).aggregate(
+                Sum('post_view')).get('post_view__sum')
+        else:
+            zone_total_post_view = 0
+        if Post.objects.filter(zone_id=zone_info.zone_id, post_status=1).aggregate(
+                Sum('post_like')).get('post_like__sum'):
+            zone_total_post_like = Post.objects.filter(zone_id=zone_info.zone_id, post_status=1).aggregate(
+                Sum('post_like')).get('post_like__sum')
+        else:
+            zone_total_post_like = 0
         zone_info.heating = ((int(zone_info.zone_last_active_time.timestamp()) / 1000000)
                              + (Post.objects.filter(zone_id=zone_info.zone_id,
                                                     post_status=1).count() + Post.objects.filter(
                     zone_id=zone_info.zone_id, post_status=1).count()) * 900
-                             + Post.objects.filter(zone_id=zone_info.zone_id, post_status=1).aggregate(
-                    Sum('post_view')).get('post_view__sum') * 50
-                             + Post.objects.filter(zone_id=zone_info.zone_id, post_status=1).aggregate(
-                    Sum('post_like')).get('post_like__sum') * 150
+                             + zone_total_post_view * 50
+                             + zone_total_post_like * 150
                              + Review.objects.filter(
                     post_id__in=zone_all_posts.values_list('post_id', flat=True)).count() * 200
                              + Collection.objects.filter(
