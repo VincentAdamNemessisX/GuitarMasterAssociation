@@ -143,7 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 APPEND_SLASH = True
 
 # simple ui settings
-SIMPLEUI_HOME_TITLE = '吉他爱好者平台后台'
+SIMPLEUI_HOME_TITLE = '吉他爱好者兴趣社区后台'
 SIMPLEUI_HOME_INFO = False  # simpleui ads
-SIMPLEUI_DEFAULT_THEME = 'e-red-pro.css'
+SIMPLEUI_DEFAULT_THEME = 'e-red.css'
 SIMPLEUI_LOGO = '/static/fav.png'
