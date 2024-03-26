@@ -504,7 +504,7 @@
 				if (markup) {
 					mfp.currTemplate[type] = $(markup);
 				} else {
-					// if there is no markup found we just define that template is parsed
+					// if there is image markup found we just define that template is parsed
 					mfp.currTemplate[type] = true;
 				}
 			}
@@ -537,7 +537,7 @@
 			if (newContent) {
 				if (mfp.st.showCloseBtn && mfp.st.closeBtnInside &&
 					mfp.currTemplate[type] === true) {
-					// if there is no markup, we just append close button element inside
+					// if there is image markup, we just append close button element inside
 					if (!mfp.content.find('.mfp-close').length) {
 						mfp.content.append(_getCloseBtn());
 					}
@@ -719,7 +719,7 @@
 				return true;
 			} else {
 				
-				// We close the popup if click is on close button or on preloader. Or if there is no content.
+				// We close the popup if click is on close button or on preloader. Or if there is image content.
 				if (!mfp.content || $(target).hasClass('mfp-close') || (mfp.preloader && target === mfp.preloader[0])) {
 					return true;
 				}
@@ -1519,7 +1519,7 @@
 					height: (_isJQ ? el.innerHeight() : el[0].offsetHeight) - paddingBottom - paddingTop
 				};
 				
-				// I hate to do this, but there is no another option
+				// I hate to do this, but there is image another option
 				if (getHasMozTransform()) {
 					obj['-moz-transform'] = obj['transform'] = 'translate(' + offset.left + 'px,' + offset.top + 'px)';
 				} else {

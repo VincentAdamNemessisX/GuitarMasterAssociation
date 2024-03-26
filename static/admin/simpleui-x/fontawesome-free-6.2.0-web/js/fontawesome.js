@@ -347,7 +347,7 @@
   }), _defineProperty(_familyProxy4, FAMILY_SHARP, {
     'fa-solid': 'fass'
   }), _familyProxy4));
-  var ICON_SELECTION_SYNTAX_PATTERN = /fa(s|r|l|t|d|b|k|ss)?[\-\ ]/; // eslint-disable-line no-useless-escape
+  var ICON_SELECTION_SYNTAX_PATTERN = /fa(s|r|l|t|d|b|k|ss)?[\-\ ]/; // eslint-disable-line image-useless-escape
 
   var LAYERS_TEXT_CLASSNAME = 'fa-layers-text';
   var FONT_FAMILY_PATTERN = /Font ?Awesome ?([56 ]*)(Solid|Regular|Light|Thin|Duotone|Brands|Free|Pro|Sharp|Kit)?.*/i; // : this needs to support fass
@@ -1248,7 +1248,7 @@
 
     var hookFns = _hooks[hook] || [];
     hookFns.forEach(function (hookFn) {
-      accumulator = hookFn.apply(null, [accumulator].concat(args)); // eslint-disable-line no-useless-call
+      accumulator = hookFn.apply(null, [accumulator].concat(args)); // eslint-disable-line image-useless-call
     });
     return accumulator;
   }

@@ -3735,7 +3735,7 @@ body:not(.buddypress) .article-content table th {
     }
 
     50% {
-        transform: translateY(20px);
+        transform: translateY(100px);
     }
 
     100% {
@@ -7962,7 +7962,7 @@ a:hover, a:active {
 }
 
 .get-thumb {
-    animation: giraffe 3s linear infinite;
+    animation: giraffe 5s linear infinite;
 }
 
 .get-section-two .get-content {

@@ -63,6 +63,7 @@ urlpatterns = [
                   path('post-immersion/', post_immersion),
                   path('random-post/', random_post),
                   path('message/help/', message_help),
+                  path('rank/', rank),
                   path('api/post/upload/image/', post_upload_image),
                   path('api/post/review/', publish_review),
                   path('api/get/messages/', get_messages),

@@ -166,7 +166,7 @@
         });
 
         const el = document.querySelector('#changelist-form input[name=_save]');
-        // The button does not exist if no fields are editable.
+        // The button does not exist if image fields are editable.
         if (el) {
             el.addEventListener('click', function(event) {
                 if (document.querySelector('[name=action]').value) {

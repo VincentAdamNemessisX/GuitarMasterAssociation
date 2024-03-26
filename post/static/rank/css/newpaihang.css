@@ -1,0 +1,340 @@
+﻿  /*body.night .main_box
+        {
+            background: #232222;
+        }*/
+
+        .owl-theme .owl-controls .owl-page span
+        {
+            display: block;
+            width: 12px;
+            height: 12px;
+            margin: 5px 7px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+            background: #111;
+            filter: Alpha(Opacity=20);
+            opacity: .2;
+            top: -40px;
+        }
+ 
+        .max_box
+        {
+            width: 1350px;
+            margin:20px auto;
+          height:auto;
+       
+        }
+         .max_box:after{
+    content:"";
+    display:block;
+    visibility:hidden;
+    clear:both;
+    }
+        .box_left
+        {
+            float: left;
+            width: 250px;
+            background: #F2F4F5;
+            height:auto;
+        }
+
+        .box_right
+        {
+            float: right;
+            width: 1080px;
+          
+            background: #F2F4F5;
+        }
+
+        /*左边折叠菜单*/
+
+        a:link, a:visited
+        {
+            text-decoration: none;
+           
+        }
+
+        .list
+        {
+            /*width: 210px;
+            border-bottom: solid 1px #316a91;
+            margin: 40px auto 0 auto;*/
+            /*padding-left:40px;*/
+        }
+
+            .list .yiji > li
+            {
+                /*background-color: #467ca2;
+                border: solid 1px #316a91;
+                border-bottom: 0;*/
+              
+               
+            }
+
+            .list .yiji li a
+            {
+                /*padding-left: 10px;*/
+                color: #666666;
+                font-size: 12px;
+                display: block;
+                /*font-weight: bold;*/
+                height: 48px;
+                line-height: 48px;
+                position: relative;
+                   
+            }
+            .list .yiji .frist>a
+            {
+                margin-left:40px;
+                color:#333333;
+                font-size:16px;
+            }
+                .list .yiji .frist > a img
+                {
+                        width: 22px;
+    height: 22px;
+    margin-right: 10px;
+    vertical-align: sub;
+                }
+            .list .yiji li .inactive
+            {
+                background: url(/images/xiangyou.svg) no-repeat center;
+                background-size:14px;
+                background-position-x: 100px;
+            }
+
+            .list .yiji li .inactives
+            {
+                background: url(/images/xiangxia.svg) no-repeat center;
+                 background-size:14px;
+                 background-position-x: 100px;
+            }
+            
+            .list .yiji li ul
+            {
+                display: none;
+            }
+
+                .list .yiji li ul li
+                {
+                  
+                 box-sizing:border-box;
+                      padding-left: 40px;
+                }
+
+                    .list .yiji li ul li ul
+                    {
+                        display: none;
+                    }
+
+                    .list .yiji li ul li a i
+                    {
+                       display: inline-block;
+    background: url(/images/gengxin.svg) no-repeat 8px 11px;
+    background-size: 26px;
+
+    width: 35px;
+                    }
+
+        .aactives
+        {
+             border-left: 2px solid #32A7FF;
+             background:#DEECF6;
+             color:#32A7FF;
+        }
+
+        .last
+        {
+            background-color: #d6e6f1;
+            border-color: #6196bb;
+        }
+        .left_loggo
+        {
+            text-align:center;
+            
+    margin: 30px auto;
+
+        }
+            .left_loggo img
+            {
+                width:192px;
+            }
+
+        /*三级联动*/
+        /*
+              .list .yiji li ul li ul li
+                        {
+                            background-color: #d6e6f1;
+                            border-color: #6196bb;
+                        }
+            .list .yiji li ul li ul li a
+        {
+            color: #316a91;
+            padding-left: 30px;
+        }*/
+
+            /*左边折叠菜单结束*/
+
+.right_top
+{
+    width:100%;
+    height:70px;
+    background:#fff;
+    padding:15px 30px;
+    box-sizing:border-box;
+}
+    .right_top font
+    {
+          height:40px;
+        line-height:40px;
+    
+    }
+
+    .right_top .gaoshi
+    {
+          box-sizing:border-box;
+        display:inline-block;
+    
+        border-right:2px solid #DDDDDD;
+        width:155px;
+        color:#999999;
+        font-size:18px;
+      
+    }
+        .right_top .gaoshi img
+        {
+            width:25px;
+            vertical-align:sub;
+            margin-right:15px;
+        }
+ .right_top .updatesm
+{
+    
+    font-size:14px;
+    width: 174px;
+font-family: Microsoft YaHei;
+font-weight: bold;
+color: #333333;
+margin-left:60px;
+}
+    .right_top .updatetime
+    {
+         height:40px;
+        line-height:40px;     
+float:right;
+font-size: 12px;
+font-family: Microsoft YaHei;
+font-weight: 400;
+color: #999999;
+
+    }
+.box_right h3
+{
+   color: #333;
+    font-weight: bold;
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    font-size: 22px;
+    padding-left:10px;
+}
+    /*//修改线上样式*/
+.right_news
+{
+    margin-top:20px;
+    width:100%;
+    background:#fff;
+    box-sizing:border-box;
+    overflow:hidden;
+    padding:15px 20px;
+}
+.newslist li
+{
+    border:none;
+        height: 34px !important;
+    line-height: 34px !important;
+    box-sizing:border-box;
+}
+.newslist
+{
+    padding:0px;
+}
+    .newslist li:hover
+    {
+        border: 1px solid #D5D4D4;
+      
+    }
+    .newslist li a
+    {
+        color:#333333;
+    }
+.bangdan_box,.ttk_box
+{
+    width:100%;
+}
+.bangdan_box ul
+{
+    box-sizing:border-box;
+}
+
+.bangdan_box li
+{
+    width:530px;
+        padding: 20px 30px 0px 30px;
+    box-sizing: border-box;
+     height:1020px;
+}
+.ttk_box ul{
+    display:flex;
+}
+.ttk_box li{
+    flex:1;
+    width:0px;
+    padding:0px;
+   justify-content:space-between;
+   background:#FFFFFF;
+}
+    .ttk_box li div
+    {
+        width:auto;
+        height:auto;
+   
+        margin: 15px;
+    }
+.news_info1
+{
+    width:470px;
+   
+}
+.bangdan_box li .btitle
+{
+      box-sizing:border-box;
+    height:auto;
+    width:100%;
+    line-height:40px;
+    padding:0;
+}
+    .bangdan_box li .btitle h4
+    {
+        float:left;
+        border:none;
+        font-size:16px;
+        height:40px;
+        line-height:40px;
+    }
+.bangdan_box li div table
+{
+    padding:10px 0;
+}
+.btitle a
+{
+    display: inline-block;
+    float: right;
+    color: #999999;
+    font-size:14px;
+}
+.iprompt_float .confirm a
+{
+    width:140px;
+}

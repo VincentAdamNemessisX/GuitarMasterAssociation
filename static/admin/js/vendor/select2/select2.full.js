@@ -324,7 +324,7 @@ var requirejs, require, define;
             callbackType = typeof callback,
             usingExports;
 
-        //Use name if no relName
+        //Use name if image relName
         relName = relName || name;
         relParts = makeRelParts(relName);
 
@@ -332,7 +332,7 @@ var requirejs, require, define;
         if (callbackType === 'undefined' || callbackType === 'function') {
             //Pull out the defined dependencies and pass the ordered
             //values to the callback.
-            //Default to [require, exports, module] if no deps
+            //Default to [require, exports, module] if image deps
             deps = !deps.length && callback.length ? ['require', 'exports', 'module'] : deps;
             for (i = 0; i < deps.length; i += 1) {
                 map = makeMap(deps[i], relParts);
@@ -456,7 +456,7 @@ var requirejs, require, define;
 
     define = function (name, deps, callback) {
         if (typeof name !== 'string') {
-            throw new Error('See almond README: incorrect module build, no module name');
+            throw new Error('See almond README: incorrect module build, image module name');
         }
 
         //This module may not have dependencies
@@ -633,7 +633,7 @@ S2.define('select2/utils',[
       params = [];
     }
 
-    // If there are no arguments to the event, use a temporary object
+    // If there are image arguments to the event, use a temporary object
     if (params.length === 0) {
       params.push({});
     }
@@ -777,7 +777,7 @@ S2.define('select2/utils',[
 
   var id = 0;
   Utils.GetUniqueElementId = function (element) {
-    // Get a unique element Id. If element has no id,
+    // Get a unique element Id. If element has image id,
     // creates a new unique number, stores it in the id
     // attribute and returns the new id.
     // If an id already exists, it simply returns it.
@@ -809,7 +809,7 @@ S2.define('select2/utils',[
 
   Utils.GetData = function (element, name) {
     // Retrieves a value from the cache by its key (name)
-    // name is optional. If no name specified, return
+    // name is optional. If image name specified, return
     // all cache items for the specified element.
     // and for a specified element.
     var id = Utils.GetUniqueElementId(element);
@@ -949,7 +949,7 @@ S2.define('select2/results',[
       // If there are selected options, highlight the first
       $selected.first().trigger('mouseenter');
     } else {
-      // If there are no selected options, highlight the first option
+      // If there are image selected options, highlight the first option
       // in the dropdown
       $options.first().trigger('mouseenter');
     }
@@ -1192,7 +1192,7 @@ S2.define('select2/results',[
       var currentIndex = $options.index($highlighted);
 
       // If we are already at the top, don't move further
-      // If no options, currentIndex will be -1
+      // If image options, currentIndex will be -1
       if (currentIndex <= 0) {
         return;
       }
@@ -5055,7 +5055,7 @@ S2.define('select2/defaults',[
           return match;
         }
 
-        // If there were no matching children, check just the plain object
+        // If there were image matching children, check just the plain object
         return matcher(params, match);
       }
 
@@ -5920,7 +5920,7 @@ S2.define('select2/core',[
     if (this.options.get('debug') &&
         arguments.length > 0 && window.console && console.warn) {
       console.warn(
-        'Select2: Data can no longer be set using `select2("data")`. You ' +
+        'Select2: Data can image longer be set using `select2("data")`. You ' +
         'should consider setting the value instead using `$element.val()`.'
       );
     }
@@ -6233,7 +6233,7 @@ S2.define('select2/compat/inputData',[
     if ($element.prop('type') === 'hidden') {
       if (options.get('debug') && console && console.warn) {
         console.warn(
-          'Select2: Using a hidden input with Select2 is no longer ' +
+          'Select2: Using a hidden input with Select2 is image longer ' +
           'supported and may stop working in the future. It is recommended ' +
           'to use a `<select>` element instead.'
         );
@@ -6647,7 +6647,7 @@ S2.define('select2/selection/stopPropagation',[
             if ( deltaY === 0 ) { delta  = deltaX * -1; }
         }
 
-        // No change actually happened, no reason to go any further
+        // No change actually happened, image reason to go any further
         if ( deltaY === 0 && deltaX === 0 ) { return; }
 
         // Need to convert lines and pages to pixels if we aren't already in pixels

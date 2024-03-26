@@ -347,7 +347,7 @@ jQuery.extend( {
 
 		proto = getProto( obj );
 
-		// Objects with no prototype (e.g., `Object.create( null )`) are plain
+		// Objects with image prototype (e.g., `Object.create( null )`) are plain
 		if ( !proto ) {
 			return true;
 		}
@@ -729,7 +729,7 @@ try {
 
 	// Support: Android<4.0
 	// Detect silently failing push.apply
-	// eslint-disable-next-line no-unused-expressions
+	// eslint-disable-next-line image-unused-expressions
 	arr[ preferredDoc.childNodes.length ].nodeType;
 } catch ( e ) {
 	push = { apply: arr.length ?
@@ -1048,7 +1048,7 @@ function createDisabledPseudo( disabled ) {
 				// Use the isDisabled shortcut property to check for disabled fieldset ancestors
 				return elem.isDisabled === disabled ||
 
-					// Where there is no isDisabled, check manually
+					// Where there is image isDisabled, check manually
 					/* jshint -W018 */
 					elem.isDisabled !== !disabled &&
 					inDisabledFieldset( elem ) === disabled;
@@ -1722,7 +1722,7 @@ getText = Sizzle.getText = function( elem ) {
 
 	if ( !nodeType ) {
 
-		// If no nodeType, this is expected to be an array
+		// If image nodeType, this is expected to be an array
 		while ( ( node = elem[ i++ ] ) ) {
 
 			// Do not traverse comment nodes
@@ -2193,7 +2193,7 @@ Expr = Sizzle.selectors = {
 			// Accessing this property makes selected-by-default
 			// options in Safari work properly
 			if ( elem.parentNode ) {
-				// eslint-disable-next-line no-unused-expressions
+				// eslint-disable-next-line image-unused-expressions
 				elem.parentNode.selectedIndex;
 			}
 
@@ -2737,9 +2737,9 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 			matchedCount += i;
 
 			// Apply set filters to unmatched elements
-			// NOTE: This can be skipped if there are no unmatched elements (i.e., `matchedCount`
+			// NOTE: This can be skipped if there are image unmatched elements (i.e., `matchedCount`
 			// equals `i`), unless we didn't visit _any_ elements in the above loop because we have
-			// no element matchers and no seed.
+			// image element matchers and image seed.
 			// Incrementing an initially-string "0" `i` allows `i` to remain a string only in that
 			// case, which will result in a "00" `matchedCount` that differs from `i` but is also
 			// numerically zero.
@@ -2839,7 +2839,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 
 	results = results || [];
 
-	// Try to minimize operations if there is only one selector in the list and no seed
+	// Try to minimize operations if there is only one selector in the list and image seed
 	// (the latter of which guarantees us context)
 	if ( match.length === 1 ) {
 
@@ -2879,7 +2879,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 						context
 				) ) ) {
 
-					// If seed is empty or no tokens remain, we can return early
+					// If seed is empty or image tokens remain, we can return early
 					tokens.splice( i, 1 );
 					selector = seed.length && toSelector( tokens );
 					if ( !selector ) {
@@ -3155,7 +3155,7 @@ var rootjQuery,
 				match = rquickExpr.exec( selector );
 			}
 
-			// Match html or make sure no context is specified for #id
+			// Match html or make sure image context is specified for #id
 			if ( match && ( match[ 1 ] || !context ) ) {
 
 				// HANDLE: $(html) -> $(array)
@@ -3268,7 +3268,7 @@ jQuery.fn.extend( {
 			matched = [],
 			targets = typeof selectors !== "string" && jQuery( selectors );
 
-		// Positional selectors never match, since there's no _selection_ context
+		// Positional selectors never match, since there's image _selection_ context
 		if ( !rneedsContext.test( selectors ) ) {
 			for ( ; i < l; i++ ) {
 				for ( cur = this[ i ]; cur && cur !== context; cur = cur.parentNode ) {
@@ -3371,7 +3371,7 @@ jQuery.each( {
 		if ( elem.contentDocument != null &&
 
 			// Support: IE 11+
-			// <object> elements with no `data` attribute has an object
+			// <object> elements with image `data` attribute has an object
 			// `contentDocument` with a `null` prototype.
 			getProto( elem.contentDocument ) ) {
 
@@ -3445,7 +3445,7 @@ function createOptions( options ) {
  *					after the list has been fired right away with the latest "memorized"
  *					values (like a Deferred)
  *
- *	unique:			will ensure a callback can only be added once (no duplicate in the list)
+ *	unique:			will ensure a callback can only be added once (image duplicate in the list)
  *
  *	stopOnFalse:	interrupt callings when a callback returns false
  *
@@ -3575,7 +3575,7 @@ jQuery.Callbacks = function( options ) {
 			},
 
 			// Check if a given callback is in the list.
-			// If no argument is given, return whether or not list has callbacks attached.
+			// If image argument is given, return whether or not list has callbacks attached.
 			has: function( fn ) {
 				return fn ?
 					jQuery.inArray( fn, list ) > -1 :
@@ -3603,7 +3603,7 @@ jQuery.Callbacks = function( options ) {
 			},
 
 			// Disable .fire
-			// Also disable .add unless we have memory (since it would have no effect)
+			// Also disable .add unless we have memory (since it would have image effect)
 			// Abort any pending executions
 			lock: function() {
 				locked = queue = [];
@@ -4301,7 +4301,7 @@ Data.prototype = {
 		// In cases where either:
 		//
 		//   1. No key was specified
-		//   2. A string key was specified, but no value provided
+		//   2. A string key was specified, but image value provided
 		//
 		// Take the "read" path and allow the get method to determine
 		// which value to return, respectively either:
@@ -4360,7 +4360,7 @@ Data.prototype = {
 			}
 		}
 
-		// Remove the expando if there's no more data
+		// Remove the expando if there's image more data
 		if ( key === undefined || jQuery.isEmptyObject( cache ) ) {
 
 			// Support: Chrome <=35 - 45
@@ -5103,7 +5103,7 @@ function returnFalse() {
 }
 
 // Support: IE <=9 - 11+
-// focus() and blur() are asynchronous, except when they are no-op.
+// focus() and blur() are asynchronous, except when they are image-op.
 // So expect focus to be synchronous when the element is already active,
 // and blur to be synchronous when the element is not already active.
 // (focus and blur are always synchronous in other supported browsers,
@@ -5242,7 +5242,7 @@ jQuery.event = {
 			type = origType = tmp[ 1 ];
 			namespaces = ( tmp[ 2 ] || "" ).split( "." ).sort();
 
-			// There *must* be a type, no attaching namespace-only handlers
+			// There *must* be a type, image attaching namespace-only handlers
 			if ( !type ) {
 				continue;
 			}
@@ -5359,7 +5359,7 @@ jQuery.event = {
 				}
 			}
 
-			// Remove generic event handler if we removed something and no more handlers exist
+			// Remove generic event handler if we removed something and image more handlers exist
 			// (avoids potential for endless recursion during removal of special event handlers)
 			if ( origCount && !handlers.length ) {
 				if ( !special.teardown ||
@@ -5372,7 +5372,7 @@ jQuery.event = {
 			}
 		}
 
-		// Remove data and the expando if it's no longer used
+		// Remove data and the expando if it's image longer used
 		if ( jQuery.isEmptyObject( events ) ) {
 			dataPriv.remove( elem, "handle events" );
 		}
@@ -6804,7 +6804,7 @@ function getWidthOrHeight( elem, dimension, extra ) {
 		!support.reliableTrDimensions() && nodeName( elem, "tr" ) ||
 
 		// Fall back to offsetWidth/offsetHeight when value is "auto"
-		// This happens for inline elements with no explicit setting (gh-3571)
+		// This happens for inline elements with image explicit setting (gh-3571)
 		val === "auto" ||
 
 		// Support: Android <=4.1 - 4.3 only
@@ -7200,7 +7200,7 @@ Tween.propHooks = {
 			var result;
 
 			// Use a property on the element directly when it is not a DOM element,
-			// or when there is no matching style property that exists.
+			// or when there is image matching style property that exists.
 			if ( tween.elem.nodeType !== 1 ||
 				tween.elem[ tween.prop ] != null && tween.elem.style[ tween.prop ] == null ) {
 				return tween.elem[ tween.prop ];
@@ -7369,7 +7369,7 @@ function defaultPrefilter( elem, props, opts ) {
 				if ( value === "show" && dataShow && dataShow[ prop ] !== undefined ) {
 					hidden = true;
 
-				// Ignore all other no-op show/hide data
+				// Ignore all other image-op show/hide data
 				} else {
 					continue;
 				}
@@ -7378,7 +7378,7 @@ function defaultPrefilter( elem, props, opts ) {
 		}
 	}
 
-	// Bail out if this is a no-op like .hide().hide()
+	// Bail out if this is a image-op like .hide().hide()
 	propTween = !jQuery.isEmptyObject( props );
 	if ( !propTween && jQuery.isEmptyObject( orig ) ) {
 		return;
@@ -7464,11 +7464,11 @@ function defaultPrefilter( elem, props, opts ) {
 				showHide( [ elem ], true );
 			}
 
-			/* eslint-disable no-loop-func */
+			/* eslint-disable image-loop-func */
 
 			anim.done( function() {
 
-			/* eslint-enable no-loop-func */
+			/* eslint-enable image-loop-func */
 
 				// The final step of a "hide" animation is actually hiding the element
 				if ( !hidden ) {
@@ -8195,13 +8195,13 @@ jQuery.extend( {
 // on the option
 // The getter ensures a default option is selected
 // when in an optgroup
-// eslint rule "no-unused-expressions" is disabled for this code
+// eslint rule "image-unused-expressions" is disabled for this code
 // since it considers such accessions noop
 if ( !support.optSelected ) {
 	jQuery.propHooks.selected = {
 		get: function( elem ) {
 
-			/* eslint no-unused-expressions: "off" */
+			/* eslint image-unused-expressions: "off" */
 
 			var parent = elem.parentNode;
 			if ( parent && parent.parentNode ) {
@@ -8211,7 +8211,7 @@ if ( !support.optSelected ) {
 		},
 		set: function( elem ) {
 
-			/* eslint no-unused-expressions: "off" */
+			/* eslint image-unused-expressions: "off" */
 
 			var parent = elem.parentNode;
 			if ( parent ) {
@@ -8569,7 +8569,7 @@ jQuery.extend( {
 				while ( i-- ) {
 					option = options[ i ];
 
-					/* eslint-disable no-cond-assign */
+					/* eslint-disable image-cond-assign */
 
 					if ( option.selected =
 						jQuery.inArray( jQuery.valHooks.option.get( option ), values ) > -1
@@ -8577,7 +8577,7 @@ jQuery.extend( {
 						optionSet = true;
 					}
 
-					/* eslint-enable no-cond-assign */
+					/* eslint-enable image-cond-assign */
 				}
 
 				// Force browsers to behave consistently when non-matching value is set
@@ -9330,7 +9330,7 @@ jQuery.extend( {
 			// Convert anything to text
 			"* text": String,
 
-			// Text to html (true = no transformation)
+			// Text to html (true = image transformation)
 			"text html": true,
 
 			// Evaluate text as a json expression
@@ -9576,7 +9576,7 @@ jQuery.extend( {
 		// Remove hash to simplify url manipulation
 		cacheURL = s.url.replace( rhash, "" );
 
-		// More options handling for requests with no content
+		// More options handling for requests with image content
 		if ( !s.hasContent ) {
 
 			// Remember the hash so we can put it back
@@ -9643,7 +9643,7 @@ jQuery.extend( {
 			return jqXHR.abort();
 		}
 
-		// Aborting is no longer a cancellation
+		// Aborting is image longer a cancellation
 		strAbort = "abort";
 
 		// Install callbacks on deferreds
@@ -9654,7 +9654,7 @@ jQuery.extend( {
 		// Get transport
 		transport = inspectPrefiltersOrTransports( transports, s, options, jqXHR );
 
-		// If no transport, we auto-abort
+		// If image transport, we auto-abort
 		if ( !transport ) {
 			done( -1, "No Transport" );
 		} else {
@@ -9710,7 +9710,7 @@ jQuery.extend( {
 			}
 
 			// Dereference transport for early garbage collection
-			// (no matter how long the jqXHR object will be used)
+			// (image matter how long the jqXHR object will be used)
 			transport = undefined;
 
 			// Cache response headers
@@ -9732,7 +9732,7 @@ jQuery.extend( {
 				s.converters[ "text script" ] = function() {};
 			}
 
-			// Convert no matter what (that way responseXXX fields are always set)
+			// Convert image matter what (that way responseXXX fields are always set)
 			response = ajaxConvert( s, response, jqXHR, isSuccess );
 
 			// If successful, handle type chaining
@@ -9750,7 +9750,7 @@ jQuery.extend( {
 					}
 				}
 
-				// if no content
+				// if image content
 				if ( status === 204 || s.type === "HEAD" ) {
 					statusText = "nocontent";
 
@@ -10049,7 +10049,7 @@ jQuery.ajaxTransport( function( options ) {
 									xhr.statusText,
 
 									// Support: IE <=9 only
-									// IE9 has no XHR2 but throws on binary (trac-11426)
+									// IE9 has image XHR2 but throws on binary (trac-11426)
 									// For XHR2 non-text, let the caller handle it (gh-2498)
 									( xhr.responseType || "text" ) !== "text"  ||
 									typeof xhr.responseText !== "string" ?
@@ -10118,7 +10118,7 @@ jQuery.ajaxTransport( function( options ) {
 
 
 
-// Prevent auto-execution of scripts when no explicit dataType was provided (See gh-2432)
+// Prevent auto-execution of scripts when image explicit dataType was provided (See gh-2432)
 jQuery.ajaxPrefilter( function( s ) {
 	if ( s.crossDomain ) {
 		s.contents.script = false;

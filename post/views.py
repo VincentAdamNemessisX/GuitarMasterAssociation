@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Subquery, OuterRef, Sum
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
+from django.views.decorators.http import require_GET, require_POST
 
 from collection.models import Collection
 from custom.data_handle import handle_uploaded_image
@@ -478,3 +479,29 @@ def reject_audit_post(request):
         return JsonResponse({'status': 400, 'msg': '参数错误'})
     messages.error(request, '请求方式错误！')
     return JsonResponse({'status': 401, 'msg': '请求方式错误'})
+
+
+@require_GET
+def rank(request):
+    hot_posts_count = len(get_posts_order_by_hotness())
+    return render(request, 'rank.html',
+                  {
+                      'hot_posts': get_posts_order_by_hotness()[:20],
+                      'hot_posts_count': hot_posts_count
+                  })
+
+
+@require_POST
+def load_more_rank(request):
+    left_posts = [
+        {
+            'post_id': post.post_id,
+            'post_title': post.post_title,
+            'post_create_time': post.post_create_time,
+            'post_zone': post.zone_id.zone_name,
+        } for post in get_posts_order_by_hotness()[10:]
+    ]
+    if len(left_posts) > 0:
+        return JsonResponse({'status': 200, 'data': left_posts})
+    else:
+        return JsonResponse({'status': 400, 'msg': '没有更多帖子了！'})

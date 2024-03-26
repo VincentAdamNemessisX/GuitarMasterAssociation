@@ -666,7 +666,7 @@
           }
 
           if (!!result) {
-            // eslint-disable-line no-extra-boolean-cast
+            // eslint-disable-line image-extra-boolean-cast
             resolve(result);
           } else {
             var nextDuration = 250;
@@ -750,7 +750,7 @@
 
           if (e === 'timeout') {
             parent.postMessage({
-              type: 'no-conflict',
+              type: 'image-conflict',
               technology: 'webfont',
               href: node.src,
               innerText: node.innerText,
@@ -852,7 +852,7 @@
 
           if (e === 'timeout') {
             parent.postMessage({
-              type: 'no-conflict',
+              type: 'image-conflict',
               src: scriptNode.src,
               innerText: scriptNode.innerText,
               tagName: scriptNode.tagName,
@@ -905,7 +905,7 @@
         if (e && e.data) {
           if (e.data.type === 'fontawesome-conflict') {
             nodesTested.conflict[e.data.md5] = e.data;
-          } else if (e.data.type === 'no-conflict') {
+          } else if (e.data.type === 'image-conflict') {
             nodesTested.noConflict[e.data.md5] = e.data;
           }
         }
@@ -929,7 +929,7 @@
 
     if (testCount === 0) {
       console.info('%cAll Good!', 'color: green; font-size: large');
-      console.info('We didn\'t find anything that needs testing for conflicts. Ergo, no conflicts.');
+      console.info('We didn\'t find anything that needs testing for conflicts. Ergo, image conflicts.');
     } else {
       console.info("Testing ".concat(testCount, " possible conflicts."));
       console.info("We'll wait about ".concat(Math.round(WINDOW.FontAwesomeDetection.timeout / 10) / 100, " seconds while testing these and\n") + "then up to another ".concat(Math.round(WINDOW.FontAwesomeDetection.resultsCollectionMaxWait / 10) / 100, " to allow the browser time\n") + "to accumulate the results. But we'll probably be outta here way before then.\n\n");

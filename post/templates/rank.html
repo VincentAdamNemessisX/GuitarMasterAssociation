@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    排行榜
+{% endblock %}
+{% block custom_style %}
+    <link rel="stylesheet" href="{% static 'rank/css/wea_plugin_widget.css' %}">
+    <link rel="stylesheet" href="{% static 'rank/css/winpop.css' %}">
+    <link rel="stylesheet" href="{% static 'rank/css/publicv3.css' %}">
+    <link rel="stylesheet" href="{% static 'rank/css/fl_login.css' %}">
+    <link rel="stylesheet" href="{% static 'rank/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'rank/css/newtt.css' %}">
+    <link rel="stylesheet" href="{% static 'rank/css/newpaihang_night.css' %}">
+    <link rel="stylesheet" href="{% static 'rank/css/nav_iconfont.css' %}">
+    <link rel="stylesheet" href="{% static 'rank/css/newpaihang.css' %}">
+{% endblock %}
+{% block content %}
+    <div id="ff">
+        <div id="Tt_title"
+             style="width: 95%; height: 100px; background: #FFFFFF; font-size: 40px; font-weight: bold; color: #32A7FF; line-height: 100px; text-align: center; margin: 0 auto; margin-bottom: 10px;">
+            帖子热度排行榜
+        </div>
+        <div class="main_box">
+            <div class="thdiv">
+                <ul>
+                    <li class="thseniority">排行</li>
+                    <li class="thprocessor"><a onclick="return false;">所属专区</a></li>
+                    <li class="thmodel">标题</li>
+                    <li class="thtimes"><a onclick="return false;">热度</a></li>
+                    <li class="thdigit"><a onclick="return false;">发布时间</a></li>
+                </ul>
+            </div>
+            {% if hot_posts_count > 0 %}
+                <table width="100%" border="0" id="pcCpuList" class="_tablelist_">
+                    <tbody>
+                    {% for post in hot_posts %}
+                        <tr class="list_tr" bgdata="#8da2fc" style="box-shadow: none;">
+                            <td class="seniority">
+                                <div class="add2" style="display:none;"><a
+                                        onclick="return false;"></a></div>
+                                {% if forloop.counter == 1 %}
+                                    <img src="{% static 'rank/image/no1.png' %}">
+                                {% elif forloop.counter == 2 %}
+                                    <img src="{% static 'rank/image/no2.png' %}">
+                                {% elif forloop.counter == 3 %}
+                                    <img src="{% static 'rank/image/no3.png' %}">
+                                {% else %}
+                                    <span>{{ forloop.counter }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="processor">
+                                <a href="/zone?zone_id={{ post.zone_id.zone_id }}">
+                                {{ post.zone_id.zone_name }}
+                            </a>
+                            </td>
+                            <td colspan="3" class="merge">
+                                <ul>
+                                    <li class="model1">
+                                        <a href="/?post_id={{ post.post_id }}" class="model2">{{ post.post_title }}</a>
+                                    </li>
+                                    <li class="times1">{{ post.post_create_time|date:'Y年m月d日' }}</li>
+                                    <li class="mark1">{{ post.post_heating }}</li>
+                                </ul>
+                                <div class="Progress" data-index="{{ forloop.counter }}"
+                                     data-totals="{{ hot_posts_count }}"></div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div style="text-align: center; font-size: 20px; color: #32A7FF; margin-top: 20px;">暂无数据</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+{% block custom_script %}
+    <script>
+		function calculateRank(index, totalItems) {
+			// 假设 totalItems 是总项目数，index 是当前项目的索引（排名）
+			// 计算每个排名的递减值，这里使用线性递减
+			const decrementPerRank = 100 / totalItems;
+
+			// 计算当前排名的递减值
+			let rankValue;
+			if (index === 1) {
+				rankValue = 100;
+			} else {
+				rankValue = 100 - (index * decrementPerRank);
+			}
+			// 确保递减值不会低于 0.1
+			return rankValue <= 0 ? 1 : rankValue;
+		}
+
+		function getComplementaryColor(hexColor) {
+			// 检查颜色代码是否以 '#' 开头，如果是，则去除它
+			if (hexColor.startsWith('#')) {
+				hexColor = hexColor.slice(1);
+			}
+
+			// 确保颜色代码是六位数
+			if (hexColor.length !== 6) {
+				console.error('Invalid color code');
+				return null;
+			}
+
+			// 将十六进制颜色代码转换为 RGB 值
+			const r = parseInt(hexColor.substring(0, 2), 16);
+			const g = parseInt(hexColor.substring(2, 4), 16);
+			const b = parseInt(hexColor.substring(4, 6), 16);
+
+			// 计算补色的 RGB 值
+			const rComplement = (255 - r).toString(16).padStart(2, '0');
+			const gComplement = (255 - g).toString(16).padStart(2, '0');
+			const bComplement = (255 - b).toString(16).padStart(2, '0');
+
+			// 返回补色的十六进制颜色代码
+			return `#${rComplement}${gComplement}${bComplement}`;
+		}
+
+		function generateColorMap(index, totalItems) {
+			// 生成随机颜色
+			let randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+
+			// 调用 rankFunction 来计算递减值
+			let adjustedValue = calculateRank(index, totalItems);
+			if (adjustedValue <= 0) {
+				adjustedValue = 1; // 确保数字无限接近于零，但不为零
+			}
+
+			// 创建 Map 对象
+			const colorMap = new Map();
+			colorMap.set('color', getComplementaryColor(randomColor));
+			colorMap.set('background-color', randomColor);
+			colorMap.set('width', adjustedValue.toString() + '%');
+			{#console.log(colorMap)#}
+			return colorMap;
+		}
+
+		$(document).ready(function () {
+			$('.Progress').each(function () {
+				const index = $(this).data('index');
+				const totalItems = $(this).data('totals');
+				const colorMap = generateColorMap(parseInt(index), parseInt(totalItems));
+				$($($(this).prev().children()[0]).children()[0]).css('color', colorMap.get('color'));
+				$(this).parent().parent().css('color', colorMap.get('color'));
+				$(this).css('background-color', colorMap.get('background-color'));
+				$(this).css('width', colorMap.get('width'));
+			});
+		})
+    </script>
+{% endblock %}

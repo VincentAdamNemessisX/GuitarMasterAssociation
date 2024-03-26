@@ -329,15 +329,18 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width: 60%">
                     <ul class="navbar-nav main-menu">
-                        {#                        <li class="menu_has_children"><a href="#0">专区<i class="fas fa-caret-down"></i></a>#}
-                        {#                            <ul class="sub-menu">#}
-                        {% for zone in request.session.zones.data %}
-                            <li><a href="/zone?zone_id={{ zone.zone_id }}">{{ zone.zone_name }}专区</a></li>
-                        {% endfor %}
-                        {#                            </ul>#}
-                        {#                        </li>#}
-                        <li><a href="/help">需要帮助？</a></li>
+                        <li class="menu_has_children">
+                            <a href="#0">专区<i class="fas fa-caret-down"></i></a>
+                            <ul class="sub-menu">
+                                {% for zone in request.session.zones.data %}
+                                    <li><a href="/zone?zone_id={{ zone.zone_id }}">{{ zone.zone_name }}专区</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li><a href="/help">需要帮助</a></li>
+                        <li><a href="/index/#contact">联系我们</a></li>
                         <li><a href="/post/publish">发表帖子</a></li>
+                        <li><a href="/rank">排行榜</a></li>
                     </ul>
                 </div>
                 <div class="header-right d-flex flex-wrap">
@@ -354,7 +357,7 @@
                     </div>
                 </div>
                 <div class="header-action d-flex flex-wrap align-items-center justify-content-end">
-                    <a href="/random-post/" class="cmn-btn" style="width: 10rem">随心看看</a>
+                    <a href="/random-post/" class="cmn-btn mt-0" style="width: 10rem">随心看看</a>
                 </div>
             </nav>
         </div>
@@ -364,7 +367,7 @@
 {% block content %}
 {% endblock %}
 <!-- footer-section start -->
-<footer class="footer-section ptb-120 bg_img" data-background='{% static "assets/images/footer.png" %}'>
+<footer id="contact" class="footer-section ptb-120 bg_img" data-background='{% static "assets/images/footer.png" %}'>
     <div class="container">
         <div class="row ml-b-30">
             <div class="col-lg-4 col-sm-6 mrb-30 wow fade-in-bottom" data-wow-duration="1s" data-wow-delay="0.5s">
@@ -397,7 +400,7 @@
                 <div class="footer-widget widget-menu">
                     <h3 class="widget-title">快捷导航</h3>
                     <ul>
-                        <li><a href="/help"><i class="fas fa-angle-double-right"></i>需要帮助？</a></li>
+                        <li><a href="/help"><i class="fas fa-angle-double-right"></i>需要帮助</a></li>
                         <li><a href="/post/publish"><i class="fas fa-angle-double-right"></i>发表帖子</a></li>
                     </ul>
                 </div>

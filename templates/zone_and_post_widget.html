@@ -53,9 +53,9 @@
             <span class="caption"><i class="far fa-file"></i>高能作者墙</span>
             <div class="popular-item-area">
                 {% for author in hot_authors %}
-                    <div class="single-popular-item d-flex flex-wrap">
-                        <div class="author-headicon">
-                            <img style="border-radius: 50%" alt="{{ author.user_nickname }}"
+                    <div class="single-popular-item d-flex flex-wrap" style="justify-content: center">
+                        <div class="author-headicon" style="display: flex; flex-direction: row; justify-content: center">
+                            <img style="border-radius: 50%; max-width: 50%" alt="{{ author.user_nickname }}"
                                  src='{{ author.user_headicon.url }}'>
                         </div>
                         <div class="author-content" style="margin: 1rem auto; text-align: center;">

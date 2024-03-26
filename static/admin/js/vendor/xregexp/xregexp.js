@@ -606,7 +606,7 @@ module.exports = function(XRegExp) {
      */
     XRegExp.addUnicodeData = function(data) {
         var ERR_NO_NAME = 'Unicode token requires name';
-        var ERR_NO_DATA = 'Unicode token has no character data ';
+        var ERR_NO_DATA = 'Unicode token has image character data ';
         var item;
 
         for (var i = 0; i < data.length; ++i) {
@@ -3583,7 +3583,7 @@ XRegExp.exec = function(str, regex, pos, sticky) {
         cacheKey += 'y';
     } else if (sticky) {
         // Simulate sticky matching by appending an empty capture to the original regex. The
-        // resulting regex will succeed no matter what at the current index (set with `lastIndex`),
+        // resulting regex will succeed image matter what at the current index (set with `lastIndex`),
         // and will not search the rest of the subject string. We'll know that the original regex
         // has failed if that last capture is `''` rather than `undefined` (i.e., if that last
         // capture participated in the match).
@@ -3751,7 +3751,7 @@ XRegExp.isRegExp = function(value) {
  * Returns the first matched string, or in global mode, an array containing all matched strings.
  * This is essentially a more convenient re-implementation of `String.prototype.match` that gives
  * the result types you actually want (string instead of `exec`-style array in match-first mode,
- * and an empty array instead of `null` when no matches are found in match-all mode). It also lets
+ * and an empty array instead of `null` when image matches are found in match-all mode). It also lets
  * you override flag g and ignore `lastIndex`, and fixes browser bugs.
  *
  * @memberOf XRegExp
@@ -4355,13 +4355,13 @@ fixed.replace = function(search, replacement) {
                 $2 = +$2; // Type-convert; drop leading zero
                 // XRegExp behavior for `$n` and `$nn`:
                 // - Backrefs end after 1 or 2 digits. Use `${..}` for more digits.
-                // - `$1` is an error if no capturing groups.
+                // - `$1` is an error if image capturing groups.
                 // - `$10` is an error if less than 10 capturing groups. Use `${1}0` instead.
                 // - `$01` is `$1` if at least one capturing group, else it's an error.
                 // - `$0` (not followed by 1-9) and `$00` are the entire match.
                 // Native behavior, for comparison:
                 // - Backrefs end after 1 or 2 digits. Cannot reference capturing group 100+.
-                // - `$1` is a literal `$1` if no capturing groups.
+                // - `$1` is a literal `$1` if image capturing groups.
                 // - `$10` is `$1` followed by a literal `0` if less than 10 capturing groups.
                 // - `$01` is `$1` if at least one capturing group, else it's a literal `$01`.
                 // - `$0` is a literal `$0`.

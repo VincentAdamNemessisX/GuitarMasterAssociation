@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.html import format_html
+import bs4
 
 
 # Create your models here.
@@ -17,6 +18,10 @@ class Post(models.Model):
     post_like = models.IntegerField(default=0)
     post_create_time = models.DateTimeField(auto_now_add=True)
     post_update_time = models.DateTimeField(auto_now=True)
+
+    def plain_content(self):
+        soup = bs4.BeautifulSoup(self.post_content, 'html.parser')
+        return soup.get_text()
 
     class Meta:
         db_table = 'post'

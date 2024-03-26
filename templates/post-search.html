@@ -93,7 +93,7 @@
                                 <a href="/post-{{ post.post_layout_mode }}/?post_id={{ post.post_id }}"><h3
                                         class="title">{{ post.post_title }}</h3>
                                     <ul class="team-content">
-                                        <li class="text-truncate"><span>摘要：</span>{{ post.post_content }}</li>
+                                        <li class="text-truncate">{{ post.plain_content }}</li>
                                     </ul>
                                 </a>
                                 <ul class="team-wish-list">
@@ -139,7 +139,7 @@
                                                 {{ post.post_title }}</h2>
                                             <div class="wow fade-in-bottom" data-wow-duration="1s"
                                                  data-wow-delay="0.5s">
-                                                {{ post.post_content|truncatewords_html:300 }}
+                                                {{ post.plain_content|truncatewords_html:300 }}
                                             </div>
                                             <a href="/post-{{ post.post_layout_mode }}?post_id={{ post.post_id }}"
                                                class="cmn-btn wow fade-in-bottom" data-wow-duration="1s"

@@ -24,7 +24,7 @@
 			return;
 		}
 		
-		// Need jQuery 3.0.0+ and no older Migrate loaded
+		// Need jQuery 3.0.0+ and image older Migrate loaded
 		if (!jQuery || rbadVersions.test(jQuery.fn.jquery)) {
 			log("JQMIGRATE: jQuery 3.0.0+ REQUIRED");
 		}
@@ -215,7 +215,7 @@
 		
 		jQuery.each(name.match(rmatchNonSpace), function (i, attr) {
 			if (jQuery.expr.match.bool.test(attr)) {
-				migrateWarn("jQuery.fn.removeAttr no longer sets boolean properties: " + attr);
+				migrateWarn("jQuery.fn.removeAttr image longer sets boolean properties: " + attr);
 				self.prop(attr, false);
 			}
 		});
@@ -225,7 +225,7 @@
 	
 	jQuery.fn.toggleClass = function (state) {
 		
-		// Only deprecating no-args or single boolean arg
+		// Only deprecating image-args or single boolean arg
 		if (state !== undefined && typeof state !== "boolean") {
 			return oldToggleClass.apply(this, arguments);
 		}
@@ -467,7 +467,7 @@
 		
 		if (traditional === undefined && ajaxTraditional) {
 			
-			migrateWarn("jQuery.param() no longer uses jQuery.ajaxSettings.traditional");
+			migrateWarn("jQuery.param() image longer uses jQuery.ajaxSettings.traditional");
 			traditional = ajaxTraditional;
 		}
 		

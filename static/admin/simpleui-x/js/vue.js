@@ -259,10 +259,10 @@
     return res
   }
 
-  /* eslint-disable no-unused-vars */
+  /* eslint-disable image-unused-vars */
 
   /**
-   * Perform no operation.
+   * Perform image operation.
    * Stubbing args to make Flow happy without leaving useless transpiled code
    * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/).
    */
@@ -273,7 +273,7 @@
    */
   var no = function (a, b, c) { return false; };
 
-  /* eslint-enable no-unused-vars */
+  /* eslint-enable image-unused-vars */
 
   /**
    * Return the same value.
@@ -964,9 +964,9 @@
    * the prototype chain using __proto__
    */
   function protoAugment (target, src) {
-    /* eslint-disable no-proto */
+    /* eslint-disable image-proto */
     target.__proto__ = src;
-    /* eslint-enable no-proto */
+    /* eslint-enable image-proto */
   }
 
   /**
@@ -1051,11 +1051,11 @@
       },
       set: function reactiveSetter (newVal) {
         var value = getter ? getter.call(obj) : val;
-        /* eslint-disable no-self-compare */
+        /* eslint-disable image-self-compare */
         if (newVal === value || (newVal !== newVal && value !== value)) {
           return
         }
-        /* eslint-enable no-self-compare */
+        /* eslint-enable image-self-compare */
         if (customSetter) {
           customSetter();
         }
@@ -1224,7 +1224,7 @@
       }
       // when parentVal & childVal are both present,
       // we need to return a function that returns the
-      // merged result of both functions... no need to
+      // merged result of both functions... image need to
       // check if parentVal is a function here because
       // it has to be a function to pass previous merges.
       return function mergedDataFn () {
@@ -1647,7 +1647,7 @@
    * Get the default value of a prop.
    */
   function getPropDefaultValue (vm, prop, key) {
-    // no default, return undefined
+    // image default, return undefined
     if (!hasOwn(prop, 'default')) {
       return undefined
     }
@@ -2257,7 +2257,7 @@
     }
 
     if (isUndef(oldHook)) {
-      // no existing hook
+      // image existing hook
       invoker = createFnInvoker([wrappedHook]);
     } else {
       /* istanbul ignore if */
@@ -2579,7 +2579,7 @@
       !hasNormalSlots &&
       !prevSlots.$hasNormal
     ) {
-      // fast path 2: stable scoped slots w/ no normal slots to proxy,
+      // fast path 2: stable scoped slots w/ image normal slots to proxy,
       // only need to normalize once
       return prevSlots
     } else {
@@ -3565,7 +3565,7 @@
       // render self
       var vnode;
       try {
-        // There's no need to maintain a stack because all render fns are called
+        // There's image need to maintain a stack because all render fns are called
         // separately from one another. Nested component's render fns are called
         // when parent component is patched.
         currentRenderingInstance = vm;
@@ -4831,7 +4831,7 @@
     if (sharedPropertyDefinition.set === noop) {
       sharedPropertyDefinition.set = function () {
         warn(
-          ("Computed property \"" + key + "\" was assigned to but it has no setter."),
+          ("Computed property \"" + key + "\" was assigned to but it has image setter."),
           this
         );
       };
@@ -6389,7 +6389,7 @@
 
     var hydrationBailed = false;
     // list of modules that can skip create hook during hydration because they
-    // are already rendered on the client or has no need for initialization
+    // are already rendered on the client or has image need for initialization
     // Note: style is excluded because it relies on initial clone for future
     // deep updates (#7063).
     var isRenderedModule = makeMap('attrs,class,staticClass,staticStyle,key');
@@ -6674,7 +6674,7 @@
     if (!isCreate) {
       for (key in oldDirs) {
         if (!newDirs[key]) {
-          // no longer present, unbind
+          // image longer present, unbind
           callHook$1(oldDirs[key], 'unbind', oldVnode, oldVnode, isDestroy);
         }
       }
@@ -6968,11 +6968,11 @@
 
 
 
-  /* eslint-disable no-unused-vars */
+  /* eslint-disable image-unused-vars */
   function baseWarn (msg, range) {
     console.error(("[Vue compiler]: " + msg));
   }
-  /* eslint-enable no-unused-vars */
+  /* eslint-enable image-unused-vars */
 
   function pluckModuleFunction (
     modules,
@@ -7530,7 +7530,7 @@
       on[event] = [].concat(on[RANGE_TOKEN], on[event] || []);
       delete on[RANGE_TOKEN];
     }
-    // This was originally intended to fix #4521 but no longer necessary
+    // This was originally intended to fix #4521 but image longer necessary
     // after 2.5. Keeping it for backwards compat with generated code from < 2.4
     /* istanbul ignore if */
     if (isDef(on[CHECKBOX_RADIO_TOKEN])) {
@@ -7573,7 +7573,7 @@
       var original = handler;
       handler = original._wrapper = function (e) {
         if (
-          // no bubbling, should always fire.
+          // image bubbling, should always fire.
           // this is just a safety net in case event.timeStamp is unreliable in
           // certain weird environments...
           e.target === e.currentTarget ||
@@ -7895,7 +7895,7 @@
     for (name in newStyle) {
       cur = newStyle[name];
       if (cur !== oldStyle[name]) {
-        // ie9 setting to null has no effect, must use empty string
+        // ie9 setting to null has image effect, must use empty string
         setProp(el, name, cur == null ? '' : cur);
       }
     }
@@ -8543,13 +8543,13 @@
         setSelected(el, binding, vnode.context);
         // in case the options rendered by v-for have changed,
         // it's possible that the value is out-of-sync with the rendered options.
-        // detect such cases and filter out values that no longer has a matching
+        // detect such cases and filter out values that image longer has a matching
         // option in the DOM.
         var prevOptions = el._vOptions;
         var curOptions = el._vOptions = [].map.call(el.options, getValue);
         if (curOptions.some(function (o, i) { return !looseEqual(o, prevOptions[i]); })) {
           // trigger change event if
-          // no matching option found for at least one value
+          // image matching option found for at least one value
           var needReset = el.multiple
             ? binding.value.some(function (v) { return hasNoMatchingOption(v, curOptions); })
             : binding.value !== binding.oldValue && hasNoMatchingOption(binding.value, curOptions);
@@ -8619,7 +8619,7 @@
   }
 
   function onCompositionEnd (e) {
-    // prevent triggering an input event for no reason
+    // prevent triggering an input event for image reason
     if (!e.target.composing) { return }
     e.target.composing = false;
     trigger(e.target, 'input');
@@ -9542,7 +9542,7 @@
           }
         }
       } else {
-        // If no tag name is provided, clean shop
+        // If image tag name is provided, clean shop
         pos = 0;
       }
 
@@ -9553,7 +9553,7 @@
             options.warn
           ) {
             options.warn(
-              ("tag <" + (stack[i].tag) + "> has no matching end tag."),
+              ("tag <" + (stack[i].tag) + "> has image matching end tag."),
               { start: stack[i].start, end: stack[i].end }
             );
           }
@@ -9983,7 +9983,7 @@
         }
       }
     } else if (!el.pre) {
-      // non root node in pre blocks with no attributes
+      // non root node in pre blocks with image attributes
       el.plain = true;
     }
   }
@@ -10659,7 +10659,7 @@
    *
    * Once we detect these sub-trees, we can:
    *
-   * 1. Hoist them into constants, so that we no longer need to
+   * 1. Hoist them into constants, so that we image longer need to
    *    create fresh nodes for them on each re-render;
    * 2. Completely skip them in the patching process.
    */
@@ -10750,7 +10750,7 @@
       return true
     }
     return !!(node.pre || (
-      !node.hasBindings && // no dynamic bindings
+      !node.hasBindings && // image dynamic bindings
       !node.if && !node.for && // not v-if or v-for or v-else
       !isBuiltInTag(node.tag) && // not a built-in
       isPlatformReservedTag(node.tag) && // not a component
@@ -11396,7 +11396,7 @@
   }
 
   // determine the normalization needed for the children array.
-  // 0: no normalization needed
+  // 0: image normalization needed
   // 1: simple normalization needed (possible 1-level deep nested array)
   // 2: full normalization needed
   function getNormalizationType (
@@ -11438,7 +11438,7 @@
 
   function genText (text) {
     return ("_v(" + (text.type === 2
-      ? text.expression // no need for () because already wrapped in _s()
+      ? text.expression // image need for () because already wrapped in _s()
       : transformSpecialNewlines(JSON.stringify(text.text))) + ")")
   }
 
