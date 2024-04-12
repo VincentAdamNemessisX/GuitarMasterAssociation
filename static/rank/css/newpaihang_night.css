@@ -1,0 +1,274 @@
+body.night input, body.night select, body.night textarea{
+	opacity: .7;
+}
+body.night{
+	color:#b5b5b5;
+}
+body.night a {
+	COLOR: #b5b5b5;
+    text-decoration:none;
+}
+body.night a:visited {
+	COLOR: #aaa;
+	text-decoration: none
+}
+body.night a:hover {
+	color: #f23535;
+	text-decoration: none
+}
+body.night .nav_box {
+    background: #206faa !important;
+}
+body.night .nav_box a:visited{
+	color:#fff;
+}
+body.night .nav .navs_right li a, body.night .nav .navs_text li a {
+    color:#fff !important;
+    border: 0 !important;
+}
+body.night .nav li a:hover{
+	color:#fff !important
+}
+body.night .navs_right .caret {
+    background: url(https://icons.mydrivers.com/news2022/night/nav_line_night.png) no-repeat 0 0;
+}
+body.night .info_more a {
+    background: #206faa !important;
+}
+body.night .search_word{
+    background: #232222 !important;
+}
+body.night .top_1_left li a,body.night .main_box h4 div.grade a {
+    color: #b5b5b5 !important;
+}
+body.night .top_1_left li a:visited{
+	color:#aaa !important;
+}
+body.night .top_1_left li a:hover{
+	color: #ee0101 !important
+}
+body.night .login_btn1,body.night .login_btn2{
+	opacity: .8
+}
+body.night .box_left{
+	background:#222;
+}
+/*.left_loggo{
+	height: 45px;
+    padding-left: 50px;
+    background: url(https://rank.kkj.cn/images/logo.svg) image-repeat 30px center;
+    background-size: 191px 41px;
+}
+body.night .left_loggo{
+	background-image: url(https://rank.kkj.cn/images/logo_night.png);
+}*/
+body.night .list .yiji .frist>a{
+	color:#b5b5b5;
+}
+body.night .list .yiji li a,body.night .ttk_box li a{
+	color:#b5b5b5;
+}
+body.night .list .yiji li a:hover,body.night .ttk_box li a:hover{
+	color: #09f;
+}
+body.night .list .yiji li .inactives{
+	background-image: url(https://rank.kkj.cn/images/xiangxia_night.png);
+}
+body.night .list .yiji li .inactive{
+	background-image: url(https://rank.kkj.cn/images/xiangyou_night.png);
+}
+body.night .list .yiji .frist > a img,body.night .left_loggo{
+	filter: invert(100%);
+}
+body.night .box_right {
+    background: none;
+}
+body.night .right_news,body.night .right_top,body.night .right_news,body.night .ttk_box li,body.night .bangdan_box li{
+	background: #232222;
+}
+body.night .newslist li a,body.night .box_right h3,body.night .ttk_box li a,body.night .bangdan_box li .btitle h4,body.night .bangdan_box li div table tr{
+	color:#b5b5b5;
+}
+body.night .bangdan_box li div table td.model{
+	color:#b5b5b5!important;	
+}
+body.night .bangdan_box li .btitle{
+	border-color:#404040;
+}
+body.night .bangdan_box li:hover {	
+	box-shadow: 1px 1px 15px 0 #111;	
+	color: #32a7ff !important;
+}
+body.night .bangdan_box li div table tr:hover {
+	background: none;
+	box-shadow: 1px 1px 15px 0 #111;
+}
+body.night .bangdan_box li div table tr.title:hover {
+	background: none;
+	box-shadow: 1px 1px 15px 0 transparent;	
+}
+body.night .newslist li:hover {
+    border: #c36d17 1px dashed !important;
+    background: linear-gradient(to left,#431901,#1c0b01);
+    background: -webkit-linear-gradient(to left, #431901 0%,#1c0b01 100%);
+    background: -o-linear-gradient(lto left, #431901 100%,#1c0b01 100%);
+    background: -ms-linear-gradient(to left, #431901 100%,#1c0b01 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1c0b01', endColorstr='#431901',GradientType=1);
+}
+body.night .top_1_right li .login_info_float {
+    border: #333 1px solid;
+    background: #333;   
+}
+body.night .top_1_right li a.user {
+}
+body.night .top_1_right li .login_info_float p a{	
+    color: #b5b5b5 !important;
+	background: #333 !important;
+}
+body.night .top_1_right li .login_info_float p a:hover{	
+    color: #ff8d40 !important;
+	background: #404040 !important;
+}
+body.night .top_1_right li .login_info_float p a i {
+    background: url(https://rank.kkj.cn/images/2019_userinfo_night_icon.png) no-repeat;
+	opacity: 0.7;
+}
+body.night .top_1_right li .login_info_float p a i.Tiantimag{
+	
+	 background: url(https://rank.kkj.cn/images/tiantip_night.png) no-repeat !important;
+}
+body.night .top_1_right li .login_info_float p a:hover i.Tiantimag{	
+	 background: url(https://rank.kkj.cn/images/tiantip_night_hover.png) no-repeat !important;
+}
+body.night .top_1_right li .login_info_float h6 .facesinfo,body.night .top_1_right li .login_info_float h6 .facesinfo span{
+    color: #b5b5b5;
+}
+body.night .login_info_float_arrow {
+    opacity: .15;
+}
+body.night #Tt_title,body.night #boxx_right,body.night #ff {
+    background: #232222 !important;
+}
+body.night .pathway,body.night .main_box {
+	background: none;
+	color:#b5b5b5;
+}
+body.night .pathway .pltag{
+	border-color:#444 !important;
+}
+body.night .model1 a{
+	color:#eee;
+}
+body.night .main_box table td li{
+	color:#ddd;
+}
+body.night .sele,body.night .main_box .thdiv li,body.night .main_box table td,body.night .main_box .thdiv li.thtimes a,body.night .updatet,body.night .selebody,body.night .GameScore_float span,.night .main_box .thdiv li div a{
+    color: #b5b5b5; 
+}
+body.night .pathway .search_word{
+	color:#fff!important;
+}
+body.night #moreList {
+    background: #95d1b0;
+    color: #fff;
+    opacity: .8;
+}
+body.night #moreList,body.night .login_btn1 {
+    border: 1px solid #57b782;
+    background: #317f54;
+    color: #fff;
+	opacity: .8;
+}
+body.night #moreList:hover,body.night .login_btn1:hover{
+	opacity: .9;
+}
+body.night .aactives {
+    border-color:#166097;
+    background: #233847;    
+}
+body.night .GameScore_float a {   
+    color: #b5b5b5 !important;
+    background: #333 !important;
+}
+body.night .GameScore_float a:hover, body.night .GameScore_float a.cur,body.night .main_box .thdiv li div a:hover, body.night .main_box .thdiv li div a.cur {
+    color: #32A7FF !important;
+    background-color: #444!important;
+}
+
+body.night .main_box h4 ul.xn_list li div,body.night .main_box h4 ul.sort_list li div,body.night .main_box h4 ul.xn_list li a.bbtttom_icon,body.night .main_box h4 ul.sort_list li a.bbtttom_icon,.main_box h4 div.grade div{
+	border-color: #1d659b;
+	background-color:#333;
+	}
+body.night .times_float,body.night .processor_float{
+	border-color: #1d659b !important;
+	background-color:#333 !important;
+	}
+body.night .GameScore_float a:hover,body.night .GameScore_float a.cur
+,body.night .main_box h4 div.grade span a:hover,body.night .main_box h4 div.grade span a.cur,body.night .main_box h4 div.grade div a:hover, body.night .main_box h4 div.grade div a.cur {   
+    background: #444 url(https://rank.kkj.cn/images/tick_icon2.png) no-repeat right 10px !important;
+}
+body.night .pathway .pltag li.search_form{
+	border-color: #666;
+}
+body.night .main_box .thdiv li>a{
+	background-image: url(https://rank.kkj.cn/images/tbottom_night.png);
+}
+body.night #Tt_content {
+    background: #232222;
+    color: #b5b5b5;
+}
+body.night .input_jcuo, body.night .input_jcuo1 {
+    border: 1px solid #444;
+    background: #444;
+    color: #b5b5b5;
+}
+body.night .jc_right input{
+	color:#b5b5b5 !important;
+}
+body.night .PXmoren::after {	
+    background: url(https://rank.kkj.cn/images/time_mr_night.png);
+}
+body.night .PXxz::after {
+    background: url(https://rank.kkj.cn/images/time_xz_night.png);
+}
+body.night .PXdx::after{
+	background: url(https://rank.kkj.cn/images/time_dx_night.png);
+}
+body.night #msg{
+	background-color: #333;
+	color:#b5b5b5 !important;
+}
+body.night .processor_float::-webkit-scrollbar {
+ width: 5px;
+ height: 8px;
+ background-color: #2b2b2b;
+}
+ body.night .processor_float::-webkit-scrollbar-thumb {
+ background: #3f3f49;
+ border-radius: 5px;
+}
+body.night .plun_box div, body.night .day, body.night .hot_div h4 {
+    border-color: #444;
+    color: #b5b5b5;
+}
+body.night .huifu_textarea{
+	background: none;
+}
+body.night .plun_btn{
+	background: #027dce;
+}
+body.night .laydate-day-bg {
+    opacity: .85;
+}
+body.night .layui-laydate-footer {
+    border-color: #444;   
+}
+body.night #childer {
+    background: #333; 
+}
+body.night style attribute {
+    color: #b5b5b5;    
+}
+body.night .pb1{
+	border-color:#444;
+}
