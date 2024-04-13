@@ -86,10 +86,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'guitarmaster',
-        'HOST': 'vincentadam.icu',
+        # 'HOST': 'vincentadam.icu',
+        # 'PORT': '3306',
+        # 'USER': 'nb',
+        # 'PASSWORD': 'nb',
+        'HOST': 'localhost',
         'PORT': '3306',
-        'USER': 'nb',
-        'PASSWORD': 'nb',
+        'USER': 'root',
+        'PASSWORD': 'ic3344',
     }
 }
 
@@ -132,7 +136,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Default primary key field type

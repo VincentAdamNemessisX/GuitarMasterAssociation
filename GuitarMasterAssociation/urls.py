@@ -22,7 +22,7 @@ from django.views.generic import RedirectView
 from django.views.static import serve
 from TestUnit.views import *
 from collection.views import *
-from exceptionhandler import views as excep_views
+from exceptionhandler import views as except_views
 from feedback.views import *
 from message.views import *
 from post.views import *
@@ -30,16 +30,16 @@ from review.views import *
 from user.views import *
 from zone.views import *
 
-handler404 = excep_views.notfound
-handler500 = excep_views.nopower
+handler404 = except_views.notfound
+handler500 = except_views.nopower
 
 urlpatterns = [
                   re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
                   url(r'^favicon.ico$', RedirectView.as_view(url=r'/static/fav.png')),
                   path('admin/', admin.site.urls),
                   path('', index),
-                  path('404/', excep_views.notfound),
-                  path('500/', excep_views.nopower),
+                  path('404/', except_views.notfound),
+                  path('500/', except_views.nopower),
                   path('index/', index),
                   path('user/', user),
                   path('user/update/', user_info_update),

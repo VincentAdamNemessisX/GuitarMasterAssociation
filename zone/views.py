@@ -1,7 +1,7 @@
 # Create your views here.
 from django.db.models import Sum, Count, Subquery, OuterRef
 from django.shortcuts import render
-
+import math
 from collection.models import Collection
 from custom.update_some_index import update_zone_active_time
 from post.models import Post
@@ -35,7 +35,7 @@ def zone(request):
             page_size = 10
         elif zone_info.zone_layout_mode == 5:
             page_size = 6
-        zone_info.page_count = zone_info.posts_count // page_size
+        zone_info.page_count = math.ceil(zone_info.posts_count / page_size)
         zone_info.page_list = []
         for i in range(0, zone_info.page_count):
             zone_info.page_list.append(str(i + 1))
