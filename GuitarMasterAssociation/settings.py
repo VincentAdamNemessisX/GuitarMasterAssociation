@@ -85,11 +85,11 @@ WSGI_APPLICATION = 'GuitarMasterAssociation.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'GuitarMaster',
-        'HOST': 'localhost',
+        'NAME': 'guitarmaster',
+        'HOST': 'vincentadam.icu',
         'PORT': '3306',
-        'USER': 'root',
-        'PASSWORD': 'ic3344',
+        'USER': 'nb',
+        'PASSWORD': 'nb',
     }
 }
 
@@ -128,11 +128,11 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static')
-# ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Default primary key field type
