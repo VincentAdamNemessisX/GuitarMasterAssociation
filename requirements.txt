@@ -2,4 +2,4 @@ beautifulsoup4~=4.11.1
 django~=3.2.15
 django-simpleui~=2023.11.16
 pymysql~=1.0.2
-pillow~=10.2.0
+pillow~=9.5
